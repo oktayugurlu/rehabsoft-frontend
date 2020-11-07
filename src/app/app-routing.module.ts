@@ -38,7 +38,9 @@ const routes: Routes = [
     data: { roles: [Role.User] },
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path: 'home', component: UserHomeComponent }
+      { path: 'home', component: UserHomeComponent },
+      { path: 'profile', component: UserProfileComponent },
+      { path: 'task', component: UserTasksComponent }
     ]
   },
   {
@@ -47,7 +49,9 @@ const routes: Routes = [
     data: { roles: [Role.Admin] },
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path: 'home', component: AdminHomeComponent }
+      { path: 'home', component: AdminHomeComponent },
+      { path: 'profile', component: AdminProfileComponent },
+      { path: 'task', component: AdminTasksComponent }
     ]
   },
   {
@@ -56,18 +60,10 @@ const routes: Routes = [
     data: { roles: [Role.Doctor] },
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path: 'home', component: DoctorHomeComponent }
+      { path: 'home', component: DoctorHomeComponent },
+      { path: 'profile', component: DoctorProfileComponent },
+      { path: 'task', component: DoctorTasksComponent }
     ]
-  },
-  {
-    path: 'tasks',
-    component: UserTasksComponent,
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'profile',
-    component: UserProfileComponent,
-    canActivate: [ AuthGuard ]
   },
   {path: 'login', component: LoginComponent},
   {path: 'register', component: CreateAccountFormComponent}

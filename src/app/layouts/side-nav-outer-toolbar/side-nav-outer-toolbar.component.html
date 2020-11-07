@@ -20,6 +20,7 @@
   <app-side-navigation-menu
     [compactMode]="!menuOpened"
     [selectedItem]="selectedRoute"
+    [navigation]="navigation"
     class="dx-swatch-additional"
     *dxTemplate="let dataMenu of 'panel'"
     (selectedItemChanged)="navigationChanged($event)"

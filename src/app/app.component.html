@@ -1,5 +1,5 @@
 <ng-container *ngIf="isUser">
-  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'User'}}">
+  <app-side-nav-outer-toolbar [navigation]="userNavigation" title="{{appInfo.title+' - '+'User'}}" >
     <router-outlet></router-outlet>
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
@@ -10,7 +10,7 @@
 </ng-container>
 
 <ng-container *ngIf="isDoctor">
-  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'Doctor'}}">
+  <app-side-nav-outer-toolbar [navigation]="doctorNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
     <router-outlet></router-outlet>
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
@@ -21,7 +21,7 @@
 </ng-container>
 
 <ng-container *ngIf="isAdmin">
-  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'Doctor'}}">
+  <app-side-nav-outer-toolbar [navigation]="adminNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
     <router-outlet></router-outlet>
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.

@@ -13,6 +13,9 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
   @ViewChild(DxTreeViewComponent, { static: true })
   menu: DxTreeViewComponent;
 
+  @Input()
+  navigation: any[];
+
   @Output()
   selectedItemChanged = new EventEmitter<string>();
 
@@ -31,9 +34,9 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   private _items;
-  get items() {
+    get items() {
     if (!this._items) {
-      this._items = userNavigation.map((item) => {
+      this._items = this.navigation.map((item) => {
         if(item.path && !(/^\//.test(item.path))){
           item.path = `/${item.path}`;
         }
@@ -62,6 +65,7 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
       this.menu.instance.expandItem(this._selectedItem);
     }
   }
+
 
   constructor(private elementRef: ElementRef) { }
 

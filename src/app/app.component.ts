@@ -7,6 +7,7 @@ import {AuthenticationService} from './security/authentication.service';
 import {Role} from './models/role';
 import {TokenDto} from './models/tokendto';
 import {AppInfoService} from './shared/services';
+import {adminNavigation, doctorNavigation, userNavigation} from './app-navigation';
 
 
 @Component({
@@ -15,6 +16,11 @@ import {AppInfoService} from './shared/services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+
+  userNavigation = userNavigation;
+  doctorNavigation = doctorNavigation;
+  adminNavigation = adminNavigation;
+
   currentUser: TokenDto;
 
   isAdmin = false;
