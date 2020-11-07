@@ -19,7 +19,7 @@ export class CreateAccountFormComponent {
   submitted = false;
   error = '';
 
-  submitbuttonOptions:any = {text: 'Create a new account', onClick: ()=>this.register(Event), width: '100%',type:"default"};
+  submitbuttonOptions:any = {useSubmitBehavior: true, text: 'Create a new account', onClick: (Event)=>this.register(Event), width: '100%',type:"default"};
 
 
   constructor(private router: Router,
@@ -39,6 +39,12 @@ export class CreateAccountFormComponent {
   }
 
   register(event) {
+
+    // stop here if form is invalid
+    if (!event.validationGroup.validate().isValid) {
+      return;
+    }
+
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;

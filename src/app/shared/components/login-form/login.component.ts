@@ -18,7 +18,7 @@ import {Role} from '../../../models/role';
 })
 export class LoginComponent implements OnInit {
 
-  submitbuttonOptions:any = {text: 'Sign In', onClick: ()=>this.login(Event), width: '100%',type:"default"};
+  submitbuttonOptions:any = {useSubmitBehavior: true, text: 'Sign In', onClick: (event)=>this.login(event), width: '100%',type:"default"};
 
   loginForm: {
     username: '',
@@ -63,10 +63,12 @@ export class LoginComponent implements OnInit {
   login(event) {
     this.submitted = true;
 
+    console.log("event: ",event);
+
     // stop here if form is invalid
-    // if (!event.validationGroup.validate().isValid) {
-    //   return;
-    // }
+    if (!event.validationGroup.validate().isValid) {
+      return;
+    }
 
     this.loading = true;
     this.authenticationService.login(this.loginForm.username, this.loginForm.password)
