@@ -1,0 +1,63 @@
+<dx-form [formData]="registerForm" [disabled]="loading">
+
+  <dxi-item dataField="username" editorType="dxTextBox"
+    [editorOptions]="{ stylingMode: 'filled', placeholder: 'Kullanici Adi'}">
+    <dxi-validation-rule type="required" message="Email is required"></dxi-validation-rule>
+    <dxo-label [visible]="false"></dxo-label>
+  </dxi-item>
+
+  <dxi-item dataField="password" editorType="dxTextBox"
+    [editorOptions]="{ stylingMode: 'filled', placeholder: 'Sifre', mode: 'password' }">
+    <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+    <dxo-label [visible]="false"></dxo-label>
+  </dxi-item>
+
+  <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
+    [editorOptions]="{ stylingMode: 'filled', placeholder: 'Confirm Password', mode: 'password' }">
+    <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+    <dxi-validation-rule type="custom" message="Passwords do not match" [validationCallback]="confirmPassword">
+    </dxi-validation-rule>
+    <dxo-label [visible]="false"></dxo-label>
+  </dxi-item>
+
+
+  <dxi-item dataField="firstName" editorType="dxTextBox"
+            [editorOptions]="{ stylingMode: 'filled', placeholder: 'FirstName'}">
+    <dxi-validation-rule type="required" message="Ad alanı boş bırakılamaz"></dxi-validation-rule>
+    <dxo-label [visible]="false"></dxo-label>
+  </dxi-item>
+
+
+  <dxi-item dataField="surname" editorType="dxTextBox"
+            [editorOptions]="{ stylingMode: 'filled', placeholder: 'Email'}">
+    <dxi-validation-rule type="required" message="Soyadı boş bırakılamaz"></dxi-validation-rule>
+    <dxo-label [visible]="false"></dxo-label>
+  </dxi-item>
+
+  <dxi-item>
+    <div class='policy-info'>
+      By creating an account, you agree to the <a routerLink="#">Terms of Service</a> and <a routerLink="#">Privacy
+        Policy</a>
+    </div>
+  </dxi-item>
+
+  <dxi-item itemType="button" [buttonOptions]="submitbuttonOptions" >
+  </dxi-item>
+
+  <dxi-item>
+    <div class="login-link">
+      Have an account? <a routerLink="/login">Sign In</a>
+    </div>
+  </dxi-item>
+
+  <ng-container *dxTemplate="let item of 'createAccountTemplate'">
+    <span class="dx-button-text">
+      <ng-container *ngIf="loading; else notLoading">
+        <dx-load-indicator width="24px" height="24px" [visible]="true"></dx-load-indicator>
+      </ng-container>
+
+      <ng-template #notLoading></ng-template>
+    </span>
+  </ng-container>
+
+</dx-form>

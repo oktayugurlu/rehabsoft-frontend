@@ -1,0 +1,36 @@
+<ng-container *ngIf="isUser">
+  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'User'}}">
+    <router-outlet></router-outlet>
+    <app-footer>
+      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
+      <br/>
+      All trademarks or registered trademarks are property of their respective owners.
+    </app-footer>
+  </app-side-nav-outer-toolbar>
+</ng-container>
+
+<ng-container *ngIf="isDoctor">
+  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'Doctor'}}">
+    <router-outlet></router-outlet>
+    <app-footer>
+      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
+      <br/>
+      All trademarks or registered trademarks are property of their respective owners.
+    </app-footer>
+  </app-side-nav-outer-toolbar>
+</ng-container>
+
+<ng-container *ngIf="isAdmin">
+  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'Doctor'}}">
+    <router-outlet></router-outlet>
+    <app-footer>
+      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
+      <br/>
+      All trademarks or registered trademarks are property of their respective owners.
+    </app-footer>
+  </app-side-nav-outer-toolbar>
+</ng-container>
+
+<ng-container *ngIf="isNotAuthorized">
+  <app-not-authorized-container></app-not-authorized-container>
+</ng-container>
