@@ -1,0 +1,65 @@
+<!-- Horizontal Steppers -->
+<div class="row">
+  <div class="col-md-12">
+
+    <!-- Stepers Wrapper -->
+    <ul class="stepper stepper-horizontal">
+
+      <!-- First Step -->
+      <li [class]="patientStepperClass">
+
+          <button (click)="goPatientForm()" class="btn btn-link" type="button">
+            <a>
+              <span class="circle">1</span>
+              <span class="label">Hasta Formu</span>
+            </a>
+          </button>
+      </li>
+
+      <!-- Second Step -->
+      <li [class]="generalEvaluationFormStepperClass">
+        <button (click)="goGeneralEvaluationForm()" class="btn btn-link" type="button">
+          <a>
+            <span class="circle">2</span>
+            <span class="label">Genel Değerlendirme Formu</span>
+          </a>
+        </button>
+      </li>
+
+      <!-- Third Step -->
+      <li class="warning">
+        <a href="#!">
+          <span class="circle"><mdb-icon fas icon="exclamation"></mdb-icon></span>
+          <span class="label">Third step</span>
+        </a>
+      </li>
+
+    </ul>
+    <!-- /.Stepers Wrapper -->
+  </div>
+</div>
+<!-- /.Horizontal Steppers -->
+
+
+<ng-template [ngIf]="isPatientStepperActive">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+<!--     First step content - Ebeveyn Bilgileri-->
+    <app-patient-form></app-patient-form>
+  </div>
+</ng-template>
+
+
+
+
+<ng-template [ngIf]="isGeneralEvaluationFormStepperActive">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+
+    <!--  <div class="long-title" style="padding-left: 4%">-->
+    <!--    <h3 style="color:navy;"> Genel Değerlendirme Formu</h3>-->
+    <!--  </div>-->
+
+    <div class="title">Genel Değerlendirme Formu</div>
+    <app-general-evaluation-form></app-general-evaluation-form>
+
+  </div>
+</ng-template>

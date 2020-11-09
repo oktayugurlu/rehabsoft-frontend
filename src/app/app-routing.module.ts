@@ -31,7 +31,7 @@ import {AdminComponent} from './pages/admin/admin.component';
 import {AdminHomeComponent} from './pages/admin/home/admin-home.component';
 import {PagesComponent} from './pages/pages.component';
 import {SideNavOuterToolbarModule} from './layouts';
-import {GeneralEvaluationFormComponent} from './pages/user/generalevaluationform/general-evaluation-form.component';
+import {NecessaryFormsComponent} from './pages/user/necessaryforms/necessary-forms.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
@@ -41,6 +41,8 @@ import {CommonModule} from '@angular/common';
 // MdBootstrap
 import { WavesModule } from 'angular-bootstrap-md';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {PatientFormComponent} from "./pages/user/necessaryforms/patientform/patient-form.component";
+import {GeneralEvaluationFormComponent} from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
 
 
 const routes: Routes = [
@@ -58,7 +60,7 @@ const routes: Routes = [
       { path: 'home', component: UserHomeComponent },
       { path: 'profile', component: UserProfileComponent },
       { path: 'task', component: UserTasksComponent },
-      { path: 'general-evaluation-form', component: GeneralEvaluationFormComponent }
+      { path: 'general-evaluation-form', component: NecessaryFormsComponent }
     ]
   },
   {
@@ -98,7 +100,8 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [
     PagesComponent,
-    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, GeneralEvaluationFormComponent,
+    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent,
+    PatientFormComponent, GeneralEvaluationFormComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent,
     AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent]
 })

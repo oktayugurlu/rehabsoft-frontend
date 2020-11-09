@@ -19,14 +19,12 @@ import {AppInfoService, ScreenService} from './shared/services';
 import {DxButtonModule} from "devextreme-angular";
 
 import { CommonModule } from '@angular/common';
-import { GeneralEvaluationFormComponent } from './pages/user/generalevaluationform/generalevaluationform/general-evaluation-form/general-evaluation-form.component';
-import { PatientFormComponent } from './pages/user/generalevaluationform/patientform/patient-form/patient-form.component';
+import { GeneralEvaluationFormComponent } from './pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component';
+import { PatientFormComponent } from './pages/user/necessaryforms/patientform/patient-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GeneralEvaluationFormComponent,
-    PatientFormComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
