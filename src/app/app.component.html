@@ -1,4 +1,4 @@
-<ng-container *ngIf="isUser">
+<ng-template [ngIf]="isUserAndIsFilledGeneralEvaluationFormAndPatientForm">
   <app-side-nav-outer-toolbar [navigation]="userNavigation" title="{{appInfo.title+' - '+'User'}}" >
     <router-outlet></router-outlet>
     <app-footer>
@@ -7,9 +7,9 @@
       All trademarks or registered trademarks are property of their respective owners.
     </app-footer>
   </app-side-nav-outer-toolbar>
-</ng-container>
+</ng-template>
 
-<ng-container *ngIf="isDoctor">
+<ng-template [ngIf]="isDoctor">
   <app-side-nav-outer-toolbar [navigation]="doctorNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
     <router-outlet></router-outlet>
     <app-footer>
@@ -18,9 +18,9 @@
       All trademarks or registered trademarks are property of their respective owners.
     </app-footer>
   </app-side-nav-outer-toolbar>
-</ng-container>
+</ng-template>
 
-<ng-container *ngIf="isAdmin">
+<ng-template [ngIf]="isAdmin">
   <app-side-nav-outer-toolbar [navigation]="adminNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
     <router-outlet></router-outlet>
     <app-footer>
@@ -29,8 +29,8 @@
       All trademarks or registered trademarks are property of their respective owners.
     </app-footer>
   </app-side-nav-outer-toolbar>
-</ng-container>
+</ng-template>
 
-<ng-container *ngIf="isNotAuthorized">
+<ng-template [ngIf]="isNotAuthorized">
   <app-not-authorized-container></app-not-authorized-container>
-</ng-container>
+</ng-template>

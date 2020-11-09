@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
           this.loading = false;
           notify(error, "warning", 1000);
         });
-    event.preventDefault()
+    // event.preventDefault()
   }
 
   onCreateAccountClick = () => {

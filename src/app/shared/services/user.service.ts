@@ -16,6 +16,13 @@ export class UserService {
         return this.http.get<User>(`${environment.API_BASE_PATH}/users/${id}`);
     }
 
+    checkIsPatientFormExist(){
+      return this.http.get<boolean>(`${environment.API_BASE_PATH}/patient/ispatientexist`);
+    }
+    checkIsGeneralEvaluationFormExist(){
+      return this.http.get<boolean>(`${environment.API_BASE_PATH}/patient/generalevaluationform/isgeneralevaluationformexist`);
+    }
+
 
 
 // Hata servisi{

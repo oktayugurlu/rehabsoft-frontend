@@ -7,7 +7,7 @@ import { UserHomeComponent } from './pages/user/home/user-home.component';
 import { UserProfileComponent } from './pages/user/profile/user-profile.component';
 import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
 import {
-  DxAccordionModule, DxBoxModule,
+  DxAccordionModule, DxBoxModule, DxButtonModule,
   DxCheckBoxModule,
   DxDataGridModule,
   DxFormModule,
@@ -31,10 +31,17 @@ import {AdminComponent} from './pages/admin/admin.component';
 import {AdminHomeComponent} from './pages/admin/home/admin-home.component';
 import {PagesComponent} from './pages/pages.component';
 import {SideNavOuterToolbarModule} from './layouts';
+import {GeneralEvaluationFormComponent} from './pages/user/generalevaluationform/general-evaluation-form.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
-import {GeneralEvaluationFormComponent} from './pages/user/generalevaluationform/general-evaluation-form.component';
+
+// Devextreme
+
+// MdBootstrap
+import { WavesModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 
 const routes: Routes = [
   {
@@ -83,8 +90,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-            FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule,
-            DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule],
+    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule,
+    DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
+
+    MDBBootstrapModule, WavesModule, DxButtonModule],
 
   exports: [RouterModule],
   declarations: [
