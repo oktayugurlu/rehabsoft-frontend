@@ -25,9 +25,9 @@ export class NotAuthorizedContainerComponent {
   get title() {
     const path = this.router.url.split('/')[1];
     switch (path) {
-      case 'login': return 'Sign In';
+      case 'login': return 'Giriş Yap';
       // case 'reset-password': return 'Reset Password';
-      case 'register': return 'Sign Up';
+      case 'register': return 'Kaydol';
       // case 'change-password': return 'Change Password';
     }
   }

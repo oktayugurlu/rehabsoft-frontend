@@ -1,43 +1,147 @@
-<dx-form [formData]="registerForm" [disabled]="loading">
+<dx-form [alignItemLabels]="true" [formData]="registerForm" [disabled]="loading" [showValidationSummary]="true">
 
-  <dxi-item dataField="username" editorType="dxTextBox"
-    [editorOptions]="{ stylingMode: 'filled', placeholder: 'Kullanici Adi'}">
-    <dxi-validation-rule type="required" message="Email is required"></dxi-validation-rule>
-    <dxo-label [visible]="false"></dxo-label>
+<!--  Hasta Bilgileri-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="Kullanıcı ve Hasta Bilgileri" [colCount]="2">
+    <!--left group-->
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item dataField="patient.tcKimlikNo" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Hastanın TC Kimlik Numarası'}">
+        <dxi-validation-rule type="required" message="TC kimlik numarası gerekli"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Hastanın TC Kimlik Numarası"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="password" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Şifre', mode: 'password' }">
+        <dxi-validation-rule type="required" message="Şifre gerekli"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Şifre"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Şifreyi Onayla', mode: 'password' }">
+        <dxi-validation-rule type="required" message="Şifre gerekli"></dxi-validation-rule>
+        <dxi-validation-rule type="custom" message="Şifre uyuşmuyor" [validationCallback]="confirmPassword">
+        </dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Şifreyi Onayla"></dxo-label>
+      </dxi-item>
+    </dxi-item>
+
+    <!--right group-->
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item dataField="firstName" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Ad'}">
+        <dxi-validation-rule type="required" message="Hasta adı boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Hasta Adı"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="firstName" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Soyad'}">
+        <dxi-validation-rule type="required" message="Hasta soyadı boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Hasta Soyadı"></dxo-label>
+      </dxi-item>
+
+
+      <dxi-item dataField="surname" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Email'}">
+        <dxi-validation-rule type="required" message="Email boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Email"></dxo-label>
+      </dxi-item>
+    </dxi-item>
   </dxi-item>
 
-  <dxi-item dataField="password" editorType="dxTextBox"
-    [editorOptions]="{ stylingMode: 'filled', placeholder: 'Sifre', mode: 'password' }">
-    <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
-    <dxo-label [visible]="false"></dxo-label>
+  <!--Ebeveyn Bilgileri-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="1. Ebeveyn Bilgileri" [colCount]="2">
+    <!--left group-->
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item dataField="firstName" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Ebeveynin Adı'}">
+        <dxi-validation-rule type="required" message="Ebeveyn ad boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Ebeveynin Adı"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="firstName" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Ebeveynin Soyadı'}">
+        <dxi-validation-rule type="required" message="Ebeveynin soyadı boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Ebeveynin Soyadı"></dxo-label>
+      </dxi-item>
+
+
+      <dxi-item dataField="surname" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Ebeveynin Email\'i'}">
+        <dxi-validation-rule type="required" message="Email boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Ebeveynin Email\'i"></dxo-label>
+      </dxi-item>
+    </dxi-item>
+
+    <!--right group-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="Phones">
+
+        <dxi-item itemType="group"
+                  name="phones"
+                  *ngFor="let phone of phoneOptions1; let i = index">
+          <dxi-item [dataField]="'phoneNumberListForParent1[' + i + ']'" [editorOptions]="phoneOptions1[i]">
+            <dxo-label
+              [text]="'Phone ' + (i + 1)" location="top" >
+            </dxo-label>
+          </dxi-item>
+        </dxi-item>
+        <dxi-item itemType="button"
+                  horizontalAlignment="left"
+                  cssClass="add-phone-button"
+                  [buttonOptions]="addPhoneButtonOptions1">
+        </dxi-item>
+    </dxi-item>
   </dxi-item>
 
-  <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
-    [editorOptions]="{ stylingMode: 'filled', placeholder: 'Confirm Password', mode: 'password' }">
-    <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
-    <dxi-validation-rule type="custom" message="Passwords do not match" [validationCallback]="confirmPassword">
-    </dxi-validation-rule>
-    <dxo-label [visible]="false"></dxo-label>
+  <!--Ebeveyn Bilgileri-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="2. Ebeveyn Bilgileri" [colCount]="2">
+    <!--left group-->
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item dataField="firstName" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Ebeveynin Adı'}">
+        <dxi-validation-rule type="required" message="Ebeveyn ad boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Ebeveynin Adı"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="firstName" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Ebeveynin Soyadı'}">
+        <dxi-validation-rule type="required" message="Ebeveynin soyadı boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Ebeveynin Soyadı"></dxo-label>
+      </dxi-item>
+
+
+      <dxi-item dataField="surname" editorType="dxTextBox"
+                [editorOptions]="{ stylingMode: 'filled', placeholder: 'Ebeveynin Email\'i'}">
+        <dxi-validation-rule type="required" message="Email boş bırakılamaz"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Ebeveynin Email\'i"></dxo-label>
+      </dxi-item>
+    </dxi-item>
+
+    <!--right group-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="Phones">
+
+      <dxi-item itemType="group"
+                name="phones"
+                *ngFor="let phone of phoneOptions1; let i = index">
+        <dxi-item [dataField]="'phoneNumberListForParent2[' + i + ']'" [editorOptions]="phoneOptions2[i]">
+          <dxo-label
+            [text]="'Phone ' + (i + 1)" location="top" >
+          </dxo-label>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item itemType="button"
+                horizontalAlignment="left"
+                cssClass="add-phone-button"
+                [buttonOptions]="addPhoneButtonOptions2">
+      </dxi-item>
+    </dxi-item>
   </dxi-item>
 
 
-  <dxi-item dataField="firstName" editorType="dxTextBox"
-            [editorOptions]="{ stylingMode: 'filled', placeholder: 'FirstName'}">
-    <dxi-validation-rule type="required" message="Ad alanı boş bırakılamaz"></dxi-validation-rule>
-    <dxo-label [visible]="false"></dxo-label>
-  </dxi-item>
-
-
-  <dxi-item dataField="surname" editorType="dxTextBox"
-            [editorOptions]="{ stylingMode: 'filled', placeholder: 'Email'}">
-    <dxi-validation-rule type="required" message="Soyadı boş bırakılamaz"></dxi-validation-rule>
-    <dxo-label [visible]="false"></dxo-label>
-  </dxi-item>
 
   <dxi-item>
     <div class='policy-info'>
       By creating an account, you agree to the <a routerLink="#">Terms of Service</a> and <a routerLink="#">Privacy
-        Policy</a>
+      Policy</a>
     </div>
   </dxi-item>
 
@@ -46,9 +150,10 @@
 
   <dxi-item>
     <div class="login-link">
-      Have an account? <a routerLink="/login">Sign In</a>
+      Hesabınız var mı? <a routerLink="/login">Giriş Yap</a>
     </div>
   </dxi-item>
+
 
   <ng-container *dxTemplate="let item of 'createAccountTemplate'">
     <span class="dx-button-text">

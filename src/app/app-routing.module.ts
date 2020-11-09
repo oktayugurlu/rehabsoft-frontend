@@ -6,7 +6,16 @@ import {LoginComponent, CreateAccountFormComponent, FooterModule} from './shared
 import { UserHomeComponent } from './pages/user/home/user-home.component';
 import { UserProfileComponent } from './pages/user/profile/user-profile.component';
 import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
-import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
+import {
+  DxAccordionModule, DxBoxModule,
+  DxCheckBoxModule,
+  DxDataGridModule,
+  DxFormModule,
+  DxLoadIndicatorModule,
+  DxSliderModule,
+  DxTagBoxModule,
+  DxTemplateModule
+} from 'devextreme-angular';
 import {AuthGuard} from './security/auth.guard';
 import {NotfoundComponent} from './shared/notfound/notfound.component';
 import {UnauthorizedComponent} from './shared/unauthorized/unauthorized.component';
@@ -25,6 +34,7 @@ import {SideNavOuterToolbarModule} from './layouts';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
+import {GeneralEvaluationFormComponent} from './pages/user/generalevaluationform/general-evaluation-form.component';
 
 const routes: Routes = [
   {
@@ -40,7 +50,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: UserHomeComponent },
       { path: 'profile', component: UserProfileComponent },
-      { path: 'task', component: UserTasksComponent }
+      { path: 'task', component: UserTasksComponent },
+      { path: 'general-evaluation-form', component: GeneralEvaluationFormComponent }
     ]
   },
   {
@@ -71,12 +82,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule,
-    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule],
+  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
+            FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule,
+            DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule],
+
   exports: [RouterModule],
   declarations: [
     PagesComponent,
-    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent,
+    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, GeneralEvaluationFormComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent,
     AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent]
 })

@@ -8,6 +8,7 @@ import {Role} from './models/role';
 import {TokenDto} from './models/tokendto';
 import {AppInfoService} from './shared/services';
 import {adminNavigation, doctorNavigation, userNavigation} from './app-navigation';
+import {UserService} from './shared/services/user.service';
 
 
 @Component({
@@ -32,13 +33,14 @@ export class AppComponent implements OnInit{
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
+    private userService: UserService,
     public appInfo: AppInfoService
   ) {
     this.authenticationService.currentUser.subscribe(
       x => {
         this.currentUser = x;
         this.isNotAuthorized = this.checkisNotAuthorized();
-        this.isUser = this.checkisUser();
+        this.isUser = this.checkisUserAndIsFilledGeneralEvaluationForm() ;
         this.isDoctor = this.checkisDoctor();
         this.isAdmin = this.checkisAdmin();
       }
@@ -54,8 +56,10 @@ export class AppComponent implements OnInit{
     return this.currentUser === null;
   }
 
-  checkisUser = () => {
+  checkisUserAndIsFilledGeneralEvaluationForm = () => {
     if(!(this.currentUser === null)){
+      // Eger kullanici formu doldurmamis ise yonlendirme olacak forma
+
       return this.currentUser.role === Role.User
     }
     else return false;

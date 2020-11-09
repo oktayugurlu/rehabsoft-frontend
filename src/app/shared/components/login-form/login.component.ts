@@ -63,8 +63,6 @@ export class LoginComponent implements OnInit {
   login(event) {
     this.submitted = true;
 
-    console.log("event: ",event);
-
     // stop here if form is invalid
     if (!event.validationGroup.validate().isValid) {
       return;
@@ -90,6 +88,7 @@ export class LoginComponent implements OnInit {
           this.loading = false;
           notify(error, "warning", 1000);
         });
+    event.preventDefault()
   }
 
   onCreateAccountClick = () => {

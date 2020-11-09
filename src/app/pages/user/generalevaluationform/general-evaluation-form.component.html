@@ -1,0 +1,103 @@
+
+
+
+<div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+
+<!--  <div class="long-title" style="padding-left: 4%">-->
+<!--    <h3 style="color:navy;"> Genel Değerlendirme Formu</h3>-->
+<!--  </div>-->
+
+  <div class="title">Genel Değerlendirme Formu</div>
+
+  <dx-form [formData]="generalEvaluationForm" [disabled]="loading"
+           [showValidationSummary]="true"  >
+
+    <!-- Demografik Bilgiler-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="Demografik Bilgiler" [colCount]="2">
+
+      <!--left group start-->
+      <dxi-item [alignItemLabels]="true" itemType="group">
+
+        <dxi-item dataField="username" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Çocuğun Adı Soyadı'}">
+          <dxi-validation-rule type="required" message="Bu alan gerekli"></dxi-validation-rule>
+          <dxo-label [visible]="true"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="password" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Cinsiyet'}">
+          <dxi-validation-rule type="required" message="Bu alan gerekli"></dxi-validation-rule>
+          <dxo-label [visible]="true"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Confirm Password' }">
+          <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+          <dxo-label [visible]="false"></dxo-label>
+        </dxi-item>
+
+
+        <dxi-item dataField="firstName" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'FirstName'}">
+          <dxi-validation-rule type="required" message="Ad alanı boş bırakılamaz"></dxi-validation-rule>
+          <dxo-label [visible]="false"></dxo-label>
+        </dxi-item>
+
+
+        <dxi-item dataField="surname" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Email'}">
+          <dxi-validation-rule type="required" message="Soyadı boş bırakılamaz"></dxi-validation-rule>
+          <dxo-label [visible]="false"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <!--right group start-->
+      <dxi-item [alignItemLabels]="true" itemType="group">
+        <dxi-item dataField="username" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Kullanici Adi'}">
+          <dxi-validation-rule type="required" message="Email is required"></dxi-validation-rule>
+          <dxo-label [visible]="true"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="password" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Sifre'}">
+          <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+          <dxo-label [visible]="true"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Confirm Password' }">
+          <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+          <dxo-label [visible]="false"></dxo-label>
+        </dxi-item>
+
+
+        <dxi-item dataField="firstName" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'FirstName'}">
+          <dxi-validation-rule type="required" message="Ad alanı boş bırakılamaz"></dxi-validation-rule>
+          <dxo-label [visible]="false"></dxo-label>
+        </dxi-item>
+
+
+        <dxi-item dataField="surname" editorType="dxTextBox"
+                  [editorOptions]="{ stylingMode: 'filled', placeholder: 'Email'}">
+          <dxi-validation-rule type="required" message="Soyadı boş bırakılamaz"></dxi-validation-rule>
+          <dxo-label [visible]="false"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+    </dxi-item>
+
+    <!--Fiziksel Özellikler-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="Fiziksel Özellikler">
+
+    </dxi-item>
+
+
+
+    <dxi-item itemType="button" horizontalAlignment="left" [buttonOptions]="submitbuttonOptions" >
+    </dxi-item>
+
+
+  </dx-form>
+</div>
