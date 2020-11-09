@@ -1,7 +1,9 @@
 import { Role } from "./role";
 
 export class TokenDto {
-    username: string; 
+    username: string;
+    firstname: string;
+    surname: string;
     role: Role;
     token?: string;
 }

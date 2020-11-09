@@ -21,12 +21,13 @@ export class UserPanelComponent {
   @Input()
   currentUser: TokenDto={
     username: '',
+    firstname: '',
+    surname: '',
     role: null,
     token: ''
   };
 
   constructor() {
-    console.log(this.currentUser);
   }
 }
 

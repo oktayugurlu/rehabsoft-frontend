@@ -45,6 +45,8 @@ export class NecessaryFormsComponent {
     this.generalEvaluationFormStepperClass = '';
   }
   goGeneralEvaluationForm = () =>{
+
+    console.log('goGeneralEvaluationForm() called');
     this.isPatientStepperActive = false;
     this.isGeneralEvaluationFormStepperActive = true;
     this.patientStepperClass = '';

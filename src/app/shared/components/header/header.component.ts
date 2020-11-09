@@ -27,6 +27,8 @@ export class HeaderComponent implements OnInit {
 
   currentUser:TokenDto={
     username: '',
+    firstname: '',
+    surname: '',
     role: null,
     token: ''
   };

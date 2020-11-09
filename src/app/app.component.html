@@ -2,9 +2,9 @@
   <app-side-nav-outer-toolbar [navigation]="userNavigation" title="{{appInfo.title+' - '+'User'}}" >
     <router-outlet></router-outlet>
     <app-footer>
-      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
+      Copyright © 2020-{{appInfo.currentYear}} {{appInfo.title}} Inc.
       <br/>
-      All trademarks or registered trademarks are property of their respective owners.
+      Tüm hakları saklıdır.
     </app-footer>
   </app-side-nav-outer-toolbar>
 </ng-template>
@@ -15,7 +15,7 @@
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
       <br/>
-      All trademarks or registered trademarks are property of their respective owners.
+      Tüm hakları saklıdır.
     </app-footer>
   </app-side-nav-outer-toolbar>
 </ng-template>
@@ -26,11 +26,16 @@
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
       <br/>
-      All trademarks or registered trademarks are property of their respective owners.
+      Tüm hakları saklıdır.
     </app-footer>
   </app-side-nav-outer-toolbar>
 </ng-template>
 
-<ng-template [ngIf]="isNotAuthorized">
+
+
+<ng-template [ngIf]="isNotAuthorized" >
+<!--  <div style="background-image: url('../assets/image/hacettepe-hastanesi.jpg')">-->
+<!--    -->
+<!--  </div>-->
   <app-not-authorized-container></app-not-authorized-container>
 </ng-template>

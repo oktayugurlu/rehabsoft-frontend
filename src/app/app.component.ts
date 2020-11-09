@@ -43,17 +43,17 @@ export class AppComponent implements OnInit{
         this.currentUser = x;
         this.isNotAuthorized = this.checkisNotAuthorized();
 
-        if(!this.isNotAuthorized){
-          userService.checkIsGeneralEvaluationFormExist().subscribe((isExist=>{
-            isGeneralEvaluationFormExist = true;
-            userService.checkIsPatientFormExist().subscribe(isExist=>{
-                isPatientFormExist = true;
-                this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm = this.checkisUserAndIsFilledGeneralEvaluationForm() && isGeneralEvaluationFormExist && isPatientFormExist;
-              }
-            );
-          }));
-        }
-
+        // if(!this.isNotAuthorized){
+        //   userService.checkIsGeneralEvaluationFormExist().subscribe((isExist=>{
+        //     isGeneralEvaluationFormExist = true;
+        //     userService.checkIsPatientFormExist().subscribe(isExist=>{
+        //         isPatientFormExist = true;
+        //         this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm = this.checkisUserAndIsFilledGeneralEvaluationForm() && isGeneralEvaluationFormExist && isPatientFormExist;
+        //       }
+        //     );
+        //   }));
+        // }
+        this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm = this.checkisUserAndIsFilledGeneralEvaluationForm()
         this.isDoctor = this.checkisDoctor();
         this.isAdmin = this.checkisAdmin();
       }

@@ -44,7 +44,7 @@
 <ng-template [ngIf]="isPatientStepperActive">
   <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
 <!--     First step content - Ebeveyn Bilgileri-->
-    <app-patient-form></app-patient-form>
+    <app-patient-form (nextStepper)="goGeneralEvaluationForm()"></app-patient-form>
   </div>
 </ng-template>
 
@@ -58,7 +58,7 @@
     <!--    <h3 style="color:navy;"> Genel Değerlendirme Formu</h3>-->
     <!--  </div>-->
 
-    <div class="title">Genel Değerlendirme Formu</div>
+<!--    <h3>Genel Değerlendirme Formu</h3>-->
     <app-general-evaluation-form></app-general-evaluation-form>
 
   </div>
