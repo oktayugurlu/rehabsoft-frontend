@@ -22,6 +22,14 @@ export class AuthGuard implements CanActivate {
               return false;
           }
 
+          // if(!currentUser.isGeneralInformationSaved
+          //   || !currentUser.isPatientSaved
+          //   && this.router.getCurrentNavigation().extractedUrl.toString() != '/general-evaluation-form'){
+          //   console.log(this.router.getCurrentNavigation().extractedUrl.toString());
+          //   this.router.navigate(['/general-evaluation-form']);
+          //   return true;
+          // }
+
           // authorised so return true
           return true;
         }

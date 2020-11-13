@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import {Component, Input, NgModule} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { DxFormModule } from 'devextreme-angular/ui/form';
 import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
@@ -16,6 +16,9 @@ import {Parent} from "../../../models/parent";
   styleUrls: ['./necessary-forms.component.scss']
 })
 export class NecessaryFormsComponent {
+
+  @Input()
+  users;
 
   // stepper booleans
   isPatientStepperActive:boolean = true;

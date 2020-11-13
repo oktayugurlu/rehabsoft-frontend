@@ -6,4 +6,6 @@ export class TokenDto {
     surname: string;
     role: Role;
     token?: string;
+    isPatientSaved: boolean;
+    isGeneralInformationSaved: boolean;
 }

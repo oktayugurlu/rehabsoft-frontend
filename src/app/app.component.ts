@@ -61,8 +61,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log("app components uyandi this.currentUser::::",this.currentUser);
-    console.log(this.isNotAuthorized, this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm, this.isDoctor, this.isAdmin, this.currentUser);
+    console.log(this.isNotAuthorized, this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm, this.isDoctor, this.isAdmin);
   }
 
   checkisNotAuthorized = () => {

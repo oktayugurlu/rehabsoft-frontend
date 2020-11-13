@@ -1,12 +1,21 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 import { User } from '../../models/user';
+import {Observable} from "rxjs";
+import {TokenDto} from "../../models/tokendto";
+import {Patient} from "../../models/patient";
+import {AuthenticationService} from "../../security/authentication.service";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    constructor(private http: HttpClient) { }
+
+    patient: EventEmitter<Patient> = new EventEmitter();
+
+    constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
+
+    }
 
     getAll() {
         return this.http.get<User[]>(`${environment.API_BASE_PATH}/users/all`);

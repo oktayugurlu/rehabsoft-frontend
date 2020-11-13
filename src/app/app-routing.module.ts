@@ -43,6 +43,7 @@ import { WavesModule } from 'angular-bootstrap-md';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {PatientFormComponent} from "./pages/user/necessaryforms/patientform/patient-form.component";
 import {GeneralEvaluationFormComponent} from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
+import {UserNotificationComponent} from "./pages/user/notifiaction/user-notification.component";
 
 
 const routes: Routes = [
@@ -60,7 +61,8 @@ const routes: Routes = [
       { path: 'home', component: UserHomeComponent },
       { path: 'profile', component: UserProfileComponent },
       { path: 'task', component: UserTasksComponent },
-      { path: 'general-evaluation-form', component: NecessaryFormsComponent }
+      { path: 'general-evaluation-form', component: NecessaryFormsComponent },
+      { path: 'user-notification', component: UserNotificationComponent }
     ]
   },
   {
@@ -100,7 +102,7 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [
     PagesComponent,
-    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent,
+    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent,
     AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent]

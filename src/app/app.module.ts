@@ -21,6 +21,7 @@ import {DxButtonModule} from "devextreme-angular";
 import { CommonModule } from '@angular/common';
 import { GeneralEvaluationFormComponent } from './pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component';
 import { PatientFormComponent } from './pages/user/necessaryforms/patientform/patient-form.component';
+import {UserService} from "./shared/services/user.service";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { PatientFormComponent } from './pages/user/necessaryforms/patientform/pa
     DxButtonModule,
     UserPanelModule
   ],
-  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService,
+  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

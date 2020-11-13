@@ -19,13 +19,7 @@ export class UserPanelComponent {
   menuMode: string;
 
   @Input()
-  currentUser: TokenDto={
-    username: '',
-    firstname: '',
-    surname: '',
-    role: null,
-    token: ''
-  };
+  currentUser: TokenDto=new TokenDto();
 
   constructor() {
   }

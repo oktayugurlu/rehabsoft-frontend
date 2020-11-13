@@ -44,8 +44,10 @@ export class CreateAccountFormComponent {
 
   register(event) {
 
-    this.registerForm.username = this.registerForm.patient.tcKimlikNo;
-
+    this.registerForm.username = this.registerForm.patient.tcKimlikNo.trim();
+    this.registerForm.firstName.trim();
+    this.registerForm.surname.trim();
+    this.registerForm.email.trim();
     // stop here if form is invalid
     if (!event.validationGroup.validate().isValid) {
       return;
