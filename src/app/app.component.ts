@@ -26,7 +26,7 @@ export class AppComponent implements OnInit{
 
   isAdmin = false;
   isDoctor = false;
-  isUser = false;
+  isUserAndIsFilledGeneralEvaluationFormAndPatientForm = false;
   isNotAuthorized = false;
 
   // constructor(private authService: AuthService, private screen: ScreenService, public appInfo: AppInfoService) { }
@@ -38,9 +38,22 @@ export class AppComponent implements OnInit{
   ) {
     this.authenticationService.currentUser.subscribe(
       x => {
+        let isGeneralEvaluationFormExist = false;
+        let isPatientFormExist = false;
         this.currentUser = x;
         this.isNotAuthorized = this.checkisNotAuthorized();
-        this.isUser = this.checkisUserAndIsFilledGeneralEvaluationForm() ;
+
+        // if(!this.isNotAuthorized){
+        //   userService.checkIsGeneralEvaluationFormExist().subscribe((isExist=>{
+        //     isGeneralEvaluationFormExist = true;
+        //     userService.checkIsPatientFormExist().subscribe(isExist=>{
+        //         isPatientFormExist = true;
+        //         this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm = this.checkisUserAndIsFilledGeneralEvaluationForm() && isGeneralEvaluationFormExist && isPatientFormExist;
+        //       }
+        //     );
+        //   }));
+        // }
+        this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm = this.checkisUserAndIsFilledGeneralEvaluationForm()
         this.isDoctor = this.checkisDoctor();
         this.isAdmin = this.checkisAdmin();
       }
@@ -48,8 +61,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log("app components uyandi this.currentUser::::",this.currentUser);
-    console.log(this.isNotAuthorized, this.isUser, this.isDoctor, this.isAdmin, this.currentUser);
+    console.log(this.isNotAuthorized, this.isUserAndIsFilledGeneralEvaluationFormAndPatientForm, this.isDoctor, this.isAdmin);
   }
 
   checkisNotAuthorized = () => {

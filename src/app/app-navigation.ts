@@ -1,6 +1,6 @@
 export const userNavigation = [
   {
-    text: 'Home',
+    text: 'Anasayfa',
     path: '/user/home',
     icon: 'home'
   },

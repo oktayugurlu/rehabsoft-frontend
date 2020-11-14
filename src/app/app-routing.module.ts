@@ -7,14 +7,14 @@ import { UserHomeComponent } from './pages/user/home/user-home.component';
 import { UserProfileComponent } from './pages/user/profile/user-profile.component';
 import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
 import {
-  DxAccordionModule, DxBoxModule,
+  DxAccordionModule, DxBoxModule, DxButtonModule,
   DxCheckBoxModule,
   DxDataGridModule,
   DxFormModule,
-  DxLoadIndicatorModule,
+  DxLoadIndicatorModule, DxNumberBoxModule, DxRadioGroupModule, DxSelectBoxModule,
   DxSliderModule,
   DxTagBoxModule,
-  DxTemplateModule
+  DxTemplateModule, DxTextAreaModule
 } from 'devextreme-angular';
 import {AuthGuard} from './security/auth.guard';
 import {NotfoundComponent} from './shared/notfound/notfound.component';
@@ -31,10 +31,20 @@ import {AdminComponent} from './pages/admin/admin.component';
 import {AdminHomeComponent} from './pages/admin/home/admin-home.component';
 import {PagesComponent} from './pages/pages.component';
 import {SideNavOuterToolbarModule} from './layouts';
+import {NecessaryFormsComponent} from './pages/user/necessaryforms/necessary-forms.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
-import {GeneralEvaluationFormComponent} from './pages/user/generalevaluationform/general-evaluation-form.component';
+
+// Devextreme
+
+// MdBootstrap
+import { WavesModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {PatientFormComponent} from "./pages/user/necessaryforms/patientform/patient-form.component";
+import {GeneralEvaluationFormComponent} from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
+import {UserNotificationComponent} from "./pages/user/notifiaction/user-notification.component";
+
 
 const routes: Routes = [
   {
@@ -51,7 +61,8 @@ const routes: Routes = [
       { path: 'home', component: UserHomeComponent },
       { path: 'profile', component: UserProfileComponent },
       { path: 'task', component: UserTasksComponent },
-      { path: 'general-evaluation-form', component: GeneralEvaluationFormComponent }
+      { path: 'general-evaluation-form', component: NecessaryFormsComponent },
+      { path: 'user-notification', component: UserNotificationComponent }
     ]
   },
   {
@@ -83,13 +94,16 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-            FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule,
-            DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule],
+    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule,
+    DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
+    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
+    MDBBootstrapModule, WavesModule, DxButtonModule],
 
   exports: [RouterModule],
   declarations: [
     PagesComponent,
-    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, GeneralEvaluationFormComponent,
+    UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
+    PatientFormComponent, GeneralEvaluationFormComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent,
     AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent]
 })

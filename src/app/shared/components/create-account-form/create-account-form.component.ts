@@ -23,11 +23,7 @@ export class CreateAccountFormComponent {
   error = '';
 
   submitbuttonOptions:any = {useSubmitBehavior: true, text: 'Create a new account', onClick: (Event)=>this.register(Event), width: '100%',type:"default"};
-  addPhoneButtonOptions1: any;
-  addPhoneButtonOptions2: any;
 
-  phoneOptions1: any[] = [];
-  phoneOptions2: any[] = [];
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
@@ -37,29 +33,7 @@ export class CreateAccountFormComponent {
       firstName: '',
       surname:  '',
       email: '',
-      confirmPassword: '',
-      phoneNumberListForParent1: [],
-      phoneNumberListForParent2: [],
-      patient: new Patient()
-    };
-    this.registerForm.parentCollection = [new Parent(), new Parent()];
-
-    this.addPhoneButtonOptions1 = {
-      icon: "add",
-      text: "Add phone",
-      onClick: () => {
-        this.registerForm.phoneNumberListForParent1.push("");
-        this.phoneOptions1 = this.getPhonesOptions1(this.registerForm.phoneNumberListForParent1);
-      }
-    };
-
-    this.addPhoneButtonOptions2 = {
-      icon: "add",
-      text: "Add phone",
-      onClick: () => {
-        this.registerForm.phoneNumberListForParent2.push("");
-        this.phoneOptions2 = this.getPhonesOptions2(this.registerForm.phoneNumberListForParent2);
-      }
+      confirmPassword: ''
     };
   }
 
@@ -68,71 +42,18 @@ export class CreateAccountFormComponent {
     this.authenticationService.logout();
   }
 
-  getPhonesOptions1(phones: any) {
-    let options = [];
-    for (let i = 0; i < phones.length; i++){
-      options.push(this.generateNewPhoneOptions1(i));
-    }
-    return options;
-  }
-
-  getPhonesOptions2(phones: any) {
-    let options = [];
-    for (let i = 0; i < phones.length; i++){
-      options.push(this.generateNewPhoneOptions2(i));
-    }
-    return options;
-  }
-
-  generateNewPhoneOptions1(index: number) {
-    return {
-      mask: "(X00) 000-0000",
-      maskRules: {"X": /[01-9]/},
-      buttons: [{
-        name: "trash",
-        location: "after",
-        options: {
-          stylingMode: "text",
-          icon: "trash",
-          onClick: () => {
-            this.registerForm.phoneNumberListForParent1.splice(index, 1);
-            this.phoneOptions1 = this.getPhonesOptions1(this.registerForm.phoneNumberListForParent1);
-          }
-        }
-      }]
-    }
-  }
-  generateNewPhoneOptions2(index: number) {
-    return {
-      mask: "(X00) 000-0000",
-      maskRules: {"X": /[01-9]/},
-      buttons: [{
-        name: "trash",
-        location: "after",
-        options: {
-          stylingMode: "text",
-          icon: "trash",
-          onClick: () => {
-            this.registerForm.phoneNumberListForParent1.splice(index, 1);
-            this.phoneOptions1 = this.getPhonesOptions1(this.registerForm.phoneNumberListForParent1);
-          }
-        }
-      }]
-    }
-  }
-
   register(event) {
 
-    this.registerForm.username = this.registerForm.patient.tcKimlikNo;
-
+    this.registerForm.username = this.registerForm.patient.tcKimlikNo.trim();
+    this.registerForm.firstName.trim();
+    this.registerForm.surname.trim();
+    this.registerForm.email.trim();
     // stop here if form is invalid
     if (!event.validationGroup.validate().isValid) {
       return;
     }
 
     this.submitted = true;
-
-    this.fillPhoneOfParent();
 
     this.loading = true;
     this.authenticationService.register(this.registerForm)
@@ -151,14 +72,6 @@ export class CreateAccountFormComponent {
     return e.value === this.registerForm.password;
   }
 
-  fillPhoneOfParent = ()=> {
-    this.registerForm.phoneNumberListForParent1.forEach(phoneString=>{
-      this.registerForm.parentCollection.push({
-        phoneNumber: phoneString
-      })
-    });
-    delete this.registerForm['phoneNumberListForParent1'];
-  }
 }
 @NgModule({
   imports: [

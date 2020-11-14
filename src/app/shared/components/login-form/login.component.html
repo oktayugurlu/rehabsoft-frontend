@@ -1,7 +1,17 @@
+
+
+<img src="assets/logo/hacettepe-logo.png" alt="hacettepe-logo" style="
+  width: 50%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;">
+<br/><br/>
+
 <dx-form [formData]="loginForm" [disabled]="loading" [showValidationSummary]="true">
 
   <dxi-item dataField="username" editorType="dxTextBox"
-    [editorOptions]="{ stylingMode: 'filled', placeholder: 'Kullanıcı Adı'}">
+    [editorOptions]="{ width: '300px', stylingMode: 'filled', placeholder: 'Kullanıcı Adı'}">
     <dxi-validation-rule type="required" message="Kullanıcı adı gerekli"></dxi-validation-rule>
     <dxo-label [visible]="false"></dxo-label>
   </dxi-item>

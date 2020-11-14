@@ -8,7 +8,7 @@ import { JwtInterceptor } from './security/jwt.interceptor';
 import { AuthenticationService } from './security/authentication.service';
 import { AuthGuard } from './security/auth.guard';
 import { ErrorInterceptor } from './security/authentication.interceptor';
-import {FooterComponent, FooterModule, HeaderComponent, LoginFormModule} from './shared/components';
+import {FooterComponent, FooterModule, HeaderComponent, LoginFormModule, UserPanelModule} from './shared/components';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {ApiService} from './shared/services/api.service';
@@ -18,8 +18,10 @@ import {NotAuthorizedContainerModule} from './not-authorized-container';
 import {AppInfoService, ScreenService} from './shared/services';
 import {DxButtonModule} from "devextreme-angular";
 
-
 import { CommonModule } from '@angular/common';
+import { GeneralEvaluationFormComponent } from './pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component';
+import { PatientFormComponent } from './pages/user/necessaryforms/patientform/patient-form.component';
+import {UserService} from "./shared/services/user.service";
 
 @NgModule({
   declarations: [
@@ -41,9 +43,10 @@ import { CommonModule } from '@angular/common';
     FooterModule,
     LoginFormModule,
     NotAuthorizedContainerModule,
-    DxButtonModule
+    DxButtonModule,
+    UserPanelModule
   ],
-  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService,
+  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

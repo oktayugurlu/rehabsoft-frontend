@@ -1,36 +1,41 @@
-<ng-container *ngIf="isUser">
+<ng-template [ngIf]="isUserAndIsFilledGeneralEvaluationFormAndPatientForm">
   <app-side-nav-outer-toolbar [navigation]="userNavigation" title="{{appInfo.title+' - '+'User'}}" >
     <router-outlet></router-outlet>
     <app-footer>
-      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
+      Copyright © 2020-{{appInfo.currentYear}} {{appInfo.title}} Inc.
       <br/>
-      All trademarks or registered trademarks are property of their respective owners.
+      Tüm hakları saklıdır.
     </app-footer>
   </app-side-nav-outer-toolbar>
-</ng-container>
+</ng-template>
 
-<ng-container *ngIf="isDoctor">
+<ng-template [ngIf]="isDoctor">
   <app-side-nav-outer-toolbar [navigation]="doctorNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
     <router-outlet></router-outlet>
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
       <br/>
-      All trademarks or registered trademarks are property of their respective owners.
+      Tüm hakları saklıdır.
     </app-footer>
   </app-side-nav-outer-toolbar>
-</ng-container>
+</ng-template>
 
-<ng-container *ngIf="isAdmin">
+<ng-template [ngIf]="isAdmin">
   <app-side-nav-outer-toolbar [navigation]="adminNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
     <router-outlet></router-outlet>
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
       <br/>
-      All trademarks or registered trademarks are property of their respective owners.
+      Tüm hakları saklıdır.
     </app-footer>
   </app-side-nav-outer-toolbar>
-</ng-container>
+</ng-template>
 
-<ng-container *ngIf="isNotAuthorized">
+
+
+<ng-template [ngIf]="isNotAuthorized" >
+<!--  <div style="background-image: url('../assets/image/hacettepe-hastanesi.jpg')">-->
+<!--    -->
+<!--  </div>-->
   <app-not-authorized-container></app-not-authorized-container>
-</ng-container>
+</ng-template>

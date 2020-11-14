@@ -19,13 +19,10 @@ export class UserPanelComponent {
   menuMode: string;
 
   @Input()
-  currentUser:TokenDto={
-    username: '',
-    role: null,
-    token: ''
-  };
+  currentUser: TokenDto=new TokenDto();
 
-  constructor() {}
+  constructor() {
+  }
 }
 
 @NgModule({

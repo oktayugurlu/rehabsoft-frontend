@@ -25,11 +25,7 @@ export class HeaderComponent implements OnInit {
   @Input()
   title: string;
 
-  currentUser:TokenDto={
-    username: '',
-    role: null,
-    token: ''
-  };
+  currentUser:TokenDto=new TokenDto();
 
   userMenuItems = [{
     text: 'Profile',
