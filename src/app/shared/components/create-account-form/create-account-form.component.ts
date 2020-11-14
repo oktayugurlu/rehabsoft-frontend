@@ -55,8 +55,6 @@ export class CreateAccountFormComponent {
 
     this.submitted = true;
 
-    this.fillPhoneOfParent();
-
     this.loading = true;
     this.authenticationService.register(this.registerForm)
       .pipe(first())
@@ -74,14 +72,6 @@ export class CreateAccountFormComponent {
     return e.value === this.registerForm.password;
   }
 
-  fillPhoneOfParent = ()=> {
-    this.registerForm.phoneNumberListForParent1.forEach(phoneString=>{
-      this.registerForm.parentCollection.push({
-        phoneNumber: phoneString
-      })
-    });
-    delete this.registerForm['phoneNumberListForParent1'];
-  }
 }
 @NgModule({
   imports: [
