@@ -9,7 +9,7 @@ import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
   DxCheckBoxModule,
-  DxDataGridModule,
+  DxDataGridModule, DxFileUploaderModule,
   DxFormModule,
   DxLoadIndicatorModule, DxNumberBoxModule, DxRadioGroupModule, DxSelectBoxModule,
   DxSliderModule,
@@ -94,7 +94,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule,
+    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
     MDBBootstrapModule, WavesModule, DxButtonModule],
