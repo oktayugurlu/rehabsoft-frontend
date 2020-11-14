@@ -6,14 +6,20 @@ import {CoexistingDiseases} from './CoexistingDisease';
 import {ExpectationsAboutProgram} from './expectationsaboutprogram';
 
 export class GeneralEvaluationForm {
+
+  // 1. Demografik Bilgiler
   gender: string;
   birthDate: Date;
   ageAsMonth: number;
   numberOfSiblings: number;
   whichChild: number;
+
+  // 2. Fiziksel Özellikler
   heightCm: number;
   weightGr: number;
   headRoundCm: number;
+
+  // 3. Fiziksel Özellikler
   mothersGivenBirthAgeYear: number;
   mothersEducationLevel: string;
   typeOfPregnancy: string;

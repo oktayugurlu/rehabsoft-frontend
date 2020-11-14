@@ -11,10 +11,10 @@ import {
   DxCheckBoxModule,
   DxDataGridModule,
   DxFormModule,
-  DxLoadIndicatorModule,
+  DxLoadIndicatorModule, DxNumberBoxModule, DxRadioGroupModule, DxSelectBoxModule,
   DxSliderModule,
   DxTagBoxModule,
-  DxTemplateModule
+  DxTemplateModule, DxTextAreaModule
 } from 'devextreme-angular';
 import {AuthGuard} from './security/auth.guard';
 import {NotfoundComponent} from './shared/notfound/notfound.component';
@@ -96,7 +96,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
-
+    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
     MDBBootstrapModule, WavesModule, DxButtonModule],
 
   exports: [RouterModule],
