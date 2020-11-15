@@ -438,16 +438,16 @@
 
 
   <!--7. Uygulanan Tedaviler-->
-  <dxi-item [alignItemLabels]="true" itemType="group" caption="7. Uygulanan Tedaviler" [colCount]="2">
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="7. Uygulanan Tedaviler">
 
     <!--Left group-->
-    <dxi-item [alignItemLabels]="true" itemType="group">
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="Botilinum toksin (Botox) enjeksiyonu">
       <dxi-item
         dataField="isBotoxTreatment"
         editorType="dxRadioGroup"
         [editorOptions]="isBotoxTreatmentOption">
         <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
-        <dxo-label location="top" [visible]="true" text="Botilinum toksin (Botox) enjeksiyonu"></dxo-label>
+        <dxo-label location="top" [visible]="true" text="Botilinum toksin (Botox) enjeksiyonu oldu mu?"></dxo-label>
       </dxi-item>
 
       <dxi-item dataField="lastBotoxDate" editorType="dxDateBox" [visible]="generalEvaluationForm.isBotoxTreatment"
@@ -480,9 +480,68 @@
 
     </dxi-item>
 
-    <!--Right group-->
-    <dxi-item [alignItemLabels]="true" itemType="group">
+    <!-- Gecirilen cerrahiler -->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="Geçirilen Cerrahiler" >
+      <!--Bir cerrahi datasi start-->
+
+      <dxi-item itemType="group"
+                name="appliedSurgeries"
+                *ngFor="let appliedSurgery of appliedSurgeryOptions; let i = index" [colCount]="4">
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+
+          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].surgeryName'" editorType="dxSelectBox"
+                    [editorOptions]="appliedSurgeryOptions[i][0]">
+            <dxi-validation-rule type="required" message="Cerrahinin adı gerekli"></dxi-validation-rule>
+            <dxo-label
+              [text]="(i + 1)+'. '" location="top" >
+            </dxo-label>
+          </dxi-item>
+
+        </dxi-item>
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].appliedDate'" editorType="dxDateBox"
+                    [editorOptions]="appliedSurgeryOptions[i][1]">
+            <dxi-validation-rule type="required" message="Uygulanma tarihi gerekli"></dxi-validation-rule>
+            <dxo-label location="top" [visible]="false" text="Uygulanma Tarihi"></dxo-label>
+          </dxi-item>
+        </dxi-item>
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].epicrisisImageUrl'" [template]="'appliedsSuergeryEpicrysisTemplate'">
+          </dxi-item>
+          <div *dxTemplate="let data of 'appliedsSuergeryEpicrysisTemplate'">
+            <div id="fileuploader-container-2">
+              <dx-file-uploader selectButtonText="Varsa resimini yükleyin"
+                                labelText=""
+                                accept="image/*"
+                                uploadedMessage="Başarıyla yüklendi"
+                                uploadFailedMessage="Yükleme başarısız"
+                                [multiple]="false"
+                                uploadMode="instantly"
+                                (onValueChanged)="uploadAppliedsSuergeryEpicrysisImage($event)"
+              >
+              </dx-file-uploader>
+            </div>
+          </div>
+        </dxi-item>
+
+        <dxi-item [alignItemLabels]="true" itemType="group" horizontalAlignment="center" cssClass="delete-surgery-button" >
+          <dxi-item itemType="button" [buttonOptions]="appliedSurgeryOptions[i][2]">
+          </dxi-item>
+        </dxi-item>
+
+      </dxi-item>
+      <!--Bir cerrahi datasi end-->
+
+      <dxi-item itemType="button"
+                horizontalAlignment="center"
+                cssClass="add-button"
+                [buttonOptions]="addAppliedSurgeryButtonOptions">
+      </dxi-item>
     </dxi-item>
+    <!-- Gecirilen cerrahiler -->
 
   </dxi-item>
 

@@ -35,6 +35,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
     showClearButton:"true",
     useMaskBehavior:"true",
     displayFormat:"shortdate",
+    placeholder:'Uygulanma Tarihi',
     // min:"minDate",
     // max:"now",
     // value:"now",
@@ -386,6 +387,30 @@ export class GeneralEvaluationFormComponent implements OnInit {
     displayExpr: 'name'
   };
 
+
+  //--------- variables to add One-to-Many relation objects ----------//
+  //*** Applied Surgeries Variables ***//
+  appliedSurgeryOptions: any[] = [];
+  addAppliedSurgeryButtonOptions: any = {
+    icon: "add",
+    text: "Cerrahi Ekle",
+    onClick: () => {
+      this.generalEvaluationForm.appliedSurgeryCollection.push(new AppliedSurgery());
+      this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
+    }
+  };
+  customAppliedSurgeriesList = [{
+    name: 'Yumuşak doku - kas cerrahisi',
+    value: 'Yumuşak doku - kas cerrahisi'
+  },{
+    name: 'kemik cerrahisi',
+    value: 'kemik cerrahisi'
+  },{
+    name: 'Yumuşak doku-kas ve Kemik bir arada',
+    value: 'Yumuşak doku-kas ve Kemik bir arada'
+  }];
+
+
   constructor(private router: Router,
               private userService: UserService,
               private authenticationService: AuthenticationService) {
@@ -402,8 +427,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
   }
 
   register(event) {
-    // this.uploadBotoxReport();
-
+    console.log(this.generalEvaluationForm.appliedSurgeryCollection[0].surgeryName);
     // stop here if form is invalid
     if (!event.validationGroup.validate().isValid) {
       return;
@@ -428,6 +452,50 @@ export class GeneralEvaluationFormComponent implements OnInit {
         });
   }
 
+  //--------- event handlers to add One-to-Many relation objects ----------//
+
+  //******* Applied Surgery Event Handlers start *******//
+  getAppliedSurgeryOptions(appliedSurgery: any) {
+    let options = [];
+    for (let i = 0; i < appliedSurgery.length; i++){
+      options.push(this.generateNewAppliedSurgeryOptions1(i));
+    }
+    return options;
+  }
+  generateNewAppliedSurgeryOptions1(index: number) {
+    return [
+      { stylingMode: 'outlined',
+        placeholder: 'Seçiniz, yoksa yazınız...',
+        dataSource: this.customAppliedSurgeriesList,
+        acceptCustomValue: true,
+        valueExpr: 'value',
+        displayExpr: 'name',
+        onCustomItemCreating: this.onCustomItemCreatingForAppliedSurgerySelectbox
+      },
+      {
+        placeholder: 'Uygulanma Tarihi'
+      },
+      {
+        stylingMode: "text",
+        icon: "trash",
+        onClick: () => {
+          this.generalEvaluationForm.appliedSurgeryCollection.splice(index, 1);
+          this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
+        }
+    }
+      ];
+  }
+  onCustomItemCreatingForAppliedSurgerySelectbox = (event)=>{
+    const newItem = {
+      name: event.text,
+      value: event.text
+    };
+    // this.customAppliedSurgeriesList.push(newItem);
+    event.customItem = newItem;
+    console.log(event.customItem);
+  }
+  //******* Applied Surgery Event Handlers end *******//
+
   private fillPatientAddress = ()=>{
     let newPatient;
     this.userService.patient.subscribe(patient=>{
@@ -445,7 +513,13 @@ export class GeneralEvaluationFormComponent implements OnInit {
     return event.value !== null;
   }
 
+  // image uploader
   uploadBotoxReport = (event) => {
     console.log(event.value);
   }
+  uploadAppliedsSuergeryEpicrysisImage = (event) => {
+    console.log(event.value);
+  }
+
+
 }

@@ -5,3 +5,13 @@
   border: 1px solid #d3d3d3;
   margin: 20px 20px 0 20px;
 }
+
+::ng-deep #fileuploader-container-2{
+  border: 1px solid #d3d3d3;
+  margin: 0px 20px 0 20px;
+}
+
+::ng-deep #delete-surgery-button{
+  margin: 0px;
+  width: 1%;
+}

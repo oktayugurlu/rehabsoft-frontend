@@ -6,16 +6,7 @@ import {LoginComponent, CreateAccountFormComponent, FooterModule} from './shared
 import { UserHomeComponent } from './pages/user/home/user-home.component';
 import { UserProfileComponent } from './pages/user/profile/user-profile.component';
 import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
-import {
-  DxAccordionModule, DxBoxModule, DxButtonModule,
-  DxCheckBoxModule,
-  DxDataGridModule, DxFileUploaderModule,
-  DxFormModule,
-  DxLoadIndicatorModule, DxNumberBoxModule, DxRadioGroupModule, DxSelectBoxModule,
-  DxSliderModule,
-  DxTagBoxModule,
-  DxTemplateModule, DxTextAreaModule
-} from 'devextreme-angular';
+
 import {AuthGuard} from './security/auth.guard';
 import {NotfoundComponent} from './shared/notfound/notfound.component';
 import {UnauthorizedComponent} from './shared/unauthorized/unauthorized.component';
@@ -37,6 +28,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
 
 // Devextreme
+import { DxProgressBarModule } from 'devextreme-angular';
+import {
+  DxAccordionModule, DxBoxModule, DxButtonModule,
+  DxCheckBoxModule,
+  DxDataGridModule, DxFileUploaderModule,
+  DxFormModule,
+  DxLoadIndicatorModule, DxNumberBoxModule, DxRadioGroupModule, DxSelectBoxModule,
+  DxSliderModule,
+  DxTagBoxModule,
+  DxTemplateModule, DxTextAreaModule
+} from 'devextreme-angular';
 
 // MdBootstrap
 import { WavesModule } from 'angular-bootstrap-md';
@@ -94,7 +96,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule,
+    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
     MDBBootstrapModule, WavesModule, DxButtonModule],
