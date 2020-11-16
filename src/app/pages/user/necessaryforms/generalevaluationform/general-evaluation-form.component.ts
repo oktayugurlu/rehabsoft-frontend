@@ -10,9 +10,16 @@ import {AppliedSurgery} from "../../../../models/generalevaluationform/appliedsu
 import {OrthesisInfo} from "../../../../models/generalevaluationform/orthesisinfo";
 import {OtherOrthesisInfo} from "../../../../models/generalevaluationform/otherorthesisinfo";
 import {UsedMedicine} from "../../../../models/generalevaluationform/usedmedicine";
-import {CoexistingDiseases} from "../../../../models/generalevaluationform/CoexistingDisease";
+import {CoexistingDiseases} from "../../../../models/generalevaluationform/coexistingdisease";
 import {ExpectationsAboutProgram} from "../../../../models/generalevaluationform/expectationsaboutprogram";
 import {DxFileUploaderComponent, DxRadioGroupComponent} from "devextreme-angular";
+import {DiseaseOfMotherPregnancy} from "../../../../models/generalevaluationform/diseaseofmotherpregnancy";
+import {Hyperbilirubinemia} from "../../../../models/generalevaluationform/hyperbilirubinemia";
+import {AfterBirthReasonCerebralPalsy} from "../../../../models/generalevaluationform/afterbirthreasoncerebralpalsy";
+import {BotoxTreatment} from "../../../../models/generalevaluationform/botoxtreatment";
+import {VisualImpairment} from "../../../../models/generalevaluationform/visualimpairment";
+import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
+import {Epilepsy} from "../../../../models/generalevaluationform/epilepsy";
 
 @Component({
   selector: 'app-general-evaluation-form',
@@ -49,6 +56,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
     displayFormat:"shortdate",
   }
 
+  ////************** For 2 Collections in GeneralEvaluationForm ****************/////
   // Orthesis checkbox options
   isOrthesisMap = [
     {name: 'Tabanlık', value: false},
@@ -359,6 +367,66 @@ export class GeneralEvaluationFormComponent implements OnInit {
     text:"Sağ Parmak"
   }
 
+  // coexisting disease checkbox
+  coexistingDiseaseMap = [
+    {name: 'Bilişsel Problem', value: false},
+    {name: 'Duyu Problemi', value: false},
+    {name: 'Davranış Problemi',value:  false},
+    {name: 'Konuşma Problemi', value: false},
+    {name: 'Uyku Problemi', value: false},
+    {name: 'Yutma Problemi', value: false},
+    {name: 'Kalça Problemi', value: false},
+    {name: 'Skolyoz', value: false}
+  ];
+  mentalProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[0].value = event.component.option("value");
+    }
+  }
+  hearingProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[1].value = event.component.option("value");
+    }
+  }
+  behaviorProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[2].value = event.component.option("value");
+    }
+  }
+  speakingProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[3].value = event.component.option("value");
+    }
+  }
+  sleepingProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[4].value = event.component.option("value");
+    }
+  }
+  swallowProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[5].value = event.component.option("value");
+    }
+  }
+  hipProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[6].value = event.component.option("value");
+    }
+  }
+  skolyozCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[7].value = event.component.option("value");
+    }
+  }
+  ////************** For 2 Collections in GeneralEvaluationForm end ****************/////
 
 
   // Forms
@@ -366,14 +434,16 @@ export class GeneralEvaluationFormComponent implements OnInit {
     'nameSurname': null,
     'address': null,
 
-    // radiobutton variables for extra information in general eva. form
+    // radiobutton variables for extra information in general eva. form. Hepsini null giricez daha sonra
     isMultiplePregnancy: true,
     isApgarScoreKnown: true,
     isPregnancyInfectionInfo: true,
     isPregnancyMedicineUsageInfo: true,
     isIntensiveCare: true,
+    isVisualImpairment: true,
+    isHearingImpairment: true,
 
-    // radiobutton variables to create new object like Hyperbilirubinemia
+    // radiobutton variables to create new object like Hyperbilirubinemia to save in Collection
     isHyperbilirubinemia: true,
     isSleptHospitalForHyperbilirubinemia: true,
     isAfterBirthReasonCerebralPalsy: true,
@@ -393,9 +463,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     // 2. Fiziksel Özellikler
     heightCm: null,
     weightGr: null,
-    headRoundCm:null,
+    headRoundCm: null,
 
-    // 3. Fiziksel Özellikler
+    // 3. Dogum Oncesi Ozellikler
     mothersGivenBirthAgeYear: null,
     mothersEducationLevel: null,
     typeOfPregnancy: null,
@@ -403,59 +473,69 @@ export class GeneralEvaluationFormComponent implements OnInit {
     multiplePregnancy: null,
     isRelativeMarriage: null,
     isBloodIncompatibility: null,
+
+    // 4. Dogum Ozellikler
     birthWeek: null,
     birthType: null,
+    birthWeight: null,
+    birthHeadAroundCm: null,
     apgarScore: null,
-    isBirthAnoxia:null,
+    isBirthAnoxia: null,
     isBirthEmpurpling: null,
+    isBirthCrying: null,
     isHighBloodPressorPregnancy: null,
-    pregnancyInfectionInfo: null,
+    pregnancyInfectionInfo:null,
     pregnancyMedicineUsageInfo: null,
     isPregnancyDrinking: null,
-    isPregnanycSmoking: null,
+    isPregnanycSmoking:null,
+    id:null,
+
+    // 5.Doğum Sonrası Özellikler
     oxygenSupport: null,
-    id: null,
-    intensiveCare: null,
+    intensiveCare:null,
+    isNewbornRetinopathy: null,
+    isRespiratuvarDistressSyndrom: null,
+    isBronchopulmonaryDysplasia: null,
+    isHypoglycaemia: null,
 
     //DiseaseOfMotherPregnancy
-    diseaseName: null,
+    diseaseOfMotherPregnancy: new DiseaseOfMotherPregnancy(),
 
     //Hyperbilirubinemia
-    isPhototeraphy: null,
-    hospitalDayTime: null,
+    hyperbilirubinemia: new Hyperbilirubinemia(),
 
     //AfterBirthReasonCerebralPalsy
-    occuringMonth: null,
-    cause: null,
-    causeInfo: null,
+    afterBirthReasonCerebralPalsy: new AfterBirthReasonCerebralPalsy(),
 
     //Botox_Treatment
-    lastBotoxDate: null,
-    botoxRecordUrl: null,
+    botoxTreatment: new BotoxTreatment(),
 
     /*
-      Many to Many ve. Many-To-Onelar buraya geecek
+      Many to Many ve.þ Many-To-Onelar buraya geecek
     */
-    appliedSurgeryCollection: [],
+    appliedSurgeryCollection: null,
 
     //One to many
     orthesisInfoCollection: [],
-    otherOrthesisInfoCollection: [],
-    usedMedicineCollection: [],
+    otherOrthesisInfoCollection: null,
+    usedMedicineCollection: null,
 
     //ManyToMany
-    coexistingDiseasesCollection: [],
+    coexistingDiseasesCollection: null,
 
     //VisualImpairement
-    information: null,
+    visualimpairment: new VisualImpairment(),
 
     //OneTomany
 
     //HearingImpairment
-    isUseHearingAid: null,
+    hearingImpairment: new HearingImpairment(),
 
     //ExpectationsAboutProgram
-    expectationsAboutProgramCollection: []
+    expectationsAboutProgramCollection: [],
+
+    //Epilepsy
+    epilepsy: new Epilepsy()
   };
   currentUser: TokenDto;
 
@@ -542,6 +622,23 @@ export class GeneralEvaluationFormComponent implements OnInit {
       name: "Beyin kanamaları",
       value: "Beyin kanamaları"
     }];
+  epilepsySelectBoxList = [
+    {
+      name: "Yok, hiç oluşmadı ",
+      value: "Yok, hiç oluşmadı "
+    },{
+      name: "Daha önce vardı devam etmiyor",
+      value: "Daha önce vardı devam etmiyor"
+    },{
+      name: "Var ilaçla kontrol altında",
+      value: "Var ilaçla kontrol altında"
+    },{
+      name: "Var ilaca dirençli",
+      value: "Var ilaca dirençli"
+    }];
+
+
+
 
   // Multiple pregnancy and others radio button
   // onIsMultiplePregnancyOptionValueChanged = (event) =>{
@@ -552,14 +649,18 @@ export class GeneralEvaluationFormComponent implements OnInit {
     dataSource: this.isMultiplePregnancyList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.multiplePregnancy = null;
+    }
   };
   isRelativeMarriagelist = [{name:'Var', value: true},{name:'Yok', value: false}];
   isRelativeMarriageOption = {
     dataSource: this.isRelativeMarriagelist,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
   };
   isBloodIncompatibilitylist = [{name:'Var', value: true},{name:'Yok', value: false}];
   isBloodIncompatibilityOption = {
@@ -573,7 +674,11 @@ export class GeneralEvaluationFormComponent implements OnInit {
     dataSource: this.isApgarScorelist,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.apgarScore = 0;
+    }
   };
   isBirthAnoxialist = [{name:'Var', value: true},{name:'Yok', value: false}];
   isBirthAnoxiaOption = {
@@ -608,18 +713,35 @@ export class GeneralEvaluationFormComponent implements OnInit {
     dataSource: this.isPregnancyInfectionInfoList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.pregnancyInfectionInfo = null;
+    }
   };
   isPregnancyMedicineUsageInfoList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isPregnancyMedicineUsageInfoOption = {
     dataSource: this.isPregnancyMedicineUsageInfoList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.pregnancyMedicineUsageInfo = null;
+      else
+        this.generalEvaluationForm.pregnancyMedicineUsageInfo = new AfterBirthReasonCerebralPalsy();
+    }
   };
   isPregnancyDrinkingList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isPregnancyDrinkingOption = {
     dataSource: this.isPregnancyDrinkingList,
+    layout:"horizontal",
+    valueExpr: 'value',
+    displayExpr: 'name'
+  };
+  isPregnancySmokingList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isPregnancySmokingOption = {
+    dataSource: this.isPregnancySmokingList,
     layout:"horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
@@ -629,7 +751,11 @@ export class GeneralEvaluationFormComponent implements OnInit {
     dataSource: this.isIntensiveCareList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.intensiveCare = 0;
+    }
   };
   oxygenSupportList = [{name:'Aldı', value: true},{name:'Almadı', value: false}];
   oxygenSupportOption = {
@@ -664,7 +790,13 @@ export class GeneralEvaluationFormComponent implements OnInit {
     dataSource: this.isHyperbilirubinemiaList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.hyperbilirubinemia = null;
+      else
+        this.generalEvaluationForm.hyperbilirubinemia = new Hyperbilirubinemia();
+    }
   };
   isSleptHospitalForHyperbilirubinemiaList = [{name:'Yattı', value: true},{name:'Yatmadı', value: false}];
   isSleptHospitalForHyperbilirubinemiaOption = {
@@ -692,7 +824,13 @@ export class GeneralEvaluationFormComponent implements OnInit {
     dataSource: this.isAfterBirthReasonCerebralPalsyList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.afterBirthReasonCerebralPalsy = null;
+      else
+        this.generalEvaluationForm.afterBirthReasonCerebralPalsy = new AfterBirthReasonCerebralPalsy();
+    }
   };
   isBotoxTreatmentList = [{name:'Oldu', value: true},{name:'Hiç olmadı', value: false}];
   isBotoxTreatmentOption = {
@@ -700,6 +838,32 @@ export class GeneralEvaluationFormComponent implements OnInit {
     layout:"horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
+  };
+  isVisualImpairmentList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isVisualImpairmentOption = {
+    dataSource: this.isVisualImpairmentList,
+    layout:"horizontal",
+    valueExpr: 'value',
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.visualimpairment = null;
+      else
+        this.generalEvaluationForm.visualimpairment = new VisualImpairment();
+    }
+  };
+  isHearingImpairmentList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isHearingImpairmentOption = {
+    dataSource: this.isHearingImpairmentList,
+    layout:"horizontal",
+    valueExpr: 'value',
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.hearingImpairment = null;
+      else
+        this.generalEvaluationForm.hearingImpairment = new HearingImpairment();
+    }
   };
 
 
@@ -710,6 +874,8 @@ export class GeneralEvaluationFormComponent implements OnInit {
     icon: "add",
     text: "Cerrahi Ekle",
     onClick: () => {
+      if(this.generalEvaluationForm.appliedSurgeryCollection === null)
+        this.generalEvaluationForm.appliedSurgeryCollection = [];
       this.generalEvaluationForm.appliedSurgeryCollection.push(new AppliedSurgery());
       this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
     }
@@ -731,6 +897,8 @@ export class GeneralEvaluationFormComponent implements OnInit {
     icon: "add",
     text: "Cerrahi Ekle",
     onClick: () => {
+      if(this.generalEvaluationForm.otherOrthesisInfoCollection === null)
+        this.generalEvaluationForm.otherOrthesisInfoCollection = [];
       this.generalEvaluationForm.otherOrthesisInfoCollection.push(new AppliedSurgery());
       this.otherOrthesisOptions = this.getOtherOrthesisOptions(this.generalEvaluationForm.otherOrthesisInfoCollection);
     }
@@ -742,18 +910,22 @@ export class GeneralEvaluationFormComponent implements OnInit {
     icon: "add",
     text: "Cerrahi Ekle",
     onClick: () => {
+      if(this.generalEvaluationForm.usedMedicineCollection === null)
+        this.generalEvaluationForm.usedMedicineCollection = [];
       this.generalEvaluationForm.usedMedicineCollection.push(new UsedMedicine());
       this.usedMedicineOptions = this.getUsedMedicineOptions(this.generalEvaluationForm.usedMedicineCollection);
     }
   };
 
 
-  //*** Used Medicine Variables ***//
+  //*** Expectation Variables ***//
   expectationsAboutProgramOptions: any[] = [];
   addExpectationsAboutProgramButtonOptions: any = {
     icon: "add",
     text: "Ekle",
     onClick: () => {
+      if(this.generalEvaluationForm.expectationsAboutProgramCollection === null)
+        this.generalEvaluationForm.expectationsAboutProgramCollection = [];
       this.generalEvaluationForm.expectationsAboutProgramCollection.push(new ExpectationsAboutProgram());
       this.expectationsAboutProgramOptions = this.getExpectationsAboutProgramOptions(this.generalEvaluationForm.expectationsAboutProgramCollection);
     }
@@ -905,7 +1077,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
   getExpectationsAboutProgramOptions(appliedSurgery: any) {
     let options = [];
     for (let i = 0; i < appliedSurgery.length; i++){
-      options.push(this.generateNewUsedMedicineOptions1(i));
+      options.push(this.generateNewExpectationsAboutProgramOptions1(i));
     }
     return options;
   }

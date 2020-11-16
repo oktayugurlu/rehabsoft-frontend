@@ -132,7 +132,7 @@
         <dxo-label location="top" [visible]="true" text="Çoğul Gebelik Tipi"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="diseaseName" editorType="dxTextArea"
+      <dxi-item dataField="diseaseOfMotherPregnancy.diseaseName" editorType="dxTextArea"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 100}">
         <dxi-validation-rule type="required" message="Hamilelikte geçirilen hastalık gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Hamilelikte Geçirilen Hastalık"></dxo-label>
@@ -273,6 +273,14 @@
         <dxo-label location="top" [visible]="true" text="Gebelikte Alkol Kullanımı"></dxo-label>
       </dxi-item>
 
+      <dxi-item
+        dataField="isPregnanycSmoking"
+        editorType="dxRadioGroup"
+        [editorOptions]="isPregnancySmokingOption">
+        <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Gebelikte Sigara Kullanımı"></dxo-label>
+      </dxi-item>
+
     </dxi-item>
   </dxi-item>
 
@@ -357,13 +365,13 @@
       </dxi-item>
 
       <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="2" [visible]="generalEvaluationForm.isSleptHospitalForHyperbilirubinemia && generalEvaluationForm.isHyperbilirubinemia">
-        <dxi-item dataField="hospitalDayTime" editorType="dxNumberBox"
+        <dxi-item dataField="hyperbilirubinemia.hospitalDayTime" editorType="dxNumberBox"
                   [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:10000, showSpinButtons:true}">
           <dxi-validation-rule type="required" message="Bu alan gerek"></dxi-validation-rule>
           <dxo-label [visible]="true" location="top" [text]="'Yenidoğan sarılığı için kaç gün hastanede yattı?'"></dxo-label>
         </dxi-item>
         <dxi-item
-          dataField="isPhototeraphy"
+          dataField="hyperbilirubinemia.isPhototeraphy"
           editorType="dxRadioGroup"
           [editorOptions]="isPhototeraphyOption">
           <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
@@ -388,40 +396,40 @@
         <dxo-label location="top" [visible]="true" text="Doğum sonrası serebral palsi var mı?"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="occuringMonth" editorType="dxNumberBox" [visible]="generalEvaluationForm.isAfterBirthReasonCerebralPalsy"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.occuringMonth" editorType="dxNumberBox" [visible]="generalEvaluationForm.isAfterBirthReasonCerebralPalsy"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:100, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Oluşma zamanı gerekli"></dxi-validation-rule>
         <dxi-validation-rule type="range" [max]="24" message="25 ay sonrasında oluşan nedenler SP olarak kabul edilmez"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Oluşma zamanı"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="cause" editorType="dxSelectBox" [visible]="generalEvaluationForm.isAfterBirthReasonCerebralPalsy"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.cause" editorType="dxSelectBox" [visible]="generalEvaluationForm.isAfterBirthReasonCerebralPalsy"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'Seçiniz...', dataSource: causesOfAfterBirthCerebralPalsyList, valueExpr: 'value', displayExpr: 'name'}">
         <dxi-validation-rule type="required" message="Nedeni gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Varsa Nedeni"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.cause === 'Travma'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Travma'"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'örn.: Yüksekten düşme, araç iç/dışı trafik kazası, kafa travması', maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Travma açıklaması gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Travma Açıklaması"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.cause === 'Beyin tümörleri'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Beyin tümörleri'"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Beyin tümörü tipi gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Beyin Tümörü Tipi"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.cause === 'Cerrahi sonrası durumlar'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Cerrahi sonrası durumlar'"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'örn.: Cerrahi sırasında kalp durması, anesteziye bağlı gelişen anaflaksi/şok',
                  maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Durumun açıklaması gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Durumun Açıklaması"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.cause === 'Kan dolanımı'
-      || generalEvaluationForm.cause === 'Damar bozuklukları' || generalEvaluationForm.cause === 'Beyin kanamaları'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Kan dolanımı'
+      || generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Damar bozuklukları' || generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Beyin kanamaları'"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'örn.: Bebeklikte inme geçirme, pıhtı atması vb',
                  maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Durumun açıklaması gerekli"></dxi-validation-rule>
@@ -450,7 +458,7 @@
         <dxo-label location="top" [visible]="true" text="Botilinum toksin (Botox) enjeksiyonu oldu mu?"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="lastBotoxDate" editorType="dxDateBox" [visible]="generalEvaluationForm.isBotoxTreatment"
+      <dxi-item dataField="botoxTreatment.lastBotoxDate" editorType="dxDateBox" [visible]="generalEvaluationForm.isBotoxTreatment"
                 [editorOptions]="lastBotoxDateOption">
         <dxi-validation-rule type="required" message="Botoks tarihi girilmeli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="En son ne zaman?"></dxo-label>
@@ -458,7 +466,7 @@
 
       <dxi-item [alignItemLabels]="true" itemType="group" [visible]="generalEvaluationForm.isBotoxTreatment">
         <dxo-label location="top" [visible]="true" text="Botoks Enjeksiyon Raporu"></dxo-label>
-        <dxi-item dataField="botoxRecordUrl" [template]="'botoxFileUploaderTemplate'">
+        <dxi-item dataField="botoxTreatment.botoxRecordUrl" [template]="'botoxFileUploaderTemplate'">
         </dxi-item>
         <div *dxTemplate="let data of 'botoxFileUploaderTemplate'">
           <div class="fileuploader-container">
@@ -904,17 +912,104 @@
   </dxi-item>
 
 
-  <!--Eşlik Eden Problemler-->
+  <!--8. Eşlik Eden Problemler-->
   <dxi-item [alignItemLabels]="true" itemType="group" caption="8. Eşlik Eden Problemler" [colCount]="2">
 
     <!--Left group-->
     <dxi-item [alignItemLabels]="true" itemType="group">
 
+      <dxi-item
+        dataField="isVisualImpairment"
+        editorType="dxRadioGroup"
+        [editorOptions]="isVisualImpairmentOption">
+        <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Görme Problemi var mı?"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="visualimpairment.information" editorType="dxTextArea" [visible]="generalEvaluationForm.isVisualImpairment"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 80}">
+        <dxi-validation-rule type="required" message="Görme probleminin ne olduğunu gerekli"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Görme probleminin ne olduğunu yazınız"></dxo-label>
+      </dxi-item>
+
+      <dxi-item
+        dataField="isHearingImpairment"
+        editorType="dxRadioGroup"
+        [editorOptions]="isVisualImpairmentOption">
+        <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Görme Problemi var mı?"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="visualimpairment.information" editorType="dxTextArea" [visible]="generalEvaluationForm.isHearingImpairment"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 80}">
+        <dxi-validation-rule type="required" message="Görme probleminin ne olduğunu gerekli"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Görme probleminin ne olduğunu yazınız"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="epilepsy.epilepsySituation" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', placeholder: 'Seçiniz...',
+                             dataSource: epilepsySelectBoxList, valueExpr: 'value', displayExpr: 'name'}">
+        <dxi-validation-rule type="required" message="Epilepsi gerekli">
+        </dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Epilepsi"></dxo-label>
+      </dxi-item>
+
     </dxi-item>
 
     <!--Right group-->
     <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="mentalProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Bilişsel Problem"></dxo-label>
+        </dxi-item>
+      </dxi-item>
 
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="hearingProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Duyu Problemi"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="behaviorProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Davranış Problemi"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="behaviorProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Davranış Problemi"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="speakingProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Konuşma Problemi"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="sleepingProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Uyku Problemi"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="swallowProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Yutma Problemi"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="hipProblemCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Kalça Problemi"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item editorType="dxCheckBox" [editorOptions]="skolyozCheckBoxOptions">
+          <dxo-label location="left" [visible]="true" text="Skolyoz"></dxo-label>
+        </dxi-item>
+      </dxi-item>
     </dxi-item>
 
   </dxi-item>
@@ -949,20 +1044,13 @@
 
           <dxi-item [alignItemLabels]="true" itemType="group">
 
-            <dxi-item [dataField]="'expectationsAboutProgramCollection[' + i + '].expectaitionContent'" editorType="dxTextArea"
+            <dxi-item [dataField]="'expectationsAboutProgramCollection[' + i + '].expectationContent'" editorType="dxTextArea"
                       [editorOptions]="expectationsAboutProgramOptions[i][0]">
               <dxi-validation-rule type="required" message="İlaç ismi gerekli"></dxi-validation-rule>
               <dxo-label
                 [text]="(i + 1)+'. '" location="top" [visible]="true" >
               </dxo-label>
             </dxi-item>
-
-<!--            <dxi-item dataField="address" editorType="dxTextArea"-->
-<!--                      [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 100}">-->
-<!--              <dxi-validation-rule type="required" message="Adres gerekli"></dxi-validation-rule>-->
-<!--              <dxo-label location="top" [visible]="true" text="Adres"></dxo-label>-->
-<!--            </dxi-item>-->
-
           </dxi-item>
 
           <dxi-item [alignItemLabels]="true" itemType="group" >
