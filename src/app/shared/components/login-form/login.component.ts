@@ -9,6 +9,7 @@ import {AuthenticationService} from '../../../security/authentication.service';
 import {DxButtonModule} from 'devextreme-angular';
 import {TokenDto} from '../../../models/tokendto';
 import {Role} from '../../../models/role';
+import {DxiButtonModule} from "devextreme-angular/ui/nested";
 
 
 @Component({
@@ -28,6 +29,20 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+
+  passwordMode = 'password';
+  passwordButtonList = [{
+    name: "trash",
+    location: "after",
+    options: {
+      stylingMode: "text",
+      icon: "fas fa-eye",
+      type: "default",
+      onClick: () => {
+        this.passwordMode = this.passwordMode === "text" ? "password" : "text";
+      }
+    }
+  }];
 
   currentUser: TokenDto;
 
@@ -101,7 +116,8 @@ export class LoginComponent implements OnInit {
     RouterModule,
     DxFormModule,
     DxLoadIndicatorModule,
-    DxButtonModule
+    DxButtonModule,
+    DxiButtonModule
   ],
   declarations: [ LoginComponent ],
   exports: [ LoginComponent ]

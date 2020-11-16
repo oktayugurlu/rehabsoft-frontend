@@ -2,9 +2,16 @@ import {AppliedSurgery} from './appliedsurgery';
 import {OrthesisInfo} from './orthesisinfo';
 import {OtherOrthesisInfo} from './otherorthesisinfo';
 import {UsedMedicine} from './usedmedicine';
-import {CoexistingDiseases} from './CoexistingDisease';
+import {CoexistingDiseases} from './coexistingdisease';
 import {ExpectationsAboutProgram} from './expectationsaboutprogram';
 import {DiseaseOfMotherPregnancy} from "./diseaseofmotherpregnancy";
+import {Hyperbilirubinemia} from "./hyperbilirubinemia";
+import {AfterBirthReasonCerebralPalsy} from "./afterbirthreasoncerebralpalsy";
+import {BotoxTreatment} from "./botoxtreatment";
+import {VisualImpairment} from "./visualimpairment";
+import {HearingImpairment} from "./hearingimpairment";
+import {Epilepsy} from "./epilepsy";
+import {PhysiotherapyPast} from "./physiotherapypast";
 
 export class GeneralEvaluationForm {
 
@@ -54,20 +61,16 @@ export class GeneralEvaluationForm {
   isHypoglycaemia: boolean
 
   //DiseaseOfMotherPregnancy
-  diseaseName: string;
+  diseaseOfMotherPregnancy: DiseaseOfMotherPregnancy;
 
   //Hyperbilirubinemia
-  isPhototeraphy: boolean;
-  hospitalDayTime: number;
+  hyperbilirubinemia: Hyperbilirubinemia;
 
   //AfterBirthReasonCerebralPalsy
-  occuringMonth: number;
-  cause: string;
-  causeInfo: string;
+  afterBirthReasonCerebralPalsy: AfterBirthReasonCerebralPalsy;
 
   //Botox_Treatment
-  lastBotoxDate: Date;
-  botoxRecordUrl: string;
+  botoxTreatment: BotoxTreatment;
 
   /*
     Many to Many ve.þ Many-To-Onelar buraya geecek
@@ -83,13 +86,19 @@ export class GeneralEvaluationForm {
   coexistingDiseasesCollection: CoexistingDiseases[];
 
   //VisualImpairement
-  information: string;
+  visualimpairment: VisualImpairment;
 
   //OneTomany
 
   //HearingImpairment
-  isUseHearingAid: string;
+  hearingImpairment: HearingImpairment;
 
   //ExpectationsAboutProgram
   expectationsAboutProgramCollection: ExpectationsAboutProgram[];
+
+  //Epilepsy
+  epilepsy: Epilepsy
+
+  //Physioterapy Past
+  physiotherapyPast: PhysiotherapyPast
 }
