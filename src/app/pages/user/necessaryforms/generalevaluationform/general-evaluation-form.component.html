@@ -1034,18 +1034,11 @@
 
       <!--one orthesis item-->
       <dxi-item itemType="group" colCount="2">
-        <dxi-item itemType="group">
-          <dxi-item [visible]="generalEvaluationForm.isPhysiotherapyPast">
-            <dxo-label location="left" [visible]="true" text="Hangi FTR Merkezlerinde?"></dxo-label>
-          </dxi-item>
+        <dxi-item editorType="dxCheckBox" [editorOptions]="specialEducationCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
+          <dxo-label location="left" [visible]="true" text="Hangi FTR Merkezleri"></dxo-label>
         </dxi-item>
-        <dxi-item itemType="group" colCount="2">
-          <dxi-item editorType="dxCheckBox" [editorOptions]="specialEducationCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
-            <dxo-label location="left" [visible]="false" text="Özel eğitim ve rehabilitasyon merkezi"></dxo-label>
-          </dxi-item>
-          <dxi-item editorType="dxCheckBox" [editorOptions]="medicineCenterCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
-            <dxo-label location="left" [visible]="false" text="Tıp merkezi-hastane"></dxo-label>
-          </dxi-item>
+        <dxi-item editorType="dxCheckBox" [editorOptions]="medicineCenterCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
+          <dxo-label location="left" [visible]="false" text="Tıp merkezi-hastane"></dxo-label>
         </dxi-item>
       </dxi-item>
       <!--one orthesis item-->
