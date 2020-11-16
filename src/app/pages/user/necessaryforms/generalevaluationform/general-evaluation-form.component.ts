@@ -1006,16 +1006,16 @@ export class GeneralEvaluationFormComponent implements OnInit {
     this.submitted = true;
     this.loading = true;
 
-    this.authenticationService.register(this.generalEvaluationForm)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+    // this.authenticationService.register(this.generalEvaluationForm)
+    //   .pipe(first())
+    //   .subscribe(
+    //     data => {
+    //       this.router.navigate(['/login']);
+    //     },
+    //     error => {
+    //       this.error = error;
+    //       this.loading = false;
+    //     });
   }
 
   //--------- event handlers to add One-to-Many relation objects ----------//
