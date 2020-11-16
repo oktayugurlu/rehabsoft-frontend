@@ -20,6 +20,7 @@ import {BotoxTreatment} from "../../../../models/generalevaluationform/botoxtrea
 import {VisualImpairment} from "../../../../models/generalevaluationform/visualimpairment";
 import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
 import {Epilepsy} from "../../../../models/generalevaluationform/epilepsy";
+import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 
 @Component({
   selector: 'app-general-evaluation-form',
@@ -56,7 +57,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
     displayFormat:"shortdate",
   }
 
-  ////************** For 2 Collections in GeneralEvaluationForm ****************/////
+  ////************** For 2 Collections in GeneralEvaluationForm bunlar sonra submitte tek tek kontrol edilip oyle collectionlarina set edilecek****************/////
   // Orthesis checkbox options
   isOrthesisMap = [
     {name: 'Tabanlık', value: false},
@@ -426,7 +427,28 @@ export class GeneralEvaluationFormComponent implements OnInit {
       this.coexistingDiseaseMap[7].value = event.component.option("value");
     }
   }
-  ////************** For 2 Collections in GeneralEvaluationForm end ****************/////
+
+  /// PhysiotherapyCenter in PhysiotherapyPast
+  physiotherapyCenterMap = [
+    {name: 'Özel eğitim ve rehabilitasyon merkezi', value: false},
+    {name: 'Tıp merkezi-hastane', value: false},
+  ];
+  specialEducationCheckBoxOptions = {
+    value: null,
+    text: 'Özel eğitim ve rehabilitasyon merkezi',
+    onValueChanged: (event)=>{
+      this.physiotherapyCenterMap[0].value = event.component.option("value");
+    }
+  }
+  medicineCenterCheckBoxOptions = {
+    value: null,
+    text: 'Tıp merkezi-hastane',
+    onValueChanged: (event)=>{
+      this.physiotherapyCenterMap[1].value = event.component.option("value");
+    }
+  }
+
+  ////************** For 2 Collections in GeneralEvaluationForm and 1 collection in field end ****************/////
 
 
   // Forms
@@ -448,10 +470,18 @@ export class GeneralEvaluationFormComponent implements OnInit {
     isSleptHospitalForHyperbilirubinemia: true,
     isAfterBirthReasonCerebralPalsy: true,
     isBotoxTreatment: true,
+    isPhysiotherapyPast: true,
 
     // orthesis variables, should be deleted and reformatted before submit
     isOrthesisMap: this.isOrthesisMap,
     orthesisMap: this.orthesisMap,
+
+    // for selected cause of after birth cerebral parcy. bir sebep secilirse ona ozel aciklama itemi olusuyor. onu visible yapmak icin.
+    isTraumaVisible: false,
+    isBrainTumour: false,
+    isAfterSurgerySituation: false,
+    isBloodCirculation: false,
+    isBrainBleedingOrBloodCirculationOrVascularDisorder: false,
 
     // 1. Demografik Bilgiler
     gender: null,
@@ -535,7 +565,10 @@ export class GeneralEvaluationFormComponent implements OnInit {
     expectationsAboutProgramCollection: [],
 
     //Epilepsy
-    epilepsy: new Epilepsy()
+    epilepsy: new Epilepsy(),
+
+    //Physioterapy Past
+    physiotherapyPast: new PhysiotherapyPast()
   };
   currentUser: TokenDto;
 
@@ -865,6 +898,19 @@ export class GeneralEvaluationFormComponent implements OnInit {
         this.generalEvaluationForm.hearingImpairment = new HearingImpairment();
     }
   };
+  isPhysiotherapyPastList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isPhysiotherapyPastOption = {
+    dataSource: this.isPhysiotherapyPastList,
+    layout:"horizontal",
+    valueExpr: 'value',
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value)
+        this.generalEvaluationForm.physiotherapyPast = null;
+      else
+        this.generalEvaluationForm.physiotherapyPast = new PhysiotherapyPast();
+    }
+  };
 
 
   //--------- variables to add One-to-Many relation objects ----------//
@@ -1126,5 +1172,14 @@ export class GeneralEvaluationFormComponent implements OnInit {
     console.log(event.value);
   }
 
-
+  handleClickCauseForAfterBirthReasonCerebralPalsy = (event) => {
+    if(event.value === "Travma")
+      this.generalEvaluationForm.isTraumaVisible = true;
+    if(event.value === "Beyin tümörleri")
+      this.generalEvaluationForm.isBrainTumour = true;
+    if(event.value === "Cerrahi sonrası durumlar")
+      this.generalEvaluationForm.isAfterSurgerySituation = true;
+    if(event.value === "Kan dolanımı" || event.value === "Damar bozuklukları" || event.value === "Beyin kanamaları")
+      this.generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder = true;
+  }
 }

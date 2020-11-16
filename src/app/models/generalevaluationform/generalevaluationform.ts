@@ -11,6 +11,7 @@ import {BotoxTreatment} from "./botoxtreatment";
 import {VisualImpairment} from "./visualimpairment";
 import {HearingImpairment} from "./hearingimpairment";
 import {Epilepsy} from "./epilepsy";
+import {PhysiotherapyPast} from "./physiotherapypast";
 
 export class GeneralEvaluationForm {
 
@@ -97,4 +98,7 @@ export class GeneralEvaluationForm {
 
   //Epilepsy
   epilepsy: Epilepsy
+
+  //Physioterapy Past
+  physiotherapyPast: PhysiotherapyPast
 }

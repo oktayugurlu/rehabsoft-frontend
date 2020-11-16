@@ -404,32 +404,31 @@
       </dxi-item>
 
       <dxi-item dataField="afterBirthReasonCerebralPalsy.cause" editorType="dxSelectBox" [visible]="generalEvaluationForm.isAfterBirthReasonCerebralPalsy"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: 'Seçiniz...', dataSource: causesOfAfterBirthCerebralPalsyList, valueExpr: 'value', displayExpr: 'name'}">
+                [editorOptions]="{ onValueChanged: handleClickCauseForAfterBirthReasonCerebralPalsy, stylingMode: 'outlined', placeholder: 'Seçiniz...', dataSource: causesOfAfterBirthCerebralPalsyList, valueExpr: 'value', displayExpr: 'name'}">
         <dxi-validation-rule type="required" message="Nedeni gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Varsa Nedeni"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Travma'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.isTraumaVisible"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'örn.: Yüksekten düşme, araç iç/dışı trafik kazası, kafa travması', maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Travma açıklaması gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Travma Açıklaması"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Beyin tümörleri'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.isBrainTumour"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Beyin tümörü tipi gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Beyin Tümörü Tipi"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Cerrahi sonrası durumlar'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.isAfterSurgerySituation"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'örn.: Cerrahi sırasında kalp durması, anesteziye bağlı gelişen anaflaksi/şok',
                  maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Durumun açıklaması gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Durumun Açıklaması"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Kan dolanımı'
-      || generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Damar bozuklukları' || generalEvaluationForm.afterBirthReasonCerebralPalsy.cause === 'Beyin kanamaları'"
+      <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea" [visible]="generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'örn.: Bebeklikte inme geçirme, pıhtı atması vb',
                  maxLength:1000, minHeight: 60}">
         <dxi-validation-rule type="required" message="Durumun açıklaması gerekli"></dxi-validation-rule>
@@ -935,7 +934,7 @@
       <dxi-item
         dataField="isHearingImpairment"
         editorType="dxRadioGroup"
-        [editorOptions]="isVisualImpairmentOption">
+        [editorOptions]="isHearingImpairmentOption">
         <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Görme Problemi var mı?"></dxo-label>
       </dxi-item>
@@ -1019,6 +1018,37 @@
 
     <!--Left group-->
     <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item
+        dataField="isPhysiotherapyPast"
+        editorType="dxRadioGroup"
+        [editorOptions]="isPhysiotherapyPastOption">
+        <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Fizyoterapi"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="physiotherapyPast.numberOfWeeklySession" editorType="dxNumberBox" [visible]="generalEvaluationForm.isPhysiotherapyPast"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:1000, showSpinButtons:true}">
+        <dxi-validation-rule type="required" message="Bu alan gerekli"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Haftalık seans sayısı" ></dxo-label>
+      </dxi-item>
+
+      <!--one orthesis item-->
+      <dxi-item itemType="group" colCount="2">
+        <dxi-item itemType="group">
+          <dxi-item [visible]="generalEvaluationForm.isPhysiotherapyPast">
+            <dxo-label location="left" [visible]="true" text="Hangi FTR Merkezlerinde?"></dxo-label>
+          </dxi-item>
+        </dxi-item>
+        <dxi-item itemType="group" colCount="2">
+          <dxi-item editorType="dxCheckBox" [editorOptions]="specialEducationCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
+            <dxo-label location="left" [visible]="false" text="Özel eğitim ve rehabilitasyon merkezi"></dxo-label>
+          </dxi-item>
+          <dxi-item editorType="dxCheckBox" [editorOptions]="medicineCenterCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
+            <dxo-label location="left" [visible]="false" text="Tıp merkezi-hastane"></dxo-label>
+          </dxi-item>
+        </dxi-item>
+      </dxi-item>
+      <!--one orthesis item-->
 
     </dxi-item>
 
