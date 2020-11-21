@@ -21,6 +21,7 @@ import {VisualImpairment} from "../../../../models/generalevaluationform/visuali
 import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
 import {Epilepsy} from "../../../../models/generalevaluationform/epilepsy";
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
+import {PhysiotheraphyCentral} from "../../../../models/generalevaluationform/physiotheraphycentral";
 
 @Component({
   selector: 'app-general-evaluation-form',
@@ -31,10 +32,12 @@ export class GeneralEvaluationFormComponent implements OnInit {
   @ViewChild("eventRadioGroupMultiplePregnancy") eventRadioGroup: DxRadioGroupComponent;
   @ViewChild("dxFileUploaderComponentBotoxReport") eventBotoxReport: DxFileUploaderComponent;
 
+  botoxImage:File;
+
   loading = false;
   error = '';
   submitted = false;
-  submitbuttonOptions:any = {useSubmitBehavior: false, text: 'Gönder', onClick: (Event)=>this.register(Event),
+  submitbuttonOptions:any = {useSubmitBehavior: false, text: 'Gönder', onClick: (Event)=>this.submit(Event),
     width: '130px',type:"default", icon: 'fas fa-check-circle',};
   backbuttonOptions:any = {useSubmitBehavior: false, text: 'Geri', onClick: ()=>this.goBackForm(),
     icon: 'fas fa-arrow-circle-left', width: '130px',stylingMode:"outlined", type:"outlined", style:"text-align:left"};
@@ -47,7 +50,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     // min:"minDate",
     // max:"now",
     // value:"now",
-    onValueChanged:(event)=>{},
+    onValueChanged: (event)=>{
+      console.log(this.generalEvaluationForm.birthDate);
+    }
     // disabledDates:"getDisabledDates"
   };
   lastBotoxDateOption = {
@@ -55,6 +60,8 @@ export class GeneralEvaluationFormComponent implements OnInit {
     showClearButton:"true",
     useMaskBehavior:"true",
     displayFormat:"shortdate",
+    onValueChanged:(event)=>{
+    }
   }
 
   ////************** For 2 Collections in GeneralEvaluationForm bunlar sonra submitte tek tek kontrol edilip oyle collectionlarina set edilecek****************/////
@@ -456,21 +463,22 @@ export class GeneralEvaluationFormComponent implements OnInit {
     'nameSurname': null,
     'address': null,
 
-    // radiobutton variables for extra information in general eva. form. Hepsini null giricez daha sonra
-    isMultiplePregnancy: true,
-    isApgarScoreKnown: true,
-    isPregnancyInfectionInfo: true,
-    isPregnancyMedicineUsageInfo: true,
-    isIntensiveCare: true,
-    isVisualImpairment: true,
-    isHearingImpairment: true,
+    // radiobutton variables for extra information in general eva. form. page to make visible some content on html
+    // Hepsini null giricez daha sonra
+    isMultiplePregnancy: false,
+    isApgarScoreKnown: false,
+    isPregnancyInfectionInfo: false,
+    isPregnancyMedicineUsageInfo: false,
+    isIntensiveCare: false,
+    isVisualImpairment: false,
+    isHearingImpairment: false,
 
     // radiobutton variables to create new object like Hyperbilirubinemia to save in Collection
-    isHyperbilirubinemia: true,
-    isSleptHospitalForHyperbilirubinemia: true,
-    isAfterBirthReasonCerebralPalsy: true,
-    isBotoxTreatment: true,
-    isPhysiotherapyPast: true,
+    isHyperbilirubinemia: false,
+    isSleptHospitalForHyperbilirubinemia: false,
+    isAfterBirthReasonCerebralPalsy: false,
+    isBotoxTreatment: false,
+    isPhysiotherapyPast: false,
 
     // orthesis variables, should be deleted and reformatted before submit
     isOrthesisMap: this.isOrthesisMap,
@@ -669,6 +677,14 @@ export class GeneralEvaluationFormComponent implements OnInit {
       name: "Var ilaca dirençli",
       value: "Var ilaca dirençli"
     }];
+  genderSelectBoxList= [
+    {
+      name: "Erkek",
+      value: "Erkek"
+    },{
+      name: "Kız",
+      value: "Kız"
+    }];
 
 
 
@@ -762,7 +778,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
       if(!event.value)
         this.generalEvaluationForm.pregnancyMedicineUsageInfo = null;
       else
-        this.generalEvaluationForm.pregnancyMedicineUsageInfo = new AfterBirthReasonCerebralPalsy();
+        this.generalEvaluationForm.pregnancyMedicineUsageInfo = "";
     }
   };
   isPregnancyDrinkingList = [{name:'Var', value: true},{name:'Yok', value: false}];
@@ -941,7 +957,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
   otherOrthesisOptions: any[] = [];
   addOtherOrthesisButtonOptions: any = {
     icon: "add",
-    text: "Cerrahi Ekle",
+    text: "Ekle",
     onClick: () => {
       if(this.generalEvaluationForm.otherOrthesisInfoCollection === null)
         this.generalEvaluationForm.otherOrthesisInfoCollection = [];
@@ -954,7 +970,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
   usedMedicineOptions: any[] = [];
   addUsedMedicineButtonOptions: any = {
     icon: "add",
-    text: "Cerrahi Ekle",
+    text: "İlaç Ekle",
     onClick: () => {
       if(this.generalEvaluationForm.usedMedicineCollection === null)
         this.generalEvaluationForm.usedMedicineCollection = [];
@@ -992,30 +1008,135 @@ export class GeneralEvaluationFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  register(event) {
-    console.log(this.generalEvaluationForm.appliedSurgeryCollection[0].surgeryName);
+  submit(event) {
+
+    // this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString();
+    console.log("date: ", this.generalEvaluationForm );
+    this.userService.postGeneralEvaluationForm(this.generalEvaluationForm, this.botoxImage)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate(['/user/home']);
+        },
+        error => {
+          console.log(error)
+          this.error = error;
+          this.loading = false;
+        });
+    this.userService.patient.subscribe(patient=>{
+      console.log("patient",patient);
+    });
     // stop here if form is invalid
     if (!event.validationGroup.validate().isValid) {
       return;
     }
 
-    // to add correspond fied into patient
-    this.fillPatientAddress();
 
+    // to add correspond fied into patient and general evaluation form
+    this.fillPatientAddress();
+    this.generalEvaluationForm.orthesisInfoCollection = this.generateOrthesisCollection();
+    this.generalEvaluationForm.coexistingDiseasesCollection = this.generateCoexistingDiseaseCollection();
+    this.generatePhysioteraphyPast();
+    this.cleanGeneralEvaluationFormFromBoolean();
+
+    //change date values to remove ISO
+    let datee = new Date(this.generalEvaluationForm.birthDate);
+    this.generalEvaluationForm.birthDate = datee.toISOString();
+
+    if(this.generalEvaluationForm.botoxTreatment !==null){
+      datee = new Date(this.generalEvaluationForm.botoxTreatment.lastBotoxDate);
+      this.generalEvaluationForm.botoxTreatment.lastBotoxDate = datee.toISOString();
+    }
+    if(this.generalEvaluationForm.appliedSurgeryCollection !==null)
+      this.generalEvaluationForm.appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
+        datee = new Date(this.generalEvaluationForm.botoxTreatment.lastBotoxDate);
+        this.generalEvaluationForm.appliedSurgeryCollection[index].applyingDate = datee.toISOString();
+      });
+
+    console.log(this.generalEvaluationForm);
 
     this.submitted = true;
     this.loading = true;
 
-    // this.authenticationService.register(this.generalEvaluationForm)
+    // this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
     //   .pipe(first())
     //   .subscribe(
     //     data => {
-    //       this.router.navigate(['/login']);
+    //       this.router.navigate(['/user/home']);
     //     },
     //     error => {
     //       this.error = error;
     //       this.loading = false;
     //     });
+  }
+
+  generateOrthesisCollection = ():OrthesisInfo[] =>{
+    let orthesisCollectionForField: OrthesisInfo[] = [];
+    this.generalEvaluationForm.isOrthesisMap.forEach( isOrthesis=>{
+      if(isOrthesis.value){
+        let orthesisInfo = new OrthesisInfo(this.orthesisMap.get(isOrthesis.name).get("left"),
+          this.orthesisMap.get(isOrthesis.name).get("right"), isOrthesis.name);
+        orthesisCollectionForField.push(orthesisInfo);
+      }
+    });
+    delete this.generalEvaluationForm.isOrthesisMap;
+    delete this.generalEvaluationForm.orthesisMap;
+    return orthesisCollectionForField;
+  }
+
+  generateCoexistingDiseaseCollection = ():CoexistingDiseases[] =>{
+    let coexistingDiseasesCollectionForField:CoexistingDiseases[] = [];
+    this.coexistingDiseaseMap.forEach( isCoexistingDisease=>{
+      if(isCoexistingDisease.value){
+        let coexistingDisease = new CoexistingDiseases(isCoexistingDisease.name);
+        coexistingDiseasesCollectionForField.push(coexistingDisease);
+      }
+    });
+
+    return coexistingDiseasesCollectionForField;
+  }
+
+  generatePhysioteraphyPast = ():PhysiotherapyPast => {
+    let physiotherapyPasts:PhysiotherapyPast = new PhysiotherapyPast();
+    physiotherapyPasts.physiotheraphyCentralCollection = [];
+    if(this.generalEvaluationForm.isPhysiotherapyPast){
+      physiotherapyPasts.numberOfWeeklySession = this.generalEvaluationForm.physiotherapyPast.numberOfWeeklySession;
+      if(this.physiotherapyCenterMap[0].value){
+        let physiotheraphyCentral = new PhysiotheraphyCentral(this.physiotherapyCenterMap[0].name);
+        physiotherapyPasts.physiotheraphyCentralCollection.push(physiotheraphyCentral);
+      }
+      if(this.physiotherapyCenterMap[1].value){
+        let physiotheraphyCentral = new PhysiotheraphyCentral(this.physiotherapyCenterMap[1].name);
+        physiotherapyPasts.physiotheraphyCentralCollection.push(physiotheraphyCentral);
+      }
+    }
+    delete this.generalEvaluationForm.isPhysiotherapyPast;
+
+    return physiotherapyPasts;
+  }
+
+  cleanGeneralEvaluationFormFromBoolean = () =>{
+    delete this.generalEvaluationForm.isMultiplePregnancy;
+    delete this.generalEvaluationForm.isApgarScoreKnown;
+    delete this.generalEvaluationForm.isPregnancyInfectionInfo;
+    delete this.generalEvaluationForm.isPregnancyMedicineUsageInfo;
+    delete this.generalEvaluationForm.isIntensiveCare;
+    delete this.generalEvaluationForm.isVisualImpairment;
+    delete this.generalEvaluationForm.isHearingImpairment;
+    delete this.generalEvaluationForm.isHyperbilirubinemia;
+    delete this.generalEvaluationForm.isSleptHospitalForHyperbilirubinemia;
+    delete this.generalEvaluationForm.isAfterBirthReasonCerebralPalsy;
+    delete this.generalEvaluationForm.isBotoxTreatment;
+    delete this.generalEvaluationForm.isPhysiotherapyPast;
+    delete this.generalEvaluationForm.isTraumaVisible;
+    delete this.generalEvaluationForm.isBrainTumour;
+    delete this.generalEvaluationForm.isAfterSurgerySituation;
+    delete this.generalEvaluationForm.isBloodCirculation;
+    delete this.generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder;
+    delete this.generalEvaluationForm.isPhysiotherapyPast;
+    delete this.generalEvaluationForm.isPhysiotherapyPast;
+    delete this.generalEvaluationForm.nameSurname;
+    delete this.generalEvaluationForm.address;
   }
 
   //--------- event handlers to add One-to-Many relation objects ----------//
@@ -1163,7 +1284,8 @@ export class GeneralEvaluationFormComponent implements OnInit {
 
   // image uploader
   uploadBotoxReport = (event) => {
-    console.log(event.value);
+    // console.log("uploadBotoxReport: ", event.value);
+    this.botoxImage = event.target.files[0];
   }
   uploadAppliedsSuergeryEpicrysisImage = (event) => {
     console.log(event.value);
@@ -1173,13 +1295,30 @@ export class GeneralEvaluationFormComponent implements OnInit {
   }
 
   handleClickCauseForAfterBirthReasonCerebralPalsy = (event) => {
-    if(event.value === "Travma")
+    if(event.value === "Travma"){
       this.generalEvaluationForm.isTraumaVisible = true;
-    if(event.value === "Beyin tümörleri")
+      this.generalEvaluationForm.isBrainTumour = false;
+      this.generalEvaluationForm.isAfterSurgerySituation = false;
+      this.generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder = false;
+    }
+    if(event.value === "Beyin tümörleri"){
       this.generalEvaluationForm.isBrainTumour = true;
-    if(event.value === "Cerrahi sonrası durumlar")
+      this.generalEvaluationForm.isTraumaVisible = false;
+      this.generalEvaluationForm.isAfterSurgerySituation = false;
+      this.generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder = false;
+
+    }
+    if(event.value === "Cerrahi sonrası durumlar"){
       this.generalEvaluationForm.isAfterSurgerySituation = true;
-    if(event.value === "Kan dolanımı" || event.value === "Damar bozuklukları" || event.value === "Beyin kanamaları")
+      this.generalEvaluationForm.isBrainTumour = false;
+      this.generalEvaluationForm.isTraumaVisible = false;
+      this.generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder = false;
+    }
+    if(event.value === "Kan dolanımı" || event.value === "Damar bozuklukları" || event.value === "Beyin kanamaları"){
       this.generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder = true;
+      this.generalEvaluationForm.isAfterSurgerySituation = false;
+      this.generalEvaluationForm.isBrainTumour = false;
+      this.generalEvaluationForm.isTraumaVisible = false;
+    }
   }
 }
