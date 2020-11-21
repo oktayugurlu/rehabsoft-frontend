@@ -14,10 +14,11 @@
         <dxo-label location="top" [visible]="true" text="Çocuğun Adı Soyadı" ></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="gender" editorType="dxTextBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:200}">
-        <dxi-validation-rule type="required" message="Bu alan gerekli"></dxi-validation-rule>
-        <dxo-label location="top" [visible]="true" style="max-width: 2px" text="Cinsiyeti"></dxo-label>
+      <dxi-item dataField="gender" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', placeholder: 'Seçiniz...',
+                             dataSource: genderSelectBoxList, valueExpr: 'value', displayExpr: 'name'}">
+        <dxi-validation-rule type="required" message="Cinsiyet gerekli">
+        </dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Cinsiyet"></dxo-label>
       </dxi-item>
 
       <dxi-item dataField="address" editorType="dxTextArea"
@@ -44,7 +45,7 @@
 
 
       <dxi-item dataField="whichChild" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: 'Kaçıncı Çocuk', min:0, max:2147483647, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: 'Kaçıncı Çocuk', min:1, max:2147483647, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Kaçıncı çocuk bilgisi gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Kaçıncı Çocuk"></dxo-label>
       </dxi-item>
@@ -57,19 +58,19 @@
     <dxi-item [alignItemLabels]="true" itemType="group">
 
       <dxi-item dataField="heightCm" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:2147483647, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:10, max:2147483647, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Boy gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Boy (cm)"></dxo-label>
       </dxi-item>
 
       <dxi-item dataField="weightGr" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '(örn. 7300 gram)', min:0, max:2147483647, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '(örn. 7300 gram)', min:1000, max:2147483, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Kilo gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Kilo (gr)"></dxo-label>
       </dxi-item>
 
       <dxi-item dataField="headRoundCm" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', length:200, maxLength:200, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:5, max:2147483, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Baş çevresi gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Baş çevresi (cm)"></dxo-label>
       </dxi-item>
@@ -87,7 +88,7 @@
     <!--Left group-->
     <dxi-item [alignItemLabels]="true" itemType="group">
       <dxi-item dataField="mothersGivenBirthAgeYear" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:200, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:1, max:200, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Annenin doğumdaki yaşı gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Annenin Doğumdaki Yaşı"></dxo-label>
       </dxi-item>
@@ -167,7 +168,7 @@
     <!--Left group-->
     <dxi-item [alignItemLabels]="true" itemType="group">
       <dxi-item dataField="birthWeek" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:60, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:1, max:60, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Doğum haftası gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Doğum Haftası"></dxo-label>
       </dxi-item>
@@ -178,12 +179,12 @@
         <dxo-label location="top" [visible]="true" text="Doğum Şekli"></dxo-label>
       </dxi-item>
       <dxi-item dataField="birthWeight" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:10000, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:1, max:10000, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Doğum kilosu gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Doğum Kilosu (gr)"></dxo-label>
       </dxi-item>
       <dxi-item dataField="birthHeadAroundCm" editorType="dxNumberBox"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:10000, showSpinButtons:true}">
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:1, max:10000, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Doğumda baş çevresi gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Doğumda Baş Çevresi (cm)"></dxo-label>
       </dxi-item>
@@ -400,7 +401,7 @@
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:100, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Oluşma zamanı gerekli"></dxi-validation-rule>
         <dxi-validation-rule type="range" [max]="24" message="25 ay sonrasında oluşan nedenler SP olarak kabul edilmez"></dxi-validation-rule>
-        <dxo-label location="top" [visible]="true" text="Oluşma zamanı"></dxo-label>
+        <dxo-label location="top" [visible]="true" text="Oluşma zamanı (ay)"></dxo-label>
       </dxi-item>
 
       <dxi-item dataField="afterBirthReasonCerebralPalsy.cause" editorType="dxSelectBox" [visible]="generalEvaluationForm.isAfterBirthReasonCerebralPalsy"
@@ -465,24 +466,24 @@
 
       <dxi-item [alignItemLabels]="true" itemType="group" [visible]="generalEvaluationForm.isBotoxTreatment">
         <dxo-label location="top" [visible]="true" text="Botoks Enjeksiyon Raporu"></dxo-label>
-        <dxi-item dataField="botoxTreatment.botoxRecordUrl" [template]="'botoxFileUploaderTemplate'">
+        <dxi-item [template]="'botoxFileUploaderTemplate'">
         </dxi-item>
-        <div *dxTemplate="let data of 'botoxFileUploaderTemplate'">
-          <div class="fileuploader-container">
-            <dx-file-uploader #dxFileUploaderComponentBotoxReport
-                              selectButtonText="Raporu resim olarak yükleyin"
-                              labelText=""
-                              accept="image/*"
-                              uploadedMessage="Başarıyla yüklendi"
-                              uploadFailedMessage="Yükleme başarısız"
-                              uploadUrl="https://js.devexpress.com/Content/Services/upload.aspx"
-                              [multiple]="false"
-                              uploadMode="instantly"
-                              (onValueChanged)="uploadBotoxReport($event)"
-            >
-            </dx-file-uploader>
-          </div>
-        </div>
+        <input type="file" (change)="uploadBotoxReport($event)">
+<!--        <div *dxTemplate="let data of 'botoxFileUploaderTemplate'">-->
+<!--          <div class="fileuploader-container">-->
+<!--            <dx-file-uploader #dxFileUploaderComponentBotoxReport-->
+<!--                              selectButtonText="Raporu resim olarak yükleyin"-->
+<!--                              labelText=""-->
+<!--                              accept="image/*"-->
+<!--                              uploadedMessage="Başarıyla yüklendi"-->
+<!--                              uploadFailedMessage="Yükleme başarısız"-->
+<!--                              [multiple]="false"-->
+<!--                              uploadMode="useForm"-->
+<!--                              (onValueChanged)="uploadBotoxReport($event)"-->
+<!--            >-->
+<!--            </dx-file-uploader>-->
+<!--          </div>-->
+<!--        </div>-->
       </dxi-item>
 
     </dxi-item>
@@ -508,7 +509,7 @@
         </dxi-item>
 
         <dxi-item [alignItemLabels]="true" itemType="group">
-          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].appliedDate'" editorType="dxDateBox"
+          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].applyingDate'" editorType="dxDateBox"
                     [editorOptions]="appliedSurgeryOptions[i][1]">
             <dxi-validation-rule type="required" message="Uygulanma tarihi gerekli"></dxi-validation-rule>
             <dxo-label location="top" [visible]="false" text="Uygulanma Tarihi"></dxo-label>
@@ -936,13 +937,13 @@
         editorType="dxRadioGroup"
         [editorOptions]="isHearingImpairmentOption">
         <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
-        <dxo-label location="top" [visible]="true" text="Görme Problemi var mı?"></dxo-label>
+        <dxo-label location="top" [visible]="true" text="Duyma Problemi var mı?"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="visualimpairment.information" editorType="dxTextArea" [visible]="generalEvaluationForm.isHearingImpairment"
+      <dxi-item dataField="hearingImpairment.information" editorType="dxTextArea" [visible]="generalEvaluationForm.isHearingImpairment"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 80}">
-        <dxi-validation-rule type="required" message="Görme probleminin ne olduğunu gerekli"></dxi-validation-rule>
-        <dxo-label location="top" [visible]="true" text="Görme probleminin ne olduğunu yazınız"></dxo-label>
+        <dxi-validation-rule type="required" message="Duyma probleminin ne olduğunu gerekli"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Duyma probleminin ne olduğunu yazınız"></dxo-label>
       </dxi-item>
 
       <dxi-item dataField="epilepsy.epilepsySituation" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', placeholder: 'Seçiniz...',

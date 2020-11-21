@@ -1,4 +1,4 @@
 export class BotoxTreatment{
-  lastBotoxDate: Date;
+  lastBotoxDate: any;
   botoxRecordUrl: string;
 }

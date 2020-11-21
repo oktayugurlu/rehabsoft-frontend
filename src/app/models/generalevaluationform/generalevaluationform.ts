@@ -17,7 +17,7 @@ export class GeneralEvaluationForm {
 
   // 1. Demografik Bilgiler
   gender: string;
-  birthDate: Date;
+  birthDate: any;
   ageAsMonth: number;
   numberOfSiblings: number;
   whichChild: number;
