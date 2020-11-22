@@ -70,7 +70,7 @@ export class UserService {
     if(otherOrthesisInfoCollection !== null ){
       if(otherOrthesisInfoCollection.length>0){
         otherOrthesisInfoCollection.forEach((otherOrthesisInfo,index)=>{
-          if( otherOrthesisInfo.orthesisImageFile !== null){
+          if( !this.checkIsEmpty(otherOrthesisInfo) ){
             payload.append('otherOrthesisImages',
               new Blob([otherOrthesisInfo.orthesisImageFile]),
               otherOrthesisInfo.orthesisName+'.'+otherOrthesisInfo.orthesisImageFile.name.split('.').pop()

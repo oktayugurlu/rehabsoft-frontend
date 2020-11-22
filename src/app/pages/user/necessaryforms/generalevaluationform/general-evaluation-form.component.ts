@@ -909,10 +909,12 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value){
         this.generalEvaluationForm.hearingImpairment = null;
-      else
+      }
+      else{
         this.generalEvaluationForm.hearingImpairment = new HearingImpairment();
+      }
     }
   };
   isPhysiotherapyPastList = [{name:'Var', value: true},{name:'Yok', value: false}];
