@@ -468,22 +468,24 @@
         <dxo-label location="top" [visible]="true" text="Botoks Enjeksiyon Raporu"></dxo-label>
         <dxi-item [template]="'botoxFileUploaderTemplate'">
         </dxi-item>
-        <input type="file" (change)="uploadBotoxReport($event)">
-<!--        <div *dxTemplate="let data of 'botoxFileUploaderTemplate'">-->
-<!--          <div class="fileuploader-container">-->
-<!--            <dx-file-uploader #dxFileUploaderComponentBotoxReport-->
-<!--                              selectButtonText="Raporu resim olarak yükleyin"-->
-<!--                              labelText=""-->
-<!--                              accept="image/*"-->
-<!--                              uploadedMessage="Başarıyla yüklendi"-->
-<!--                              uploadFailedMessage="Yükleme başarısız"-->
-<!--                              [multiple]="false"-->
-<!--                              uploadMode="useForm"-->
-<!--                              (onValueChanged)="uploadBotoxReport($event)"-->
-<!--            >-->
-<!--            </dx-file-uploader>-->
-<!--          </div>-->
-<!--        </div>-->
+<!--        <input type="file" (change)="uploadBotoxReport($event)">-->
+        <div *dxTemplate="let data of 'botoxFileUploaderTemplate'">
+          <div class="fileuploader-container">
+            <dx-file-uploader #dxFileUploaderComponentBotoxReport
+                              selectButtonText="Raporu resim olarak yükleyin"
+                              labelText=""
+                              accept="image/*"
+                              uploadedMessage="Başarıyla yüklendi"
+                              uploadFailedMessage="Yükleme başarısız"
+                              [multiple]="false"
+                              uploadMode="useForm"
+                              (onValueChanged)="uploadBotoxReport($event)"
+                              [allowedFileExtensions]="['.jpg', '.jpeg', '.gif', '.png']"
+                              [maxFileSize]="10000000"
+            >
+            </dx-file-uploader>
+          </div>
+        </div>
       </dxi-item>
 
     </dxi-item>
@@ -517,18 +519,23 @@
         </dxi-item>
 
         <dxi-item [alignItemLabels]="true" itemType="group">
-          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].epicrisisImageUrl'" [template]="'appliedsSuergeryEpicrysisTemplate'">
+          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].epicrisisImageUrl'" [template]="'appliedsSuergeryEpicrysisTemplate'+i"
+                    [editorOptions]="appliedSurgeryOptions[i][3]">
           </dxi-item>
-          <div *dxTemplate="let data of 'appliedsSuergeryEpicrysisTemplate'">
+          <div *dxTemplate="let data of 'appliedsSuergeryEpicrysisTemplate'+i">
             <div class="fileuploader-container-2">
-              <dx-file-uploader selectButtonText="Varsa resimini yükleyin"
-                                labelText=""
-                                accept="image/*"
-                                uploadedMessage="Başarıyla yüklendi"
-                                uploadFailedMessage="Yükleme başarısız"
-                                [multiple]="false"
-                                uploadMode="instantly"
-                                (onValueChanged)="uploadAppliedsSuergeryEpicrysisImage($event)"
+<!--              <input type="file" (change)="uploadAppliedSurgeryReport($event)">-->
+              <dx-file-uploader
+                selectButtonText="Varsa resimini yükleyin"
+                labelText=""
+                accept="image/*"
+                uploadedMessage="Başarıyla yüklendi"
+                uploadFailedMessage="Yükleme başarısız"
+                [multiple]="false"
+                uploadMode="useForm"
+                (onValueChanged)="uploadAppliedSurgeryReport($event, i)"
+                [allowedFileExtensions]="['.jpg', '.jpeg', '.gif', '.png']"
+                [maxFileSize]="10000000"
               >
               </dx-file-uploader>
             </div>
@@ -841,6 +848,8 @@
                                 [multiple]="false"
                                 uploadMode="instantly"
                                 (onValueChanged)="uploadOtherOrthesisImage($event)"
+                                [allowedFileExtensions]="['.jpg', '.jpeg', '.gif', '.png']"
+                                [maxFileSize]="10000000"
               >
               </dx-file-uploader>
             </div>

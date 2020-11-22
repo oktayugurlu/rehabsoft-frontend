@@ -8,6 +8,10 @@ import {TokenDto} from "../../models/tokendto";
 import {Patient} from "../../models/patient";
 import {AuthenticationService} from "../../security/authentication.service";
 import {GeneralEvaluationForm} from "../../models/generalevaluationform/generalevaluationform";
+import {stringify} from "@angular/compiler/src/util";
+import {AppliedSurgery} from "../../models/generalevaluationform/appliedsurgery";
+import {OtherOrthesisInfo} from "../../models/generalevaluationform/otherorthesisinfo";
+import {BotoxTreatment} from "../../models/generalevaluationform/botoxtreatment";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -26,21 +30,71 @@ export class UserService {
       return this.http.get<User>(`${environment.API_BASE_PATH}/users/${id}`);
     }
 
-    postGeneralEvaluationForm(generalEvaluationForm: GeneralEvaluationForm, file:File){
-      // let httpHeaders = new HttpHeaders({
-      //   'Content-Type': 'multipart/form-data'
-      // });
-      console.log("fileaaaaa: ", file);
+    postGeneralEvaluationForm(generalEvaluationForm: GeneralEvaluationForm){
 
       // const uploadImageData = new FormData();
       // uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
 
       const payload = new FormData();
-      payload.append('imageFile', file);
-      payload.append('generalFormDto', JSON.stringify(generalEvaluationForm));
+
+      this.appendBotoxImage(generalEvaluationForm.botoxTreatment, payload);
+      this.appendEpicrisisImagesToFormDataAndAddIndexToURLField(generalEvaluationForm.appliedSurgeryCollection, payload);
+      this.appendOrthesisImagesToFormDataAndAddIndexToURLField(generalEvaluationForm.otherOrthesisInfoCollection, payload);
+
+      payload.append('model', JSON.stringify(generalEvaluationForm));
 
       return this.http.post<GeneralEvaluationForm>(`${environment.API_BASE_PATH}/patient/generalevaluationform/create`, payload, { observe: 'response' });
     }
+
+    appendBotoxImage = (botoxTreatment: BotoxTreatment, payload: FormData) =>{
+      if(botoxTreatment !== null){
+        if(botoxTreatment.botoxRecordFile !== null){
+          console.log(botoxTreatment.botoxRecordFile);
+          payload.append('botoxImageFile', botoxTreatment.botoxRecordFile);
+        }
+      }
+    }
+
+    appendEpicrisisImagesToFormDataAndAddIndexToURLField = (appliedSurgeryCollection: AppliedSurgery[], payload: FormData) =>{
+      if(appliedSurgeryCollection !== null ){
+        if(appliedSurgeryCollection.length>0){
+          let epicrisisImageCounter = 0;
+          appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
+            if( !this.checkIsEmpty(appliedSurgery) ){
+              console.log("eklemeden once name: ", appliedSurgery.epicrisisImageFile.name);
+              appliedSurgery.epicrisisImageFile = new File([appliedSurgery.epicrisisImageFile], appliedSurgery.surgeryName+'.'+appliedSurgery.epicrisisImageFile.name.split('.').pop());
+              console.log("isim degistikten sonra: ", appliedSurgery.epicrisisImageFile);
+              appliedSurgery.epicrisisImageUrl = stringify(epicrisisImageCounter);
+              payload.append('appliedSurgeryEpicrisisImages', appliedSurgery.epicrisisImageFile);
+              epicrisisImageCounter++;
+            }
+          });
+        }
+      }
+    }
+
+  appendOrthesisImagesToFormDataAndAddIndexToURLField = (otherOrthesisInfoCollection: OtherOrthesisInfo[], payload: FormData) =>{
+    let orthesisImageCounter = 0;
+    if(otherOrthesisInfoCollection !== null ){
+      if(otherOrthesisInfoCollection.length>0){
+        otherOrthesisInfoCollection.forEach((otherOrthesisInfo,index)=>{
+          if( otherOrthesisInfo.orthesisImageFile !== null){
+            otherOrthesisInfo.orthesisUrl = stringify(orthesisImageCounter);
+            payload.append('otherOrthesisImages', otherOrthesisInfo.orthesisImageFile);
+            orthesisImageCounter++
+          }
+        });
+      }
+    }
+  }
+
+  checkIsEmpty = (object: any) =>{
+    if(object.epicrisisImageFile === undefined ){
+      return true;
+    }
+    console.log(object.epicrisisImageFile);
+    return object.epicrisisImageFile === null;
+  }
 
 
 
