@@ -22,6 +22,7 @@ import {HearingImpairment} from "../../../../models/generalevaluationform/hearin
 import {Epilepsy} from "../../../../models/generalevaluationform/epilepsy";
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 import {PhysiotheraphyCentral} from "../../../../models/generalevaluationform/physiotheraphycentral";
+import notify from "devextreme/ui/notify";
 
 @Component({
   selector: 'app-general-evaluation-form',
@@ -961,7 +962,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
     onClick: () => {
       if(this.generalEvaluationForm.otherOrthesisInfoCollection === null)
         this.generalEvaluationForm.otherOrthesisInfoCollection = [];
-      this.generalEvaluationForm.otherOrthesisInfoCollection.push(new AppliedSurgery());
+      this.generalEvaluationForm.otherOrthesisInfoCollection.push(new OtherOrthesisInfo());
       this.otherOrthesisOptions = this.getOtherOrthesisOptions(this.generalEvaluationForm.otherOrthesisInfoCollection);
     }
   };
@@ -1010,54 +1011,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
 
   submit(event) {
 
-    this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString().replace('T',' ').slice(0,-5);
-    console.log("date: ", this.generalEvaluationForm );
-    this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['/user/home']);
-        },
-        error => {
-          console.log(error)
-          this.error = error;
-          this.loading = false;
-        });
-    this.userService.patient.subscribe(patient=>{
-      console.log("patient",patient);
-    });
-    // stop here if form is invalid
-    if (!event.validationGroup.validate().isValid) {
-      return;
-    }
-
-
-    // to add correspond fied into patient and general evaluation form
-    this.fillPatientAddress();
-    this.generalEvaluationForm.orthesisInfoCollection = this.generateOrthesisCollection();
-    this.generalEvaluationForm.coexistingDiseasesCollection = this.generateCoexistingDiseaseCollection();
-    this.generatePhysioteraphyPast();
-    this.cleanGeneralEvaluationFormFromBoolean();
-
-    //change date values to remove ISO
-    let datee = new Date(this.generalEvaluationForm.birthDate);
-    this.generalEvaluationForm.birthDate = datee.toISOString().replace('T',' ').slice(0,-5);
-
-    if(this.generalEvaluationForm.botoxTreatment !==null){
-      datee = new Date(this.generalEvaluationForm.botoxTreatment.lastBotoxDate);
-      this.generalEvaluationForm.botoxTreatment.lastBotoxDate = datee.toISOString();
-    }
-    if(this.generalEvaluationForm.appliedSurgeryCollection !==null)
-      this.generalEvaluationForm.appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
-        datee = new Date(this.generalEvaluationForm.botoxTreatment.lastBotoxDate);
-        this.generalEvaluationForm.appliedSurgeryCollection[index].applyingDate = appliedSurgery.applyingDate.toISOString().replace('T',' ').slice(0,-5);
-      });
-
-    console.log(this.generalEvaluationForm);
-
-    this.submitted = true;
-    this.loading = true;
-
+    //******* codes to test start*******//
+    // this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString().replace('T',' ').slice(0,-5);
+    // console.log("date: ", this.generalEvaluationForm );
     // this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
     //   .pipe(first())
     //   .subscribe(
@@ -1065,9 +1021,72 @@ export class GeneralEvaluationFormComponent implements OnInit {
     //       this.router.navigate(['/user/home']);
     //     },
     //     error => {
+    //       console.log(error)
     //       this.error = error;
     //       this.loading = false;
     //     });
+    //******* codes to test start*******//
+
+    // stop here if form is invalid
+    if (!event.validationGroup.validate().isValid) {
+      return;
+    }
+
+
+    // to add correspond fied into patient and general evaluation form
+    this.generalEvaluationForm.orthesisInfoCollection = this.generateOrthesisCollection();
+    this.generalEvaluationForm.coexistingDiseasesCollection = this.generateCoexistingDiseaseCollection();
+    this.generatePhysioteraphyPast();
+
+    this.cleanGeneralEvaluationFormFromBoolean();
+
+    //change date values to remove ISO
+    this.preparingDatesForBackend();
+
+    console.log(this.generalEvaluationForm);
+
+    this.submitted = true;
+    this.loading = true;
+
+
+    // post general evaluation form and patient
+    this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.userService.patient.subscribe(patient=>{
+            console.log("patient",patient);
+            patient.address = this.generalEvaluationForm;
+            this.userService.postPatient(patient)
+              .pipe(first())
+              .subscribe(
+                patientData => {
+                  notify(JSON.stringify(data));
+                },
+                error => {
+                  notify(JSON.stringify(error));
+                }
+              )
+          });
+          this.router.navigate(['/user/home']);
+        },
+        error => {
+          notify(JSON.stringify(error));
+          this.error = error;
+          this.loading = false;
+        });
+  }
+
+  preparingDatesForBackend= () => {
+      this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString().replace('T',' ').slice(0,-5);
+
+      if(this.generalEvaluationForm.botoxTreatment !==null){
+        this.generalEvaluationForm.botoxTreatment.lastBotoxDate = this.generalEvaluationForm.botoxTreatment.lastBotoxDate.toISOString().replace('T',' ').slice(0,-5);
+      }
+      if(this.generalEvaluationForm.appliedSurgeryCollection !==null)
+        this.generalEvaluationForm.appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
+          this.generalEvaluationForm.appliedSurgeryCollection[index].applyingDate = appliedSurgery.applyingDate.toISOString().replace('T',' ').slice(0,-5);
+        });
   }
 
   generateOrthesisCollection = ():OrthesisInfo[] =>{
@@ -1170,19 +1189,6 @@ export class GeneralEvaluationFormComponent implements OnInit {
           this.generalEvaluationForm.appliedSurgeryCollection.splice(index, 1);
           this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
         }
-      },
-      {
-        selectButtonText:"Varsa resimini yükleyin",
-        labelText:"",
-        accept:"image/*",
-        uploadedMessage:"Başarıyla yüklendi",
-        uploadFailedMessage:"Yükleme başarısız",
-        multiple:"false",
-        uploadMode:"useForm",
-        onValueChanged:(event)=>{
-          console.log("applied image yuklendi");
-          this.uploadAppliedSurgeryReport(event, index);
-        }
       }
       ];
   }
@@ -1278,14 +1284,6 @@ export class GeneralEvaluationFormComponent implements OnInit {
   }
   //******* Expectations Event Handlers end *******//
 
-  private fillPatientAddress = ()=>{
-    let newPatient;
-    this.userService.patient.subscribe(patient=>{
-      newPatient = {...patient};
-      newPatient.address = this.generalEvaluationForm.address;
-    });
-  }
-
   goBackForm = () =>{
     this.backStepper.emit();
   }
@@ -1301,11 +1299,10 @@ export class GeneralEvaluationFormComponent implements OnInit {
     this.generalEvaluationForm.botoxTreatment.botoxRecordFile = event.value[0];
   }
   uploadAppliedSurgeryReport = (event, index) => {
-    // event.value[0].name = this.generalEvaluationForm.appliedSurgeryCollection[index].surgeryName;
     this.generalEvaluationForm.appliedSurgeryCollection[index].epicrisisImageFile =  event.value[0];
   }
-  uploadOtherOrthesisImage = (event) => {
-    console.log(event.value);
+  uploadOtherOrthesisImage = (event, index) => {
+    this.generalEvaluationForm.otherOrthesisInfoCollection[index].orthesisImageFile =  event.value[0];
   }
 
   handleClickCauseForAfterBirthReasonCerebralPalsy = (event) => {

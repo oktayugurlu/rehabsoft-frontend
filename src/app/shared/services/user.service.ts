@@ -31,10 +31,6 @@ export class UserService {
     }
 
     postGeneralEvaluationForm(generalEvaluationForm: GeneralEvaluationForm){
-
-      // const uploadImageData = new FormData();
-      // uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-
       const payload = new FormData();
 
       this.appendBotoxImage(generalEvaluationForm.botoxTreatment, payload);
@@ -58,15 +54,12 @@ export class UserService {
     appendEpicrisisImagesToFormDataAndAddIndexToURLField = (appliedSurgeryCollection: AppliedSurgery[], payload: FormData) =>{
       if(appliedSurgeryCollection !== null ){
         if(appliedSurgeryCollection.length>0){
-          let epicrisisImageCounter = 0;
+
           appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
             if( !this.checkIsEmpty(appliedSurgery) ){
               console.log("eklemeden once name: ", appliedSurgery.epicrisisImageFile.name);
-              appliedSurgery.epicrisisImageFile = new File([appliedSurgery.epicrisisImageFile], appliedSurgery.surgeryName+'.'+appliedSurgery.epicrisisImageFile.name.split('.').pop());
-              console.log("isim degistikten sonra: ", appliedSurgery.epicrisisImageFile);
-              appliedSurgery.epicrisisImageUrl = stringify(epicrisisImageCounter);
-              payload.append('appliedSurgeryEpicrisisImages', appliedSurgery.epicrisisImageFile);
-              epicrisisImageCounter++;
+              payload.append('appliedSurgeryEpicrisisImages', new Blob([appliedSurgery.epicrisisImageFile]), appliedSurgery.surgeryName+'.'+appliedSurgery.epicrisisImageFile.name.split('.').pop());
+
             }
           });
         }
@@ -74,14 +67,14 @@ export class UserService {
     }
 
   appendOrthesisImagesToFormDataAndAddIndexToURLField = (otherOrthesisInfoCollection: OtherOrthesisInfo[], payload: FormData) =>{
-    let orthesisImageCounter = 0;
     if(otherOrthesisInfoCollection !== null ){
       if(otherOrthesisInfoCollection.length>0){
         otherOrthesisInfoCollection.forEach((otherOrthesisInfo,index)=>{
           if( otherOrthesisInfo.orthesisImageFile !== null){
-            otherOrthesisInfo.orthesisUrl = stringify(orthesisImageCounter);
-            payload.append('otherOrthesisImages', otherOrthesisInfo.orthesisImageFile);
-            orthesisImageCounter++
+            payload.append('otherOrthesisImages',
+              new Blob([otherOrthesisInfo.orthesisImageFile]),
+              otherOrthesisInfo.orthesisName+'.'+otherOrthesisInfo.orthesisImageFile.name.split('.').pop()
+            );
           }
         });
       }
@@ -94,6 +87,11 @@ export class UserService {
     }
     console.log(object.epicrisisImageFile);
     return object.epicrisisImageFile === null;
+  }
+
+
+  postPatient(patient: Patient){
+    return this.http.post<Patient>(`${environment.API_BASE_PATH}/patient/create`, patient);
   }
 
 

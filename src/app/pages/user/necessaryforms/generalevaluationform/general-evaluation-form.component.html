@@ -519,8 +519,7 @@
         </dxi-item>
 
         <dxi-item [alignItemLabels]="true" itemType="group">
-          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].epicrisisImageUrl'" [template]="'appliedsSuergeryEpicrysisTemplate'+i"
-                    [editorOptions]="appliedSurgeryOptions[i][3]">
+          <dxi-item [dataField]="'appliedSurgeryCollection[' + i + '].epicrisisImageUrl'" [template]="'appliedsSuergeryEpicrysisTemplate'+i">
           </dxi-item>
           <div *dxTemplate="let data of 'appliedsSuergeryEpicrysisTemplate'+i">
             <div class="fileuploader-container-2">
@@ -847,7 +846,7 @@
                                 uploadFailedMessage="Yükleme başarısız"
                                 [multiple]="false"
                                 uploadMode="instantly"
-                                (onValueChanged)="uploadOtherOrthesisImage($event)"
+                                (onValueChanged)="uploadOtherOrthesisImage($event, i)"
                                 [allowedFileExtensions]="['.jpg', '.jpeg', '.gif', '.png']"
                                 [maxFileSize]="10000000"
               >
