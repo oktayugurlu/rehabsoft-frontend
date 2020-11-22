@@ -61,6 +61,7 @@ export class CreateAccountFormComponent {
       .pipe(first())
       .subscribe(
         data => {
+          notify(JSON.stringify(data));
           console.log("/login");
           this.router.navigate(['/login']);
         },
