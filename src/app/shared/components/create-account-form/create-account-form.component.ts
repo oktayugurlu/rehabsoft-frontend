@@ -33,7 +33,8 @@ export class CreateAccountFormComponent {
       firstName: '',
       surname:  '',
       email: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      confirmedPassword: ''
     };
   }
 
@@ -60,16 +61,23 @@ export class CreateAccountFormComponent {
       .pipe(first())
       .subscribe(
         data => {
+          console.log("/login");
           this.router.navigate(['/login']);
         },
         error => {
+          notify(error);
           this.error = error;
           this.loading = false;
         });
   }
 
   confirmPassword = (e: { value: string }) => {
-    return e.value === this.registerForm.password;
+    if(this.registerForm.password !== '' && this.registerForm.confirmedPassword !== ''){
+      console.log(this.registerForm.password);
+      console.log(this.registerForm.confirmedPassword);
+      return this.registerForm.password === this.registerForm.confirmedPassword;
+    }
+    return true;
   }
 
 }

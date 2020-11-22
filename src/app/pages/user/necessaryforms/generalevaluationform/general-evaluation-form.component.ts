@@ -32,7 +32,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
   @ViewChild("eventRadioGroupMultiplePregnancy") eventRadioGroup: DxRadioGroupComponent;
   @ViewChild("dxFileUploaderComponentBotoxReport") eventBotoxReport: DxFileUploaderComponent;
 
-  botoxImage:File;
+  appliedSurgeriesFiles:File[]=[];
 
   loading = false;
   error = '';
@@ -537,16 +537,16 @@ export class GeneralEvaluationFormComponent implements OnInit {
     isHypoglycaemia: null,
 
     //DiseaseOfMotherPregnancy
-    diseaseOfMotherPregnancy: new DiseaseOfMotherPregnancy(),
+    diseaseOfMotherPregnancy: null,
 
     //Hyperbilirubinemia
-    hyperbilirubinemia: new Hyperbilirubinemia(),
+    hyperbilirubinemia: null,
 
     //AfterBirthReasonCerebralPalsy
-    afterBirthReasonCerebralPalsy: new AfterBirthReasonCerebralPalsy(),
+    afterBirthReasonCerebralPalsy: null,
 
     //Botox_Treatment
-    botoxTreatment: new BotoxTreatment(),
+    botoxTreatment: null,
 
     /*
       Many to Many ve.þ Many-To-Onelar buraya geecek
@@ -562,21 +562,21 @@ export class GeneralEvaluationFormComponent implements OnInit {
     coexistingDiseasesCollection: null,
 
     //VisualImpairement
-    visualimpairment: new VisualImpairment(),
+    visualimpairment: null,
 
     //OneTomany
 
     //HearingImpairment
-    hearingImpairment: new HearingImpairment(),
+    hearingImpairment: null,
 
     //ExpectationsAboutProgram
     expectationsAboutProgramCollection: [],
 
     //Epilepsy
-    epilepsy: new Epilepsy(),
+    epilepsy: null,
 
     //Physioterapy Past
-    physiotherapyPast: new PhysiotherapyPast()
+    physiotherapyPast: null
   };
   currentUser: TokenDto;
 
@@ -1010,9 +1010,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
 
   submit(event) {
 
-    // this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString();
+    this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString().replace('T',' ').slice(0,-5);
     console.log("date: ", this.generalEvaluationForm );
-    this.userService.postGeneralEvaluationForm(this.generalEvaluationForm, this.botoxImage)
+    this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
       .pipe(first())
       .subscribe(
         data => {
@@ -1041,7 +1041,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
 
     //change date values to remove ISO
     let datee = new Date(this.generalEvaluationForm.birthDate);
-    this.generalEvaluationForm.birthDate = datee.toISOString();
+    this.generalEvaluationForm.birthDate = datee.toISOString().replace('T',' ').slice(0,-5);
 
     if(this.generalEvaluationForm.botoxTreatment !==null){
       datee = new Date(this.generalEvaluationForm.botoxTreatment.lastBotoxDate);
@@ -1050,7 +1050,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
     if(this.generalEvaluationForm.appliedSurgeryCollection !==null)
       this.generalEvaluationForm.appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
         datee = new Date(this.generalEvaluationForm.botoxTreatment.lastBotoxDate);
-        this.generalEvaluationForm.appliedSurgeryCollection[index].applyingDate = datee.toISOString();
+        this.generalEvaluationForm.appliedSurgeryCollection[index].applyingDate = appliedSurgery.applyingDate.toISOString().replace('T',' ').slice(0,-5);
       });
 
     console.log(this.generalEvaluationForm);
@@ -1170,7 +1170,20 @@ export class GeneralEvaluationFormComponent implements OnInit {
           this.generalEvaluationForm.appliedSurgeryCollection.splice(index, 1);
           this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
         }
-    }
+      },
+      {
+        selectButtonText:"Varsa resimini yükleyin",
+        labelText:"",
+        accept:"image/*",
+        uploadedMessage:"Başarıyla yüklendi",
+        uploadFailedMessage:"Yükleme başarısız",
+        multiple:"false",
+        uploadMode:"useForm",
+        onValueChanged:(event)=>{
+          console.log("applied image yuklendi");
+          this.uploadAppliedSurgeryReport(event, index);
+        }
+      }
       ];
   }
   onCustomItemCreatingForAppliedSurgerySelectbox = (event)=>{
@@ -1274,7 +1287,7 @@ export class GeneralEvaluationFormComponent implements OnInit {
   }
 
   goBackForm = () =>{
-    this.backStepper.emit();;
+    this.backStepper.emit();
   }
 
   //validation rules
@@ -1285,10 +1298,11 @@ export class GeneralEvaluationFormComponent implements OnInit {
   // image uploader
   uploadBotoxReport = (event) => {
     // console.log("uploadBotoxReport: ", event.value);
-    this.botoxImage = event.target.files[0];
+    this.generalEvaluationForm.botoxTreatment.botoxRecordFile = event.value[0];
   }
-  uploadAppliedsSuergeryEpicrysisImage = (event) => {
-    console.log(event.value);
+  uploadAppliedSurgeryReport = (event, index) => {
+    // event.value[0].name = this.generalEvaluationForm.appliedSurgeryCollection[index].surgeryName;
+    this.generalEvaluationForm.appliedSurgeryCollection[index].epicrisisImageFile =  event.value[0];
   }
   uploadOtherOrthesisImage = (event) => {
     console.log(event.value);
