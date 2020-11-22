@@ -46,6 +46,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {PatientFormComponent} from "./pages/user/necessaryforms/patientform/patient-form.component";
 import {GeneralEvaluationFormComponent} from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
 import {UserNotificationComponent} from "./pages/user/notifiaction/user-notification.component";
+import {DoctorExerciseManagmentComponent} from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
 
 
 const routes: Routes = [
@@ -86,7 +87,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
-      { path: 'task', component: DoctorTasksComponent }
+      { path: 'task', component: DoctorTasksComponent },
+      { path: 'exerciseManagment', component: DoctorExerciseManagmentComponent}
     ]
   },
   {path: 'login', component: LoginComponent},
@@ -106,7 +108,7 @@ const routes: Routes = [
     PagesComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent,
-    DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent,
+    DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent,
     AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent]
 })
 export class AppRoutingModule { }
