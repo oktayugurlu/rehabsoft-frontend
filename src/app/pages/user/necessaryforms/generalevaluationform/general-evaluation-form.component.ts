@@ -1094,31 +1094,33 @@ export class GeneralEvaluationFormComponent implements OnInit {
 
 
     //post general evaluation form and patient
-    this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.userService.patient.subscribe(patient=>{
-            console.log("patient",patient);
-            patient.address = this.generalEvaluationForm;
-            this.userService.postPatient(patient)
+    this.userService.patient.subscribe(patient=>{
+      console.log("patient",patient);
+      patient.address = this.generalEvaluationForm;
+      this.userService.postPatient(patient)
+        .pipe(first())
+        .subscribe(
+          patientData => {
+            this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
               .pipe(first())
               .subscribe(
-                patientData => {
-                  notify(JSON.stringify(data));
+                data => {
+                  // notify(JSON.stringify(data.responseMessage));
+                  this.router.navigate(['/user/home']);
                 },
                 error => {
-                  notify(JSON.stringify(error));
-                }
-              )
-          });
-          this.router.navigate(['/user/home']);
-        },
-        error => {
-          notify(JSON.stringify(error));
-          this.error = error;
-          this.loading = false;
-        });
+                  notify(JSON.stringify(error.responseMessage));
+                  this.error = error;
+                  this.loading = false;
+                });
+          },
+          error => {
+            notify(JSON.stringify(error));
+          }
+        )
+    });
+
+
   }
 
   preparingDatesForBackend= () => {
