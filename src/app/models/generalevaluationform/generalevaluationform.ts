@@ -32,7 +32,7 @@ export class GeneralEvaluationForm {
   mothersEducationLevel: string;
   typeOfPregnancy: string;
   fathersEducationLevel: string;
-  multiplePregnancy: number;
+  multiplePregnancy?: number;
   isRelativeMarriage: boolean;
   isBloodIncompatibility: boolean;
 
@@ -41,7 +41,7 @@ export class GeneralEvaluationForm {
   birthType: string;
   birthWeight: number;
   birthHeadAroundCm: number;
-  apgarScore: number;
+  apgarScore?: number;
   isBirthAnoxia: boolean;
   isBirthEmpurpling: boolean;
   isBirthCrying: boolean;
@@ -54,51 +54,51 @@ export class GeneralEvaluationForm {
 
   // 5.Doğum Sonrası Özellikler
   oxygenSupport: boolean;
-  intensiveCare: number;
+  intensiveCare?: number;
   isNewbornRetinopathy: boolean;
   isRespiratuvarDistressSyndrom: boolean
   isBronchopulmonaryDysplasia: boolean;
   isHypoglycaemia: boolean
 
   //DiseaseOfMotherPregnancy
-  diseaseOfMotherPregnancy: DiseaseOfMotherPregnancy;
+  diseaseOfMotherPregnancy?: DiseaseOfMotherPregnancy;
 
   //Hyperbilirubinemia
-  hyperbilirubinemia: Hyperbilirubinemia;
+  hyperbilirubinemia?: Hyperbilirubinemia;
 
   //AfterBirthReasonCerebralPalsy
-  afterBirthReasonCerebralPalsy: AfterBirthReasonCerebralPalsy;
+  afterBirthReasonCerebralPalsy?: AfterBirthReasonCerebralPalsy;
 
   //Botox_Treatment
-  botoxTreatment: BotoxTreatment;
+  botoxTreatment?: BotoxTreatment;
 
   /*
     Many to Many ve.þ Many-To-Onelar buraya geecek
   */
-  appliedSurgeryCollection: AppliedSurgery[];
+  appliedSurgeryCollection?: AppliedSurgery[];
 
   //One to many
-  orthesisInfoCollection: OrthesisInfo[];
-  otherOrthesisInfoCollection: OtherOrthesisInfo[];
-  usedMedicineCollection: UsedMedicine[];
+  orthesisInfoCollection?: OrthesisInfo[];
+  otherOrthesisInfoCollection?: OtherOrthesisInfo[];
+  usedMedicineCollection?: UsedMedicine[];
 
   //ManyToMany
-  coexistingDiseasesCollection: CoexistingDiseases[];
+  coexistingDiseasesCollection?: CoexistingDiseases[];
 
   //VisualImpairement
-  visualimpairment: VisualImpairment;
+  visualimpairment?: VisualImpairment;
 
   //OneTomany
 
   //HearingImpairment
-  hearingImpairment: HearingImpairment;
+  hearingImpairment?: HearingImpairment;
 
   //ExpectationsAboutProgram
-  expectationsAboutProgramCollection: ExpectationsAboutProgram[];
+  expectationsAboutProgramCollection?: ExpectationsAboutProgram[];
 
   //Epilepsy
   epilepsy: Epilepsy
 
   //Physioterapy Past
-  physiotherapyPast: PhysiotherapyPast
+  physiotherapyPast?: PhysiotherapyPast
 }

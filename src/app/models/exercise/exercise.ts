@@ -1,4 +1,4 @@
-import {User} from './user';
+import {User} from '../user';
 import {ExerciseImage} from './exerciseimage';
 import {ExerciseVideo} from './exercisevideo';
 

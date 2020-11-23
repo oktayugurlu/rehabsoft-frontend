@@ -37,7 +37,7 @@
         <dxo-label location="top" [visible]="true" text="Doğum Tarihi"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="ageAsMonth" editorType="dxNumberBox"
+      <dxi-item dataField="numberOfSiblings" editorType="dxNumberBox"
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'Kardeş sayısı', min:0, max:2147483647, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Kardeş sayısı gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Kardeş Sayısı"></dxo-label>
@@ -48,6 +48,13 @@
                 [editorOptions]="{ stylingMode: 'outlined', placeholder: 'Kaçıncı Çocuk', min:1, max:2147483647, showSpinButtons:true}">
         <dxi-validation-rule type="required" message="Kaçıncı çocuk bilgisi gerekli"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Kaçıncı Çocuk"></dxo-label>
+      </dxi-item>
+
+
+      <dxi-item dataField="ageAsMonth" editorType="dxNumberBox"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '(örn. 18 ay)', min:1, max:2147483647, showSpinButtons:true}">
+        <dxi-validation-rule type="required" message="Kaçıncı çocuk bilgisi gerekli"></dxi-validation-rule>
+        <dxo-label location="top" [visible]="true" text="Düzeltilmiş Yaş (ay olarak)"></dxo-label>
       </dxi-item>
     </dxi-item>
 
@@ -948,10 +955,12 @@
         <dxo-label location="top" [visible]="true" text="Duyma Problemi var mı?"></dxo-label>
       </dxi-item>
 
-      <dxi-item dataField="hearingImpairment.information" editorType="dxTextArea" [visible]="generalEvaluationForm.isHearingImpairment"
-                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 80}">
+      <dxi-item dataField="hearingImpairment.isUseHearingAid" [visible]="generalEvaluationForm.isHearingImpairment"
+                editorType="dxRadioGroup"
+                [editorOptions]="isHearingAidOption">
         <dxi-validation-rule type="required" message="Duyma probleminin ne olduğunu gerekli"></dxi-validation-rule>
-        <dxo-label location="top" [visible]="true" text="Duyma probleminin ne olduğunu yazınız"></dxo-label>
+        <dxo-label location="top" [visible]="true" text="İşitme cihazı kullanıyor mu"></dxo-label>
+        <dxi-validation-rule type="custom" message="Bu alan gerekli" [validationCallback]="checkIsNull"></dxi-validation-rule>
       </dxi-item>
 
       <dxi-item dataField="epilepsy.epilepsySituation" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', placeholder: 'Seçiniz...',
