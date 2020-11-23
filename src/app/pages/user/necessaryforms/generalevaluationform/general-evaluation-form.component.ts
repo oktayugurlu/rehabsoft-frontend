@@ -619,16 +619,16 @@ export class GeneralEvaluationFormComponent implements OnInit {
   multiplePregnancySelectBoxList = [
     {
       name: "İkiz",
-      value: "2"
+      value: 2
     },{
       name: "Üçüz",
-      value: "3"
+      value: 3
     },{
       name: "Dördüz",
-      value: "4"
+      value: 4
     },{
       name: "Beşiz",
-      value: "5"
+      value: 5
     }];
   birthTypeSelectBoxList = [
     {
@@ -701,8 +701,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.multiplePregnancy = null;
+      }
     }
   };
   isRelativeMarriagelist = [{name:'Var', value: true},{name:'Yok', value: false}];
@@ -726,8 +727,10 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.apgarScore = 0;
+      }
+
     }
   };
   isBirthAnoxialist = [{name:'Var', value: true},{name:'Yok', value: false}];
@@ -765,8 +768,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value){
         this.generalEvaluationForm.pregnancyInfectionInfo = null;
+      }
     }
   };
   isPregnancyMedicineUsageInfoList = [{name:'Var', value: true},{name:'Yok', value: false}];
@@ -776,10 +780,12 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.pregnancyMedicineUsageInfo = null;
-      else
+      }
+      else {
         this.generalEvaluationForm.pregnancyMedicineUsageInfo = "";
+      }
     }
   };
   isPregnancyDrinkingList = [{name:'Var', value: true},{name:'Yok', value: false}];
@@ -803,8 +809,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.intensiveCare = 0;
+      }
     }
   };
   oxygenSupportList = [{name:'Aldı', value: true},{name:'Almadı', value: false}];
@@ -842,10 +849,12 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.hyperbilirubinemia = null;
-      else
+      }
+      else{
         this.generalEvaluationForm.hyperbilirubinemia = new Hyperbilirubinemia();
+      }
     }
   };
   isSleptHospitalForHyperbilirubinemiaList = [{name:'Yattı', value: true},{name:'Yatmadı', value: false}];
@@ -853,7 +862,16 @@ export class GeneralEvaluationFormComponent implements OnInit {
     dataSource: this.isSleptHospitalForHyperbilirubinemiaList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name'
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+      if(!event.value) {
+        this.generalEvaluationForm.hyperbilirubinemia.isPhototeraphy = null;
+        this.generalEvaluationForm.hyperbilirubinemia.hospitalDayTime = null;
+      }
+      else{
+        this.generalEvaluationForm.hyperbilirubinemia = new Hyperbilirubinemia();
+      }
+    }
   };
   isPhototeraphyList = [{name:'Aldı', value: true},{name:'Almadı', value: false}];
   isPhototeraphyOption = {
@@ -876,10 +894,12 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.afterBirthReasonCerebralPalsy = null;
-      else
+      }
+      else {
         this.generalEvaluationForm.afterBirthReasonCerebralPalsy = new AfterBirthReasonCerebralPalsy();
+      }
     }
   };
   isBotoxTreatmentList = [{name:'Oldu', value: true},{name:'Hiç olmadı', value: false}];
@@ -896,10 +916,12 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.visualimpairment = null;
-      else
+      }
+      else {
         this.generalEvaluationForm.visualimpairment = new VisualImpairment();
+      }
     }
   };
   isHearingImpairmentList = [{name:'Var', value: true},{name:'Yok', value: false}];
@@ -917,6 +939,15 @@ export class GeneralEvaluationFormComponent implements OnInit {
       }
     }
   };
+  isHearingAidList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isHearingAidOption = {
+    dataSource: this.isHearingAidList,
+    layout:"horizontal",
+    valueExpr: 'value',
+    displayExpr: 'name',
+    onValueChanged: (event)=>{
+    }
+  };
   isPhysiotherapyPastList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isPhysiotherapyPastOption = {
     dataSource: this.isPhysiotherapyPastList,
@@ -924,10 +955,12 @@ export class GeneralEvaluationFormComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name',
     onValueChanged: (event)=>{
-      if(!event.value)
+      if(!event.value) {
         this.generalEvaluationForm.physiotherapyPast = null;
-      else
+      }
+      else {
         this.generalEvaluationForm.physiotherapyPast = new PhysiotherapyPast();
+      }
     }
   };
 
@@ -939,8 +972,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     icon: "add",
     text: "Cerrahi Ekle",
     onClick: () => {
-      if(this.generalEvaluationForm.appliedSurgeryCollection === null)
+      if(this.generalEvaluationForm.appliedSurgeryCollection === null) {
         this.generalEvaluationForm.appliedSurgeryCollection = [];
+      }
       this.generalEvaluationForm.appliedSurgeryCollection.push(new AppliedSurgery());
       this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
     }
@@ -962,8 +996,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     icon: "add",
     text: "Ekle",
     onClick: () => {
-      if(this.generalEvaluationForm.otherOrthesisInfoCollection === null)
+      if(this.generalEvaluationForm.otherOrthesisInfoCollection === null) {
         this.generalEvaluationForm.otherOrthesisInfoCollection = [];
+      }
       this.generalEvaluationForm.otherOrthesisInfoCollection.push(new OtherOrthesisInfo());
       this.otherOrthesisOptions = this.getOtherOrthesisOptions(this.generalEvaluationForm.otherOrthesisInfoCollection);
     }
@@ -975,8 +1010,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     icon: "add",
     text: "İlaç Ekle",
     onClick: () => {
-      if(this.generalEvaluationForm.usedMedicineCollection === null)
+      if(this.generalEvaluationForm.usedMedicineCollection === null) {
         this.generalEvaluationForm.usedMedicineCollection = [];
+      }
       this.generalEvaluationForm.usedMedicineCollection.push(new UsedMedicine());
       this.usedMedicineOptions = this.getUsedMedicineOptions(this.generalEvaluationForm.usedMedicineCollection);
     }
@@ -989,8 +1025,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
     icon: "add",
     text: "Ekle",
     onClick: () => {
-      if(this.generalEvaluationForm.expectationsAboutProgramCollection === null)
+      if(this.generalEvaluationForm.expectationsAboutProgramCollection === null) {
         this.generalEvaluationForm.expectationsAboutProgramCollection = [];
+      }
       this.generalEvaluationForm.expectationsAboutProgramCollection.push(new ExpectationsAboutProgram());
       this.expectationsAboutProgramOptions = this.getExpectationsAboutProgramOptions(this.generalEvaluationForm.expectationsAboutProgramCollection);
     }
@@ -1013,7 +1050,10 @@ export class GeneralEvaluationFormComponent implements OnInit {
 
   submit(event) {
 
+    console.log("submit basladi general form: ",this.generalEvaluationForm);
+
     //******* codes to test start*******//
+
     // this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString().replace('T',' ').slice(0,-5);
     // console.log("date: ", this.generalEvaluationForm );
     // this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
@@ -1027,13 +1067,13 @@ export class GeneralEvaluationFormComponent implements OnInit {
     //       this.error = error;
     //       this.loading = false;
     //     });
+
     //******* codes to test start*******//
 
     // stop here if form is invalid
     if (!event.validationGroup.validate().isValid) {
       return;
     }
-
 
     // to add correspond fied into patient and general evaluation form
     this.generalEvaluationForm.orthesisInfoCollection = this.generateOrthesisCollection();
@@ -1045,13 +1085,15 @@ export class GeneralEvaluationFormComponent implements OnInit {
     //change date values to remove ISO
     this.preparingDatesForBackend();
 
-    console.log(this.generalEvaluationForm);
+    console.log("tam submit oncesi: ",this.generalEvaluationForm);
 
     this.submitted = true;
     this.loading = true;
 
 
-    // post general evaluation form and patient
+
+
+    //post general evaluation form and patient
     this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
       .pipe(first())
       .subscribe(

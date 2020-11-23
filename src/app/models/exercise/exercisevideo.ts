@@ -1,4 +1,5 @@
 export class ExerciseVideo{
   id: number;
-  imageurl: string;
+  videoUrl: string;
+  videoFile: File;
 }

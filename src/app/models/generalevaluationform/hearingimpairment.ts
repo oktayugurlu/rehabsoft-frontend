@@ -1,3 +1,3 @@
 export class HearingImpairment{
-  isUseHearingAid: string;
+  isUseHearingAid: boolean;
 }

@@ -63,12 +63,15 @@ export class LoginComponent implements OnInit {
     this.returnUrl = '/';
 
     if(this.currentUser !== null){
-      if(this.currentUser.role === Role.User)
+      if(this.currentUser.role === Role.User) {
         this.router.navigate(['/user']);
-      if(this.currentUser.role === Role.Doctor)
+      }
+      if(this.currentUser.role === Role.Doctor) {
         this.router.navigate(['/doctor']);
-      if(this.currentUser.role === Role.Admin)
+      }
+      if(this.currentUser.role === Role.Admin) {
         this.router.navigate(['/admin']);
+      }
     }
 
     // get return url from route parameters or default to '/'
@@ -91,12 +94,15 @@ export class LoginComponent implements OnInit {
           // buraya ve router'i sil
           // this.router.navigate([this.returnUrl]).then(r => {});
           console.log("homeeeeeeeeeee----------------------------------");
-          if(data.role === Role.User)
+          if(data.role === Role.User) {
             this.router.navigate(['/user']);
-          if(data.role === Role.Doctor)
+          }
+          if(data.role === Role.Doctor) {
             this.router.navigate(['/doctor']);
-          if(data.role === Role.Admin)
+          }
+          if(data.role === Role.Admin) {
             this.router.navigate(['/admin']);
+          }
         },
         error => {
           this.error = error;

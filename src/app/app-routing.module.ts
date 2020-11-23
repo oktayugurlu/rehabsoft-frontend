@@ -28,7 +28,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
 
 // Devextreme
-import { DxProgressBarModule } from 'devextreme-angular';
+import {DxProgressBarModule, DxToolbarModule} from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
   DxCheckBoxModule,
@@ -101,7 +101,7 @@ const routes: Routes = [
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule],
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule],
 
   exports: [RouterModule],
   declarations: [

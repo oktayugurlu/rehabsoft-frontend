@@ -61,12 +61,13 @@ export class CreateAccountFormComponent {
       .pipe(first())
       .subscribe(
         data => {
-          notify(JSON.stringify(data));
-          console.log("/login");
+          let obj = JSON.parse(data)
+          console.log(obj);
+          notify(obj.responseMessage);
           this.router.navigate(['/login']);
         },
         error => {
-          notify(error);
+          // notify(error);
           this.error = error;
           this.loading = false;
         });
