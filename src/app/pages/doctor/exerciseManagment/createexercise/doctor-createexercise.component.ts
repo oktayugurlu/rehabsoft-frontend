@@ -1,33 +1,24 @@
-import { Component } from '@angular/core';
-import {Exercise} from "../../../models/exercise/exercise";
-import {ExerciseService} from "../../../shared/services/exercise.service";
+import {Component, Input} from "@angular/core";
+import {Exercise} from "../../../../models/exercise/exercise";
+import {ExerciseService} from "../../../../shared/services/exercise.service";
 import notify from "devextreme/ui/notify";
-import { confirm } from "devextreme/ui/dialog";
-import { alert } from "devextreme/ui/dialog";
-
-
-import {ExerciseImage} from "../../../models/exercise/exerciseimage";
-import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
-import {User} from "../../../models/user";
+import {ExerciseImage} from "../../../../models/exercise/exerciseimage";
+import {ExerciseVideo} from "../../../../models/exercise/exercisevideo";
+import {User} from "../../../../models/user";
 
 @Component({
-  templateUrl: 'doctor-exerciseManagment.component.html',
-  styleUrls: ['./doctor-exerciseManagment.component.scss']
+  selector: 'app-createexercise-component',
+  templateUrl: 'doctor-createexercise.component.html',
+  styleUrls: ['./doctor-createexercise.component.scss']
 })
 
-export class DoctorExerciseManagmentComponent{
+export class DoctorCreateExerciseComponent{
 
-  createPopupVisible:boolean=false;
-  createPopupContent:any={
+  @Input()
+  isVisible: boolean;
 
-    //exercise.ts fields
-    id: null,
-    exerciseName: null,
-    exerciseContent: null,
-    exerciseImageCollection: null,
-    exerciseVideoCollection: null,
-    user: null
-  };
+  @Input()
+  popupContent: any;
 
   // Buton options
   yeniButtonOptions = {
@@ -46,10 +37,6 @@ export class DoctorExerciseManagmentComponent{
 
     exerciseService.getAll().subscribe(
       (data)=>{
-        data.forEach(exercise=>{
-          exercise.creatorNameSurname = exercise.user.firstName+' '+exercise.user.surname;
-        })
-        console.log(data);
         this.dataSource = data;
       },
       (error)=>{
@@ -134,16 +121,8 @@ export class DoctorExerciseManagmentComponent{
     //   this.handleChangeDistributor();
     // }
     //
-
-
-    this.createPopupVisible = true;
-  }
-
-  delIconClick = (event)=>{
-    confirm(event.row.data.exerciseName+' '+ 'silinsin mi?', 'Emin misiniz?')
-      .then((dialogResult) => {
-      alert(dialogResult ? "Silindi" : "İptal edildi", "Başarılı");
-    });
+    // this.showModal();
+    // this.validationControl();
   }
 
 }

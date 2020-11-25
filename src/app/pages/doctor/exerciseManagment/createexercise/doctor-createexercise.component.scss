@@ -1,0 +1,7 @@
+// for devextreme datagrid column headers
+::ng-deep #gridContainer {
+  height: 440px;
+}
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-toolbar-before .dx-toolbar-item:not(:first-child) {
+  background-color: #0e589c;
+}

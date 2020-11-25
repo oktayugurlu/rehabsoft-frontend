@@ -1,5 +1,5 @@
-<div class="row" style="margin-top: -10px;">
-  <div class="col-lg-12 grid-margin">
+<div class="row" style="padding: 23px 23px 13px;">
+  <div class="col-lg-12">
 
     <div class="card-body" style="padding: 3px;  background-color: #9EE2E9;">
 
@@ -28,12 +28,11 @@
 </div>
 
 
-<div id="data-grid-demo">
+<div id="data-grid">
   <dx-data-grid
     id="gridContainer"
     [dataSource]="dataSource"
     keyExpr="id"
-    [columnWidth]="200"
 
     [hoverStateEnabled]="true" [showBorders]="true" [focusedRowEnabled]="true"
     [showColumnLines]="true" [showRowLines]="true" [rowAlternationEnabled]="false"
@@ -54,27 +53,27 @@
 <!--      [allowFiltering]="false"-->
 <!--      [showEditorAlways]='false'-->
 <!--      [customizeText]='customizeAktifDurum'-->
-<!--      width= '100px'-->
+<!--      width= '100vh'-->
 <!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="sayacid"-->
-<!--      caption="Sayaç ID"-->
-<!--      width= '100px'-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="sayacadi"-->
-<!--      caption="Sayaç Adı"-->
-<!--      width= '250px'-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="aboneno"-->
-<!--      caption="Abone No"-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="tenzilsayac.sayacid"-->
-<!--      caption="Tenzil Sayaç ID"-->
-<!--      width= '150px'-->
-<!--    ></dxi-column>-->
+    <dxi-column
+      dataField="id"
+      caption="Egzersiz ID"
+      width= '100px'
+    ></dxi-column>
+    <dxi-column
+      dataField="exerciseName"
+      caption="Egzersiz Adı"
+      width= '250px'
+    ></dxi-column>
+    <dxi-column
+      dataField="exerciseContent"
+      caption="Egzersiz İçerik"
+    ></dxi-column>
+    <dxi-column
+      dataField="creatorNameSurname"
+      caption="Oluşturan Kişi"
+      width= '160px'
+    ></dxi-column>
 <!--    <dxi-column-->
 <!--      dataField="sayacgrubu.grupadi"-->
 <!--      caption="Sayaç Grubu"-->
@@ -108,10 +107,12 @@
 <!--      caption="OSOS Sayaç Kodu"-->
 <!--    ></dxi-column>-->
 
-<!--    <dxi-column type="buttons" alignment="center"  width= '100px' >-->
-<!--      <dxi-button hint="Edit" icon="edit" [visible]="true" [onClick]="editIconClick"></dxi-button>-->
-<!--      <dxi-button hint="Delete" icon="trash" [visible]="true" [onClick]="delIconClick"></dxi-button>-->
-<!--    </dxi-column>-->
+    <dxi-column type="buttons" alignment="center"  width= '100px' >
+      <dxi-button hint="Edit" icon="edit" [visible]="true" [onClick]="editIconClick"></dxi-button>
+      <dxi-button hint="Delete" icon="trash" [visible]="true" [onClick]="delIconClick"></dxi-button>
+    </dxi-column>
 
   </dx-data-grid>
 </div>
+
+<!--<app-createexercise-component [isVisible] = "createPopupVisible" [popupContent]="createPopupContent"></app-createexercise-component>-->

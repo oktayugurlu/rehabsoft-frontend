@@ -27,6 +27,11 @@ export const doctorNavigation = [
     icon: 'home'
   },
   {
+    text: 'Egzersizler',
+    path: '/doctor/exercises',
+    icon: 'runner'
+  },
+  {
     text: 'Examples',
     icon: 'folder',
     items: [
