@@ -14,6 +14,9 @@
           </div>
         </dxi-item>
 
+        <dxi-item location="after" widget="dxButton" locateInMenu="auto" [options]="refreshButtonOptions">
+        </dxi-item>
+
 <!--        <dxi-item location="after" widget="dxButton" locateInMenu="auto"-->
 <!--                  [options]="{disabled: !isFocuesOnRowDataGrid, text: 'Fatura Parametreleri',icon: 'event',-->
 <!--                  onClick: changeFaturaParameterleri}">-->
@@ -34,7 +37,7 @@
     [dataSource]="dataSource"
     keyExpr="id"
 
-    [hoverStateEnabled]="true" [showBorders]="true" [focusedRowEnabled]="true"
+    [hoverStateEnabled]="true" [showBorders]="true" [focusedRowEnabled]="false"
     [showColumnLines]="true" [showRowLines]="true" [rowAlternationEnabled]="false"
     [export]="true" [groupPanel]="true"
     [selectedRowKeys]="[]">
@@ -115,4 +118,4 @@
   </dx-data-grid>
 </div>
 
-<!--<app-createexercise-component [isVisible] = "createPopupVisible" [popupContent]="createPopupContent"></app-createexercise-component>-->
+<app-createexercise-component></app-createexercise-component>

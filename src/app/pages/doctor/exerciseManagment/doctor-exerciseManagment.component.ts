@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Exercise} from "../../../models/exercise/exercise";
 import {ExerciseService} from "../../../shared/services/exercise.service";
 import notify from "devextreme/ui/notify";
 import { confirm } from "devextreme/ui/dialog";
 import { alert } from "devextreme/ui/dialog";
-
+import swal from 'sweetalert2';
 
 import {ExerciseImage} from "../../../models/exercise/exerciseimage";
 import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
 import {User} from "../../../models/user";
+import {HttpErrorResponse} from "@angular/common/http";
+import {DoctorCreateExerciseComponent} from "./createexercise/doctor-createexercise.component";
 
 @Component({
   templateUrl: 'doctor-exerciseManagment.component.html',
@@ -17,24 +19,22 @@ import {User} from "../../../models/user";
 
 export class DoctorExerciseManagmentComponent{
 
-  createPopupVisible:boolean=false;
-  createPopupContent:any={
+  @ViewChild(DoctorCreateExerciseComponent) createExerciseComponent:DoctorCreateExerciseComponent;
 
-    //exercise.ts fields
-    id: null,
-    exerciseName: null,
-    exerciseContent: null,
-    exerciseImageCollection: null,
-    exerciseVideoCollection: null,
-    user: null
-  };
 
   // Buton options
   yeniButtonOptions = {
     text: 'Ekle',
     icon: 'plus',
+    onClick: (e) => {
+      this.createNewExercise(e);
+    }
+  };
+  refreshButtonOptions = {
+    text: 'Yenile',
+    icon: 'refresh',
     onClick: () => {
-      // this.createItem(null);
+      this.getItemsList();
     }
   };
 
@@ -44,7 +44,15 @@ export class DoctorExerciseManagmentComponent{
 
   constructor(private exerciseService: ExerciseService ) {
 
-    exerciseService.getAll().subscribe(
+
+  }
+
+  ngOnInit() {
+    this.getItemsList();
+  }
+
+  getItemsList = ()=>{
+    this.exerciseService.getAll().subscribe(
       (data)=>{
         data.forEach(exercise=>{
           exercise.creatorNameSurname = exercise.user.firstName+' '+exercise.user.surname;
@@ -58,53 +66,9 @@ export class DoctorExerciseManagmentComponent{
     );
   }
 
-
   editIconClick = (e: any) => {
-    // const tahmingiriszamaniDate = new Date(e.row.data.params.tahmingiriszamani);
-    // console.log('editlenen data:', e.row.data.params.tahmingiriszamani);
-    // this.popupContent = {
-    //   'id' : e.row.data._id,
-    //   // "TenantId" : e.row.data.TenantId,
-    //   'sayacid' : e.row.data.sayacid,
-    //   'sayacadi': e.row.data.sayacadi,  // new
-    //   'etsokodu' : e.row.data.etsokodu,
-    //   'aboneno': e.row.data.aboneno, // new
-    //   'adres': e.row.data.adres, // new
-    //   'firma' : e.row.data.firma,
-    //   'm2mfirma' : e.row.data.m2mfirma,
-    //   'm2msayackodu' : e.row.data.m2msayackodu,
-    //   'okumatipi': e.row.data.okumatipi, // new
-    //   'dagitimbolgesi': e.row.data.dagitimbolgesi,
-    //   // "abonegrubu": e.row.data.abonegrubu,
-    //   'talepkalemi': e.row.data.talepkalemi,
-    //   'faturaparams' : e.row.data.faturaparams,
-    //   'tenzil': e.row.data.tenzil,
-    //   'tenzilsayac': e.row.data.tenzilsayac,
-    //   'tenzilfatura': e.row.data.tenzilfatura,
-    //   'grupfatura': e.row.data.grupfatura,
-    //   'sayacgrubu': e.row.data.sayacgrubu,
-    //   'grupfaturasayaci': e.row.data.grupfaturasayaci,
-    //   'sanalsayac' : e.row.data.sanalsayac,
-    //   'otomatikmahsup': e.row.data.otomatikmahsup,
-    //   'params': e.row.data.params,
-    //   'kayittarihi': e.row.data.kayittarihi,
-    //   'aktif': e.row.data.aktif,
-    //   'pasiftarihi': e.row.data.pasiftarihi,
-    //   'il': e.row.data.il,
-    //   'ilce': e.row.data.ilce,
-    //   'belediye': e.row.data.belediye,
-    //   'abonetipi': e.row.data.abonetipi,
-    //   'aboneislemtipi': e.row.data.aboneislemtipi,
-    //   'mulktckimlik': e.row.data.mulktckimlik,
-    //   'mulkvergino': e.row.data.mulkvergino,
-    //   'mulkadi': e.row.data.mulkadi,
-    //   'mulksoyadi': e.row.data.mulksoyadi,
-    //   'daskno': e.row.data.daskno,
-    //   'ulusaladresno': e.row.data.ulusaladresno,
-    //   'distributionid': e.row.data.distributionid,
-    //   'subscriberprofilegroup': e.row.data.subscriberprofilegroup,
-    //   'deleted' : false
-    // };
+    this.createExerciseComponent.openPopUpForEdit(e.row.data);
+
     // if ( this.popupContent.params === undefined) {
     //   this.createParamFieldForPopUpObject();
     //
@@ -135,15 +99,60 @@ export class DoctorExerciseManagmentComponent{
     // }
     //
 
-
-    this.createPopupVisible = true;
   }
 
   delIconClick = (event)=>{
-    confirm(event.row.data.exerciseName+' '+ 'silinsin mi?', 'Emin misiniz?')
-      .then((dialogResult) => {
-      alert(dialogResult ? "Silindi" : "İptal edildi", "Başarılı");
-    });
+    // confirm(+' '+ 'silinsin mi?', 'Emin misiniz?')
+    //   .then((dialogResult) => {
+    //   alert(dialogResult ? "Silindi" : "İptal edildi", "Başarılı");
+    // });
+
+    // @ts-ignore
+    swal.fire({
+      title: 'Emin misiniz?',
+      text: event.row.data.exerciseName + ' isimli egzersiz kalıcı olarak silinecektir!',
+      icon: 'warning',
+      showConfirmButton: true,
+      showCancelButton: true,
+      heightAuto: false
+    })
+      .then((result) => {
+        if (result.value) {
+
+          this.exerciseService.deleteById(event.row.data.id).subscribe((res) => {
+              // @ts-ignore
+              swal.fire({
+                title: 'Başarılı !',
+                icon: 'success',
+                text: 'Silme İşlemi Başarılı Bir Şekilde Yapıldı! ',
+                type: 'success',
+                heightAuto: false
+              }).then(() => {
+                this.ngOnInit();
+              });
+            },
+            err => {
+              console.log('err: ', err);
+              if (err instanceof HttpErrorResponse) {
+                if (err.status === 401) {
+                  // @ts-ignore
+                  swal.fire({
+                    title: 'Hata Oluştu !',
+                    text: 'Silme İşlemi Başarısız Oldu! ',
+                    type: 'error',
+                    heightAuto: false
+                  });
+                  // this.router.navigate(['/login']);
+                }
+              }
+            });
+        }
+      });
+
+  }
+
+  createNewExercise = (e)=>{
+    this.createExerciseComponent.openPopUpForCreate();
   }
 
 }

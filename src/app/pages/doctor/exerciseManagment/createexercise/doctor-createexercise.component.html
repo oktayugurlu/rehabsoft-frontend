@@ -1,113 +1,88 @@
-<!--<dx-popup [minWidth]='"55%"' [minHeight]="'inherit'" [showTitle]="true" title="Tüketim Sayaç Tanım" [dragEnabled]="true"-->
-<!--          [closeOnOutsideClick]="true" [(visible)]="isVisible" [position]="{ my: 'center', at: 'center', of: window }">-->
-<!--  <div *dxTemplate="let data of 'content'">-->
+<dx-popup [minWidth]='"55%"' [minHeight]="'inherit'" [showTitle]="true" title="Egzersiz Oluşturma" [dragEnabled]="true"
+          [closeOnOutsideClick]="true" [(visible)]="isVisible" [position]="{ my: 'center', at: 'center' }">
+  <div *dxTemplate="let data of 'content'">
 
-<!--    <dx-tab-panel-->
-<!--      [height]="'inherit'"-->
-<!--      [selectedIndex]="0"-->
-<!--      [loop]="false"-->
-<!--      [animationEnabled]="true"-->
-<!--      [swipeEnabled]="false"-->
-<!--    >-->
-<!--      &lt;!&ndash;Sayac Tanimi Tabi&ndash;&gt;-->
-<!--      <dxi-item title="Sayaç Tanım" style="background-color: white">-->
-<!--        <dx-scroll-view width="100%" height="100%">-->
-<!--          <div id="form-container" style="padding:10px;">-->
-<!--            <dx-form id="form" [formData]="popupContent" [colCount]="3">-->
-<!--              &lt;!&ndash; left group start&ndash;&gt;-->
-<!--              <dxi-item [alignItemLabels]="true" itemType="group" >-->
+    <dx-tab-panel
+      [height]="'inherit'"
+      [selectedIndex]="0"
+      [loop]="false"
+      [animationEnabled]="true"
+      [swipeEnabled]="false"
+    >
+      <!--Sayac Tanimi Tabi-->
+      <dxi-item title="Egzersiz Tanım" style="background-color: white">
+        <dx-scroll-view width="100%" height="100%">
+          <div style="padding:10px;">
+            <dx-form [formData]="popUpContent" [colCount]="1">
+              <!-- left group start-->
+              <dxi-item [alignItemLabels]="true" itemType="group" >
 
-<!--                <dxi-item-->
-<!--                  itemType="simple"-->
-<!--                  dataField="sayacadi"-->
-<!--                  [label]="{text: 'Sayaç Adı'}"-->
-<!--                  [editorOptions]="{onValueChanged: validationControl, maxLength:50, id: 'sayacadi' }">-->
+                <dxi-item
+                  itemType="simple"
+                  dataField="exerciseName"
+                  [label]="{text: 'Egzersiz Adı'}"
+                  [editorOptions]="{maxLength:50, id: 'exerciseName' }">
 
-<!--                  <dxi-validation-rule-->
-<!--                    type="required"-->
-<!--                    message="Bu alan gerekli!">-->
-<!--                  </dxi-validation-rule>-->
+                  <dxi-validation-rule
+                    type="required"
+                    message="Bu alan gerekli!">
+                  </dxi-validation-rule>
 
-<!--                </dxi-item>-->
+                </dxi-item>
 
-<!--                <dxi-item dataField="etsokodu" [label]="{text: 'Sayaç ETSO Kodu'}"-->
-<!--                          [editorOptions]="{ maxLength:10, id: 'etsokodu', onValueChanged: validationControl }">-->
-<!--                  <dxi-validation-rule-->
-<!--                    type="required"-->
-<!--                    message="Bu alan gerekli!">-->
-<!--                  </dxi-validation-rule>-->
-<!--                  <dxi-validation-rule-->
-<!--                    type="stringLength"-->
-<!--                    [min]='3'-->
-<!--                    message="Giriş Çok Kısa! (min=3)">-->
-<!--                  </dxi-validation-rule>-->
-<!--                </dxi-item>-->
+                <dxi-item dataField="exerciseContent" editorType="dxTextArea" [label]="{text: 'Egzersiz Açıklaması'}"
+                          [editorOptions]="{maxLength:500, height: 150, id: 'exerciseContent'}">
+                  <dxi-validation-rule
+                    type="required"
+                    message="Bu alan gerekli!">
+                  </dxi-validation-rule>
+                </dxi-item>
 
-<!--                <dxi-item dataField="sayacid" [label]="{text: 'Sayaç ID'}" editorType="dxNumberBox"-->
-<!--                          [editorOptions]="{-->
-<!--                                showSpinButtons:true, min:1,-->
-<!--                                valueExpr: 'id', displayExpr: 'text',min:1, max:999999999999999,-->
-<!--                                searchEnabled: false, id: 'sayacid', onValueChanged: validationControl  }">-->
-<!--                  <dxi-validation-rule-->
-<!--                    type="required"-->
-<!--                    message="Bu alan gerekli!">-->
-<!--                  </dxi-validation-rule>-->
-<!--                </dxi-item>-->
+              </dxi-item>
 
-<!--                <dxi-item dataField="aboneno" [label]="{text: 'Abone No'}"-->
-<!--                          [editorOptions]="{ maxLength:50, id: 'aboneno'}">-->
-<!--                </dxi-item>-->
+              <!-- just add space for buttons-->
+              <dxi-item itemType="group" >
+              </dxi-item>
+              <dxi-item itemType="group" >
+              </dxi-item>
+              <dxi-item itemType="group" >
+              </dxi-item>
+              <dxi-item itemType="group" >
+              </dxi-item>
+              <dxi-item itemType="group" >
+              </dxi-item>
+              <!-- just add space for buttons-->
 
-<!--                <dxi-item dataField="adres" editorType="dxTextArea" [label]="{text: 'Adresi'}"-->
-<!--                          [editorOptions]="{maxLength:500, height: 150, id: 'adres'}">-->
-<!--                </dxi-item>-->
+              <dxi-item itemType="group" [colCount]="1">
+                <dxi-item [template]="'exerciseModalTemplate'">
+                </dxi-item>
+                <div *dxTemplate="let data of 'exerciseModalTemplate'">
+                  <div class="row" style="float: right">
+                    <div class="column" style="padding-right: 10px">
+                      <dx-button  [useSubmitBehavior]="false" [text]="'Vazgeç'" onClick="cancelExercise"
+                                  width= '130px' type="outlined">
+                      </dx-button>
+                    </div>
+                    <div  class="column" style="padding-right: 10px">
+                      <dx-button  [useSubmitBehavior]="false" [text]="'Kaydet'" onClick="submitExercise"
+                                  width= '130px' type="default" icon="fas fa-save">
+                      </dx-button>
+                    </div>
+                  </div>
+                </div>
 
-<!--              </dxi-item>-->
-<!--              &lt;!&ndash; left group end&ndash;&gt;-->
+              </dxi-item>
 
-<!--              &lt;!&ndash; middle group start&ndash;&gt;-->
+              <!-- left group end-->
+
+              <!-- middle group start-->
 <!--              <dxi-item [alignItemLabels]="true" itemType="group">-->
-<!--                <dxi-item dataField="firma" [label]="{text: 'Bağlı Olduğu Müşteri'}" editorType="dxSelectBox"-->
-<!--                          [editorOptions]="{ items: firmalarListesi, valueExpr: 'id', displayExpr: 'value'-->
-<!--                              , searchEnabled: false, id: 'firma', placeholder: '<Tüm Firmalar>'-->
-<!--                               , onValueChanged: validationControl }">-->
-<!--                  <dxi-validation-rule-->
-<!--                    type="required"-->
-<!--                    message="Bu alan gerekli!">-->
-<!--                  </dxi-validation-rule>-->
-<!--                </dxi-item>-->
-
-<!--                <dxi-item dataField="talepkalemi._id" [label]="{text: 'Bağlı Olduğu Talep Kalemi'}" editorType="dxSelectBox"-->
-<!--                          [editorOptions]="{ items: talepKalemListesi, valueExpr: 'id', displayExpr: 'value',-->
-<!--                                                 searchEnabled: false, id: 'talepkalemi' }">-->
-<!--                </dxi-item>-->
-
-<!--                <dxi-item dataField="okumatipi" [label]="{text: 'Okuma Tipi'}" editorType="dxSelectBox"-->
-<!--                          [editorOptions]="{ items: readTypes, valueExpr: 'id', displayExpr: 'text',-->
-<!--                               searchEnabled: false, id: 'okumatipi', value: 10 }">-->
-<!--                </dxi-item>-->
-<!--                <dxi-item [alignItemLabels]="false" [colCount]="2" itemType="group" caption="Tüketim Tahmini Son Giriş Saati">-->
-<!--                  <dxi-item dataField="selectedHours" [label]="{text: 'Saat'}" editorType="dxSelectBox"-->
-<!--                            [editorOptions]="{width: '80px',items: pickerHour, valueExpr: 'id', displayExpr: 'text',-->
-<!--                                onValueChanged: refreshSelectedTime, searchEnabled: false, id: 'selectedHour'}">-->
-
-<!--                  </dxi-item>-->
-<!--                  <dxi-item dataField="selectedMinute" [label]="{text: 'Dakika'}" editorType="dxSelectBox"-->
-<!--                            [editorOptions]="{width: '80px', items: pickerMinute, valueExpr: 'id',-->
-<!--                                 displayExpr: 'text', onValueChanged: refreshSelectedTime, searchEnabled: false,-->
-<!--                                 id: 'selectedMinute'}">-->
-
-<!--                  </dxi-item>-->
-<!--                </dxi-item>-->
-<!--                <dxi-item dataField="otomatikmahsup" [label]="{text: 'Otomatik Mahsup'}" editorType="dxSelectBox"-->
-<!--                          [editorOptions]="{ items: mahsupSelectionList, valueExpr: 'id', displayExpr: 'text',-->
-<!--                                  onValueChanged: validationControl, searchEnabled: false, id: 'otomatikmahsup'}">-->
-<!--                </dxi-item>-->
+<!--                 -->
 <!--              </dxi-item>-->
-<!--              &lt;!&ndash; middle group end&ndash;&gt;-->
+              <!-- middle group end-->
 
 
-<!--              &lt;!&ndash; right group start&ndash;&gt;-->
+              <!-- right group start-->
 <!--              <dxi-item [alignItemLabels]="true" itemType="group">-->
 <!--                <dxi-item dataField="dagitimbolgesi" [label]="{text: 'Dağıtım Bölgesi'}" editorType="dxSelectBox"-->
 <!--                          [editorOptions]="{ items: dagitimBolgesiListe, valueExpr: 'id', displayExpr: 'value',-->
@@ -183,181 +158,49 @@
 <!--                  </dxi-item>-->
 <!--                </dxi-item>-->
 <!--              </dxi-item>-->
-<!--              &lt;!&ndash; right group end&ndash;&gt;-->
-<!--            </dx-form>-->
-<!--          </div>-->
+              <!-- right group end-->
+            </dx-form>
+          </div>
 
-<!--        </dx-scroll-view>-->
-<!--      </dxi-item>-->
+        </dx-scroll-view>
+      </dxi-item>
 
-<!--      &lt;!&ndash;Diger Tanimlar Tabi&ndash;&gt;-->
-<!--      <dxi-item title="Diğer Tanımlar" style="background-color: white">-->
-<!--        <dx-scroll-view width="100%" height="100%">-->
-<!--          <div id="form-container" style="padding:10px;">-->
-<!--            <dx-form id="form" [formData]="popupContent" [colCount]="3">-->
-<!--              &lt;!&ndash; left group start&ndash;&gt;-->
-<!--              <dxi-item [alignItemLabels]="true" itemType="group" >-->
-
-<!--                <dxi-item-->
-<!--                  itemType="simple"-->
-<!--                  dataField="kayittarihi"-->
-<!--                  editorType="dxDateBox"-->
-<!--                  [editorOptions]="{id: 'kayittarihi'}">-->
-<!--                  <dxo-label text="Kayıt Tarihi">-->
-<!--                  </dxo-label>-->
-<!--                </dxi-item>-->
+      <!--Diger Tanimlar Tabi-->
+      <dxi-item title="Egzersiz Videoları" style="background-color: white">
+        <dx-scroll-view width="100%" height="100%">
+          <div id="form-container" style="padding:10px;">
+            <dx-form id="form" [formData]="popUpContent" [colCount]="3">
+              <!-- left group start-->
+              <dxi-item [alignItemLabels]="true" itemType="group" >
 
 
-<!--                <dxi-item dataField="aktif" editorType="dxSelectBox"-->
-<!--                          [editorOptions]="{items: aktifListForSaveModal, valueExpr: 'id',-->
-<!--                                displayExpr: 'value', searchEnabled: false, id: 'aktif', value: true-->
-<!--                                , onValueChanged: validationControl }">-->
-<!--                  <dxo-label text="Aktif Durum">-->
-<!--                  </dxo-label>-->
-<!--                </dxi-item>-->
+              </dxi-item>
+              <!-- left group end-->
 
-<!--                <dxi-item dataField="aboneislemtipi" [label]="{text: 'Abone İşlem Tipi'}" editorType="dxSelectBox"-->
-<!--                          [editorOptions]="{ items: aboneIslemTipiList, valueExpr: 'id', displayExpr: 'value'-->
-<!--                              , searchEnabled: false, id: 'aboneislemtipi'}">-->
-<!--                </dxi-item>-->
+              <!-- middle group start-->
+              <dxi-item [alignItemLabels]="true" itemType="group">
 
-<!--                <dxi-item dataField="ulusaladresno" [label]="{text: 'Ulusal Adres No'}"-->
-<!--                          [editorOptions]="{ maxLength:50, id: 'ulusaladresno'}">-->
-<!--                </dxi-item>-->
+              </dxi-item>
 
-<!--                <dxi-item dataField="daskno" [label]="{text: 'DASK No'}"-->
-<!--                          [editorOptions]="{ maxLength:50, id:'daskno'}">-->
-<!--                </dxi-item>-->
-
-<!--              </dxi-item>-->
-<!--              &lt;!&ndash; left group end&ndash;&gt;-->
-
-<!--              &lt;!&ndash; middle group start&ndash;&gt;-->
-<!--              <dxi-item [alignItemLabels]="true" itemType="group">-->
-
-<!--                <dxi-item [alignItemLabels]="false" [colCount]="2" itemType="group">-->
-<!--                  <dxi-item dataField="il" editorType="dxSelectBox"-->
-<!--                            [editorOptions]="{items: ilItemsList, valueExpr: 'id', onValueChanged: handleChangeIl,-->
-<!--                                displayExpr: 'value', searchEnabled: false, id: 'il'}">-->
-<!--                    <dxo-label location="top" text="İl Seçimi">-->
-<!--                    </dxo-label>-->
-<!--                    <dxi-validation-rule-->
-<!--                      type="required"-->
-<!--                      message="Bu alan gerekli!">-->
-<!--                    </dxi-validation-rule>-->
-<!--                  </dxi-item>-->
-
-<!--                  <dxi-item  dataField="ilce" editorType="dxSelectBox"-->
-<!--                             [editorOptions]="{items: ilceItemsSelectionList, valueExpr: 'id', onValueChanged: handleChangeIlce,-->
-<!--                                 displayExpr: 'value', searchEnabled: false, id: 'ilce', placeholder:'&#45;&#45;Önce il seçin!&#45;&#45;',-->
-<!--                                 disabled: popupContent.il===null}">-->
-<!--                    <dxo-label location="top" text="İlçe Seçimi">-->
-<!--                    </dxo-label>-->
-<!--                    <dxi-validation-rule-->
-<!--                      type="required"-->
-<!--                      message="Bu alan gerekli!">-->
-<!--                    </dxi-validation-rule>-->
-<!--                  </dxi-item>-->
-
-<!--                </dxi-item>-->
-
-<!--                <dxi-item dataField="mulktckimlik" [label]="{text: 'Mülk TC Kimlik'}"-->
-<!--                          [editorOptions]="{id: 'mulktckimlik', maxLength: 50}">-->
-<!--                </dxi-item>-->
-
-<!--                <dxi-item dataField="mulkadi" [label]="{text: 'Mülk Adı'}"-->
-<!--                          [editorOptions]="{id: 'mulkadi', maxLength: 50}">-->
-<!--                </dxi-item>-->
-
-<!--                <dxi-item dataField="mulksoyadi" [label]="{text: 'Mülk Soyadı'}"-->
-<!--                          [editorOptions]="{id: 'mulksoyadi', maxLength: 50}">-->
-<!--                </dxi-item>-->
-
-<!--              </dxi-item>-->
-
-<!--              &lt;!&ndash; middle group end&ndash;&gt;-->
+              <!-- middle group end-->
 
 
-<!--              &lt;!&ndash; right group start&ndash;&gt;-->
-<!--              <dxi-item [alignItemLabels]="true" itemType="group">-->
+              <!-- right group start-->
+              <dxi-item [alignItemLabels]="true" itemType="group">
 
-<!--                <dxi-item [alignItemLabels]="true" [colCount]="2" itemType="group">-->
-<!--                  <dxi-item  dataField="belediye" editorType="dxSelectBox"-->
-<!--                             [editorOptions]="{items: belediyeItemsSelectionList, valueExpr: 'id', onValueChanged: validationControl,-->
-<!--                                 displayExpr: 'value', searchEnabled: false, id: 'belediye', placeholder:'&#45;&#45;Önce ilce seçin!&#45;&#45;',-->
-<!--                                 disabled: popupContent.ilce===null}">-->
-<!--                    <dxo-label location="top" text="Belediye Seçimi">-->
-<!--                    </dxo-label>-->
-<!--                    <dxi-validation-rule-->
-<!--                      type="required"-->
-<!--                      message="Bu alan gerekli!">-->
-<!--                    </dxi-validation-rule>-->
-<!--                  </dxi-item>-->
-<!--                  <dxi-item  dataField="abonetipi" editorType="dxSelectBox"-->
-<!--                             [editorOptions]="{items: abonetipiList, valueExpr: 'id', onValueChanged: validationControl,-->
-<!--                                 displayExpr: 'value', searchEnabled: false, id: 'abonetipi'}">-->
-<!--                    <dxo-label location="top" text="Abone Tipi">-->
-<!--                    </dxo-label>-->
-<!--                  </dxi-item>-->
-<!--                </dxi-item>-->
+              </dxi-item>
+              <!-- right group end-->
+            </dx-form>
+          </div>
 
-<!--                <dxi-item dataField="mulkvergino" [label]="{text: 'Mülk Vergi No'}"-->
-<!--                          [editorOptions]="{ maxLength:50, id:'mulkvergino'}">-->
-<!--                </dxi-item>-->
+        </dx-scroll-view>
+      </dxi-item>
 
-<!--                <dxi-item  dataField="distributionid" editorType="dxSelectBox"-->
-<!--                           [editorOptions]="{items: profilDagitimBolgesiList, valueExpr: 'id', onValueChanged: handleChangeDistributor,-->
-<!--                                 displayExpr: 'value', searchEnabled: false, id: 'distributionid'}">-->
-<!--                  <dxo-label location="top" text="Profil Dağıtım Bölgesi">-->
-<!--                  </dxo-label>-->
-<!--                </dxi-item>-->
-
-<!--                <dxi-item  dataField="subscriberprofilegroup" editorType="dxSelectBox"-->
-<!--                           [editorOptions]="{items: profilAboneGrubuListe, valueExpr: 'id', onValueChanged: validationControl,-->
-<!--                               disabled: profilAboneGrubuListe.length === 0, displayExpr: 'value', searchEnabled: false,-->
-<!--                               id: 'subscriberprofilegroup', placeholder:'&#45;&#45;Abone Grubu Yok&#45;&#45;'}">-->
-<!--                  <dxo-label location="top" text="Profil Abone Grubu">-->
-<!--                  </dxo-label>-->
-<!--                  <dxi-validation-rule-->
-<!--                    type="required"-->
-<!--                    message="Bu alan gerekli!">-->
-<!--                  </dxi-validation-rule>-->
-<!--                </dxi-item>-->
-
-<!--              </dxi-item>-->
-<!--              &lt;!&ndash; right group end&ndash;&gt;-->
-<!--            </dx-form>-->
-<!--          </div>-->
-
-<!--        </dx-scroll-view>-->
-<!--      </dxi-item>-->
-
-<!--    </dx-tab-panel>-->
+    </dx-tab-panel>
 
 
 
-<!--  </div>-->
+  </div>
 
-<!--  <dxi-toolbar-item-->
-<!--    widget="dxButton"-->
-<!--    toolbar= "bottom"-->
-<!--    alignment="right"-->
-<!--    location="after"-->
-<!--    [options]="{-->
-<!--          text: 'Kaydet',-->
-<!--          onClick: saveItem,-->
-<!--          disabled: !isValid-->
-<!--      }">-->
-<!--  </dxi-toolbar-item>-->
-<!--  <dxi-toolbar-item-->
-<!--    widget="dxButton"-->
-<!--    toolbar= "bottom"-->
-<!--    alignment="right"-->
-<!--    location="after"-->
-<!--    [options]="{-->
-<!--          text: 'Vazgeç',-->
-<!--          onClick: closeInfo-->
-<!--      }">-->
-<!--  </dxi-toolbar-item>-->
 
-<!--</dx-popup>-->
+</dx-popup>
