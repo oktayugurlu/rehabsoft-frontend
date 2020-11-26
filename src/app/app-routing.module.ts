@@ -28,7 +28,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
 
 // Devextreme
-import {DxProgressBarModule, DxToolbarModule} from 'devextreme-angular';
+import {
+  DxPopupModule,
+  DxProgressBarModule,
+  DxScrollViewModule,
+  DxTabPanelModule,
+  DxToolbarModule
+} from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
   DxCheckBoxModule,
@@ -47,6 +53,7 @@ import {PatientFormComponent} from "./pages/user/necessaryforms/patientform/pati
 import {GeneralEvaluationFormComponent} from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
 import {UserNotificationComponent} from "./pages/user/notifiaction/user-notification.component";
 import {DoctorExerciseManagmentComponent} from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
+import {DoctorCreateExerciseComponent} from "./pages/doctor/exerciseManagment/createexercise/doctor-createexercise.component";
 
 
 const routes: Routes = [
@@ -88,7 +95,7 @@ const routes: Routes = [
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
       { path: 'task', component: DoctorTasksComponent },
-      { path: 'exerciseManagment', component: DoctorExerciseManagmentComponent}
+      { path: 'exercises', component: DoctorExerciseManagmentComponent}
     ]
   },
   {path: 'login', component: LoginComponent},
@@ -101,11 +108,11 @@ const routes: Routes = [
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule],
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule],
 
   exports: [RouterModule],
   declarations: [
-    PagesComponent,
+    PagesComponent, DoctorCreateExerciseComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent,

@@ -19,4 +19,8 @@ export class ExerciseService {
     return this.http.get<Exercise[]>(`${environment.API_BASE_PATH}/exercises/all`);
   }
 
+  deleteById(id:number) {
+    console.log("siliniyor: ",id);
+    return this.http.delete<string>(`${environment.API_BASE_PATH}/exercises/delete/${id}`);
+  }
 }
