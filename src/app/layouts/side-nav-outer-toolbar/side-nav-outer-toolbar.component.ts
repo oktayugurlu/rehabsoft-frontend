@@ -70,8 +70,10 @@ export class SideNavOuterToolbarComponent implements OnInit {
 
     if (path && this.menuOpened) {
       if (event.node.selected) {
+        console.log("butona tiklandi ama navigate olmadi");
         pointerEvent.preventDefault();
       } else {
+        console.log("butona tiklandi pathe gidiyor: ", path);
         this.router.navigate([path]);
         this.scrollView.instance.scrollTo(0);
       }
