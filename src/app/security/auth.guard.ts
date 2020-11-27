@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
           //   this.router.navigate(['/general-evaluation-form']);
           //   return true;
           // }
-
+          console.log("authorized oldu");
           // authorised so return true
           return true;
         }

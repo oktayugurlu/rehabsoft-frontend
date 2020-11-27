@@ -21,7 +21,7 @@
 </ng-template>
 
 <ng-template [ngIf]="isAdmin">
-  <app-side-nav-outer-toolbar [navigation]="adminNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
+  <app-side-nav-outer-toolbar [navigation]="adminNavigation" title="{{appInfo.title+' - '+'Admin'}}">
     <router-outlet></router-outlet>
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.

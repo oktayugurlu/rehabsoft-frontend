@@ -62,7 +62,12 @@ export class CreateAccountFormComponent {
       .subscribe(
         data => {
           notify(JSON.stringify(data.responseMessage));
-          this.router.navigate(['/login']);
+          if(data.code === 400){
+
+          }else{
+            this.router.navigate(['/login']);
+          }
+          // this.router.navigate(['/login']);
         },
         error => {
           notify(JSON.stringify(error.responseMessage));
