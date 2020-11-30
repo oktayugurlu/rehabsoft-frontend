@@ -1,0 +1,25 @@
+<dx-popup [minWidth]='"55%"' [minHeight]="'inherit'" [showTitle]="true" [title]="title" [dragEnabled]="true"
+          [closeOnOutsideClick]="true" [(visible)]="isVisible" [position]="{ my: 'center', at: 'center' }">
+  <div *dxTemplate="let data of 'content'">
+
+<!--    <video width="400" controls preload="auto" >-->
+<!--      <source src="http://localhost:8080/video/stream/mp4/toystory" type="video/mp4">-->
+<!--      Your browser does not support HTML video.-->
+<!--    </video>-->
+
+    <app-vjs-player  [options]="{
+    autoplay: true,
+    controls: true,
+    sources: [{ src: 'http://localhost:8080/video/stream/mp4/toystory', type: 'video/mp4', withCredentials: true}],
+    html5:{
+        hls: {
+          withCredentials: true,
+          overrideNative: true
+        }
+      }
+      }"></app-vjs-player>
+
+  </div>
+
+
+</dx-popup>

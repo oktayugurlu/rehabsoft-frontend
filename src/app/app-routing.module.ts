@@ -29,6 +29,7 @@ import {CommonModule} from '@angular/common';
 
 // Devextreme
 import {
+  DxListModule,
   DxPopupModule,
   DxProgressBarModule,
   DxScrollViewModule,
@@ -54,6 +55,10 @@ import {GeneralEvaluationFormComponent} from "./pages/user/necessaryforms/genera
 import {UserNotificationComponent} from "./pages/user/notifiaction/user-notification.component";
 import {DoctorExerciseManagmentComponent} from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
 import {DoctorCreateExerciseComponent} from "./pages/doctor/exerciseManagment/createexercise/doctor-createexercise.component";
+import {ViewExerciseComponent} from "./shared/components/view-exercise/view-exercise.component";
+import {VideoPlayerComponent} from "./shared/components/video-player/video-player.component";
+import {DxoItemDraggingModule} from "devextreme-angular/ui/nested";
+
 
 
 const routes: Routes = [
@@ -108,14 +113,14 @@ const routes: Routes = [
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule],
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule],
 
   exports: [RouterModule],
   declarations: [
-    PagesComponent, DoctorCreateExerciseComponent,
+    PagesComponent, DoctorCreateExerciseComponent,VideoPlayerComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent,
-    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent]
+    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent]
 })
 export class AppRoutingModule { }

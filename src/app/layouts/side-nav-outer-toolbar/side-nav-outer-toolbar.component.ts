@@ -22,15 +22,12 @@ export class SideNavOuterToolbarComponent implements OnInit {
   @Input()
   title: string;
 
-  @Input()
-  navigation: any[];
-
   menuMode = 'shrink';
   menuRevealMode = 'expand';
   minMenuSize = 0;
   shaderEnabled = false;
 
-  constructor(private screen: ScreenService, private router: Router) { }
+  constructor(private screen: ScreenService, private router: Router ) { }
 
   ngOnInit() {
     this.menuOpened = this.screen.sizes['screen-large'];
@@ -70,10 +67,8 @@ export class SideNavOuterToolbarComponent implements OnInit {
 
     if (path && this.menuOpened) {
       if (event.node.selected) {
-        console.log("butona tiklandi ama navigate olmadi");
         pointerEvent.preventDefault();
       } else {
-        console.log("butona tiklandi pathe gidiyor: ", path);
         this.router.navigate([path]);
         this.scrollView.instance.scrollTo(0);
       }

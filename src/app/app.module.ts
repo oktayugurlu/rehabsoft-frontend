@@ -24,6 +24,8 @@ import { PatientFormComponent } from './pages/user/necessaryforms/patientform/pa
 import {UserService} from "./shared/services/user.service";
 import {ExerciseService} from "./shared/services/exercise.service";
 
+import {CookieService} from "ngx-cookie-service";
+
 @NgModule({
   declarations: [
     AppComponent
@@ -47,7 +49,7 @@ import {ExerciseService} from "./shared/services/exercise.service";
     DxButtonModule,
     UserPanelModule
   ],
-  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService,
+  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
