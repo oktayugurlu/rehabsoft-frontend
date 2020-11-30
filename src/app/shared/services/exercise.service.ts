@@ -5,6 +5,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "../../security/authentication.service";
 import {User} from "../../models/user";
 import {environment} from "../../../environments/environment";
+import {AppliedSurgery} from "../../models/generalevaluationform/appliedsurgery";
+import {ExerciseVideo} from "../../models/exercise/exercisevideo";
+import {stringify} from "@angular/compiler/src/util";
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseService {
@@ -32,6 +35,32 @@ export class ExerciseService {
     return this.http.get<Exercise>(`${environment.API_BASE_PATH}/exercises/get/${id}`);
   }
   save(exercise:Exercise){
-    return this.http.get<Exercise>(`${environment.API_BASE_PATH}/exercises/save/${exercise}`);
+    const payload = new FormData();
+    this.appendExerciseMediaToExerciseWithOrder(exercise.exerciseVideoCollection, payload);
+    payload.append('model', JSON.stringify(exercise));
+    return this.http.post<Exercise>(`${environment.API_BASE_PATH}/exercises/create`,payload );
   }
+
+  appendExerciseMediaToExerciseWithOrder = (exerciseVideos: ExerciseVideo[], payload: FormData) =>{
+    if(exerciseVideos !== null ){
+      if(exerciseVideos.length>0){
+        exerciseVideos.forEach((exerciseVideo,index)=>{
+          if( !this.checkIsEmpty(exerciseVideo.videoFile) ){
+            console.log("eklemeden once name: ", exerciseVideo.title);
+            payload.append('exerciseMediaList', new Blob([exerciseVideo.videoFile]), exerciseVideo.title+'.'+exerciseVideo.videoFile.name.split('.').pop());
+            delete exerciseVideo.videoFile;
+          }
+        });
+      }
+    }
+  }
+
+  checkIsEmpty = (object: any) =>{
+    if(object === undefined ){
+      return true;
+    }
+    return object === null;
+  }
+
+
 }

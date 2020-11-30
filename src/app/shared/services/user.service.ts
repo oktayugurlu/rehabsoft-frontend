@@ -60,7 +60,7 @@ export class UserService {
         if(appliedSurgeryCollection.length>0){
 
           appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
-            if( !this.checkIsEmpty(appliedSurgery) ){
+            if( !this.checkIsEmpty(appliedSurgery.epicrisisImageFile) ){
               console.log("eklemeden once name: ", appliedSurgery.epicrisisImageFile.name);
               payload.append('appliedSurgeryEpicrisisImages', new Blob([appliedSurgery.epicrisisImageFile]), appliedSurgery.surgeryName+'.'+appliedSurgery.epicrisisImageFile.name.split('.').pop());
 
@@ -74,7 +74,7 @@ export class UserService {
     if(otherOrthesisInfoCollection !== null ){
       if(otherOrthesisInfoCollection.length>0){
         otherOrthesisInfoCollection.forEach((otherOrthesisInfo,index)=>{
-          if( !this.checkIsEmpty(otherOrthesisInfo) ){
+          if( !this.checkIsEmpty(otherOrthesisInfo.orthesisImageFile) ){
             payload.append('otherOrthesisImages',
               new Blob([otherOrthesisInfo.orthesisImageFile]),
               otherOrthesisInfo.orthesisName+'.'+otherOrthesisInfo.orthesisImageFile.name.split('.').pop()
@@ -86,11 +86,10 @@ export class UserService {
   }
 
   checkIsEmpty = (object: any) =>{
-    if(object.epicrisisImageFile === undefined ){
+    if(object === undefined ){
       return true;
     }
-    console.log(object.epicrisisImageFile);
-    return object.epicrisisImageFile === null;
+    return object === null;
   }
 
 
