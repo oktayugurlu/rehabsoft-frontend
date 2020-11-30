@@ -1,8 +1,7 @@
 
 <div class="col-xs-12">
 
-
-<dx-popup [minHeight]="'inherit'" [showTitle]="true" title="Egzersiz Oluşturma" [dragEnabled]="true"
+<dx-popup [minHeight]="'95%'" [showTitle]="true" title="Egzersiz Oluşturma" [dragEnabled]="true" [disabled]="isLoading"
           [closeOnOutsideClick]="true" [(visible)]="isVisible" [position]="{ my: 'center', at: 'center' }" [resizeEnabled]="true">
   <div *dxTemplate="let data of 'content'">
 
@@ -17,66 +16,36 @@
       <dxi-item title="Egzersiz Tanım" style="background-color: white">
         <dx-scroll-view width="100%" height="100%">
           <div style="padding:10px;">
-            <dx-form #dxCreateExerciseFormComponent [formData]="popUpContent" [colCount]="1">
-              <!-- left group start-->
-              <dxi-item [alignItemLabels]="true" itemType="group" >
 
-                <dxi-item
-                  itemType="simple"
-                  dataField="exerciseName"
-                  [label]="{text: 'Egzersiz Adı'}"
-                  [editorOptions]="{maxLength:50, id: 'exerciseName' }">
+              <dx-form #dxCreateExerciseFormComponent [formData]="popUpContent" [colCount]="1">
+                <!-- left group start-->
+                <dxi-item [alignItemLabels]="true" itemType="group" >
+                  <dxi-item
+                    itemType="simple"
+                    dataField="exerciseName"
+                    [label]="{text: 'Egzersiz Adı'}"
+                    [editorOptions]="{maxLength:50, id: 'exerciseName' }">
 
-                  <dxi-validation-rule
-                    type="required"
-                    message="Bu alan gerekli!">
-                  </dxi-validation-rule>
+                    <dxi-validation-rule
+                      type="required"
+                      message="Bu alan gerekli!">
+                    </dxi-validation-rule>
 
+                  </dxi-item>
+
+                  <dxi-item dataField="exerciseContent" editorType="dxTextArea" [label]="{text: 'Egzersiz Açıklaması'}"
+                            [editorOptions]="{maxLength:500, height: 150, id: 'exerciseContent'}">
+                    <dxi-validation-rule
+                      type="required"
+                      message="Bu alan gerekli!">
+                    </dxi-validation-rule>
+                  </dxi-item>
                 </dxi-item>
 
-                <dxi-item dataField="exerciseContent" editorType="dxTextArea" [label]="{text: 'Egzersiz Açıklaması'}"
-                          [editorOptions]="{maxLength:500, height: 150, id: 'exerciseContent'}">
-                  <dxi-validation-rule
-                    type="required"
-                    message="Bu alan gerekli!">
-                  </dxi-validation-rule>
-                </dxi-item>
+                <!-- just add space for buttons-->
+                <!-- just add space for buttons-->
+              </dx-form>
 
-              </dxi-item>
-
-              <!-- just add space for buttons-->
-              <dxi-item itemType="group" >
-              </dxi-item>
-              <dxi-item itemType="group" >
-              </dxi-item>
-              <dxi-item itemType="group" >
-              </dxi-item>
-              <dxi-item itemType="group" >
-              </dxi-item>
-              <dxi-item itemType="group" >
-              </dxi-item>
-              <!-- just add space for buttons-->
-
-              <dxi-item itemType="group" [colCount]="1">
-                <dxi-item [template]="'exerciseModalTemplate'">
-                </dxi-item>
-                <div *dxTemplate="let data of 'exerciseModalTemplate'">
-                  <div class="row" style="float: right">
-                    <div class="column" style="padding-right: 10px">
-                      <dx-button  [useSubmitBehavior]="false" [text]="'Vazgeç'" onClick="cancelExercise"
-                                  width= '130px' type="outlined">
-                      </dx-button>
-                    </div>
-                    <div  class="column" style="padding-right: 10px">
-                      <dx-button  [useSubmitBehavior]="false" [text]="'Kaydet'" onClick="submitExercise"
-                                  width= '130px' type="default" icon="fas fa-save">
-                      </dx-button>
-                    </div>
-                  </div>
-                </div>
-              </dxi-item>
-
-            </dx-form>
           </div>
 
         </dx-scroll-view>
@@ -163,19 +132,16 @@
                     </dxi-item>
                     <div *dxTemplate="let data of 'exerciseMediaTemplate'">
                       <div class="fileuploader-container">
-                        <dx-file-uploader selectButtonText="Dosya Ekle"
+                        <dx-file-uploader #dxFileUploaderComponent
+                                          selectButtonText="Dosya Ekle"
                                           labelText="Sürükleyebilirsiniz"
                                           uploadedMessage="Başarıyla yüklendi"
                                           uploadFailedMessage="Yükleme başarısız"
                                           [multiple]="false"
                                           uploadMode="useForm"
-                                          (onValueChanged)="uploadMedia($event)"
-                                          [allowedFileExtensions]=
-                                            "['.jpg', '.jpeg', '.gif', '.png',
-                                     '.mpg', '.mp2', '.mpeg', '.mpe', '.mpv',
-                                     '.ogg', '.mp4', '.m4p', '.m4v',
-                                     '.avi','.wmv','.mov', '.qt','.flv', '.swf', '.avchd','.webm']"
-                                          [maxFileSize]="10000000"
+                                          (onValueChanged)="uploadMediaToAdd($event)"
+                                          allow= "image,video"
+                                          [maxFileSize]="1048576000"
                         >
                         </dx-file-uploader>
                       </div>

@@ -93,7 +93,6 @@ export class LoginComponent implements OnInit {
         data => {
           // buraya ve router'i sil
           // this.router.navigate([this.returnUrl]).then(r => {});
-          console.log("homeeeeeeeeeee----------------------------------");
           if(data.role === Role.User) {
             this.router.navigate(['/user/home']);
           }
