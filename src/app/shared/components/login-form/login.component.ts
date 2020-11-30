@@ -19,7 +19,7 @@ import {DxiButtonModule} from "devextreme-angular/ui/nested";
 })
 export class LoginComponent implements OnInit {
 
-  submitbuttonOptions:any = {useSubmitBehavior: true, text: 'Sign In', onClick: (event)=>this.login(event), width: '100%',type:"default"};
+  submitbuttonOptions:any = {useSubmitBehavior: true, text: 'Giriş Yap', onClick: (event)=>this.login(event), width: '100%',type:"default"};
 
   loginForm: {
     username: '',
@@ -95,10 +95,10 @@ export class LoginComponent implements OnInit {
           // this.router.navigate([this.returnUrl]).then(r => {});
           console.log("homeeeeeeeeeee----------------------------------");
           if(data.role === Role.User) {
-            this.router.navigate(['/user']);
+            this.router.navigate(['/user/home']);
           }
           if(data.role === Role.Doctor) {
-            this.router.navigate(['/doctor']);
+            this.router.navigate(['/doctor/home']);
           }
           if(data.role === Role.Admin) {
             this.router.navigate(['/admin']);

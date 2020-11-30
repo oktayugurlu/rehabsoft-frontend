@@ -11,6 +11,7 @@ import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
 import {User} from "../../../models/user";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DoctorCreateExerciseComponent} from "./createexercise/doctor-createexercise.component";
+import {ViewExerciseComponent} from "../../../shared/components/view-exercise/view-exercise.component";
 
 @Component({
   templateUrl: 'doctor-exerciseManagment.component.html',
@@ -20,6 +21,7 @@ import {DoctorCreateExerciseComponent} from "./createexercise/doctor-createexerc
 export class DoctorExerciseManagmentComponent{
 
   @ViewChild(DoctorCreateExerciseComponent) createExerciseComponent:DoctorCreateExerciseComponent;
+  @ViewChild(ViewExerciseComponent) viewExerciseComponent:ViewExerciseComponent;
 
 
   // Buton options
@@ -38,7 +40,7 @@ export class DoctorExerciseManagmentComponent{
     }
   };
 
-  allowedPageSizesArray =  [5, 10, 15, 25, 50];
+  allowedPageSizesArray =  [5, 10, 20, 50, 100];
   dataSource: Exercise[];
 
 
@@ -68,36 +70,6 @@ export class DoctorExerciseManagmentComponent{
 
   editIconClick = (e: any) => {
     this.createExerciseComponent.openPopUpForEdit(e.row.data);
-
-    // if ( this.popupContent.params === undefined) {
-    //   this.createParamFieldForPopUpObject();
-    //
-    // } else {
-    //   const tmpDate = new Date(this.popupContent.params.tahmingiriszamani);
-    //   this.popupContent['selectedHours'] = tmpDate.getHours();
-    //   this.popupContent['selectedMinute'] = tmpDate.getMinutes();
-    //   this.popupContent.params = {tahmingiriszamani: tmpDate, tahmingiriskontrol: this.popupContent.params.tahmingiriskontrol};
-    // }
-    //
-    // if (this.popupContent.kayittarihi === undefined) {
-    //   this.popupContent.kayittarihi = new Date();
-    // } else {
-    //   const day    = this.popupContent.kayittarihi.substr(8, 2);
-    //   const month  = this.popupContent.kayittarihi.substr(5, 2);
-    //   const year   = this.popupContent.kayittarihi.substr(0, 4);
-    //   this.popupContent.kayittarihi = new Date(year + '-' + month + '-' + day);
-    // }
-    //
-    // if (this.popupContent.il !== null) {
-    //   this.handleChangeIl();
-    // }
-    // if (this.popupContent.ilce !== null) {
-    //   this.handleChangeIlce();
-    // }
-    // if (this.popupContent.distributionid !== null) {
-    //   this.handleChangeDistributor();
-    // }
-    //
 
   }
 
@@ -155,4 +127,7 @@ export class DoctorExerciseManagmentComponent{
     this.createExerciseComponent.openPopUpForCreate();
   }
 
+  previewIconClick = (e)=>{
+    this.viewExerciseComponent.openPopUp(e.row.data);
+  }
 }

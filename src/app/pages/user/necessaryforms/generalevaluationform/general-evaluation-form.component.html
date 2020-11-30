@@ -1122,10 +1122,16 @@
 
   <!--Button Groups-->
   <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="2">
-    <dxi-item itemType="button"  horizontalAlignment="left" [buttonOptions]="backbuttonOptions" >
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item itemType="button"  horizontalAlignment="left" [buttonOptions]="backbuttonOptions" >
+      </dxi-item>
     </dxi-item>
-    <dxi-item itemType="button" horizontalAlignment="right" [buttonOptions]="submitbuttonOptions" >
+
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item itemType="button" horizontalAlignment="right" [buttonOptions]="submitbuttonOptions" >
+      </dxi-item>
     </dxi-item>
+
   </dxi-item>
 
 

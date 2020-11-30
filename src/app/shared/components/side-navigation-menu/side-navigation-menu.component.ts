@@ -1,8 +1,12 @@
 import { Component, NgModule, Output, Input, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { DxTreeViewModule, DxTreeViewComponent } from 'devextreme-angular/ui/tree-view';
-import { userNavigation } from '../../../app-navigation';
+import {adminNavigation, doctorNavigation, userNavigation} from '../../../app-navigation';
 
 import * as events from 'devextreme/events';
+import {AuthenticationService} from "../../../security/authentication.service";
+import {Role} from "../../../models/role";
+import {NavigationEnd, Router} from "@angular/router";
+import {ScreenService} from "../../services";
 
 @Component({
   selector: 'app-side-navigation-menu',
@@ -12,9 +16,6 @@ import * as events from 'devextreme/events';
 export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
   @ViewChild(DxTreeViewComponent, { static: true })
   menu: DxTreeViewComponent;
-
-  @Input()
-  navigation: any[];
 
   @Output()
   selectedItemChanged = new EventEmitter<string>();
@@ -29,19 +30,42 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
     if (!this.menu.instance) {
       return;
     }
-
     this.menu.instance.selectItem(value);
   }
 
   private _items;
     get items() {
     if (!this._items) {
-      this._items = this.navigation.map((item) => {
-        if(item.path && !(/^\//.test(item.path))){
-          item.path = `/${item.path}`;
+      this.authenticationService.currentUser.subscribe((user)=>{
+
+        if(user!==null){
+          if(user.role === Role.User){
+            this._items = userNavigation.map((item) => {
+              if(item.path && !(/^\//.test(item.path))){
+                item.path = `/${item.path}`;
+              }
+              return { ...item, expanded: !this._compactMode }
+            });
+          }
+          if(user.role === Role.Doctor){
+            this._items = doctorNavigation.map((item) => {
+              if(item.path && !(/^\//.test(item.path))){
+                item.path = `/${item.path}`;
+              }
+              return { ...item, expanded: !this._compactMode }
+            });
+          }
+          if(user.role === Role.Admin){
+            this._items = adminNavigation.map((item) => {
+              if(item.path && !(/^\//.test(item.path))){
+                item.path = `/${item.path}`;
+              }
+              return { ...item, expanded: !this._compactMode }
+            });
+          }
         }
-         return { ...item, expanded: !this._compactMode }
-        });
+
+      });
     }
 
     return this._items;
@@ -67,7 +91,8 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
   }
 
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef, private authenticationService:AuthenticationService
+    , private router: Router ) { }
 
   onItemClick(event) {
     this.selectedItemChanged.emit(event);

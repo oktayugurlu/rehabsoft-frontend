@@ -1,41 +1,58 @@
-<ng-template [ngIf]="isUserAndIsFilledGeneralEvaluationFormAndPatientForm">
-  <app-side-nav-outer-toolbar [navigation]="userNavigation" title="{{appInfo.title+' - '+'User'}}" >
-    <router-outlet></router-outlet>
-    <app-footer>
-      Copyright © 2020-{{appInfo.currentYear}} {{appInfo.title}} Inc.
-      <br/>
-      Tüm hakları saklıdır.
-    </app-footer>
-  </app-side-nav-outer-toolbar>
-</ng-template>
+<!--<ng-template [ngIf]="isUserAndIsFilledGeneralEvaluationFormAndPatientForm">-->
+<!--  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'User'}}" >-->
+<!--    <router-outlet></router-outlet>-->
+<!--    <app-footer>-->
+<!--      Copyright © 2020-{{appInfo.currentYear}} {{appInfo.title}} Inc.-->
+<!--      <br/>-->
+<!--      Tüm hakları saklıdır.-->
+<!--    </app-footer>-->
+<!--  </app-side-nav-outer-toolbar>-->
+<!--</ng-template>-->
 
-<ng-template [ngIf]="isDoctor">
-  <app-side-nav-outer-toolbar [navigation]="doctorNavigation" title="{{appInfo.title+' - '+'Doctor'}}">
+<!--<ng-template [ngIf]="isDoctor">-->
+<!--  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'Doctor'}}">-->
+<!--    <router-outlet></router-outlet>-->
+<!--    <app-footer>-->
+<!--      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.-->
+<!--      <br/>-->
+<!--      Tüm hakları saklıdır.-->
+<!--    </app-footer>-->
+<!--  </app-side-nav-outer-toolbar>-->
+<!--</ng-template>-->
+
+<!--<ng-template [ngIf]="isAdmin">-->
+<!--  <app-side-nav-outer-toolbar title="{{appInfo.title+' - '+'Admin'}}">-->
+<!--    <router-outlet></router-outlet>-->
+<!--    <app-footer>-->
+<!--      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.-->
+<!--      <br/>-->
+<!--      Tüm hakları saklıdır.-->
+<!--    </app-footer>-->
+<!--  </app-side-nav-outer-toolbar>-->
+<!--</ng-template>-->
+
+
+
+<!--<ng-template [ngIf]="isNotAuthorized" >-->
+<!--&lt;!&ndash;  <div style="background-image: url('../assets/image/hacettepe-hastanesi.jpg')">&ndash;&gt;-->
+<!--&lt;!&ndash;    &ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--  <app-not-authorized-container></app-not-authorized-container>-->
+<!--</ng-template>-->
+
+
+
+<ng-container *ngIf="isAuthorized(); else notAuthorized">
+  <app-side-nav-outer-toolbar title="{{getTitleByRole()}}">
     <router-outlet></router-outlet>
     <app-footer>
       Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
       <br/>
-      Tüm hakları saklıdır.
+      All trademarks or registered trademarks are property of their respective owners.
     </app-footer>
   </app-side-nav-outer-toolbar>
-</ng-template>
+</ng-container>
 
-<ng-template [ngIf]="isAdmin">
-  <app-side-nav-outer-toolbar [navigation]="adminNavigation" title="{{appInfo.title+' - '+'Admin'}}">
-    <router-outlet></router-outlet>
-    <app-footer>
-      Copyright © 2011-{{appInfo.currentYear}} {{appInfo.title}} Inc.
-      <br/>
-      Tüm hakları saklıdır.
-    </app-footer>
-  </app-side-nav-outer-toolbar>
-</ng-template>
-
-
-
-<ng-template [ngIf]="isNotAuthorized" >
-<!--  <div style="background-image: url('../assets/image/hacettepe-hastanesi.jpg')">-->
-<!--    -->
-<!--  </div>-->
+<ng-template #notAuthorized>
   <app-not-authorized-container></app-not-authorized-container>
 </ng-template>
