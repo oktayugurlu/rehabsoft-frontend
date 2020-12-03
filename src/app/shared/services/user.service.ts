@@ -27,8 +27,12 @@ export class UserService {
       return this.http.get<User[]>(`${environment.API_BASE_PATH}/users/all`);
     }
 
-    getById(id: number) {
-      return this.http.get<User>(`${environment.API_BASE_PATH}/users/${id}`);
+    getByUsername(username: string) {
+      return this.http.get<User>(`${environment.API_BASE_PATH}/users/${username}`);
+    }
+
+    updateUser(userDto:User){
+      return this.http.put<any>(`${environment.API_BASE_PATH}/users/update`,userDto);
     }
 
     postGeneralEvaluationForm(generalEvaluationForm: GeneralEvaluationForm){
