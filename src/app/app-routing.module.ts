@@ -58,6 +58,7 @@ import {DoctorCreateExerciseComponent} from "./pages/doctor/exerciseManagment/cr
 import {ViewExerciseComponent} from "./shared/components/view-exercise/view-exercise.component";
 import {VideoPlayerComponent} from "./shared/components/video-player/video-player.component";
 import {DxoItemDraggingModule} from "devextreme-angular/ui/nested";
+import { ListPatientsComponent } from './pages/doctor/list-patients/list-patients.component';
 
 
 
@@ -100,7 +101,9 @@ const routes: Routes = [
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
       { path: 'task', component: DoctorTasksComponent },
-      { path: 'exercises', component: DoctorExerciseManagmentComponent}
+      { path: 'exercises', component: DoctorExerciseManagmentComponent},
+      { path: 'getall', component: ListPatientsComponent}
+
     ]
   },
   {path: 'login', component: LoginComponent},
