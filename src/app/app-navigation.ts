@@ -32,6 +32,11 @@ export const doctorNavigation = [
     icon: 'runner'
   },
   {
+    text:"Hastalar",
+    path:"/doctor/getall",
+    icon:"group"
+  },
+  {
     text: 'Examples',
     icon: 'folder',
     items: [

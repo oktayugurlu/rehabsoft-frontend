@@ -1,0 +1,24 @@
+<dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"  
+    [remoteOperations]="true"
+    [showBorders]="true">
+
+    <dxo-paging pageSize="15"></dxo-paging>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    
+    <dxi-column dataField="tcKimlikNo" caption="Tc Kimlik Numarası"></dxi-column>
+    <dxi-column dataField="user.firstName" caption="Adı"></dxi-column>
+    <dxi-column dataField="user.surname" caption="Soyadı" ></dxi-column>
+    <dxi-column dataField="user.email" caption="Mail Adresi"></dxi-column>
+    <dxi-column type="buttons" alignment="center"  width= '100px' >
+        <dxi-button hint="Önizleme" icon="fas fa-eye" [visible]="true" ></dxi-button>
+        <dxi-button hint="Düzenle" icon="edit" [visible]="true" ></dxi-button>
+        <dxi-button hint="Sil" icon="trash" [visible]="true" ></dxi-button>
+      </dxi-column>
+
+
+   <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
+
+   
+</dx-data-grid>

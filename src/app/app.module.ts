@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { JwtInterceptor } from './security/jwt.interceptor';
 import { AuthenticationService } from './security/authentication.service';
@@ -12,11 +12,15 @@ import {FooterComponent, FooterModule, HeaderComponent, LoginFormModule, UserPan
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {ApiService} from './shared/services/api.service';
-import {DevExtremeModule} from 'devextreme-angular';
+import {DevExtremeModule, DxDataGridModule, DxFormModule} from 'devextreme-angular';
 import {SideNavInnerToolbarModule, SideNavOuterToolbarModule, SingleCardModule} from './layouts';
 import {NotAuthorizedContainerModule} from './not-authorized-container';
 import {AppInfoService, ScreenService} from './shared/services';
 import {DxButtonModule} from "devextreme-angular";
+import {PatientService} from "./shared/services/patient.service"
+
+
+import {DxSelectBoxModule, DxTabPanelModule } from 'devextreme-angular';
 
 import { CommonModule } from '@angular/common';
 import { GeneralEvaluationFormComponent } from './pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component';
@@ -25,10 +29,12 @@ import {UserService} from "./shared/services/user.service";
 import {ExerciseService} from "./shared/services/exercise.service";
 
 import {CookieService} from "ngx-cookie-service";
+import { ListPatientsComponent } from './pages/doctor/list-patients/list-patients.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListPatientsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,7 @@ import {CookieService} from "ngx-cookie-service";
     FormsModule,
     ReactiveFormsModule,
     DevExtremeModule,
-
+    DxDataGridModule,
     SideNavOuterToolbarModule,
     SideNavInnerToolbarModule,
     SingleCardModule,
@@ -47,9 +53,14 @@ import {CookieService} from "ngx-cookie-service";
     LoginFormModule,
     NotAuthorizedContainerModule,
     DxButtonModule,
-    UserPanelModule
+    UserPanelModule,
+    BrowserModule,
+    DxDataGridModule,
+    DxFormModule,
+    DxSelectBoxModule,
+    DxTabPanelModule
   ],
-  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,
+  providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
@@ -57,3 +68,5 @@ import {CookieService} from "ngx-cookie-service";
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);

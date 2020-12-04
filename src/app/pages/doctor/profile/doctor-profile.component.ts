@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/shared/services/user.service';
+import {User} from "../../../models/user"
+import notify from "devextreme/ui/notify";
 
 @Component({
   templateUrl: 'doctor-profile.component.html',
@@ -6,23 +9,32 @@ import { Component } from '@angular/core';
 })
 
 export class DoctorProfileComponent {
-  employee: any;
+  userDetails:any;
   colCountByScreen: object;
+  username:any;
+  userDto:User;
 
-  constructor() {
-    this.employee = {
-      ID: 7,
-      FirstName: 'Sandra',
-      LastName: 'Johnson',
-      Prefix: 'Mrs.',
-      Position: 'Controller',
-      Picture: 'images/employees/06.png',
-      BirthDate: new Date('1974/11/15'),
-      HireDate: new Date('2005/05/11'),
-      /* tslint:disable-next-line:max-line-length */
-      Notes: 'Sandra is a CPA and has been our controller since 2008. She loves to interact with staff so if you`ve not met her, be certain to say hi.\r\n\r\nSandra has 2 daughters both of whom are accomplished gymnasts.',
-      Address: '4600 N Virginia Rd.'
+  ngOnInit() {
+
+    
+    this.username=JSON.parse(localStorage.getItem('currentUser')).username;
+    //console.log("isim:" + this.username);
+    this.getcurrentUserDetails(this.username);
+  }
+
+
+  constructor(private userService: UserService) { 
+    
+    //this.username = localStorage.getItem('username');
+    
+    this.userDetails = {   
+      firstName:"",
+      lastName: '',
+      email: ''
+            /* tslint:disable-next-line:max-line-length */
+   
     };
+    
     this.colCountByScreen = {
       xs: 1,
       sm: 2,
@@ -30,4 +42,35 @@ export class DoctorProfileComponent {
       lg: 4
     };
   }
+
+
+
+    getcurrentUserDetails = (username:string)=>  { this.userService.getByUsername(username).subscribe(
+      (data)=>{
+        this.userDetails = {   
+          FirstName:data.firstName,
+          LastName: data.surname,
+          Email: data.email,
+        };
+        console.log(data);
+        this.userDto = data;
+      },
+      (error)=>{
+        notify(error);
+      }
+    );
+
+  }
+
+
+  updateUserDetails=() =>{
+    this.userDto.firstName= this.userDetails.FirstName;
+    this.userDto.surname = this.userDetails.LastName;
+    this.userDto.email = this.userDetails.Email;
+    console.log(this.userDto);
+    this.userService.updateUser(this.userDto).subscribe(data => notify(JSON.stringify(data.responseMessage)));
+  }
+
+  
+
 }
