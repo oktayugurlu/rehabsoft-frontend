@@ -5,7 +5,6 @@ import notify from "devextreme/ui/notify";
 import {ExerciseImage} from "../../../../models/exercise/exerciseimage";
 import {ExerciseVideo} from "../../../../models/exercise/exercisevideo";
 import {User} from "../../../../models/user";
-import {stringify} from "@angular/compiler/src/util";
 import {DxFileUploaderComponent, DxFormComponent, DxValidationGroupComponent} from "devextreme-angular";
 import {Role} from "../../../../models/role";
 import swal from "sweetalert2";
@@ -24,9 +23,12 @@ export class DoctorCreateExerciseComponent implements OnInit{
   @ViewChild('dxFileUploaderComponent') fileUploaderComponent: DxFileUploaderComponent
   @Output() getAllExercise = new EventEmitter<void>();
 
+  isEditPopUp:boolean=false;
   isVisible: boolean;
-  popUpContent:any;
+  popUpContent: Exercise;
   isLoading: boolean;
+
+  popUpTitle:string = '';
 
   submitExercise = (e: any) => {
 
@@ -39,44 +41,96 @@ export class DoctorCreateExerciseComponent implements OnInit{
     console.log("fonk disi:, ", this.popUpContent.exerciseVideoCollection);
 
     this.isLoading = true
-    this.exerciseService.save(this.popUpContent).subscribe(
-      (res) => {
-        this.isLoading = false;
-        this.closePopUp();
-        // @ts-ignore
-        swal.fire({
-          title: 'Başarılı !',
-          icon: 'success',
-          text: this.popUpContent.exerciseName+ ' Egzersizi Başarılı Bir Şekilde Eklendi! ',
-          type: 'success',
-          heightAuto: false
-        }).then(() => {
-          this.getAllExercise.next();
-        });
-      },
-      err => {
-        this.isLoading = false;
-        console.log('err: ', err);
-        if (err instanceof HttpErrorResponse) {
+    this.popUpContent.exerciseName = this.popUpContent.exerciseName.trim();
+    this.popUpContent.exerciseContent = this.popUpContent.exerciseContent.trim();
+    if(this.isEditPopUp){ // if popup is opened to update exercise
+      this.exerciseService.update(this.popUpContent).subscribe(
+        (res) => {
+          this.isLoading = false;
+          this.closePopUp();
           // @ts-ignore
           swal.fire({
-            title: 'Hata Oluştu !',
-            text: 'Ekleme İşlemi Başarısız Oldu! ',
-            type: 'error',
+            title: 'Başarılı !',
+            icon: 'success',
+            text: this.popUpContent.exerciseName+ ' Egzersizi Başarılı Bir Şekilde G! ',
+            type: 'success',
             heightAuto: false
+          }).then(() => {
+            this.getAllExercise.next();
           });
+        },
+        err => {
+          this.isLoading = false;
+          console.log('err: ', err);
+          if (err instanceof HttpErrorResponse) {
+            // @ts-ignore
+            swal.fire({
+              title: 'Hata Oluştu !',
+              text: 'Ekleme İşlemi Başarısız Oldu! ',
+              type: 'error',
+              heightAuto: false
+            });
+          }else{
+            // @ts-ignore
+            swal.fire({
+              title: 'Hata Oluştu !',
+              text: 'Ekleme İşlemi Başarısız Oldu! ',
+              icon: 'error',
+              heightAuto: false
+            });
+          }
         }
-      }
-    );
+      );
+    } else{ // if popup is opened to create exercise
+      this.exerciseService.save(this.popUpContent).subscribe(
+        (res) => {
+          this.isLoading = false;
+          this.closePopUp();
+          // @ts-ignore
+          swal.fire({
+            title: 'Başarılı !',
+            icon: 'success',
+            text: this.popUpContent.exerciseName+ ' Egzersizi Başarılı Bir Şekilde Eklendi! ',
+            type: 'success',
+            heightAuto: false
+          }).then(() => {
+            this.getAllExercise.next();
+          });
+        },
+        err => {
+          this.isLoading = false;
+          console.log('err: ', err);
+          if (err instanceof HttpErrorResponse) {
+            // @ts-ignore
+            swal.fire({
+              title: 'Hata Oluştu !',
+              text: 'Ekleme İşlemi Başarısız Oldu! ',
+              type: 'error',
+              heightAuto: false
+            });
+          }else{
+            // @ts-ignore
+            swal.fire({
+              title: 'Hata Oluştu !',
+              text: 'Ekleme İşlemi Başarısız Oldu! ',
+              icon: 'error',
+              heightAuto: false
+            });
+          }
+        }
+      );
+    }
+
 ///notify({ message: error, width: 300, shading: false }, "error", 1500);
   }
 
-  createExerciseMediaCollection = ()=>{
+  createExerciseMediaCollection = () => {
     this.popUpContent.exerciseVideoCollection = [];
-    console.log("this.filesExercise",this.filesExercise);
-    this.filesExercise.forEach((file, index)=>{
+    console.log("this.filesExercise",this.filesExerciseList);
+    this.filesExerciseList.forEach((file, index)=>{
       let tempExerciseVideo = new ExerciseVideo();
-      tempExerciseVideo.title = stringify(index) + '-' + file.text;
+      tempExerciseVideo.id = (file.exerciseVideo===null)?null:file.exerciseVideo.id;
+      tempExerciseVideo.title = JSON.stringify(index) + '-' + file.text.trim();
       tempExerciseVideo.videoFile = file.file;
       this.popUpContent.exerciseVideoCollection.push(tempExerciseVideo);
     });
@@ -110,20 +164,41 @@ export class DoctorCreateExerciseComponent implements OnInit{
 
   }
 
-  ///**** Exercise Media start ****///
+  ///************ Exercise Media start ************///
+  filesExerciseList:{
+    id:string,
+    text:string,
+    file: File,
+    exerciseVideo: ExerciseVideo
+  }[];
+  fileForAddToList:{
+    id:string,
+    text:string,
+    file: File,
+    exerciseVideo: ExerciseVideo
+  };
+
   addMediaToList = (e) => {
     // stop here if form is invalid
     if (!e.validationGroup.validate().isValid) {
       return;
     }
+    if(this.fileForAddToList.file === undefined ){
+      return;
+    }
+    if(this.fileForAddToList.file === null ){
+      return;
+    }
+
     if (!this.isFileTypeAndSizeValid(this.fileForAddToList.file) || this.fileForAddToList.text === '' || this.fileForAddToList.file === null) {
       return;
     }
-    this.filesExercise.push(this.fileForAddToList);
+    this.filesExerciseList.push(this.fileForAddToList);
     this.fileForAddToList={
       id:'',
       text:'',
-      file: null
+      file: null,
+      exerciseVideo: null
     }
     this.fileUploaderComponent.instance.reset();
   }
@@ -147,7 +222,7 @@ export class DoctorCreateExerciseComponent implements OnInit{
   uploadMediaToAdd = (event) => {
     let now = new Date();
 
-    let timestamp = now.getFullYear().toString(); // 2011
+    let timestamp = now.getFullYear().toString(); // year
     timestamp += (now.getMonth() < 9 ? '0' : '') + now.getMonth().toString(); // JS months are 0-based, so +1 and pad with 0's
     timestamp += ((now.getDate() < 10) ? '0' : '') + now.getDate().toString(); // pad with a 0
     timestamp += ((now.getHours() < 10) ? '0' : '') + now.getHours().toString(); // pad with a 0
@@ -160,25 +235,63 @@ export class DoctorCreateExerciseComponent implements OnInit{
     this.fileForAddToList.file = event.value[0];
   }
 
-  filesExercise:any;
-  fileForAddToList:any;
-
-  ///**** Exercise Media end ****///
+  ///************ Exercise Media end ************///
 
   openPopUpForEdit = (data)=>{
+    console.log("data: ",data);
     this.popUpContent = data;
+    this.popUpTitle = 'Egzersiz Düzenleme';
+
+    this.fillFilesExerciseListToEdit();
+    this.fileForAddToList = {
+      id:'',
+      text:'',
+      file: null,
+      exerciseVideo: null
+    };
     this.isVisible = true;
+    this.isEditPopUp = true;
+  }
+
+  fillFilesExerciseListToEdit = () =>{
+    this.filesExerciseList = [];
+    this.popUpContent.exerciseVideoCollection.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0));
+    this.popUpContent.exerciseVideoCollection.forEach(exerciseVideo=>{
+      let splittedVideoTitle:string[] = exerciseVideo.title.split('-');
+      splittedVideoTitle.shift();
+      exerciseVideo.title='';
+      splittedVideoTitle.forEach((word,index)=>{
+        if(splittedVideoTitle.length===1){
+          exerciseVideo.title +=word;
+        }else{
+          if(index === 0){
+            exerciseVideo.title +=word;
+          } else{
+            exerciseVideo.title +='-'+word;
+          }
+        }
+      });
+      this.filesExerciseList.push({
+        id:exerciseVideo.id.toString(),
+        text:exerciseVideo.title,
+        file: null,
+        exerciseVideo: exerciseVideo
+      });
+    });
   }
 
   openPopUpForCreate = ()=>{
     this.popUpContent = new Exercise();
-    this.filesExercise = [];
+    this.filesExerciseList = [];
     this.fileForAddToList={
       id:'',
       text:'',
-      file: null
+      file: null,
+      exerciseVideo: null
     }
+    this.popUpTitle = 'Egzersiz Oluşturma';
     this.isVisible = true;
+    this.isEditPopUp = false;
   }
 
   closePopUp = ()=>{

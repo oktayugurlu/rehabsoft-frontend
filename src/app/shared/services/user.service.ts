@@ -3,12 +3,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 import { User } from '../../models/user';
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {TokenDto} from "../../models/tokendto";
 import {Patient} from "../../models/patient";
 import {AuthenticationService} from "../../security/authentication.service";
 import {GeneralEvaluationForm} from "../../models/generalevaluationform/generalevaluationform";
-import {stringify} from "@angular/compiler/src/util";
 import {AppliedSurgery} from "../../models/generalevaluationform/appliedsurgery";
 import {OtherOrthesisInfo} from "../../models/generalevaluationform/otherorthesisinfo";
 import {BotoxTreatment} from "../../models/generalevaluationform/botoxtreatment";
@@ -17,10 +16,25 @@ import {map} from "rxjs/operators";
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-    patient: EventEmitter<Patient> = new EventEmitter();
+    private patientSubject: BehaviorSubject<Patient>;
+    public patient: Observable<Patient>;
 
     constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
+      this.patientSubject = new BehaviorSubject<Patient>(new Patient());
+      this.patient = this.patientSubject.asObservable();
+    }
 
+    // getter setter of patient subject
+    public get getPatient(): Patient {
+      return this.patientSubject.value;
+    }
+    public set setPatient(patient: Patient) {
+      let newPatient = {...this.patientSubject.value};
+      newPatient.parentCollection = (patient.parentCollection!==null)?patient.parentCollection:newPatient.parentCollection;
+      newPatient.tcKimlikNo = (patient.tcKimlikNo!==null)?patient.tcKimlikNo:newPatient.tcKimlikNo;
+      newPatient.address = (patient.address!==null)?patient.address:newPatient.address;
+
+      this.patientSubject.next(patient);
     }
 
     getAll() {

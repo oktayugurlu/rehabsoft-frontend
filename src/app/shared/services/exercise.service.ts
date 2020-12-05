@@ -40,6 +40,12 @@ export class ExerciseService {
     payload.append('model', JSON.stringify(exercise));
     return this.http.post<Exercise>(`${environment.API_BASE_PATH}/exercises/create`,payload );
   }
+  update(exercise:Exercise){
+    const payload = new FormData();
+    this.appendExerciseMediaToExerciseWithOrder(exercise.exerciseVideoCollection, payload);
+    payload.append('model', JSON.stringify(exercise));
+    return this.http.post<Exercise>(`${environment.API_BASE_PATH}/exercises/update`,payload );
+  }
 
   appendExerciseMediaToExerciseWithOrder = (exerciseVideos: ExerciseVideo[], payload: FormData) =>{
     if(exerciseVideos !== null ){

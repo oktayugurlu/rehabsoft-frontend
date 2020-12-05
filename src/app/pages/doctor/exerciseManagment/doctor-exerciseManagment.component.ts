@@ -70,7 +70,6 @@ export class DoctorExerciseManagmentComponent{
 
   editIconClick = (e: any) => {
     this.createExerciseComponent.openPopUpForEdit(e.row.data);
-
   }
 
   delIconClick = (event)=>{
