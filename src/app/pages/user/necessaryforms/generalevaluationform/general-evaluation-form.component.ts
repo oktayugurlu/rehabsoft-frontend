@@ -2,10 +2,8 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {first} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../../../security/authentication.service";
-import {GeneralEvaluationForm} from "../../../../models/generalevaluationform/generalevaluationform";
 import {TokenDto} from "../../../../models/tokendto";
 import {UserService} from "../../../../shared/services/user.service";
-import {Patient} from "../../../../models/patient";
 import {AppliedSurgery} from "../../../../models/generalevaluationform/appliedsurgery";
 import {OrthesisInfo} from "../../../../models/generalevaluationform/orthesisinfo";
 import {OtherOrthesisInfo} from "../../../../models/generalevaluationform/otherorthesisinfo";
@@ -13,16 +11,15 @@ import {UsedMedicine} from "../../../../models/generalevaluationform/usedmedicin
 import {CoexistingDiseases} from "../../../../models/generalevaluationform/coexistingdisease";
 import {ExpectationsAboutProgram} from "../../../../models/generalevaluationform/expectationsaboutprogram";
 import {DxFileUploaderComponent, DxRadioGroupComponent} from "devextreme-angular";
-import {DiseaseOfMotherPregnancy} from "../../../../models/generalevaluationform/diseaseofmotherpregnancy";
 import {Hyperbilirubinemia} from "../../../../models/generalevaluationform/hyperbilirubinemia";
 import {AfterBirthReasonCerebralPalsy} from "../../../../models/generalevaluationform/afterbirthreasoncerebralpalsy";
-import {BotoxTreatment} from "../../../../models/generalevaluationform/botoxtreatment";
 import {VisualImpairment} from "../../../../models/generalevaluationform/visualimpairment";
 import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
-import {Epilepsy} from "../../../../models/generalevaluationform/epilepsy";
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 import {PhysiotheraphyCentral} from "../../../../models/generalevaluationform/physiotheraphycentral";
 import notify from "devextreme/ui/notify";
+import {Patient} from "../../../../models/patient";
+import swal, {SweetAlertOptions} from "sweetalert2";
 
 @Component({
   selector: 'app-general-evaluation-form',
@@ -133,6 +130,15 @@ export class GeneralEvaluationFormComponent implements OnInit {
       ['right', false]
     ])]
   ]);
+  checkIsFalseBothLeftAndRightForValidation = (event)=>{
+    // console.log(event.formItem.label.text);
+    // console.log((this.orthesisMap.get(event.formItem.label.text).get('left')===true && this.orthesisMap.get(event.formItem.label.text).get('right')==false)
+    //   || (!this.orthesisMap.get(event.formItem.label.text).get('left')===false && this.orthesisMap.get(event.formItem.label.text).get('right')==true));
+    //
+    // return (this.orthesisMap.get(event.formItem.label.text).get('left') && !this.orthesisMap.get(event.formItem.label.text).get('right'))
+    //   || (!this.orthesisMap.get(event.formItem.label.text).get('left') && this.orthesisMap.get(event.formItem.label.text).get('right'));
+    return true;
+  }
 
   orthesisTabanlikCheckBoxOptions = {
     value: null,
@@ -865,8 +871,10 @@ export class GeneralEvaluationFormComponent implements OnInit {
     displayExpr: 'name',
     onValueChanged: (event)=>{
       if(!event.value) {
-        this.generalEvaluationForm.hyperbilirubinemia.isPhototeraphy = null;
-        this.generalEvaluationForm.hyperbilirubinemia.hospitalDayTime = null;
+        if( this.generalEvaluationForm.hyperbilirubinemia !==null){
+          this.generalEvaluationForm.hyperbilirubinemia.isPhototeraphy = null;
+          this.generalEvaluationForm.hyperbilirubinemia.hospitalDayTime = null;
+        }
       }
       else{
         this.generalEvaluationForm.hyperbilirubinemia = new Hyperbilirubinemia();
@@ -1041,6 +1049,9 @@ export class GeneralEvaluationFormComponent implements OnInit {
       this.generalEvaluationForm['nameSurname'] = user.firstname + ' '+  user.surname;
       this.generalEvaluationForm['address'] = null;
     });
+    this.userService.patient.subscribe(patient=>{
+      console.log("patientpatient",patient);
+    });
   }
 
   @Output() backStepper: EventEmitter<any> = new EventEmitter();
@@ -1076,76 +1087,88 @@ export class GeneralEvaluationFormComponent implements OnInit {
     }
 
     // to add correspond fied into patient and general evaluation form
-    this.generalEvaluationForm.orthesisInfoCollection = this.generateOrthesisCollection();
-    this.generalEvaluationForm.coexistingDiseasesCollection = this.generateCoexistingDiseaseCollection();
-    this.generatePhysioteraphyPast();
-
-    this.cleanGeneralEvaluationFormFromBoolean();
+    let generalEvaluationFormToSendBackend = {...this.generalEvaluationForm};
+    generalEvaluationFormToSendBackend.orthesisInfoCollection = this.generateOrthesisCollection(generalEvaluationFormToSendBackend);
+    generalEvaluationFormToSendBackend.coexistingDiseasesCollection = this.generateCoexistingDiseaseCollection();
+    generalEvaluationFormToSendBackend.physiotherapyPast = this.generatePhysioteraphyPast(generalEvaluationFormToSendBackend);
+    console.log();
+    this.cleanGeneralEvaluationFormFromBoolean(generalEvaluationFormToSendBackend);
 
     //change date values to remove ISO
-    this.preparingDatesForBackend();
+    this.preparingDatesForBackend(generalEvaluationFormToSendBackend);
 
-    console.log("tam submit oncesi: ",this.generalEvaluationForm);
 
     this.submitted = true;
     this.loading = true;
 
-
-
-
     //post general evaluation form and patient
-    this.userService.patient.subscribe(patient=>{
-      console.log("patient",patient);
-      patient.address = this.generalEvaluationForm;
-      this.userService.postPatient(patient)
-        .pipe(first())
-        .subscribe(
-          patientData => {
-            this.userService.postGeneralEvaluationForm(this.generalEvaluationForm)
-              .pipe(first())
-              .subscribe(
-                data => {
-                  // notify(JSON.stringify(data.responseMessage));
-                  this.router.navigate(['/user/home']);
-                },
-                error => {
-                  notify(JSON.stringify(error.responseMessage));
-                  this.error = error;
-                  this.loading = false;
-                });
-          },
-          error => {
-            notify(JSON.stringify(error));
-          }
-        )
-    });
+    console.log("tam submit oncesi: ",generalEvaluationFormToSendBackend);
 
+    let patient = {...this.userService.getPatient};
+    patient.address =  generalEvaluationFormToSendBackend.address;
+    console.log("patient",patient);
+    delete generalEvaluationFormToSendBackend.address;
+
+    this.userService.postPatient(patient)
+      .pipe(first())
+      .subscribe(
+        patientData => {
+          this.userService.postGeneralEvaluationForm(generalEvaluationFormToSendBackend)
+            .pipe(first())
+            .subscribe(
+              data => {
+                // notify(JSON.stringify(data.responseMessage));
+
+                // message is ok
+                const options = {
+                  title: 'Başarılı !',
+                  icon: 'success',
+                  text: 'Form Başarılı Bir Şekilde Kaydedildi! ',
+                  type: 'success',
+                  heightAuto: false
+                } as SweetAlertOptions;
+                this.router.navigate(['/user/home']).then((message)=>{
+                  swal.fire(options).then(() => {
+                  });
+                });
+
+              },
+              error => {
+                notify(JSON.stringify(error.responseMessage));
+                this.error = error;
+                this.loading = false;
+              });
+        },
+        error => {
+          notify(JSON.stringify(error));
+        }
+      )
 
   }
 
-  preparingDatesForBackend= () => {
-      this.generalEvaluationForm.birthDate = this.generalEvaluationForm.birthDate.toISOString().replace('T',' ').slice(0,-5);
+  preparingDatesForBackend= (generalEvaluationFormToSendBackend:any) => {
+    generalEvaluationFormToSendBackend.birthDate = generalEvaluationFormToSendBackend.birthDate.toISOString().replace('T',' ').slice(0,-5);
 
-      if(this.generalEvaluationForm.botoxTreatment !==null){
-        this.generalEvaluationForm.botoxTreatment.lastBotoxDate = this.generalEvaluationForm.botoxTreatment.lastBotoxDate.toISOString().replace('T',' ').slice(0,-5);
+      if(generalEvaluationFormToSendBackend.botoxTreatment !==null){
+        generalEvaluationFormToSendBackend.botoxTreatment.lastBotoxDate = generalEvaluationFormToSendBackend.botoxTreatment.lastBotoxDate.toISOString().replace('T',' ').slice(0,-5);
       }
-      if(this.generalEvaluationForm.appliedSurgeryCollection !==null)
-        this.generalEvaluationForm.appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
-          this.generalEvaluationForm.appliedSurgeryCollection[index].applyingDate = appliedSurgery.applyingDate.toISOString().replace('T',' ').slice(0,-5);
+      if(generalEvaluationFormToSendBackend.appliedSurgeryCollection !==null)
+        generalEvaluationFormToSendBackend.appliedSurgeryCollection.forEach((appliedSurgery,index)=>{
+          generalEvaluationFormToSendBackend.appliedSurgeryCollection[index].applyingDate = appliedSurgery.applyingDate.toISOString().replace('T',' ').slice(0,-5);
         });
   }
 
-  generateOrthesisCollection = ():OrthesisInfo[] =>{
+  generateOrthesisCollection = (generalEvaluationFormToSendBackend:any):OrthesisInfo[] =>{
     let orthesisCollectionForField: OrthesisInfo[] = [];
-    this.generalEvaluationForm.isOrthesisMap.forEach( isOrthesis=>{
+    generalEvaluationFormToSendBackend.isOrthesisMap.forEach( isOrthesis=>{
       if(isOrthesis.value){
         let orthesisInfo = new OrthesisInfo(this.orthesisMap.get(isOrthesis.name).get("left"),
           this.orthesisMap.get(isOrthesis.name).get("right"), isOrthesis.name);
         orthesisCollectionForField.push(orthesisInfo);
       }
     });
-    delete this.generalEvaluationForm.isOrthesisMap;
-    delete this.generalEvaluationForm.orthesisMap;
+    delete generalEvaluationFormToSendBackend.isOrthesisMap;
+    delete generalEvaluationFormToSendBackend.orthesisMap;
     return orthesisCollectionForField;
   }
 
@@ -1161,11 +1184,11 @@ export class GeneralEvaluationFormComponent implements OnInit {
     return coexistingDiseasesCollectionForField;
   }
 
-  generatePhysioteraphyPast = ():PhysiotherapyPast => {
-    let physiotherapyPasts:PhysiotherapyPast = new PhysiotherapyPast();
+  generatePhysioteraphyPast = (generalEvaluationFormToSendBackend:any):PhysiotherapyPast => {
+    let physiotherapyPasts:PhysiotherapyPast = {...generalEvaluationFormToSendBackend.physiotherapyPast};
     physiotherapyPasts.physiotheraphyCentralCollection = [];
-    if(this.generalEvaluationForm.isPhysiotherapyPast){
-      physiotherapyPasts.numberOfWeeklySession = this.generalEvaluationForm.physiotherapyPast.numberOfWeeklySession;
+    if(generalEvaluationFormToSendBackend.isPhysiotherapyPast){
+      console.log("giriyor-1",generalEvaluationFormToSendBackend.physiotherapyPast);
       if(this.physiotherapyCenterMap[0].value){
         let physiotheraphyCentral = new PhysiotheraphyCentral(this.physiotherapyCenterMap[0].name);
         physiotherapyPasts.physiotheraphyCentralCollection.push(physiotheraphyCentral);
@@ -1175,33 +1198,34 @@ export class GeneralEvaluationFormComponent implements OnInit {
         physiotherapyPasts.physiotheraphyCentralCollection.push(physiotheraphyCentral);
       }
     }
-    delete this.generalEvaluationForm.isPhysiotherapyPast;
+    console.log("cikiyor-1", physiotherapyPasts);
+
+    delete generalEvaluationFormToSendBackend.isPhysiotherapyPast;
 
     return physiotherapyPasts;
   }
 
-  cleanGeneralEvaluationFormFromBoolean = () =>{
-    delete this.generalEvaluationForm.isMultiplePregnancy;
-    delete this.generalEvaluationForm.isApgarScoreKnown;
-    delete this.generalEvaluationForm.isPregnancyInfectionInfo;
-    delete this.generalEvaluationForm.isPregnancyMedicineUsageInfo;
-    delete this.generalEvaluationForm.isIntensiveCare;
-    delete this.generalEvaluationForm.isVisualImpairment;
-    delete this.generalEvaluationForm.isHearingImpairment;
-    delete this.generalEvaluationForm.isHyperbilirubinemia;
-    delete this.generalEvaluationForm.isSleptHospitalForHyperbilirubinemia;
-    delete this.generalEvaluationForm.isAfterBirthReasonCerebralPalsy;
-    delete this.generalEvaluationForm.isBotoxTreatment;
-    delete this.generalEvaluationForm.isPhysiotherapyPast;
-    delete this.generalEvaluationForm.isTraumaVisible;
-    delete this.generalEvaluationForm.isBrainTumour;
-    delete this.generalEvaluationForm.isAfterSurgerySituation;
-    delete this.generalEvaluationForm.isBloodCirculation;
-    delete this.generalEvaluationForm.isBrainBleedingOrBloodCirculationOrVascularDisorder;
-    delete this.generalEvaluationForm.isPhysiotherapyPast;
-    delete this.generalEvaluationForm.isPhysiotherapyPast;
-    delete this.generalEvaluationForm.nameSurname;
-    delete this.generalEvaluationForm.address;
+  cleanGeneralEvaluationFormFromBoolean = (generalEvaluationFormToSendBackend:any) =>{
+    delete generalEvaluationFormToSendBackend.isMultiplePregnancy;
+    delete generalEvaluationFormToSendBackend.isApgarScoreKnown;
+    delete generalEvaluationFormToSendBackend.isPregnancyInfectionInfo;
+    delete generalEvaluationFormToSendBackend.isPregnancyMedicineUsageInfo;
+    delete generalEvaluationFormToSendBackend.isIntensiveCare;
+    delete generalEvaluationFormToSendBackend.isVisualImpairment;
+    delete generalEvaluationFormToSendBackend.isHearingImpairment;
+    delete generalEvaluationFormToSendBackend.isHyperbilirubinemia;
+    delete generalEvaluationFormToSendBackend.isSleptHospitalForHyperbilirubinemia;
+    delete generalEvaluationFormToSendBackend.isAfterBirthReasonCerebralPalsy;
+    delete generalEvaluationFormToSendBackend.isBotoxTreatment;
+    delete generalEvaluationFormToSendBackend.isPhysiotherapyPast;
+    delete generalEvaluationFormToSendBackend.isTraumaVisible;
+    delete generalEvaluationFormToSendBackend.isBrainTumour;
+    delete generalEvaluationFormToSendBackend.isAfterSurgerySituation;
+    delete generalEvaluationFormToSendBackend.isBloodCirculation;
+    delete generalEvaluationFormToSendBackend.isBrainBleedingOrBloodCirculationOrVascularDisorder;
+    delete generalEvaluationFormToSendBackend.isPhysiotherapyPast;
+    delete generalEvaluationFormToSendBackend.isPhysiotherapyPast;
+    delete generalEvaluationFormToSendBackend.nameSurname;
   }
 
   //--------- event handlers to add One-to-Many relation objects ----------//

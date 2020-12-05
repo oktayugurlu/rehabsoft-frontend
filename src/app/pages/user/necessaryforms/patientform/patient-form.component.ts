@@ -15,7 +15,6 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
   loading = false;
   error = '';
 
-  patientFromService: Patient;
   currentUser: any;
 
 // Patient variable
@@ -41,7 +40,7 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
   }
 
   private fillParenCollectionFromPatientFrom = () =>{
-    let newPatient = new Patient();
+    let newPatient = {...this.userService.getPatient};
     newPatient.parentCollection = [];
     let parent1 = this.parentCreator(1);
     let parent2 = this.parentCreator(2);
@@ -51,7 +50,7 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
 
     this.authenticationService.currentUser.subscribe(user=> {
       newPatient.tcKimlikNo = user.username;
-      this.userService.patient.next(newPatient);
+      this.userService.setPatient = newPatient;
     });
 
   }
@@ -86,9 +85,6 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
 
   constructor(private userService: UserService, private authenticationService: AuthenticationService) {
 
-    this.userService.patient.subscribe(patient=>{
-      this.patientFromService = patient;
-    });
 
     this.addPhoneButtonOptions1 = {
       icon: "add",

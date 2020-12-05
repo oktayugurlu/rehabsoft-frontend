@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.error = error;
           this.loading = false;
-          notify(error, "warning", 1000);
+          notify({ message: error, width: 300, shading: false }, "error", 1000);
         });
     // event.preventDefault()
   }

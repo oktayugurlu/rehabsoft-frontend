@@ -575,10 +575,13 @@
         </dxi-item>
         <dxi-item itemType="group" colCount="2">
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftTabanlikCheckBoxOptions" [visible]="isOrthesisMap[0].value">
-            <dxo-label location="left" [visible]="false" text="Sol Tabanlık"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Tabanlık" >
+            </dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightTabanlikOrthesisCheckBoxOptions" [visible]="isOrthesisMap[0].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Tabanlık"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Tabanlık"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
         </dxi-item>
       </dxi-item>
@@ -596,10 +599,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisTopukKapiCheckBoxOptions" [visible]="isOrthesisMap[1].value">
-            <dxo-label location="left" [visible]="false" text="Sol Topuk Kapı"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Topuk Kapı"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisTopukKapiCheckBoxOptions" [visible]="isOrthesisMap[1].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Topuk Kapı"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Topuk Kapı"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -618,10 +623,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisAyakBilegiCheckBoxOptions" [visible]="isOrthesisMap[2].value">
-            <dxo-label location="left" [visible]="false" text="Sol Tabanlık"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Ayak bileği hizasında ortez (supra-malleoler)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisAyakBilegiCheckBoxOptions" [visible]="isOrthesisMap[2].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Tabanlık"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Ayak bileği hizasında ortez (supra-malleoler)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -641,10 +648,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisSabitAyakCheckBoxOptions" [visible]="isOrthesisMap[3].value">
-            <dxo-label location="left" [visible]="false" text="Sol Ayak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Sabit Ayak-ayak bileği ortezi (AFO)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisSabitAyakCheckBoxOptions" [visible]="isOrthesisMap[3].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Ayak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Sabit Ayak-ayak bileği ortezi (AFO)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -664,10 +673,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisEklemliAyakCheckBoxOptions" [visible]="isOrthesisMap[4].value">
-            <dxo-label location="left" [visible]="false" text="Sol Ayak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Eklemli Ayak-ayak bileği ortezi (eklemli AFO)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisEklemliAyakCheckBoxOptions" [visible]="isOrthesisMap[4].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Ayak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Eklemli Ayak-ayak bileği ortezi (eklemli AFO)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -687,10 +698,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisDinamikAyakCheckBoxOptions" [visible]="isOrthesisMap[5].value">
-            <dxo-label location="left" [visible]="false" text="Sol Ayak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Dinamik ayak ayak bileği ortezi (DAFO)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisDinamikAyakCheckBoxOptions" [visible]="isOrthesisMap[5].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Ayak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Dinamik ayak ayak bileği ortezi (DAFO)"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -710,10 +723,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisBacakGeceCheckBoxOptions" [visible]="isOrthesisMap[6].value">
-            <dxo-label location="left" [visible]="false" text="Sol Bacak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Bacaklar için gece splinti"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisBacakGeceCheckBoxOptions" [visible]="isOrthesisMap[6].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Bacak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Bacaklar için gece splinti"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -733,10 +748,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisImmobilizerCheckBoxOptions" [visible]="isOrthesisMap[7].value">
-            <dxo-label location="left" [visible]="false" text="Sol Omuz"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="İmmobilizer"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisImmobilizerCheckBoxOptions" [visible]="isOrthesisMap[7].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Omuz"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="İmmobilizer"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -782,10 +799,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisDirsekSiplintiCheckBoxOptions" [visible]="isOrthesisMap[10].value">
-            <dxo-label location="left" [visible]="false" text="Sol Dirsek"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Dirsek splinti"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisDirsekSiplintiCheckBoxOptions" [visible]="isOrthesisMap[10].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Dirsek"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Dirsek splinti"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -805,10 +824,12 @@
         <dxi-item itemType="group" colCount="2">
 
           <dxi-item editorType="dxCheckBox" [editorOptions]="leftOrthesisBasParmakCheckBoxOptions" [visible]="isOrthesisMap[11].value">
-            <dxo-label location="left" [visible]="false" text="Sol Parmak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Baş parmak ortezi"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
           <dxi-item editorType="dxCheckBox" [editorOptions]="rightOrthesisBasParmakCheckBoxOptions" [visible]="isOrthesisMap[11].value">
-            <dxo-label location="left" [visible]="false" text="Sağ Parmak"></dxo-label>
+            <dxo-label location="left" [visible]="false" text="Baş parmak ortezi"></dxo-label>
+            <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
 
         </dxi-item>
@@ -1047,11 +1068,18 @@
         <dxo-label location="top" [visible]="true" text="Haftalık seans sayısı" ></dxo-label>
       </dxi-item>
 
+      <dxi-item [alignItemLabels]="true" itemType="group" [visible]="generalEvaluationForm.isPhysiotherapyPast">
+        <dxi-item [template]="'ftrtitleTemplate'">
+        </dxi-item>
+        <div *dxTemplate="let data of 'ftrtitleTemplate'">
+          <p style="color:#728e94" >
+            Hangi FTR Merkezleri:
+          </p>
+        </div>
+      </dxi-item>
+
       <!--one orthesis item-->
       <dxi-item itemType="group" colCount="2">
-<!--        <dxi-item>-->
-<!--          <dxo-label location="top" [visible]="true" text="Hangi FTR Merkezleri"></dxo-label>-->
-<!--        </dxi-item>-->
         <dxi-item editorType="dxCheckBox" [editorOptions]="specialEducationCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
         </dxi-item>
         <dxi-item editorType="dxCheckBox" [editorOptions]="medicineCenterCheckBoxOptions" [visible]="generalEvaluationForm.isPhysiotherapyPast">
