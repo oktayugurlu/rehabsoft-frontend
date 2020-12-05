@@ -1186,16 +1186,16 @@ export class GeneralEvaluationFormComponent implements OnInit {
 
   generatePhysioteraphyPast = (generalEvaluationFormToSendBackend:any):PhysiotherapyPast => {
     let physiotherapyPasts:PhysiotherapyPast = {...generalEvaluationFormToSendBackend.physiotherapyPast};
-    physiotherapyPasts.physiotheraphyCentralCollection = [];
+    physiotherapyPasts.physiotherapyCentralCollection = [];
     if(generalEvaluationFormToSendBackend.isPhysiotherapyPast){
       console.log("giriyor-1",generalEvaluationFormToSendBackend.physiotherapyPast);
       if(this.physiotherapyCenterMap[0].value){
         let physiotheraphyCentral = new PhysiotheraphyCentral(this.physiotherapyCenterMap[0].name);
-        physiotherapyPasts.physiotheraphyCentralCollection.push(physiotheraphyCentral);
+        physiotherapyPasts.physiotherapyCentralCollection.push(physiotheraphyCentral);
       }
       if(this.physiotherapyCenterMap[1].value){
         let physiotheraphyCentral = new PhysiotheraphyCentral(this.physiotherapyCenterMap[1].name);
-        physiotherapyPasts.physiotheraphyCentralCollection.push(physiotheraphyCentral);
+        physiotherapyPasts.physiotherapyCentralCollection.push(physiotheraphyCentral);
       }
     }
     console.log("cikiyor-1", physiotherapyPasts);
