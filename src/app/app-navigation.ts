@@ -36,6 +36,11 @@ export const doctorNavigation = [
     path:"/doctor/getall",
     icon:"group"
   },
+  
+  {
+        text: 'Hasta Detay Sayfasi',
+        path: 'doctor/patient-info/:tckimlikno'
+  },
   {
     text: 'Examples',
     icon: 'folder',

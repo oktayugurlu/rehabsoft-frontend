@@ -29,13 +29,12 @@ import {UserService} from "./shared/services/user.service";
 import {ExerciseService} from "./shared/services/exercise.service";
 
 import {CookieService} from "ngx-cookie-service";
-import { ListPatientsComponent } from './pages/doctor/list-patients/list-patients.component';
+import { PatientGefdInformationComponent } from './pages/doctor/patientinformation/patient-gefd-information/patient-gefd-information.component';
+import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ListPatientsComponent
-  ],
+    AppComponent     ],
   imports: [
     BrowserModule,
     CommonModule,
@@ -58,7 +57,9 @@ import { ListPatientsComponent } from './pages/doctor/list-patients/list-patient
     DxDataGridModule,
     DxFormModule,
     DxSelectBoxModule,
-    DxTabPanelModule
+    DxTabPanelModule,
+    BrowserModule,
+    DxTabPanelModule,
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin

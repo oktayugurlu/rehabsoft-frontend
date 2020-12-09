@@ -1,31 +1,31 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // import { ResetPasswordFormComponent, ChangePasswordFormComponent } from './shared/components';
-import {LoginComponent, CreateAccountFormComponent, FooterModule} from './shared/components';
+import { LoginComponent, CreateAccountFormComponent, FooterModule } from './shared/components';
 
 import { UserHomeComponent } from './pages/user/home/user-home.component';
 import { UserProfileComponent } from './pages/user/profile/user-profile.component';
 import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
 
-import {AuthGuard} from './security/auth.guard';
-import {NotfoundComponent} from './shared/notfound/notfound.component';
-import {UnauthorizedComponent} from './shared/unauthorized/unauthorized.component';
-import {Role} from './models/role';
-import {UserComponent} from './pages/user/user.component';
-import {DoctorProfileComponent} from './pages/doctor/profile/doctor-profile.component';
-import {DoctorTasksComponent} from './pages/doctor/tasks/doctor-tasks.component';
-import {DoctorHomeComponent} from './pages/doctor/home/doctor-home.component';
-import {DoctorComponent} from './pages/doctor/doctor.component';
-import {AdminProfileComponent} from './pages/admin/profile/admin-profile.component';
-import {AdminTasksComponent} from './pages/admin/tasks/admin-tasks.component';
-import {AdminComponent} from './pages/admin/admin.component';
-import {AdminHomeComponent} from './pages/admin/home/admin-home.component';
-import {PagesComponent} from './pages/pages.component';
-import {SideNavOuterToolbarModule} from './layouts';
-import {NecessaryFormsComponent} from './pages/user/necessaryforms/necessary-forms.component';
-
+import { AuthGuard } from './security/auth.guard';
+import { NotfoundComponent } from './shared/notfound/notfound.component';
+import { UnauthorizedComponent } from './shared/unauthorized/unauthorized.component';
+import { Role } from './models/role';
+import { UserComponent } from './pages/user/user.component';
+import { DoctorProfileComponent } from './pages/doctor/profile/doctor-profile.component';
+import { DoctorTasksComponent } from './pages/doctor/tasks/doctor-tasks.component';
+import { DoctorHomeComponent } from './pages/doctor/home/doctor-home.component';
+import { DoctorComponent } from './pages/doctor/doctor.component';
+import { AdminProfileComponent } from './pages/admin/profile/admin-profile.component';
+import { AdminTasksComponent } from './pages/admin/tasks/admin-tasks.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { AdminHomeComponent } from './pages/admin/home/admin-home.component';
+import { PagesComponent } from './pages/pages.component';
+import { SideNavOuterToolbarModule } from './layouts';
+import { NecessaryFormsComponent } from './pages/user/necessaryforms/necessary-forms.component';
+import { PatientinformationComponent } from "./pages/doctor/patientinformation/patientinformation.component"
 import { BrowserModule } from '@angular/platform-browser';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 // Devextreme
 import {
@@ -50,15 +50,17 @@ import {
 // MdBootstrap
 import { WavesModule } from 'angular-bootstrap-md';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import {PatientFormComponent} from "./pages/user/necessaryforms/patientform/patient-form.component";
-import {GeneralEvaluationFormComponent} from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
-import {UserNotificationComponent} from "./pages/user/notifiaction/user-notification.component";
-import {DoctorExerciseManagmentComponent} from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
-import {DoctorCreateExerciseComponent} from "./pages/doctor/exerciseManagment/createexercise/doctor-createexercise.component";
-import {ViewExerciseComponent} from "./shared/components/view-exercise/view-exercise.component";
-import {VideoPlayerComponent} from "./shared/components/video-player/video-player.component";
-import {DxoItemDraggingModule} from "devextreme-angular/ui/nested";
+import { PatientFormComponent } from "./pages/user/necessaryforms/patientform/patient-form.component";
+import { GeneralEvaluationFormComponent } from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
+import { UserNotificationComponent } from "./pages/user/notifiaction/user-notification.component";
+import { DoctorExerciseManagmentComponent } from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
+import { DoctorCreateExerciseComponent } from "./pages/doctor/exerciseManagment/createexercise/doctor-createexercise.component";
+import { ViewExerciseComponent } from "./shared/components/view-exercise/view-exercise.component";
+import { VideoPlayerComponent } from "./shared/components/video-player/video-player.component";
+import { DxoItemDraggingModule } from "devextreme-angular/ui/nested";
 import { ListPatientsComponent } from './pages/doctor/list-patients/list-patients.component';
+import { PatientGefdInformationComponent } from './pages/doctor/patientinformation/patient-gefd-information/patient-gefd-information.component';
+import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 
 
 
@@ -70,10 +72,10 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    canActivate: [ AuthGuard ],
+    canActivate: [AuthGuard],
     data: { roles: [Role.User] },
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full'},
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: UserHomeComponent },
       { path: 'profile', component: UserProfileComponent },
       { path: 'task', component: UserTasksComponent },
@@ -83,10 +85,10 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [ AuthGuard ],
+    canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full'},
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: AdminHomeComponent },
       { path: 'profile', component: AdminProfileComponent },
       { path: 'task', component: AdminTasksComponent }
@@ -94,20 +96,33 @@ const routes: Routes = [
   },
   {
     path: 'doctor',
-    canActivate: [ AuthGuard ],
+    canActivate: [AuthGuard],
     data: { roles: [Role.Doctor] },
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full'},
+      //{ path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
       { path: 'task', component: DoctorTasksComponent },
-      { path: 'exercises', component: DoctorExerciseManagmentComponent},
-      { path: 'getall', component: ListPatientsComponent}
+      { path: 'exercises', component: DoctorExerciseManagmentComponent },
+      { path: 'getall', component: ListPatientsComponent },
+      //{ path: 'patient-info', component: PatientinformationComponent},
+      //{ path: 'usergefd', component: PatientGefdInformationComponent },
+
+      {
+        path: 'patient-info/:tckimlikno', component: PatientinformationComponent,
+        children: [
+          { path: '', redirectTo: 'general-info', pathMatch: 'full' },
+          { path: 'general-info', component: GeneralInformationComponent },
+          { path: 'usergefd', component: PatientGefdInformationComponent }
+          
+          
+        ]
+      }
 
     ]
   },
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: CreateAccountFormComponent}
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: CreateAccountFormComponent }
 
 ];
 
@@ -120,10 +135,10 @@ const routes: Routes = [
 
   exports: [RouterModule],
   declarations: [
-    PagesComponent, DoctorCreateExerciseComponent,VideoPlayerComponent,
+    PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
-    PatientFormComponent, GeneralEvaluationFormComponent,
-    DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent,
+    PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent,GeneralInformationComponent,
+    DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,
     AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent]
 })
 export class AppRoutingModule { }

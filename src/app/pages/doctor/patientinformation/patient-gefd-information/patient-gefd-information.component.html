@@ -1,0 +1,318 @@
+<dx-form [formData]="generalEvaluationForm" [readOnly]="true">
+
+    <!-- 1. Demografik Bilgiler-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="1. Demografik Bilgiler" [colCount]="2">
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <dxi-item dataField="gender">
+                <dxo-label location="left" [visible]="true" text="Cinsiyet"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="birthDate">
+                <dxo-label location="left" [visible]="true" text="Doğum Tarihi"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="ageAsMonth">
+                <dxo-label location="left" [visible]="true" text="Yaş(Ay olarak)"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="numberOfSiblings">
+                <dxo-label location="left" [visible]="true" text="Kardeş Sayısı"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="whichChild">
+                <dxo-label location="left" [visible]="true" text="Kaçıncı Çocuk?"></dxo-label>
+            </dxi-item>
+
+
+            <dxi-item [alignItemLabels]="true" itemType="group">
+                <div style="width: 50%"></div>
+            </dxi-item>
+
+        </dxi-item>
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <div style="width: 50%"></div>
+        </dxi-item>
+
+
+        <!--End of first part-->
+    </dxi-item>
+
+
+    <!--2. Fiziksel Özellikler-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="2. Fiziksel Özellikler" [colCount]="2">
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+
+            <dxi-item dataField="heightCm">
+                <dxo-label location="left" [visible]="true" text="Boy(cm olarak)"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="weightGr">
+                <dxo-label location="left" [visible]="true" text="Kilo(gr)"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="headRoundCm">
+                <dxo-label location="left" [visible]="true" text="Baş çevresi (cm)"></dxo-label>
+            </dxi-item>
+
+        </dxi-item>
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <div style="width: 50%"></div>
+        </dxi-item>
+
+    </dxi-item>
+
+
+
+    <!--3. Doğum Öncesi Özellikler-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="3. Doğum Öncesi Özellikler" [colCount]="2">
+
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <!--Left Side-->
+            <dxi-item dataField="mothersGivenBirthAgeYear">
+                <dxo-label location="left" [visible]="true" text="Annenin Doğumdaki Yaşı"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="mothersEducationLevel">
+                <dxo-label location="left" [visible]="true" text="Annenin Eğitim Seviyesi"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="fathersEducationLevel">
+                <dxo-label location="left" [visible]="true" text="Babanın Eğitim Seviyesi"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="typeOfPregnancy">
+                <dxo-label location="left" [visible]="true" text="Gebelik Türü"></dxo-label>
+            </dxi-item>
+
+        </dxi-item>
+
+
+
+        <!--Right group-->
+        <dxi-item [alignItemLabels]="true" itemType="group">
+
+            <dxi-item [alignItemLabels]="true" itemType="group">
+                <dxi-item dataField="multiplePregnancy">
+                    <dxo-label location="left" [visible]="true" text="Çoğul Gebelik"></dxo-label>
+                </dxi-item>
+            </dxi-item>
+
+
+            <dxi-item dataField="diseaseOfMotherPregnancy.diseaseName">
+                <dxo-label location="left" [visible]="true" text="Hamilelikte Geçirilen Hastalık"></dxo-label>
+            </dxi-item>
+
+
+            <dxi-item dataField="isRelativeMarriage" editorType="dxRadioGroup"
+                [editorOptions]="isRelativeMarriageOption">
+                <dxo-label location="left" text="Akraba Evliliği"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isBloodIncompatibility" editorType="dxRadioGroup"
+                [editorOptions]="isBloodIncompatibilityOption">
+                <dxo-label location="left" text="Kan uyuşmazlığı"></dxo-label>
+            </dxi-item>
+
+        </dxi-item>
+    </dxi-item>
+
+
+
+
+
+
+
+    <!--4. Doğum Özellikleri-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="4. Doğum Özellikleri" [colCount]="2">
+
+        <!--Left group-->
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <dxi-item dataField="birthWeek">
+                <dxo-label location="left" [visible]="true" text="Doğum Haftası"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="birthType" editorType="dxSelectBox" [editorOptions]="{ 
+    dataSource: birthTypeSelectBoxList, valueExpr: 'value', displayExpr: 'name'}">
+                <dxo-label location="left" [visible]="true" text="Doğum Şekli"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="birthWeight">
+                <dxo-label location="left" [visible]="true" text="Doğum Kilosu (gr)"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="birthHeadAroundCm">
+                <dxo-label location="left" [visible]="true" text="Doğumda Baş Çevresi (cm)"></dxo-label>
+            </dxi-item>
+
+
+            <dxi-item dataField="pregnancyInfectionInfo" editorType="dxTextArea">
+                <dxo-label location="top" [visible]="true" text="Hamilelikte enfeksiyon var ise açıklaması"></dxo-label>
+            </dxi-item>
+
+
+
+            <dxi-item dataField="pregnancyMedicineUsageInfo" editorType="dxTextArea"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 100}">
+                <dxo-label location="top" [visible]="true" text="Hamilelikte ilaç kullanımı var ise açıklaması">
+                </dxo-label>
+            </dxi-item>
+
+        </dxi-item>
+        <!--End Left group-->
+
+
+
+        <!-- Right group-->
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <dxi-item dataField="apgarScore">
+                <dxo-label location="left" [visible]="true" text="Apgar Puanı"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isBirthAnoxia" editorType="dxRadioGroup" [editorOptions]="isBirthAnoxiaOption">
+                <dxo-label location="left" [visible]="true" text="Doğumda oksijensiz kalma"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isBirthEmpurpling" editorType="dxRadioGroup" [editorOptions]="isBirthEmpurplingOption">
+                <dxo-label location="left" [visible]="true" text="Doğumda morarma"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isBirthCrying" editorType="dxRadioGroup" [editorOptions]="isBirthCryingOption">
+                <dxo-label location="left" [visible]="true" text="Doğumda ağlama"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isHighBloodPressorPregnancy" editorType="dxRadioGroup"
+                [editorOptions]="isHighBloodPressorPregnancyOption">
+                <dxo-label location="left" [visible]="true" text="Gebelikte yüksek tansiyon"></dxo-label>
+            </dxi-item>
+
+
+            <dxi-item dataField="isPregnancyDrinking" editorType="dxRadioGroup"
+                [editorOptions]="isPregnancyDrinkingOption">
+                <dxo-label location="left" [visible]="true" text="Gebelikte Alkol Kullanımı"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isPregnanycSmoking" editorType="dxRadioGroup"
+                [editorOptions]="isPregnancySmokingOption">
+                <dxo-label location="left" [visible]="true" text="Gebelikte Sigara Kullanımı"></dxo-label>
+            </dxi-item>
+
+
+            <!--Sağ grup son-->
+        </dxi-item>
+    </dxi-item>
+
+
+
+    <!--Doğum Sonrası Özellikleri-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="5. Doğum Sonrası Özellikleri" [colCount]="2">
+
+        <!--Left group-->
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <dxi-item dataField="intensiveCare">
+                <dxo-label location="left" [visible]="true" text="Eğer kaldı ise Yoğun bakım/kuvöz gün sayısı">
+                </dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="oxygenSupport" editorType="dxRadioGroup" [editorOptions]="oxygenSupportOption">
+                <dxo-label location="left" [visible]="true" text="Oksijen desteği"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isNewbornRetinopathy" editorType="dxRadioGroup"
+                [editorOptions]="newbornRetinopathyOption">
+                <dxo-label location="left" [visible]="true" text="Yenidoğan retinopatisi (ROP)"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isHypoglycaemia" editorType="dxRadioGroup" [editorOptions]="isHypoglycaemiaOption">
+                <dxo-label location="left" [visible]="true" text="Hipoglisemi"></dxo-label>
+            </dxi-item>
+        </dxi-item>
+        <!--End Left group-->
+
+
+        <!--Right group-->
+        <dxi-item [alignItemLabels]="true" itemType="group">
+            <dxi-item dataField="isRespiratuvarDistressSyndrom" editorType="dxRadioGroup"
+                [editorOptions]="isRespiratuvarDistressSyndromOption">
+                <dxo-label location="left" [visible]="true" text="Respiratuvar Distres Sendromu"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="isBronchopulmonaryDysplasia" editorType="dxRadioGroup"
+                [editorOptions]="isBronchopulmonaryDysplasiaOption">
+                <dxo-label location="left" [visible]="true" text="Bronkopulmoner Displazi"></dxo-label>
+            </dxi-item>
+
+
+            <dxi-item>
+                <dxo-label location="top" [visible]="true"
+                    text="Yenidoğan sarılığı (Hiperbilirubinemi) Hakkında Bilgiler" itemType="empty">
+                    {{true}}</dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="hyperbilirubinemia.hospitalDayTime" editorType="dxNumberBox"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:10000, showSpinButtons:true}">
+                <dxo-label [visible]="true" location="left" [text]="'Yenidoğan sarılığı için kaç gün hastanede yattı?'">
+                </dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="hyperbilirubinemia.isPhototeraphy" editorType="dxRadioGroup"
+                [editorOptions]="isPhototeraphyOption">
+                <dxo-label [visible]="true" location="left" text="Işık tedavisi aldı mı?"></dxo-label>
+            </dxi-item>
+            <!--End of Right group-->
+        </dxi-item>
+    </dxi-item>
+
+
+
+
+ <!--6. Doğum Sonrası Sonrası Serebral Palsi Nedeni-->
+     <!--6. Doğum Sonrası Sonrası Serebral Palsi Nedeni-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="6. Doğum Sonrası Sonrası Serebral Palsi Nedeni (doğumdan 28 gün sonra oluşan durumlar)" [colCount]="1">
+
+
+        <dxi-item>
+            <dxo-label location="top" [visible]="true" text="Doğum Sonrası Serebral Palsi"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="afterBirthReasonCerebralPalsy.cause">
+            <dxo-label location="top" [visible]="true" text="Varsa Nedeni"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea">
+            <dxo-label location="top" [visible]="true" text="Travma Açıklaması"></dxo-label>
+        </dxi-item>
+
+    </dxi-item>
+
+
+      <!--7. Uygulanan Tedaviler-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="7. Uygulanan Tedaviler">
+
+        <dxi-item>
+            <dxo-label location="top" [visible]="true" text="Botoks Tedavisi"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="botoxTreatment.lastBotoxDate">
+            <dxo-label location="top" [visible]="true" text="Son botoksun uygulanma tarihi(eğer Uygulandı ise):">
+            </dxo-label>
+        </dxi-item>
+
+    </dxi-item>
+
+
+</dx-form>
+
+<!--
+<div>
+<dx-list [items]="generalEvaluationForm.orthesisInfoCollection">
+    <div *dxTemplate="let item of 'item'">
+        <div>{{item.orthesisName}}</div>
+        <div >Sol ayak: {{item.leftPart}}</div>
+        <div >Sağ ayak: {{item.rightPart}}</div>
+    </div>
+</dx-list>
+
+</div> --->
