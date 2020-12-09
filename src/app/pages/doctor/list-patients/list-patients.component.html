@@ -12,13 +12,21 @@
     <dxi-column dataField="user.surname" caption="Soyadı" ></dxi-column>
     <dxi-column dataField="user.email" caption="Mail Adresi"></dxi-column>
     <dxi-column type="buttons" alignment="center"  width= '100px' >
-        <dxi-button hint="Önizleme" icon="fas fa-eye" [visible]="true" ></dxi-button>
+      <dxi-button hint="Önizleme" icon="fas fa-eye" [visible]="true" [onClick]="viewButtonClick"></dxi-button>
         <dxi-button hint="Düzenle" icon="edit" [visible]="true" ></dxi-button>
         <dxi-button hint="Sil" icon="trash" [visible]="true" ></dxi-button>
       </dxi-column>
 
 
-   <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
-
-   
+   <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->   
 </dx-data-grid>
+
+
+   <!--
+<li class="nav-item">
+  <a class="nav-link" [routerLink]='["../exercises"]' routerLinkActive="active">Genel Değerlendirme Formu</a>
+</li>
+
+
+<button class="btn btn-primary" (click)="viewButtonClick()">viewButtonClick</button>
+-->   

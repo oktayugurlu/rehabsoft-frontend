@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import notify from 'devextreme/ui/notify';
 import { PatientService } from 'src/app/shared/services/patient.service';
 import {PatientDetails} from "../../../models/patientdetails"
@@ -11,13 +13,16 @@ import {PatientDetails} from "../../../models/patientdetails"
 export class ListPatientsComponent implements OnInit {
 
   dataSource: PatientDetails[];
+  generalEvalFormurl:string;
 
-  constructor(private patientService:PatientService) {
+  constructor(private patientService:PatientService,private router:Router) {
       this.dataSource;
+      this.generalEvalFormurl = "../exercises";
       
   }
   ngOnInit(){
     this.getItemsList();
+   
   }
 
 
@@ -33,5 +38,18 @@ export class ListPatientsComponent implements OnInit {
       }
     );
   }
+
+
+
+  viewButtonClick = () =>{
+    console.log("butona basildi");
+    //console.log(e.row.data.tcKimlikNo)
+    this.router.navigate(['doctor/patient-info/5454']);
+    //this.generalEvalFormurl = "../exercises";
+  }
+
+  okClicked (e) {
+    notify("The OK button was clicked")
+}
 
 }

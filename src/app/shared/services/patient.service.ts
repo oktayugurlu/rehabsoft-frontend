@@ -16,5 +16,9 @@ export class PatientService {
         return this.http.get<PatientDetails[]>(`${environment.API_BASE_PATH}/patient/all`);
       }
 
+    getPatient(){
+      return this.http.get<PatientDetails>(`${environment.API_BASE_PATH}/patient/38132084582`);
+    }
+
 
 }
