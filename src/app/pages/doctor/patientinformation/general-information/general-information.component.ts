@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 import notify from 'devextreme/ui/notify';
 import { PatientService } from 'src/app/shared/services/patient.service';
 import {PatientDetails} from "../../../../models/patientdetails"
@@ -13,14 +13,25 @@ export class GeneralInformationComponent implements OnInit {
 
   dataSource: PatientDetails;
   colCountByScreen:object;
+  tcKimlikNo:string;
 
-  constructor(private patientService:PatientService) {
+  constructor(private patientService:PatientService,route: ActivatedRoute) {
     this.colCountByScreen = {
       xs: 1,
       sm: 2,
       md: 3,
       lg: 4
     };
+
+
+
+    route.parent.params.subscribe(
+      (params) => 
+      { 
+            this.tcKimlikNo= params.tckimlikno; 
+       });
+
+    console.log("GENERALINFO tcKimlikNUMARA:",this.tcKimlikNo);
     
 }
 
@@ -29,13 +40,13 @@ export class GeneralInformationComponent implements OnInit {
   }
 
   getPatient = ()=>{
-    this.patientService.getPatient().subscribe(
+    this.patientService.getPatientByTcKimlikNo(this.tcKimlikNo).subscribe(
       (data)=>{
         console.log("Patient Service data:", data);
         this.dataSource = data;
       },
       (error)=>{
-        notify(error);
+        notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");
       }
     );
   }
