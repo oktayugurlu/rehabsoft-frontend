@@ -18,7 +18,7 @@ export class PatientinformationComponent implements OnInit {
 
   constructor(private router: Router,route: ActivatedRoute) {
       const tcKimlikNo: string = route.snapshot.params.tckimlikno;
-      console.log("tcKimlikNo:",tcKimlikNo);
+      console.log("PATIENTINFO tcKimlikNo:",tcKimlikNo);
       this.itemCount = this.titleList.length;
 
   }

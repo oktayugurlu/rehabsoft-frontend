@@ -41,10 +41,9 @@ export class ListPatientsComponent implements OnInit {
 
 
 
-  viewButtonClick = () =>{
+  viewButtonClick = (e) =>{
     console.log("butona basildi");
-    //console.log(e.row.data.tcKimlikNo)
-    this.router.navigate(['doctor/patient-info/5454']);
+    this.router.navigate(['doctor/patient-info/',e.row.data.tcKimlikNo]);
     //this.generalEvalFormurl = "../exercises";
   }
 

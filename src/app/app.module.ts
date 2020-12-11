@@ -70,4 +70,4 @@ import { GeneralInformationComponent } from './pages/doctor/patientinformation/g
 })
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+//platformBrowserDynamic().bootstrapModule(AppModule);

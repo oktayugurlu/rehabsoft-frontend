@@ -10,6 +10,7 @@ import {VisualImpairment} from "../../../../models/generalevaluationform/visuali
 import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 import {GeneralEvFormBoolean } from 'src/app/models/generalevaluationform/generalEvFormBoolean';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-patient-gefd-information',
@@ -19,6 +20,7 @@ import {GeneralEvFormBoolean } from 'src/app/models/generalevaluationform/genera
 export class PatientGefdInformationComponent implements OnInit {
 
   generalEvaluationForm:GeneralEvaluationForm;
+  tcKimlikNo:string;
 
   @ViewChild("eventRadioGroupMultiplePregnancy") eventRadioGroup: DxRadioGroupComponent;
   @ViewChild("dxFileUploaderComponentBotoxReport") eventBotoxReport: DxFileUploaderComponent;
@@ -832,7 +834,15 @@ export class PatientGefdInformationComponent implements OnInit {
   };
 
 
-  constructor(private generalFormService:GeneralFormService) { }
+  constructor(private generalFormService:GeneralFormService,route: ActivatedRoute) { 
+
+    route.parent.params.subscribe(
+      (params) => 
+      { 
+            this.tcKimlikNo= params.tckimlikno; 
+       });
+
+  }
 
   ngOnInit() {
    
@@ -843,14 +853,14 @@ export class PatientGefdInformationComponent implements OnInit {
 
 
 
-  getGeneralEvaluationForm = ()=>  { this.generalFormService.getById().subscribe(
+  getGeneralEvaluationForm = ()=>  { this.generalFormService.getByTcKimlikNo(this.tcKimlikNo).subscribe(
     (data)=>{
       
       console.log(data);
      this.generalEvaluationForm = data;
     },
     (error)=>{
-      notify(error);
+      notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");
     }
   );
 

@@ -11,7 +11,7 @@ export class GeneralFormService {
 
   }
 
-  getById() {
-    return this.http.get<any>(`${environment.API_BASE_PATH}/patient/generalevaluationform/get-form/38132084582`);
+  getByTcKimlikNo(tcKimlikNo:string) {
+    return this.http.get<any>(`${environment.API_BASE_PATH}/patient/generalevaluationform/get-form/${tcKimlikNo}`);
   }
 }
