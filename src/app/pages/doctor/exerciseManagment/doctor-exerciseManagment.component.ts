@@ -41,7 +41,7 @@ export class DoctorExerciseManagmentComponent{
   };
 
   allowedPageSizesArray =  [5, 10, 20, 50, 100];
-  dataSource: Exercise[];
+  dataSource: any[];
 
 
   constructor(private exerciseService: ExerciseService ) {
@@ -57,7 +57,7 @@ export class DoctorExerciseManagmentComponent{
     this.exerciseService.getAll().subscribe(
       (data)=>{
         data.forEach(exercise=>{
-          exercise.creatorNameSurname = exercise.user.firstName+' '+exercise.user.surname;
+          exercise["creatorNameSurname"] = exercise.user.firstName+' '+exercise.user.surname;
         })
         console.log(data);
         this.dataSource = data;
