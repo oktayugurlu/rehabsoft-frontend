@@ -9,5 +9,4 @@ export class Exercise{
   exerciseImageCollection: ExerciseImage[];
   exerciseVideoCollection: ExerciseVideo[];
   user: User;
-  creatorNameSurname: string
 }

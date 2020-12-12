@@ -52,7 +52,7 @@ export class DoctorCreateExerciseComponent implements OnInit{
           swal.fire({
             title: 'Başarılı !',
             icon: 'success',
-            text: this.popUpContent.exerciseName+ ' Egzersizi Başarılı Bir Şekilde G! ',
+            text: this.popUpContent.exerciseName+ ' Egzersizi Başarılı Bir Şekilde Güncellendi! ',
             type: 'success',
             heightAuto: false
           }).then(() => {
@@ -70,7 +70,7 @@ export class DoctorCreateExerciseComponent implements OnInit{
               type: 'error',
               heightAuto: false
             });
-          }else{
+          } else{
             // @ts-ignore
             swal.fire({
               title: 'Hata Oluştu !',
@@ -238,8 +238,8 @@ export class DoctorCreateExerciseComponent implements OnInit{
   ///************ Exercise Media end ************///
 
   openPopUpForEdit = (data)=>{
-    console.log("data: ",data);
-    this.popUpContent = data;
+    this.popUpContent = {...data};
+    delete this.popUpContent["creatorNameSurname"];
     this.popUpTitle = 'Egzersiz Düzenleme';
 
     this.fillFilesExerciseListToEdit();
