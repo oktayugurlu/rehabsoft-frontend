@@ -14,18 +14,21 @@ export class PatientinformationComponent implements OnInit {
   itemCount: number;
   generalEvalFormurl:string;
   generalInformationUrl:string;
+  videoRequestUrl:string;
 
 
   constructor(private router: Router,route: ActivatedRoute) {
       const tcKimlikNo: string = route.snapshot.params.tckimlikno;
       console.log("PATIENTINFO tcKimlikNo:",tcKimlikNo);
       this.itemCount = this.titleList.length;
+      this.videoRequestUrl = "video-request";
 
   }
 
   ngOnInit() {
     this.callGeneralEvalForm();
-    this.callGeneralInformation()
+    this.callGeneralInformation();
+    
   }
 
   callGeneralEvalForm(){ //hata verirse string yaz dönüs tipi olarak
