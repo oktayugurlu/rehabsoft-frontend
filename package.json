@@ -47,6 +47,7 @@
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "devextreme-cli": "latest",
+    "devextreme-intl": "^19.1.8",
     "devextreme-themebuilder": "20.1.7",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",

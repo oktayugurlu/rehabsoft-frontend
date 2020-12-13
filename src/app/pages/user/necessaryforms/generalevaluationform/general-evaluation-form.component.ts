@@ -21,6 +21,10 @@ import notify from "devextreme/ui/notify";
 import {Patient} from "../../../../models/patient";
 import swal, {SweetAlertOptions} from "sweetalert2";
 
+import "devextreme-intl";
+import { locale, loadMessages, formatMessage } from 'devextreme/localization';
+// import trMessages from 'devextreme/localization/messages/tr.json';
+
 @Component({
   selector: 'app-general-evaluation-form',
   templateUrl: './general-evaluation-form.component.html',
@@ -1052,6 +1056,10 @@ export class GeneralEvaluationFormComponent implements OnInit {
     this.userService.patient.subscribe(patient=>{
       console.log("patientpatient",patient);
     });
+
+
+    // loadMessages(trMessages);
+    // locale(navigator.language);
   }
 
   @Output() backStepper: EventEmitter<any> = new EventEmitter();

@@ -61,6 +61,7 @@ import { DxoItemDraggingModule } from "devextreme-angular/ui/nested";
 import { ListPatientsComponent } from './pages/doctor/list-patients/list-patients.component';
 import { PatientGefdInformationComponent } from './pages/doctor/patientinformation/patient-gefd-information/patient-gefd-information.component';
 import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
+import {NotificationListComponent} from "./shared/components/notification-list/notification-list.component";
 
 
 
@@ -114,8 +115,8 @@ const routes: Routes = [
           { path: '', redirectTo: 'general-info', pathMatch: 'full' },
           { path: 'general-info', component: GeneralInformationComponent },
           { path: 'usergefd', component: PatientGefdInformationComponent }
-          
-          
+
+
         ]
       }
 
@@ -137,8 +138,8 @@ const routes: Routes = [
   declarations: [
     PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
-    PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent,GeneralInformationComponent,
+    PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,
-    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent]
+    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent]
 })
 export class AppRoutingModule { }
