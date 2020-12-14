@@ -9,7 +9,6 @@ import {AfterBirthReasonCerebralPalsy} from "../../../../models/generalevaluatio
 import {VisualImpairment} from "../../../../models/generalevaluationform/visualimpairment";
 import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
-import {GeneralEvFormBoolean } from 'src/app/models/generalevaluationform/generalEvFormBoolean';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
