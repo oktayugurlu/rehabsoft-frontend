@@ -9,6 +9,7 @@ import {TokenDto} from './models/tokendto';
 import {AppInfoService} from './shared/services';
 import {UserService} from './shared/services/user.service';
 
+import { locale, loadMessages } from "devextreme/localization";
 
 @Component({
   selector: 'app-root',

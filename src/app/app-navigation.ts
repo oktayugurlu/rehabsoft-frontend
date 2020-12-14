@@ -22,7 +22,7 @@ export const userNavigation = [
 
 export const doctorNavigation = [
   {
-    text: 'Home',
+    text: 'Anasayfa',
     path: '/doctor/home',
     icon: 'home'
   },
@@ -36,7 +36,7 @@ export const doctorNavigation = [
     path:"/doctor/getall",
     icon:"group"
   },
-  
+
   {
         text: 'Hasta Detay Sayfasi',
         path: 'doctor/patient-info/:tckimlikno'
@@ -60,7 +60,7 @@ export const doctorNavigation = [
 
 export const adminNavigation = [
   {
-    text: 'Home',
+    text: 'Anasayfa',
     path: '/admin/home',
     icon: 'home'
   },
