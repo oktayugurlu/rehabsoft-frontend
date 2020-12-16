@@ -1,0 +1,18 @@
+<div>
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"
+    [remoteOperations]="true"
+    [showBorders]="true">
+    <dxo-paging pageSize="15"></dxo-paging>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxi-column dataField="requestTitle" caption="İstek Başlığı"></dxi-column>
+    <dxi-column dataField="requestContent" caption="İçerik"></dxi-column>
+    <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" ></dxi-column>
+    <dxi-column type="buttons" alignment="center"  width= '100px' >
+      <dxi-button hint="Önizleme" icon="fas fa-eye" [visible]="true" ></dxi-button>
+    </dxi-column>
+    <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
+  </dx-data-grid>
+</div>
+<router-outlet></router-outlet>

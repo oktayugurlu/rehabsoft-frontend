@@ -64,6 +64,7 @@ import { GeneralInformationComponent } from './pages/doctor/patientinformation/g
 
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
 import {NotificationListComponent} from "./shared/components/notification-list/notification-list.component";
+import {UserVideoSubmitComponent} from './pages/user/videorequest/user-video-submit.component';
 
 
 
@@ -84,7 +85,8 @@ const routes: Routes = [
       { path: 'profile', component: UserProfileComponent },
       { path: 'task', component: UserTasksComponent },
       { path: 'general-evaluation-form', component: NecessaryFormsComponent },
-      { path: 'user-notification', component: UserNotificationComponent }
+      { path: 'user-notification', component: UserNotificationComponent },
+      { path: 'user-video-submit', component: UserVideoSubmitComponent}
     ]
   },
   {
@@ -143,7 +145,7 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,
-    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent,VideoRequestComponent,NotificationListComponent]
+    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent,VideoRequestComponent,NotificationListComponent, UserVideoSubmitComponent]
 
 })
 export class AppRoutingModule { }

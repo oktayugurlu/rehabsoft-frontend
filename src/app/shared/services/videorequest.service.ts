@@ -5,6 +5,7 @@ import {VideoRequest} from "../../models/video-request"
 
 
 
+
 @Injectable({ providedIn: 'root' })
 export class VideorequestService{
 
@@ -19,6 +20,10 @@ export class VideorequestService{
 
   getAll(tcKimlikNo:string) {
     return this.http.get<VideoRequest[]>(`${environment.API_BASE_PATH}/video-request/history/${tcKimlikNo}`);
+  }
+
+  getAllActive(username:string){
+    return this.http.get<VideoRequest[]>(`${environment.API_BASE_PATH}/video-request/active-requests/${username}`);
   }
 
 }

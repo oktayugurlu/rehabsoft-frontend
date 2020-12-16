@@ -16,9 +16,6 @@ export class VideoRequest {
 
     responseVideoRequest:any;
 
-
-
-
+    creationDate:any;
 
   }
-  

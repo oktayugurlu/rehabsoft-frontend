@@ -17,6 +17,11 @@ export const userNavigation = [
         path: '/user/tasks'
       }
     ]
+  },
+  {
+    text: 'Video İstekleri',
+    path: '/user/user-video-submit',
+    icon: 'runner'
   }
 ];
 
