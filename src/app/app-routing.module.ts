@@ -68,7 +68,6 @@ import {UserVideoSubmitComponent} from './pages/user/videorequest/user-video-sub
 
 
 
-
 const routes: Routes = [
   {
     path: '',
@@ -145,7 +144,8 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,
-    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent,VideoRequestComponent,NotificationListComponent, UserVideoSubmitComponent]
+    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent,VideoRequestComponent,NotificationListComponent,
+    UserVideoSubmitComponent]
 
 })
 export class AppRoutingModule { }

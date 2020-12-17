@@ -45,7 +45,8 @@ export class VideoRequestComponent implements OnInit {
       patient:null,
       exerciseCollection:null,
       responseVideoRequest:null,
-      creationDate:null
+      creationDate:null,
+      id: null
 
   },
   this.getRequestHistory();

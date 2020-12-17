@@ -4,6 +4,9 @@ import { Doctor } from "./doctor";
 
 export class VideoRequest {
 
+
+    id: number;
+
     requestContent: string;
 
     requestTitle: string;

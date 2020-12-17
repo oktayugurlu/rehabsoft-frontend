@@ -32,12 +32,11 @@ import {CookieService} from "ngx-cookie-service";
 import { PatientGefdInformationComponent } from './pages/doctor/patientinformation/patient-gefd-information/patient-gefd-information.component';
 import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
-import { UserVideoSubmitModelComponent } from './pages/user/videorequest/user-video-submit-model/user-video-submit-model.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserVideoSubmitModelComponent],
+    AppComponent],
   imports: [
     BrowserModule,
     CommonModule,

@@ -17,6 +17,7 @@ export class UserVideoSubmitComponent {
   username: string;
   currentUser: TokenDto;
   dataSource: VideoRequest[];
+  allowedPageSizesArray =  [5, 10, 20, 50, 100];
 
   constructor(private videorequestService: VideorequestService, private authenticationService:AuthenticationService, private userService: UserService) {
     authenticationService.currentUser.subscribe(user=>{
