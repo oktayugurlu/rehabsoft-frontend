@@ -7,15 +7,16 @@
 <!--      Your browser does not support HTML video.-->
 <!--    </video>-->
     <dx-scroll-view width="100%" height="100%">
-      <div class="row-md-12">
-        <div class="col-md-12">
-          <div class="row-md-6">
-            <app-exercise-media-carousel-component [dataSource]="exerciseVideoListPrepared"></app-exercise-media-carousel-component>
-          </div>
-          <div class="row-md-6">
-<!--            <img class="d-block" src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg">-->
-          </div>
-        </div>
+
+      <div class="row-md-6 align-items-center">
+        <app-exercise-media-carousel-component [dataSource]="exerciseVideoListPrepared"></app-exercise-media-carousel-component>
+      </div>
+      <div class="row-md-6 align-items-center" style="margin-top:5px">
+        <dx-text-area
+          [readOnly]="true"
+          [height]="90"
+          [(value)]="exercise.exerciseContent">
+        </dx-text-area>
       </div>
     </dx-scroll-view>
 

@@ -9,7 +9,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 @Component({
   selector: 'app-exercise-image-component',
   template: `
-    <img class="d-block w-75" [src]="dataUrl$|async" [alt]="'asa'">
+    <img [src]="dataUrl$|async" [alt]="'asa'" class="img-responsive">
   `
 })
 export class ExerciseImageComponent  implements OnChanges, OnInit {
