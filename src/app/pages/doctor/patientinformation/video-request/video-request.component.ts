@@ -28,9 +28,9 @@ export class VideoRequestComponent implements OnInit {
 
   constructor(private videoRequestService:VideorequestService,private router: Router,route: ActivatedRoute,private patientService:PatientService) {
     route.parent.params.subscribe(
-      (params) => 
-      { 
-            this.tcKimlikNo= params.tckimlikno; 
+      (params) =>
+      {
+            this.tcKimlikNo= params.tckimlikno;
        });
 
 
@@ -44,14 +44,16 @@ export class VideoRequestComponent implements OnInit {
       doctor:null,
       patient:null,
       exerciseCollection:null,
-      responseVideoRequest:null
-      
+      responseVideoRequest:null,
+      creationDate:null,
+      id: null
+
   },
   this.getRequestHistory();
-  
+
   }
 
-  
+
   getRequestHistory = ()=>{
     this.videoRequestService.getAll(this.tcKimlikNo).subscribe(
       (data)=>{

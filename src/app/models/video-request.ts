@@ -4,6 +4,9 @@ import { Doctor } from "./doctor";
 
 export class VideoRequest {
 
+
+    id: number;
+
     requestContent: string;
 
     requestTitle: string;
@@ -16,9 +19,6 @@ export class VideoRequest {
 
     responseVideoRequest:any;
 
-
-
-
+    creationDate:any;
 
   }
-  

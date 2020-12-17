@@ -33,6 +33,7 @@ import { PatientGefdInformationComponent } from './pages/doctor/patientinformati
 import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
 
+
 @NgModule({
   declarations: [
     AppComponent],

@@ -1,0 +1,32 @@
+<div id="data-grid" >
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"
+    keyExpr="id"
+    [remoteOperations]="true"
+
+    [hoverStateEnabled]="true" [showBorders]="true" [focusedRowEnabled]="true"
+    [showColumnLines]="true" [showRowLines]="true" [rowAlternationEnabled]="false"
+    [export]="true" [groupPanel]="true"
+    [selectedRowKeys]="[]"
+    >
+
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    <dxo-scrolling mode="standart" columnRenderingMode="virtual"></dxo-scrolling>
+    <!-- Pagination start -->
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager [showPageSizeSelector]="true" [showInfo]="true" [allowedPageSizes]="allowedPageSizesArray"></dxo-pager>
+    <dxo-filter-row [visible]="true" ></dxo-filter-row>
+    <!-- Pagination end -->
+
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxi-column dataField="requestTitle" caption="İstek Başlığı"></dxi-column>
+    <dxi-column dataField="requestContent" caption="İçerik"></dxi-column>
+    <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" ></dxi-column>
+    <dxi-column type="buttons" alignment="center"  width= '100px' >
+      <dxi-button hint="Önizleme" icon="fas fa-upload" [visible]="true" ></dxi-button>
+    </dxi-column>
+    <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
+  </dx-data-grid>
+</div>
+<router-outlet></router-outlet>
