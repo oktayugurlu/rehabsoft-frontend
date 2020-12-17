@@ -10,7 +10,7 @@ import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
 @Component({
   selector: 'app-vjs-player',
   template: `
-    <video #target  poster="" width="400" class="video-js" controls muted playsinline preload="auto" crossorigin="use-credentials"></video>
+    <video #target poster="" width="400" class="video-js" controls muted playsinline preload="auto" crossorigin="use-credentials" ></video>
   `,
   styleUrls: [
     './video-player.component.scss'

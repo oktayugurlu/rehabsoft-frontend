@@ -62,6 +62,8 @@ import { ListPatientsComponent } from './pages/doctor/list-patients/list-patient
 import { PatientGefdInformationComponent } from './pages/doctor/patientinformation/patient-gefd-information/patient-gefd-information.component';
 import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 import {NotificationListComponent} from "./shared/components/notification-list/notification-list.component";
+import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-media-carousel.component";
+import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
 
 
 
@@ -140,6 +142,7 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,
-    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent]
+    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent,
+    ExerciseImageComponent]
 })
 export class AppRoutingModule { }
