@@ -64,7 +64,13 @@ import { GeneralInformationComponent } from './pages/doctor/patientinformation/g
 
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
 import {NotificationListComponent} from "./shared/components/notification-list/notification-list.component";
+
 import {UserVideoSubmitComponent} from './pages/user/videorequest/user-video-submit.component';
+
+import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-media-carousel.component";
+import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
+
+
 
 
 
@@ -143,9 +149,7 @@ const routes: Routes = [
     PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
-    DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,
-    AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent,VideoRequestComponent,NotificationListComponent,
-    UserVideoSubmitComponent]
-
+    DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserVideoSubmitComponent,
+    ExerciseImageComponent]
 })
 export class AppRoutingModule { }

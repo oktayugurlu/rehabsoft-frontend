@@ -6,18 +6,19 @@
 <!--      <source src="http://localhost:8080/video/stream/mp4/toystory" type="video/mp4">-->
 <!--      Your browser does not support HTML video.-->
 <!--    </video>-->
+    <dx-scroll-view width="100%" height="100%">
 
-    <app-vjs-player  [options]="{
-    autoplay: true,
-    controls: true,
-    sources: [{ src: 'http://localhost:8080/video/stream/mp4/toystory', type: 'video/mp4', withCredentials: true}],
-    html5:{
-        hls: {
-          withCredentials: true,
-          overrideNative: true
-        }
-      }
-      }"></app-vjs-player>
+      <div class="row-md-6 align-items-center">
+        <app-exercise-media-carousel-component [dataSource]="exerciseVideoListPrepared"></app-exercise-media-carousel-component>
+      </div>
+      <div class="row-md-6 align-items-center" style="margin-top:5px">
+        <dx-text-area
+          [readOnly]="true"
+          [height]="90"
+          [(value)]="exercise.exerciseContent">
+        </dx-text-area>
+      </div>
+    </dx-scroll-view>
 
   </div>
 

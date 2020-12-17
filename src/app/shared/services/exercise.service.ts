@@ -47,26 +47,34 @@ export class ExerciseService {
     return this.http.post<Exercise>(`${environment.API_BASE_PATH}/exercises/update`,payload );
   }
 
-  appendExerciseMediaToExerciseWithOrder = (exerciseVideos: ExerciseVideo[], payload: FormData) =>{
+  getExerciseImageById(path:string){
+    return this.http.post<Blob>(`${environment.API_BASE_PATH}/exercises/getimage`,path);
+  }
+
+
+  private appendExerciseMediaToExerciseWithOrder = (exerciseVideos: ExerciseVideo[], payload: FormData) =>{
     if(exerciseVideos !== null ){
       if(exerciseVideos.length>0){
         exerciseVideos.forEach((exerciseVideo,index)=>{
           if( !this.checkIsEmpty(exerciseVideo.videoFile) ){
-            console.log("eklemeden once name: ", exerciseVideo.title);
+            console.log("eklemeden once name: ", exerciseVideo.videoFile);
             payload.append('exerciseMediaList', new Blob([exerciseVideo.videoFile]), exerciseVideo.title+'.'+exerciseVideo.videoFile.name.split('.').pop());
-            delete exerciseVideo.videoFile;
           }
+          delete exerciseVideo.videoFile;
         });
       }
     }
   }
 
-  checkIsEmpty = (object: any) =>{
+  private checkIsEmpty = (object: any) =>{
     if(object === undefined ){
       return true;
     }
     return object === null;
   }
+
+
+
 
 
 }
