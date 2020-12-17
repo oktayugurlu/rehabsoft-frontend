@@ -5,18 +5,9 @@ export const userNavigation = [
     icon: 'home'
   },
   {
-    text: 'Examples',
-    icon: 'folder',
-    items: [
-      {
-        text: 'Profile',
-        path: '/user/profile'
-      },
-      {
-        text: 'Tasks',
-        path: '/user/tasks'
-      }
-    ]
+    text: 'Profile',
+    path: '/user/profile',
+    icon: 'user'
   }
 ];
 
@@ -26,6 +17,7 @@ export const doctorNavigation = [
     path: '/doctor/home',
     icon: 'home'
   },
+
   {
     text: 'Egzersizler',
     path: '/doctor/exercises',
@@ -36,24 +28,10 @@ export const doctorNavigation = [
     path:"/doctor/getall",
     icon:"group"
   },
-
   {
-        text: 'Hasta Detay Sayfasi',
-        path: 'doctor/patient-info/:tckimlikno'
-  },
-  {
-    text: 'Examples',
-    icon: 'folder',
-    items: [
-      {
-        text: 'Profile',
-        path: '/doctor/profile'
-      },
-      {
-        text: 'Tasks',
-        path: '/doctor/tasks'
-      }
-    ]
+    text: 'Profil',
+    path: '/doctor/profile',
+    icon:"user"
   }
 ];
 
