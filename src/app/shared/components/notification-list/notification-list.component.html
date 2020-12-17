@@ -2,13 +2,12 @@
 <div class="dx-card responsive-paddings">
   <dx-scroll-view width="100%" height="440px">
     <div style="margin-right: 8px">
-
       <div *ngFor="let notification of dataSource; let i = index"
            class="dx-card notification-card view rgba-white-slight waves-light" mdbWavesEffect >
         <a href="{{dataSource[i].notificationUrl}}">
           <div class="row">
             <div class="col-md-1 events-time d-flex flex-column text-center">
-              <strong>{{monthNames[dataSource[i].creationDate.split("/")[0]]}}</strong> {{dataSource[i].creationDate.charAt(4)}}
+              <strong>{{monthNames[dataSource[i].creationDate.split("/")[0]]}}</strong> {{dataSource[i].creationDate.split("/")[1]}}
             </div>
             <div class="col-md-8">
               <p>{{dataSource[i].notificationContent}}</p>

@@ -18,7 +18,6 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 export class DoctorCreateExerciseComponent implements OnInit{
 
-
   @ViewChild('dxCreateExerciseFormComponent') validationFormComponent: DxFormComponent
   @ViewChild('dxFileUploaderComponent') fileUploaderComponent: DxFileUploaderComponent
   @Output() getAllExercise = new EventEmitter<void>();
@@ -255,25 +254,27 @@ export class DoctorCreateExerciseComponent implements OnInit{
 
   fillFilesExerciseListToEdit = () =>{
     this.filesExerciseList = [];
-    this.popUpContent.exerciseVideoCollection.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0));
+    this.popUpContent.exerciseVideoCollection.sort((a,b) => (a.title.split('-')[0] > b.title.split('-')[0] ) ? 1 : ((b.title.split('-')[0] > a.title.split('-')[0] ) ? -1 : 0));
     this.popUpContent.exerciseVideoCollection.forEach(exerciseVideo=>{
       let splittedVideoTitle:string[] = exerciseVideo.title.split('-');
-      splittedVideoTitle.shift();
-      exerciseVideo.title='';
+      console.log("splittedVideoTitle: ",splittedVideoTitle);
+      splittedVideoTitle.splice(0, 1);;
+      console.log("splittedVideoTitle after shift: ",splittedVideoTitle);
+      let splicedTitle='';
       splittedVideoTitle.forEach((word,index)=>{
         if(splittedVideoTitle.length===1){
-          exerciseVideo.title +=word;
+          splicedTitle +=word;
         }else{
           if(index === 0){
-            exerciseVideo.title +=word;
+            splicedTitle +=word;
           } else{
-            exerciseVideo.title +='-'+word;
+            splicedTitle +='-'+word;
           }
         }
       });
       this.filesExerciseList.push({
         id:exerciseVideo.id.toString(),
-        text:exerciseVideo.title,
+        text:splicedTitle,
         file: null,
         exerciseVideo: exerciseVideo
       });
