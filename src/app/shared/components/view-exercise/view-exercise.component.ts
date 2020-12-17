@@ -41,6 +41,8 @@ export class ViewExerciseComponent implements OnInit, OnDestroy{
   }
   prepareExerciseVideoForRequest = (exercise: Exercise) => {
     let exerciseVideoListPrepared:any = [...exercise.exerciseVideoCollection];
+    exerciseVideoListPrepared.sort((a,b) => (a.title.split('-')[0] > b.title.split('-')[0] ) ? 1 : ((b.title.split('-')[0] > a.title.split('-')[0] ) ? -1 : 0));
+
     exerciseVideoListPrepared.forEach(exerciseVideo =>{
       if(this.checkIsImage(exerciseVideo)){
         exerciseVideo["videoRequestUrl"] = `http://localhost:8080/api/exercises/getimage/${exerciseVideo.id}`;
