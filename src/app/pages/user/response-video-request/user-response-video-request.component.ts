@@ -5,21 +5,22 @@ import notify from 'devextreme/ui/notify';
 import {AuthenticationService} from '../../../security/authentication.service';
 import {UserService} from '../../../shared/services/user.service';
 import {TokenDto} from '../../../models/tokendto';
+import {ResponseVideoRequest} from "../../../models/responsevideorequest/responsevideorequest";
 
 @Component({
-  selector: 'app-user-video-submit',
-  templateUrl: 'user-video-submit.component.html',
-  styleUrls: [ './user-video-submit.component.scss' ]
+  selector: 'app-user-response-video-request',
+  templateUrl: 'user-response-video-request.component.html',
+  styleUrls: [ './user-response-video-request.component.scss' ]
 })
 
-export class UserVideoSubmitComponent {
+export class UserResponseVideoRequestComponent {
 
   username: string;
   currentUser: TokenDto;
   dataSource: VideoRequest[];
   allowedPageSizesArray =  [5, 10, 20, 50, 100];
 
-  constructor(private videorequestService: VideorequestService, private authenticationService:AuthenticationService, private userService: UserService) {
+  constructor(private videorequestService: VideorequestService, private authenticationService:AuthenticationService) {
     authenticationService.currentUser.subscribe(user=>{
       this.currentUser = user;
       this.username=JSON.parse(localStorage.getItem('currentUser')).username;

@@ -21,6 +21,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   @ViewChild('target', {static: true}) target: ElementRef;
   // see options: https://github.com/videojs/video.js/blob/mastertutorial-options.html
   @Input() options: {
+    responsive: boolean,
     fluid: boolean,
     aspectRatio: string,
     autoplay: boolean,
