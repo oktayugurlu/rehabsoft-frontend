@@ -32,6 +32,7 @@ import {CookieService} from "ngx-cookie-service";
 import { PatientGefdInformationComponent } from './pages/doctor/patientinformation/patient-gefd-information/patient-gefd-information.component';
 import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
+import {ResponseVideoRequestService} from "./shared/services/response-video-request.service";
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { VideoRequestComponent } from './pages/doctor/patientinformation/video-r
     DxTabPanelModule,
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
+    ResponseVideoRequestService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

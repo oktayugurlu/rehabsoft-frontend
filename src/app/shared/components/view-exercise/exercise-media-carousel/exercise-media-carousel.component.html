@@ -7,6 +7,7 @@
 
       <ng-template #elseBlock>
         <app-vjs-player  [options]="{
+          responsive: true,
           autoplay: false,
           controls: true,
           sources: [{ src: dataSource[i].videoRequestUrl, type: 'video/mp4', withCredentials: true}],
