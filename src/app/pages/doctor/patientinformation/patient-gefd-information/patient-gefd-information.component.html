@@ -1,3 +1,20 @@
+<div class="container">
+  
+  
+    <div class="card-body" style="padding: 2px; background-color: #9EE2E9;">
+  
+      <dx-toolbar style="padding: 2px; background-color: #9EE2E9;">
+  
+        <dxi-item location="center" widget="dxButton" locateInMenu="never">
+          <div *dxTemplate>
+            <div class='toolbar-label'><b>GENEL DEĞERLENDİRME FORMU</b> </div>
+          </div>
+        </dxi-item>
+      </dx-toolbar>
+    </div>
+
+
+
 <dx-form [formData]="generalEvaluationForm" [readOnly]="true">
 
     <!-- 1. Demografik Bilgiler-->
@@ -300,6 +317,7 @@
 
 </dx-form>
 
+</div>
 <!--
 <div>
 <dx-list [items]="generalEvaluationForm.orthesisInfoCollection">

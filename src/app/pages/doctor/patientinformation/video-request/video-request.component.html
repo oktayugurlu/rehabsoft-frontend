@@ -1,8 +1,20 @@
-<div class="container">
-  <h2 class="text-center">Hastadan Video Talebi</h2>
-</div>
+<div class="container" id="video-grid">
+  
+  
+  <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
 
-<div>
+    <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
+
+      <dxi-item location="center" widget="dxButton" locateInMenu="never">
+        <div *dxTemplate>
+          <div class='toolbar-label'><b>HASTADAN VİDEO TALEBİ</b> </div>
+        </div>
+      </dxi-item>
+    </dx-toolbar>
+  </div>
+
+
+
 <dx-form id="form" [formData]="videoRequestDto">
   
   <dxi-item itemType="group" cssClass="first-group">
@@ -28,15 +40,24 @@
   </dxi-item>
 
 </dx-form>
+
+</div>
+
+<div class="container" id="video-grid">
+
+<div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
+
+  <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
+
+    <dxi-item location="center" widget="dxButton" locateInMenu="never">
+      <div *dxTemplate>
+        <div class='toolbar-label'><b>VİDEO TALEBİ GEÇMİŞİ</b> </div>
+      </div>
+    </dxi-item>
+  </dx-toolbar>
 </div>
 
 
-<div class="container">
-  <h2 class="text-center">Video Talep Geçmişi</h2>
-</div>
-
-
-<div>
 <dx-data-grid
     id="gridContainer"
     [dataSource]="videoRequestList"  
@@ -56,3 +77,4 @@
    <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->   
 </dx-data-grid>
 </div>
+
