@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   userMenuItems = [{
     text: 'Profile',
     icon: 'user'
+
   }, {
     text: 'Logout',
     icon: 'runner',

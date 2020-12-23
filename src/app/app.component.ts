@@ -43,7 +43,7 @@ export class AppComponent implements OnInit{
       return this.appInfo.title+'-'+'Hasta';
     }
     if(this.authenticationService.currentUserValue.role === Role.Doctor){
-      return this.appInfo.title+'-'+'Doktor';
+      return this.appInfo.title+'-'+'Fizyoterapist';
     }
     if(this.authenticationService.currentUserValue.role === Role.Admin){
       return this.appInfo.title+'-'+'Admin';

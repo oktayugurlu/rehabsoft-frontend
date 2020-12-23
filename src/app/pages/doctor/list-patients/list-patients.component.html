@@ -1,3 +1,20 @@
+
+<div id="data-grid">
+
+  <div class="card-body" style="padding: 3px;  background-color: #9EE2E9;">
+
+    <dx-toolbar style="padding: 3px;  background-color: #9EE2E9;">
+
+      <dxi-item location="center" widget="dxButton" locateInMenu="never">
+        <div *dxTemplate>
+          <div class='toolbar-label'><b>HASTA LİSTESİ</b> </div>
+        </div>
+      </dxi-item>
+    </dx-toolbar>
+
+  </div>
+
+
 <dx-data-grid
     id="gridContainer"
     [dataSource]="dataSource"  
@@ -22,7 +39,7 @@
 </dx-data-grid>
 
 
- 
+</div>
 
 <router-outlet></router-outlet>
 

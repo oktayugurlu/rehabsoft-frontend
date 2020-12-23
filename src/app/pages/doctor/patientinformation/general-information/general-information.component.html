@@ -1,5 +1,18 @@
-<h2 class="content-block">Hasta ile ilgili genel bilgiler</h2>
-
+<div class="container">
+  
+  
+    <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
+  
+      <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
+  
+        <dxi-item location="center" widget="dxButton" locateInMenu="never">
+          <div *dxTemplate>
+            <div class='toolbar-label'><b>GENEL BİLGİLER</b> </div>
+          </div>
+        </dxi-item>
+      </dx-toolbar>
+    </div>
+  
 
 <dx-form [formData]="dataSource" [readOnly]="true">
 
@@ -41,3 +54,5 @@
 
 
 </dx-form>
+
+</div>
