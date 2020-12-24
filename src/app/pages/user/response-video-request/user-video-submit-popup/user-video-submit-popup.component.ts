@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import notify from 'devextreme/ui/notify';
 import {ResponseVideoRequest} from "../../../../models/responsevideorequest/responsevideorequest";
 import {ResponseVideoRequestService} from "../../../../shared/services/response-video-request.service";
@@ -7,6 +7,7 @@ import {ExerciseVideo} from "../../../../models/exercise/exercisevideo";
 import {RequestedVideo} from "../../../../models/responsevideorequest/requestedvideo";
 import swal from "sweetalert2";
 import {HttpErrorResponse} from "@angular/common/http";
+import {DxFileUploaderComponent, DxFormComponent} from "devextreme-angular";
 
 @Component({
   selector: 'app-user-video-submit-popup',
@@ -16,8 +17,11 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 export class UserVideoSubmitPopupComponent {
 
-  @Output() getAllResponse = new EventEmitter<void>();
-  @Input() videoRequestId;
+  @ViewChild('dxFileUploaderComponent') fileUploaderComponent: DxFileUploaderComponent;
+  @ViewChild('dxCreateResponseFormComponent') validationFormComponent: DxFormComponent;
+  @Output() getAllResponseVideoRequest = new EventEmitter<void>();
+  @Output() getAllVideoRequest = new EventEmitter<void>();
+  videoRequestId:number;
 
   dataSource: ResponseVideoRequest;
   popUpTitle = "Video Ekle";
@@ -42,15 +46,15 @@ export class UserVideoSubmitPopupComponent {
   submitExercise = (e: any) => {
 
     //validate from outside of form example
-    // if (! this.validationFormComponent.instance.validate().isValid) {
-    //   return;
-    // }
+    if (! this.validationFormComponent.instance.validate().isValid) {
+      return;
+    }
 
-    // this.createExerciseMediaCollection();
+    this.createRequestedVideoCollection();
     // console.log("fonk disi:, ", this.popUpContent.exerciseVideoCollection);
 
     this.isLoading = true
-    this.dataSource.responseContent = this.dataSource.responseContent.trim();
+    // silinecek this.dataSource.responseContent = this.dataSource.responseContent.trim();
     if(this.isEditPopUp){ // if popup is opened to update exercise
       // this.responseVideoRequestService.update(this.popUpContent).subscribe(
       //   (res) => {
@@ -64,7 +68,7 @@ export class UserVideoSubmitPopupComponent {
       //       type: 'success',
       //       heightAuto: false
       //     }).then(() => {
-      //       this.getAllResponse.next();
+      //       this.getAllResponseVideoRequest.next();
       //     });
       //   },
       //   err => {
@@ -102,7 +106,9 @@ export class UserVideoSubmitPopupComponent {
             type: 'success',
             heightAuto: false
           }).then(() => {
-            this.getAllResponse.next();
+            console.log("cevap calisti");
+            this.getAllVideoRequest.next();
+            // this.getAllResponseVideoRequest.next();
           });
         },
         err => {
@@ -159,7 +165,8 @@ export class UserVideoSubmitPopupComponent {
   getItemsList = ()=>{
   }
 
-  openPopUpForCreate = ()=>{
+  openPopUpForCreate = (videoRequestId)=>{
+    console.log("this.dataSource",this.dataSource);
     this.dataSource = new ResponseVideoRequest();
     this.filesVideoRequestList = [];
     this.fileForAddToList={
@@ -171,6 +178,7 @@ export class UserVideoSubmitPopupComponent {
     this.popUpTitle = 'Egzersiz Oluşturma';
     this.isVisible = true;
     this.isEditPopUp = false;
+    this.videoRequestId = videoRequestId;
   }
 
   closePopUp = ()=>{
@@ -179,27 +187,30 @@ export class UserVideoSubmitPopupComponent {
 
   addMediaToList = (e) => {
     // stop here if form is invalid
-    if (!e.validationGroup.validate().isValid) {
-      return;
-    }
+    // if (!e.validationGroup.validate().isValid) {
+    //   return;
+    // }
     if(this.fileForAddToList.file === undefined ){
+      console.log("file undefined");
       return;
     }
     if(this.fileForAddToList.file === null ){
+      console.log("file null");
       return;
     }
 
-    // if (!this.isFileTypeAndSizeValid(this.fileForAddToList.file) || this.fileForAddToList.text === '' || this.fileForAddToList.file === null) {
-    //   return;
-    // }
-    // this.filesExerciseList.push(this.fileForAddToList);
-    // this.fileForAddToList={
-    //   id:'',
-    //   text:'',
-    //   file: null,
-    //   exerciseVideo: null
-    // }
-    // this.fileUploaderComponent.instance.reset();
+    if (!this.isFileTypeAndSizeValid(this.fileForAddToList.file) || this.fileForAddToList.file === null) {
+      console.log("file fileTypeAndSize not Valid");
+      return;
+    }
+    this.filesVideoRequestList.push(this.fileForAddToList);
+    this.fileForAddToList={
+      id:'',
+      text:'',
+      file: null,
+      requestedVideo: null
+    }
+    this.fileUploaderComponent.instance.reset();
   }
 
   isFileTypeAndSizeValid = (file:any):boolean =>{
@@ -210,7 +221,7 @@ export class UserVideoSubmitPopupComponent {
     '.mpg', '.mp2', '.mpeg', '.mpe', '.mpv',
     '.ogg', '.mp4', '.m4p', '.m4v',
     '.avi','.wmv','.mov', '.qt','.flv', '.swf', '.avchd','.webm'];
-  
+
   uploadMediaToAdd = (event) => {
     let now = new Date();
 
@@ -225,5 +236,17 @@ export class UserVideoSubmitPopupComponent {
     this.fileForAddToList.id = timestamp;
     console.log(event);
     this.fileForAddToList.file = event.value[0];
+  }
+
+  private createRequestedVideoCollection = () => {
+    this.dataSource.requestedVideoCollection = [];
+    console.log("this.filesVideoRequestList",this.filesVideoRequestList);
+    this.filesVideoRequestList.forEach((file, index)=>{
+      let tempRequestedVideo = new RequestedVideo();
+      tempRequestedVideo.id = (file.requestedVideo===null)?null:file.requestedVideo.id;
+      tempRequestedVideo.videoFile = file.file;
+      this.dataSource.requestedVideoCollection.push(tempRequestedVideo);
+    });
+    console.log("fonk ici requestedVideoCollection olustu:, ", this.dataSource.requestedVideoCollection);
   }
 }
