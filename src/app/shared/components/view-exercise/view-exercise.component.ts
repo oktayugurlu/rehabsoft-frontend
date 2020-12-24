@@ -12,6 +12,7 @@ import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
 
 export class ViewExerciseComponent implements OnInit, OnDestroy{
 
+  stylingMode:string = "filled";
   isVisible: boolean;
   popUpContent:any;
   exercise:Exercise;
@@ -45,6 +46,7 @@ export class ViewExerciseComponent implements OnInit, OnDestroy{
 
     exerciseVideoListPrepared.forEach(exerciseVideo =>{
       if(this.checkIsImage(exerciseVideo)){
+        console.log("image exercise url:",);
         exerciseVideo["videoRequestUrl"] = `http://localhost:8080/api/exercises/getimage/${exerciseVideo.id}`;
         exerciseVideo["isImage"] = true;
       } else{

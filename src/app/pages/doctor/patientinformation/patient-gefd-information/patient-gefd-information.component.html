@@ -1,10 +1,10 @@
-<div class="container">
-  
-  
-    <div class="card-body" style="padding: 2px; background-color: #9EE2E9;">
-  
+<div class="container" id="video-grid">
+
+
+<div class="card-body" style="padding: 2px; background-color: #9EE2E9;">
+
       <dx-toolbar style="padding: 2px; background-color: #9EE2E9;">
-  
+
         <dxi-item location="center" widget="dxButton" locateInMenu="never">
           <div *dxTemplate>
             <div class='toolbar-label'><b>GENEL DEĞERLENDİRME FORMU</b> </div>
@@ -151,7 +151,7 @@
                 <dxo-label location="left" [visible]="true" text="Doğum Haftası"></dxo-label>
             </dxi-item>
 
-            <dxi-item dataField="birthType" editorType="dxSelectBox" [editorOptions]="{ 
+            <dxi-item dataField="birthType" editorType="dxSelectBox" [editorOptions]="{
     dataSource: birthTypeSelectBoxList, valueExpr: 'value', displayExpr: 'name'}">
                 <dxo-label location="left" [visible]="true" text="Doğum Şekli"></dxo-label>
             </dxi-item>

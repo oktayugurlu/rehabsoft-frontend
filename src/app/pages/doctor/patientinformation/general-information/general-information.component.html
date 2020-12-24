@@ -1,24 +1,25 @@
-<div class="container">
-  
-  
-    <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
-  
-      <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
-  
-        <dxi-item location="center" widget="dxButton" locateInMenu="never">
-          <div *dxTemplate>
-            <div class='toolbar-label'><b>GENEL BİLGİLER</b> </div>
-          </div>
-        </dxi-item>
-      </dx-toolbar>
-    </div>
-  
+<div class="container" id="video-grid">
+
+
+  <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
+
+    <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
+
+      <dxi-item location="center" widget="dxButton" locateInMenu="never">
+        <div *dxTemplate>
+          <div class='toolbar-label'><b>GENEL BİLGİLER</b> </div>
+        </div>
+      </dxi-item>
+    </dx-toolbar>
+  </div>
+
+
 
 <dx-form [formData]="dataSource" [readOnly]="true">
 
 
-    <!-- 1. Demografik Bilgiler-->
-    <dxi-item [alignItemLabels]="true" itemType="group" caption="1. Demografik Bilgiler" [colCount]="2">
+    <!-- Genel Bilgiler-->
+    <dxi-item [alignItemLabels]="true" itemType="group" caption="Genel Bilgiler" [colCount]="2">
 
         <dxi-item [alignItemLabels]="true" itemType="group">
             <dxi-item dataField="tcKimlikNo">
@@ -42,7 +43,7 @@
 
         <dxi-item [alignItemLabels]="true" itemType="group">
             <div style="width: 50%"></div>
-            
+
         </dxi-item>
 
 

@@ -70,6 +70,7 @@ import {UserResponseVideoRequestComponent} from './pages/user/response-video-req
 import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-media-carousel.component";
 import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
 import {UserVideoSubmitPopupComponent} from "./pages/user/response-video-request/user-video-submit-popup/user-video-submit-popup.component";
+import {ViewResponseComponent} from "./pages/doctor/patientinformation/video-request/view-response/view-response.component";
 
 
 
@@ -151,6 +152,6 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent]
+    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent]
 })
 export class AppRoutingModule { }

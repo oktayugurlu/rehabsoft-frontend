@@ -22,7 +22,7 @@ export class CreateAccountFormComponent {
   submitted = false;
   error = '';
 
-  submitbuttonOptions:any = {useSubmitBehavior: true, text: 'Create a new account', onClick: (Event)=>this.register(Event), width: '100%',type:"default"};
+  submitbuttonOptions:any = {useSubmitBehavior: true, text: 'Yeni kayıt oluşturun', onClick: (Event)=>this.register(Event), width: '100%',type:"default"};
 
 
   constructor(private router: Router,

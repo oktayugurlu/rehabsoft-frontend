@@ -1,6 +1,6 @@
 <div class="container" id="video-grid">
-  
-  
+
+
   <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
 
     <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
@@ -16,7 +16,7 @@
 
 
 <dx-form id="form" [formData]="videoRequestDto">
-  
+
   <dxi-item itemType="group" cssClass="first-group">
     <dxi-item itemType="group" cssClass="second-group" [colCount]="1">
       <dxi-item dataField="requestTitle">
@@ -60,21 +60,22 @@
 
 <dx-data-grid
     id="gridContainer"
-    [dataSource]="videoRequestList"  
+    [dataSource]="videoRequestList"
     [remoteOperations]="true"
     [showBorders]="true">
 
     <dxo-paging pageSize="15"></dxo-paging>
     <dxo-search-panel [visible]="true"></dxo-search-panel>
-    
+
     <dxi-column dataField="requestTitle" caption="Video Başlığı"></dxi-column>
     <dxi-column dataField="requestContent" caption="Video İçeriği"></dxi-column>
     <dxi-column type="buttons" alignment="center"  width= '100px' >
-      
+      <dxi-button hint="Cevabı Görüntüle" icon="fas fa-eye"  [visible]="isResponseNotNull" [onClick]="openPopUp"></dxi-button>
     </dxi-column>
 
 
-   <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->   
+   <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
 </dx-data-grid>
 </div>
 
+<app-view-response-component></app-view-response-component>

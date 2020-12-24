@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { VideoRequest } from 'src/app/models/video-request';
 import { VideorequestService } from 'src/app/shared/services/videorequest.service';
 import notify from "devextreme/ui/notify";
@@ -6,6 +6,8 @@ import {first} from "rxjs/operators";
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from 'src/app/shared/services/patient.service';
 import {PatientDetails} from "../../../../models/patientdetails"
+import {ViewExerciseComponent} from "../../../../shared/components/view-exercise/view-exercise.component";
+import {ViewResponseComponent} from "./view-response/view-response.component";
 
 
 
@@ -16,6 +18,7 @@ import {PatientDetails} from "../../../../models/patientdetails"
 })
 export class VideoRequestComponent implements OnInit {
 
+  @ViewChild(ViewResponseComponent) viewResponseComponent:ViewResponseComponent;
   videoRequestDto:VideoRequest;
   loading = false;
   error = '';
@@ -92,6 +95,16 @@ export class VideoRequestComponent implements OnInit {
                 this.loading = false;
               });
 
+  }
+
+  isResponseNotNull = (event)=>{
+    console.log("response: ",event.row.data);
+    return event.row.data.responseVideoRequest !== null;
+  }
+
+  // to view response
+  openPopUp = (e)=>{
+    this.viewResponseComponent.openPopUp(e.row.data.responseVideoRequest);
   }
 
 }
