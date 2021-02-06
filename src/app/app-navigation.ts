@@ -12,7 +12,11 @@ export const userNavigation = [
   {
     text: 'Video İstekleri',
     path: '/user/user-video-submit',
-    icon: 'runner'}
+    icon: 'runner'},
+    {
+      text: 'Mesajlar',
+      path: '/user/message',
+      icon: 'message'}
 ];
 
 export const doctorNavigation = [
