@@ -71,6 +71,9 @@ import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/
 import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
 import {UserVideoSubmitPopupComponent} from "./pages/user/response-video-request/user-video-submit-popup/user-video-submit-popup.component";
 import {ViewResponseComponent} from "./pages/doctor/patientinformation/video-request/view-response/view-response.component";
+import { MessageComponent } from './pages/doctor/patientinformation/message/message.component';
+import { PatientMessageComponent } from './pages/user/message/message.component';
+import { ChatComponent } from './shared/components/chat/chat.component';
 
 
 
@@ -93,7 +96,10 @@ const routes: Routes = [
       { path: 'task', component: UserTasksComponent },
       { path: 'general-evaluation-form', component: NecessaryFormsComponent },
       { path: 'user-notification', component: UserNotificationComponent },
-      { path: 'user-video-submit', component: UserResponseVideoRequestComponent}
+      { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
+      { path: 'message', component: PatientMessageComponent}
+
+      
     ]
   },
   {
@@ -127,15 +133,16 @@ const routes: Routes = [
           { path: '', redirectTo: 'general-info', pathMatch: 'full' },
           { path: 'general-info', component: GeneralInformationComponent },
           { path: 'usergefd', component: PatientGefdInformationComponent },
-          { path: 'video-request', component: VideoRequestComponent }
-
+          { path: 'video-request', component: VideoRequestComponent },
+          { path: 'message', component: MessageComponent }
         ]
       }
 
     ]
   },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: CreateAccountFormComponent }
+  { path: 'register', component: CreateAccountFormComponent },
+  { path: 'chat', component: ChatComponent }
 
 ];
 
@@ -152,6 +159,6 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent]
+    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent,MessageComponent,PatientMessageComponent,ChatComponent]
 })
 export class AppRoutingModule { }
