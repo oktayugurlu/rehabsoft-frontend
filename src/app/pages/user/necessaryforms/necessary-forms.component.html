@@ -6,33 +6,92 @@
     <ul class="stepper stepper-horizontal">
 
       <!-- First Step -->
-      <li [class]="patientStepperClass">
-
-          <button (click)="goPatientForm()" class="btn btn-link" type="button">
-            <a>
-              <span class="circle">1</span>
-              <span class="label">Hasta Formu</span>
-            </a>
-          </button>
+      <li [class]="stepperClassesMap['patientStepperClass']">
+        <a>
+          <span class="circle">1</span>
+<!--          <span class="label">Ebeveyn Bilgileri</span>-->
+        </a>
       </li>
 
       <!-- Second Step -->
-      <li [class]="generalEvaluationFormStepperClass">
-        <button (click)="goGeneralEvaluationForm()" class="btn btn-link" type="button">
-          <a>
-            <span class="circle">2</span>
-            <span class="label">Genel Değerlendirme Formu</span>
-          </a>
-        </button>
+      <li [class]="stepperClassesMap['demographicFeaturesStepperClass']">
+        <a>
+          <span class="circle">2</span>
+<!--          <span class="label">Demografik Özellikler</span>-->
+        </a>
       </li>
 
-      <!-- Third Step silincek sadece ornek olsun diye duruyor-->
-<!--      <li class="warning">-->
-<!--        <a href="#!">-->
-<!--          <span class="circle"><mdb-icon fas icon="exclamation"></mdb-icon></span>-->
-<!--          <span class="label">Third step</span>-->
-<!--        </a>-->
-<!--      </li>-->
+      <!-- Third Step -->
+      <li [class]="stepperClassesMap['physicalAppearanceFormStepperClass']">
+        <a>
+          <span class="circle">3</span>
+<!--          <span class="label">Fiziksel Özellikler</span>-->
+        </a>
+      </li>
+
+      <!-- 4th Step -->
+      <li [class]="stepperClassesMap['prenatalFeaturesFormStepperClass']">
+        <a>
+          <span class="circle">4</span>
+<!--          <span class="label">Doğum Öncesi Özellikler</span>-->
+        </a>
+      </li>
+
+      <!-- 5th Step -->
+      <li [class]="stepperClassesMap['birthFeaturesFormStepperClass']">
+        <a>
+          <span class="circle">5</span>
+<!--          <span class="label">Doğum Özellikleri</span>-->
+        </a>
+      </li>
+
+      <!-- 6th Step -->
+      <li [class]="stepperClassesMap['afterBirthFeaturesFormStepperClass']">
+        <a>
+          <span class="circle">6</span>
+<!--          <span class="label">Doğum Sonrası Özellikler</span>-->
+        </a>
+      </li>
+
+      <!-- 7th Step -->
+      <li [class]="stepperClassesMap['afterBirthCerebralPalsyReasonsFormStepperClass']">
+        <a>
+          <span class="circle">7</span>
+<!--          <span class="label">Doğum Sonrası Serebral Palsy Nedenleri</span>-->
+        </a>
+      </li>
+
+      <!-- 8th Step -->
+      <li [class]="stepperClassesMap['appliedTreatmentsFormStepperClass']">
+        <a>
+          <span class="circle">8</span>
+<!--          <span class="label">Uygulanan Tedaviler</span>-->
+        </a>
+      </li>
+
+      <!-- 9th Step -->
+      <li [class]="stepperClassesMap['coexistingDiseasesFormStepperClass']">
+        <a>
+          <span class="circle">9</span>
+<!--          <span class="label">Eşlik Eden Problemler</span>-->
+        </a>
+      </li>
+
+      <!--10th Step -->
+      <li [class]="stepperClassesMap['isPhysiotherapyPastStepperActive']">
+        <a>
+          <span class="circle">10</span>
+<!--          <span class="label">Aldığı Terapiler Hakkında</span>-->
+        </a>
+      </li>
+
+      <!-- 11th Step -->
+      <li [class]="stepperClassesMap['isExpectationsAboutProgramStepperActive']">
+        <a>
+          <span class="circle">11</span>
+<!--          <span class="label">Programın amaçları ve beklentiler</span>-->
+        </a>
+      </li>
 
     </ul>
     <!-- /.Stepers Wrapper -->
@@ -41,25 +100,73 @@
 <!-- /.Horizontal Steppers -->
 
 
-<ng-template [ngIf]="isPatientStepperActive">
+<ng-template [ngIf]="stepperActiveBooleans['isPatientStepperActive']">
   <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
 <!--     First step content - Ebeveyn Bilgileri-->
-    <app-patient-form (nextStepper)="goGeneralEvaluationForm()"></app-patient-form>
+    <app-patient-form (nextStepper)="goDemographicFeatures()"></app-patient-form>
   </div>
 </ng-template>
 
-
-
-
-<ng-template [ngIf]="isGeneralEvaluationFormStepperActive">
+<ng-template [ngIf]="stepperActiveBooleans['isDemographicFeaturesStepperActive']">
   <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
-
     <!--  <div class="long-title" style="padding-left: 4%">-->
     <!--    <h3 style="color:navy;"> Genel Değerlendirme Formu</h3>-->
     <!--  </div>-->
-
 <!--    <h3>Genel Değerlendirme Formu</h3>-->
-    <app-general-evaluation-form (backStepper)="goPatientForm()"></app-general-evaluation-form>
+    <app-demographic-features (backStepper)="goPatientForm()" (nextStepper)="goPhysicalAppearance()" [generalEvaluationForm]="generalEvaluationForm"></app-demographic-features>
+  </div>
+</ng-template>
 
+<ng-template [ngIf]="stepperActiveBooleans['isPhysicalAppearanceStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-physical-appearance (backStepper)="goDemographicFeatures()" (nextStepper)="goPrenatalFeatures()" [generalEvaluationForm]="generalEvaluationForm"></app-physical-appearance>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isPrenatalFeaturesStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-prenatal-features (backStepper)="goPhysicalAppearance()" (nextStepper)="goBirthFeatures()" [generalEvaluationForm]="generalEvaluationForm"></app-prenatal-features>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isBirthFeaturesStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-after-birth-features (backStepper)="goPrenatalFeatures()" (nextStepper)="goAfterBirthFeatures()" [generalEvaluationForm]="generalEvaluationForm"></app-after-birth-features>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isAfterBirthFeaturesStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-after-birth-cerebral-palsy-reasons (backStepper)="goBirthFeatures()" (nextStepper)="goAfterBirthCerebralPalsyReasons()" [generalEvaluationForm]="generalEvaluationForm"></app-after-birth-cerebral-palsy-reasons>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isAfterBirthCerebralPalsyReasonsStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-birth-features (backStepper)="goAfterBirthFeatures()" (nextStepper)="goAppliedTreatments()" [generalEvaluationForm]="generalEvaluationForm"></app-birth-features>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isAppliedTreatmentsStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-applied-treatments (backStepper)="goAfterBirthCerebralPalsyReasons()" (nextStepper)="goCoexistingDiseases()" [generalEvaluationForm]="generalEvaluationForm"></app-applied-treatments>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isCoexistingDiseasesStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-coexisting-diseases (backStepper)="goAppliedTreatments()" (nextStepper)="goPhysiotherapyPast()" [generalEvaluationForm]="generalEvaluationForm"></app-coexisting-diseases>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isPhysiotherapyPastStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-physiotherapy-past (backStepper)="goCoexistingDiseases()" (nextStepper)="goExpectationsAboutProgram()" [generalEvaluationForm]="generalEvaluationForm"></app-physiotherapy-past>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="stepperActiveBooleans['isExpectationsAboutProgramStepperActive']">
+  <div style="padding: 1%; margin: 2%; background-color: white; border-radius:3px; height: 100%" class="dx-card">
+    <app-expectations-about-program (backStepper)="goPhysiotherapyPast()" (nextStepper)="submit()" [generalEvaluationForm]="generalEvaluationForm"></app-expectations-about-program>
   </div>
 </ng-template>

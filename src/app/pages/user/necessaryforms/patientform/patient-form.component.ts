@@ -85,7 +85,6 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
 
   constructor(private userService: UserService, private authenticationService: AuthenticationService) {
 
-
     this.addPhoneButtonOptions1 = {
       icon: "add",
       text: "Add phone",

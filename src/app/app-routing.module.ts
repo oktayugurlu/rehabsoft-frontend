@@ -51,7 +51,7 @@ import {
 import { WavesModule } from 'angular-bootstrap-md';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { PatientFormComponent } from "./pages/user/necessaryforms/patientform/patient-form.component";
-import { GeneralEvaluationFormComponent } from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
+import { DemographicFeaturesComponent } from "./pages/user/necessaryforms/demographic-features/demographic-features.component";
 import { UserNotificationComponent } from "./pages/user/notifiaction/user-notification.component";
 import { DoctorExerciseManagmentComponent } from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
 import { DoctorCreateExerciseComponent } from "./pages/doctor/exerciseManagment/createexercise/doctor-createexercise.component";
@@ -71,6 +71,15 @@ import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/
 import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
 import {UserVideoSubmitPopupComponent} from "./pages/user/response-video-request/user-video-submit-popup/user-video-submit-popup.component";
 import {ViewResponseComponent} from "./pages/doctor/patientinformation/video-request/view-response/view-response.component";
+import {PhysicalAppearanceComponent} from "./pages/user/necessaryforms/physical-preferences/physical-appearance.component";
+import {PrenatalFeaturesComponent} from "./pages/user/necessaryforms/prenatal-features/prenatal-features.component";
+import {BirthFeaturesComponent} from "./pages/user/necessaryforms/birth-features/birth-features.component";
+import {AfterBirthFeaturesComponent} from "./pages/user/necessaryforms/after-birth-features/after-birth-features.component";
+import {AfterBirthCerebralPalsyReasonsComponent} from "./pages/user/necessaryforms/after-birth-cerebral-palsy-causes/after-birth-cerebral-palsy-reasons.component";
+import {AppliedTreatmentsComponent} from "./pages/user/necessaryforms/applied-treatments/applied-treatments.component";
+import {CoexistingDiseasesComponent} from "./pages/user/necessaryforms/coexisting-diseases/coexisting-diseases.component";
+import {PhysiotherapyPastComponent} from "./pages/user/necessaryforms/physiotherapy-past/physiotherapy-past.component";
+import {ExpectationsAboutProgramComponent} from "./pages/user/necessaryforms/expectations-about-program/expectations-about-program.component";
 
 
 
@@ -150,8 +159,10 @@ const routes: Routes = [
   declarations: [
     PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
-    PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
+    PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent]
+    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
+    BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
+    PhysiotherapyPastComponent,ExpectationsAboutProgramComponent ]
 })
 export class AppRoutingModule { }

@@ -23,7 +23,7 @@ import {VideorequestService} from "./shared/services/videorequest.service"
 import {DxSelectBoxModule, DxTabPanelModule } from 'devextreme-angular';
 
 import { CommonModule } from '@angular/common';
-import { GeneralEvaluationFormComponent } from './pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component';
+import { DemographicFeaturesComponent } from './pages/user/necessaryforms/demographic-features/demographic-features.component';
 import { PatientFormComponent } from './pages/user/necessaryforms/patientform/patient-form.component';
 import {UserService} from "./shared/services/user.service";
 import {ExerciseService} from "./shared/services/exercise.service";
