@@ -29,12 +29,12 @@ import { CommonModule } from '@angular/common';
 
 // Devextreme
 import {
-  DxListModule,
-  DxPopupModule,
-  DxProgressBarModule,
-  DxScrollViewModule,
-  DxTabPanelModule,
-  DxToolbarModule
+    DxListModule,
+    DxPopupModule,
+    DxProgressBarModule,
+    DxScrollViewModule,
+    DxTabPanelModule,
+    DxToolbarModule, DxTooltipModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -51,7 +51,7 @@ import {
 import { WavesModule } from 'angular-bootstrap-md';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { PatientFormComponent } from "./pages/user/necessaryforms/patientform/patient-form.component";
-import { GeneralEvaluationFormComponent } from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
+import { DemographicFeaturesComponent } from "./pages/user/necessaryforms/demographic-features/demographic-features.component";
 import { UserNotificationComponent } from "./pages/user/notifiaction/user-notification.component";
 import { DoctorExerciseManagmentComponent } from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
 import { DoctorCreateExerciseComponent } from "./pages/doctor/exerciseManagment/createexercise/doctor-createexercise.component";
@@ -74,6 +74,15 @@ import {ViewResponseComponent} from "./pages/doctor/patientinformation/video-req
 import { MessageComponent } from './pages/doctor/patientinformation/message/message.component';
 import { PatientMessageComponent } from './pages/user/message/message.component';
 import { ChatComponent } from './shared/components/chat/chat.component';
+import {PhysicalAppearanceComponent} from "./pages/user/necessaryforms/physical-preferences/physical-appearance.component";
+import {PrenatalFeaturesComponent} from "./pages/user/necessaryforms/prenatal-features/prenatal-features.component";
+import {BirthFeaturesComponent} from "./pages/user/necessaryforms/birth-features/birth-features.component";
+import {AfterBirthFeaturesComponent} from "./pages/user/necessaryforms/after-birth-features/after-birth-features.component";
+import {AfterBirthCerebralPalsyReasonsComponent} from "./pages/user/necessaryforms/after-birth-cerebral-palsy-causes/after-birth-cerebral-palsy-reasons.component";
+import {AppliedTreatmentsComponent} from "./pages/user/necessaryforms/applied-treatments/applied-treatments.component";
+import {CoexistingDiseasesComponent} from "./pages/user/necessaryforms/coexisting-diseases/coexisting-diseases.component";
+import {PhysiotherapyPastComponent} from "./pages/user/necessaryforms/physiotherapy-past/physiotherapy-past.component";
+import {ExpectationsAboutProgramComponent} from "./pages/user/necessaryforms/expectations-about-program/expectations-about-program.component";
 
 
 
@@ -99,7 +108,7 @@ const routes: Routes = [
       { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
       { path: 'message', component: PatientMessageComponent}
 
-      
+
     ]
   },
   {
@@ -147,18 +156,20 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
-    DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
-    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule],
+    imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
+        FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
+        DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
+        DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
+        MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule],
 
   exports: [RouterModule],
   declarations: [
     PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
-    PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
+    PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent,MessageComponent,PatientMessageComponent,ChatComponent]
+    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
+    BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
+    PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent ]
 })
 export class AppRoutingModule { }
