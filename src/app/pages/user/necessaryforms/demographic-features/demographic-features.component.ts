@@ -44,7 +44,7 @@ export class DemographicFeaturesComponent implements OnInit {
   loading = false;
   error = '';
 
-  submitbuttonOptions:any = {useSubmitBehavior: false, text: 'Gönder', onClick: (Event)=>this.goNextForm(Event),
+  nextbuttonOptions:any = {useSubmitBehavior: false, text: 'İleri', onClick: (Event)=>this.goNextForm(Event),
     width: '130px',type:"default", icon: 'fas fa-arrow-circle-right',};
   backbuttonOptions:any = {useSubmitBehavior: false, text: 'Geri', onClick: ()=>this.goBackForm(),
     icon: 'fas fa-arrow-circle-left', width: '130px',stylingMode:"outlined", type:"outlined", style:"text-align:left"};

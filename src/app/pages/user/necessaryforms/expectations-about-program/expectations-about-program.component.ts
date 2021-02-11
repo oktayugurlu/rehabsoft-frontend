@@ -36,18 +36,10 @@ export class ExpectationsAboutProgramComponent {
 
   //--------- variables to add One-to-Many relation objects ----------//
   //*** Expectation Variables ***//
-  expectationsAboutProgramOptions: any[] = [];
-  addExpectationsAboutProgramButtonOptions: any = {
-    icon: "add",
-    text: "Ekle",
-    onClick: () => {
-      if(this.generalEvaluationForm.expectationsAboutProgramCollection === null) {
-        this.generalEvaluationForm.expectationsAboutProgramCollection = [];
-      }
-      this.generalEvaluationForm.expectationsAboutProgramCollection.push(new ExpectationsAboutProgram());
-      this.expectationsAboutProgramOptions = this.getExpectationsAboutProgramOptions(this.generalEvaluationForm.expectationsAboutProgramCollection);
-    }
-  };
+  @Input()
+  expectationsAboutProgramOptions: any[];
+  @Input()
+  addExpectationsAboutProgramButtonOptions: any;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
@@ -64,31 +56,6 @@ export class ExpectationsAboutProgramComponent {
     return event.value !== null;
   }
 
-  //--------- event handlers to add One-to-Many relation objects ----------//
-  //******* Expectations Event Handlers start *******//
-  private getExpectationsAboutProgramOptions(appliedSurgery: any) {
-    let options = [];
-    for (let i = 0; i < appliedSurgery.length; i++){
-      options.push(this.generateNewExpectationsAboutProgramOptions1(i));
-    }
-    return options;
-  }
-  private generateNewExpectationsAboutProgramOptions1(index: number) {
-    return [
-      { stylingMode: 'outlined',
-        placeholder: '', maxLength:1000, minHeight: 100
-      },
-      {
-        stylingMode: "text",
-        icon: "trash",
-        onClick: () => {
-          this.generalEvaluationForm.expectationsAboutProgramCollection.splice(index, 1);
-          this.expectationsAboutProgramOptions = this.getExpectationsAboutProgramOptions(this.generalEvaluationForm.expectationsAboutProgramCollection);
-        }
-      }
-    ];
-  }
-  //******* Expectations Event Handlers end *******//
 
   // Stepper
   goBackForm = () =>{

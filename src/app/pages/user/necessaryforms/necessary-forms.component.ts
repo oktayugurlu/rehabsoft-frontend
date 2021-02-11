@@ -1,20 +1,18 @@
-import { CommonModule } from '@angular/common';
-import {Component, Input, NgModule} from '@angular/core';
+import {Component, Input, NgModule, ViewChild} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { DxFormModule } from 'devextreme-angular/ui/form';
-import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
 import notify from 'devextreme/ui/notify';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../../security/authentication.service';
-import {Patient} from "../../../models/patient";
-import {Parent} from "../../../models/parent";
-import {OrthesisInfo} from "../../../models/generalevaluationform/orthesisinfo";
-import {CoexistingDiseases} from "../../../models/generalevaluationform/coexistingdisease";
-import {PhysiotherapyPast} from "../../../models/generalevaluationform/physiotherapypast";
-import {PhysiotheraphyCentral} from "../../../models/generalevaluationform/physiotheraphycentral";
 import {UserService} from "../../../shared/services/user.service";
 
 import swal, {SweetAlertOptions} from "sweetalert2";
+import {Parent} from "../../../models/parent";
+import {AppliedSurgery} from "../../../models/generalevaluationform/appliedsurgery";
+import {UsedMedicine} from "../../../models/generalevaluationform/usedmedicine";
+import {OtherOrthesisInfo} from "../../../models/generalevaluationform/otherorthesisinfo";
+import {ExpectationsAboutProgram} from "../../../models/generalevaluationform/expectationsaboutprogram";
+import {PhysiotherapyPast} from "../../../models/generalevaluationform/physiotherapypast";
+import {PhysiotheraphyCentral} from "../../../models/generalevaluationform/physiotheraphycentral";
 
 @Component({
   selector: 'app-necessary-forms',
@@ -26,6 +24,429 @@ export class NecessaryFormsComponent {
   @Input()
   users;
   submitted = false;
+
+  // ***** Tooltip start ***** //
+  titleParentInformation = false;
+  titleDemographicFeatures = false;
+  titlPhysicalFeatures = false;
+  titlePrenatalFeatures = false;
+  titleBirthFeatures = false;
+  titleAfterBirthFeatures = false;
+  titleAfterBirthCerebralPalsyReasons = false;
+  titleAppliedTreatments = false;
+  titleCoexistingDiseases = false;
+  titlePhysiotherapyPast = false;
+  titleExpectationsAboutProgram = false;
+  toggleDefault(whichTitle:string) {
+    switch(whichTitle) {
+      case 'titleParentInformation': {
+        this.titleParentInformation = !this.titleParentInformation;
+        break;
+      }
+      case 'titleDemographicFeatures': {
+        this.titleDemographicFeatures = !this.titleDemographicFeatures;
+        break;
+      }
+      case 'titlPhysicalFeatures': {
+        this.titlPhysicalFeatures = !this.titlPhysicalFeatures;
+        break;
+      }
+      case 'titlePrenatalFeatures': {
+        this.titlePrenatalFeatures = !this.titlePrenatalFeatures;
+        break;
+      }
+      case 'titleBirthFeatures': {
+        this.titleBirthFeatures = !this.titleBirthFeatures;
+        break;
+      }
+      case 'titleAfterBirthFeatures': {
+        this.titleAfterBirthFeatures = !this.titleAfterBirthFeatures;
+        break;
+      }
+      case 'titleAfterBirthCerebralPalsyReasons': {
+        this.titleAfterBirthCerebralPalsyReasons = !this.titleAfterBirthCerebralPalsyReasons;
+        break;
+      }
+      case 'titleAppliedTreatments': {
+        this.titleAppliedTreatments = !this.titleAppliedTreatments;
+        break;
+      }
+      case 'titleCoexistingDiseases': {
+        this.titleCoexistingDiseases = !this.titleCoexistingDiseases;
+        break;
+      }
+      case 'titlePhysiotherapyPast': {
+        this.titlePhysiotherapyPast = !this.titlePhysiotherapyPast;
+        break;
+      }
+      case 'titleExpectationsAboutProgram': {
+        this.titleExpectationsAboutProgram = !this.titleExpectationsAboutProgram;
+        break;
+      }
+    }
+
+  }
+  // ***** Tooltip end ***** //
+
+  // ******** Patient form variables and methods start************ //
+  patientForm:any = {
+    parent1: new Parent(),
+    parent2: new Parent(),
+    phoneNumberListForParent1: [],
+    phoneNumberListForParent2: [],
+  }
+  addPhoneButtonOptions1: any;
+  addPhoneButtonOptions2: any;
+  phoneOptions1: any[] = [];
+  phoneOptions2: any[] = [];
+  initializePhoneButtonOptions = () => {
+    console.log("------>>>>>>>>>>>>>>>>>> necessary form ---");
+    this.addPhoneButtonOptions1 = {
+      icon: "add",
+      text: "Add phone",
+      onClick: () => {
+        this.patientForm.phoneNumberListForParent1.push("");
+        this.phoneOptions1 = this.getPhonesOptions1(this.patientForm.phoneNumberListForParent1);
+      }
+    };
+
+    this.addPhoneButtonOptions2 = {
+      icon: "add",
+      text: "Add phone",
+      onClick: () => {
+        this.patientForm.phoneNumberListForParent2.push("");
+        this.phoneOptions2 = this.getPhonesOptions2(this.patientForm.phoneNumberListForParent2);
+      }
+    };
+  }
+
+  //Patient form event handler start
+  getPhonesOptions1(phones: any) {
+    let options = [];
+    for (let i = 0; i < phones.length; i++){
+      options.push(this.generateNewPhoneOptions1(i));
+    }
+    return options;
+  }
+
+  getPhonesOptions2(phones: any) {
+    let options = [];
+    for (let i = 0; i < phones.length; i++){
+      options.push(this.generateNewPhoneOptions2(i));
+    }
+    return options;
+  }
+
+  generateNewPhoneOptions1(index: number) {
+    return {
+      mask: "(X00) 000-0000",
+      maskRules: {"X": /[01-9]/},
+      buttons: [{
+        name: "trash",
+        location: "after",
+        options: {
+          stylingMode: "text",
+          icon: "trash",
+          onClick: () => {
+            this.patientForm.phoneNumberListForParent1.splice(index, 1);
+            this.phoneOptions1 = this.getPhonesOptions1(this.patientForm.phoneNumberListForParent1);
+          }
+        }
+      }]
+    }
+  }
+  generateNewPhoneOptions2(index: number) {
+    return {
+      mask: "(X00) 000-0000",
+      maskRules: {"X": /[01-9]/},
+      buttons: [{
+        name: "trash",
+        location: "after",
+        options: {
+          stylingMode: "text",
+          icon: "trash",
+          onClick: () => {
+            this.patientForm.phoneNumberListForParent2.splice(index, 1);
+            this.phoneOptions2 = this.getPhonesOptions2(this.patientForm.phoneNumberListForParent1);
+          }
+        }
+      }]
+    }
+  }
+  // ******** Patient form variables and methods end************ //
+
+
+
+  // ******** applied treatments form variables and methods start************ //
+  usedMedicineOptions: any[] = [];
+  addUsedMedicineButtonOptions: any = {
+    icon: "add",
+    text: "İlaç Ekle",
+    onClick: () => {
+      if(this.generalEvaluationForm.usedMedicineCollection === null) {
+        this.generalEvaluationForm.usedMedicineCollection = [];
+      }
+      this.generalEvaluationForm.usedMedicineCollection.push(new UsedMedicine());
+      this.usedMedicineOptions = this.getUsedMedicineOptions(this.generalEvaluationForm.usedMedicineCollection);
+    }
+  };
+  private getUsedMedicineOptions(appliedSurgery: any) {
+    let options = [];
+    for (let i = 0; i < appliedSurgery.length; i++){
+      options.push(this.generateNewUsedMedicineOptions1(i));
+    }
+    return options;
+  }
+  private generateNewUsedMedicineOptions1(index: number) {
+    return [
+      { stylingMode: 'outlined',
+        placeholder: 'İlaç İsmi',
+        maxLength:200
+      },
+      {
+        stylingMode: "text",
+        icon: "trash",
+        onClick: () => {
+          this.generalEvaluationForm.usedMedicineCollection.splice(index, 1);
+          this.usedMedicineOptions = this.getUsedMedicineOptions(this.generalEvaluationForm.usedMedicineCollection);
+        }
+      }
+    ];
+  }
+  appliedSurgeryOptions: any[] = [];
+  addAppliedSurgeryButtonOptions: any = {
+    icon: "add",
+    text: "Cerrahi Ekle",
+    onClick: () => {
+      if(this.generalEvaluationForm.appliedSurgeryCollection === null) {
+        this.generalEvaluationForm.appliedSurgeryCollection = [];
+      }
+      this.generalEvaluationForm.appliedSurgeryCollection.push(new AppliedSurgery());
+      this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
+    }
+  };
+  customAppliedSurgeriesList = [{
+    name: 'Yumuşak doku - kas cerrahisi',
+    value: 'Yumuşak doku - kas cerrahisi'
+  },{
+    name: 'Kemik cerrahisi',
+    value: 'Kemik cerrahisi'
+  },{
+    name: 'Yumuşak doku-kas ve Kemik bir arada',
+    value: 'Yumuşak doku-kas ve Kemik bir arada'
+  }];
+  private getAppliedSurgeryOptions(appliedSurgery: any) {
+    let options = [];
+    for (let i = 0; i < appliedSurgery.length; i++){
+      options.push(this.generateNewAppliedSurgeryOptions1(i));
+    }
+    return options;
+  }
+  private generateNewAppliedSurgeryOptions1(index: number) {
+    return [
+      { stylingMode: 'outlined',
+        placeholder: 'Seçiniz, yoksa yazınız...',
+        dataSource: this.customAppliedSurgeriesList,
+        acceptCustomValue: true,
+        valueExpr: 'value',
+        displayExpr: 'name',
+        onCustomItemCreating: this.onCustomItemCreatingForAppliedSurgerySelectbox
+      },
+      {
+        placeholder: 'Uygulanma Tarihi'
+      },
+      {
+        stylingMode: "text",
+        icon: "trash",
+        text: "Sil",
+        onClick: () => {
+          this.generalEvaluationForm.appliedSurgeryCollection.splice(index, 1);
+          this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
+        }
+      }
+    ];
+  }
+  private onCustomItemCreatingForAppliedSurgerySelectbox = (event)=>{
+    const newItem = {
+      name: event.text,
+      value: event.text
+    };
+    // this.customAppliedSurgeriesList.push(newItem);
+    event.customItem = newItem;
+    console.log(event.customItem);
+  }
+  otherOrthesisOptions: any[] = [];
+  addOtherOrthesisButtonOptions: any = {
+    icon: "add",
+    text: "Ekle",
+    onClick: () => {
+      if(this.generalEvaluationForm.otherOrthesisInfoCollection === null) {
+        this.generalEvaluationForm.otherOrthesisInfoCollection = [];
+      }
+      this.generalEvaluationForm.otherOrthesisInfoCollection.push(new OtherOrthesisInfo());
+      this.otherOrthesisOptions = this.getOtherOrthesisOptions(this.generalEvaluationForm.otherOrthesisInfoCollection);
+    }
+  };
+  private getOtherOrthesisOptions(appliedSurgery: any) {
+    let options = [];
+    for (let i = 0; i < appliedSurgery.length; i++){
+      options.push(this.generateNewOtherOrthesisOptions1(i));
+    }
+    return options;
+  }
+  private generateNewOtherOrthesisOptions1(index: number) {
+    return [
+      { stylingMode: 'outlined',
+        placeholder: 'Ortezin tanımı',
+        maxLength:200
+      },
+      {
+        stylingMode: "text",
+        icon: "trash",
+        text: "Sil",
+        onClick: () => {
+          this.generalEvaluationForm.otherOrthesisInfoCollection.splice(index, 1);
+          this.otherOrthesisOptions = this.getOtherOrthesisOptions(this.generalEvaluationForm.otherOrthesisInfoCollection);
+        }
+      }
+    ];
+  }
+  // ******** applied treatments form variables and methods end************ //
+
+  // ******** coexisting disease form variables and methods start************ //
+  coexistingDiseaseMap = [
+    {name: 'Bilişsel Problem', value: false},
+    {name: 'Duyu Problemi', value: false},
+    {name: 'Davranış Problemi',value:  false},
+    {name: 'Konuşma Problemi', value: false},
+    {name: 'Uyku Problemi', value: false},
+    {name: 'Yutma Problemi', value: false},
+    {name: 'Kalça Problemi', value: false},
+    {name: 'Skolyoz', value: false}
+  ];
+  // ******** coexisting disease form variables and methods end************ //
+
+
+  // coexisting disease checkbox start //
+  mentalProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[0].value = event.component.option("value");
+      this.mentalProblemCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  hearingProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[1].value = event.component.option("value");
+      this.hearingProblemCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  behaviorProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[2].value = event.component.option("value");
+      this.behaviorProblemCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  speakingProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[3].value = event.component.option("value");
+      this.speakingProblemCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  sleepingProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[4].value = event.component.option("value");
+      this.sleepingProblemCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  swallowProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[5].value = event.component.option("value");
+      this.swallowProblemCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  hipProblemCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[6].value = event.component.option("value");
+      this.hipProblemCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  skolyozCheckBoxOptions = {
+    value: null,
+    onValueChanged: (event)=>{
+      this.coexistingDiseaseMap[7].value = event.component.option("value");
+      this.skolyozCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  // coexisting disease checkbox end //
+
+
+  //*** Expectation Variables start***//
+  expectationsAboutProgramOptions: any[] = [];
+  addExpectationsAboutProgramButtonOptions: any = {
+    icon: "add",
+    text: "Ekle",
+    onClick: () => {
+      if(this.generalEvaluationForm.expectationsAboutProgramCollection === null) {
+        this.generalEvaluationForm.expectationsAboutProgramCollection = [];
+      }
+      this.generalEvaluationForm.expectationsAboutProgramCollection.push(new ExpectationsAboutProgram());
+      this.expectationsAboutProgramOptions = this.getExpectationsAboutProgramOptions(this.generalEvaluationForm.expectationsAboutProgramCollection);
+    }
+  };
+  private getExpectationsAboutProgramOptions(appliedSurgery: any) {
+    let options = [];
+    for (let i = 0; i < appliedSurgery.length; i++){
+      options.push(this.generateNewExpectationsAboutProgramOptions1(i));
+    }
+    return options;
+  }
+  private generateNewExpectationsAboutProgramOptions1(index: number) {
+    return [
+      { stylingMode: 'outlined',
+        placeholder: '', maxLength:1000, minHeight: 100
+      },
+      {
+        stylingMode: "text",
+        icon: "trash",
+        onClick: () => {
+          this.generalEvaluationForm.expectationsAboutProgramCollection.splice(index, 1);
+          this.expectationsAboutProgramOptions = this.getExpectationsAboutProgramOptions(this.generalEvaluationForm.expectationsAboutProgramCollection);
+        }
+      }
+    ];
+  }
+  //*** Expectation Variables end***//
+
+
+  // **** Physiotherapy Past variables start **** //
+  physiotherapyCenterMap = [
+    {name: 'Özel eğitim ve rehabilitasyon merkezi', value: false},
+    {name: 'Tıp merkezi-hastane', value: false},
+  ];
+  specialEducationCheckBoxOptions = {
+    value: null,
+    text: 'Özel eğitim ve rehabilitasyon merkezi',
+    onValueChanged: (event)=>{
+      this.physiotherapyCenterMap[0].value = event.component.option("value");
+      this.specialEducationCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  medicineCenterCheckBoxOptions = {
+    value: null,
+    text: 'Tıp merkezi-hastane',
+    onValueChanged: (event)=>{
+      this.physiotherapyCenterMap[1].value = event.component.option("value");
+      this.medicineCenterCheckBoxOptions.value = event.component.option("value");
+    }
+  }
+  // **** Physiotherapy Past variables start **** //
 
   // stepper booleans map
   stepperActiveBooleans = {
@@ -51,12 +472,14 @@ export class NecessaryFormsComponent {
     "afterBirthFeaturesFormStepperClass": '',
     "afterBirthCerebralPalsyReasonsFormStepperClass": '',
     "appliedTreatmentsFormStepperClass": '',
+    "coexistingDiseasesFormStepperClass": '',
     "physiotherapyPastFormStepperClass": '',
     "expectationsAboutProgramFormStepperClass": ''
   }
 
   // Stepper
   goPatientForm = () =>{
+    console.log("patient form next butonu sonrasi:-----> ",this.patientForm);
     this.setAllFormAttributesFalseExpectThese("isPatientStepperActive", "patientStepperClass");
   }
   goDemographicFeatures = () =>{
@@ -230,6 +653,76 @@ export class NecessaryFormsComponent {
     physiotherapyPast: null
   };
 
+  // Orthesis checkbox options
+  isOrthesisMap = [
+    {name: 'Tabanlık', value: false},
+    {name: 'Topuk Kapı', value: false},
+    {name: 'Ayak bileği hizasında ortez (supra-malleoler)',value:  false},
+    {name: 'Sabit Ayak-ayak bileği ortezi (AFO)', value: false},
+    {name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false},
+    {name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false},
+    {name: 'Dinamik ayak ayak bileği ortezi (DAFO)', value: false},
+    {name: 'Bacaklar için gece splinti', value: false},
+    {name: 'Bacaklar için gece splinti',value:  false},
+    {name: 'İmmobilizer', value: false},
+    {name: 'Kalça ateli', value: false},
+    {name: 'Gövde korsesi', value: false},
+    {name: 'Dirsek splinti', value: false},
+    {name: 'Baş parmak ortezi', value: false},
+  ];
+  orthesisMap = new Map([
+    ['Tabanlık', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Topuk Kapı', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Ayak bileği hizasında ortez (supra-malleoler)', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Sabit Ayak-ayak bileği ortezi (AFO)', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Dinamik ayak ayak bileği ortezi (DAFO)', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Bacaklar için gece splinti', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['İmmobilizer', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Kalça ateli', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Gövde korsesi', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Dirsek splinti', new Map([
+      ['left', false],
+      ['right', false]
+    ])],
+    ['Baş parmak ortezi', new Map([
+      ['left', false],
+      ['right', false]
+    ])]
+  ]);
+
+
+
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
               private userService: UserService) {
@@ -237,11 +730,14 @@ export class NecessaryFormsComponent {
       this.generalEvaluationForm['nameSurname'] = user.firstname + ' '+  user.surname;
       this.generalEvaluationForm['address'] = null;
     });
+    this.initializePhoneButtonOptions();
+
+
+    this.generalEvaluationForm['isOrthesisMap'] = this.isOrthesisMap;
+    this.generalEvaluationForm['orthesisMap'] = this.orthesisMap;
   }
 
   ngOnInit() {
-    console.log("state management---");
-
   }
 
 

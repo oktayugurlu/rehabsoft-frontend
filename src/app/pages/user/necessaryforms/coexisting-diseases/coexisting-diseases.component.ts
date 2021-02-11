@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, Input, NgModule, Output} from '@angular/core';
+import {Component, EventEmitter, Input, NgModule, OnDestroy, Output} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {AuthenticationService} from '../../../../security/authentication.service';
 import {Hyperbilirubinemia} from "../../../../models/generalevaluationform/hyperbilirubinemia";
@@ -14,7 +14,7 @@ import {CoexistingDiseases} from "../../../../models/generalevaluationform/coexi
   templateUrl: './coexisting-diseases.component.html',
   styleUrls: ['./coexisting-diseases.component.scss']
 })
-export class CoexistingDiseasesComponent {
+export class CoexistingDiseasesComponent implements OnDestroy{
 
   @Input()
   users;
@@ -90,64 +90,24 @@ export class CoexistingDiseasesComponent {
 
 
   // coexisting disease checkbox
-  coexistingDiseaseMap = [
-    {name: 'Bilişsel Problem', value: false},
-    {name: 'Duyu Problemi', value: false},
-    {name: 'Davranış Problemi',value:  false},
-    {name: 'Konuşma Problemi', value: false},
-    {name: 'Uyku Problemi', value: false},
-    {name: 'Yutma Problemi', value: false},
-    {name: 'Kalça Problemi', value: false},
-    {name: 'Skolyoz', value: false}
-  ];
-  mentalProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[0].value = event.component.option("value");
-    }
-  }
-  hearingProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[1].value = event.component.option("value");
-    }
-  }
-  behaviorProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[2].value = event.component.option("value");
-    }
-  }
-  speakingProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[3].value = event.component.option("value");
-    }
-  }
-  sleepingProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[4].value = event.component.option("value");
-    }
-  }
-  swallowProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[5].value = event.component.option("value");
-    }
-  }
-  hipProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[6].value = event.component.option("value");
-    }
-  }
-  skolyozCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[7].value = event.component.option("value");
-    }
-  }
+  @Input()
+  coexistingDiseaseMap: any[];
+  @Input()
+  mentalProblemCheckBoxOptions:any;
+  @Input()
+  hearingProblemCheckBoxOptions:any;
+  @Input()
+  behaviorProblemCheckBoxOptions:any;
+  @Input()
+  speakingProblemCheckBoxOptions:any;
+  @Input()
+  sleepingProblemCheckBoxOptions:any;
+  @Input()
+  swallowProblemCheckBoxOptions:any;
+  @Input()
+  hipProblemCheckBoxOptions:any;
+  @Input()
+  skolyozCheckBoxOptions:any;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
@@ -157,7 +117,11 @@ export class CoexistingDiseasesComponent {
 
 
   ngOnInit() {
-    console.log("state management---");
+    console.log("state management mentalProblemCheckBoxOptions :"+this.coexistingDiseaseMap,this.mentalProblemCheckBoxOptions.value);
+
+  }
+  ngOnDestroy() {
+    console.log("state management destroy mentalProblemCheckBoxOptions :"+this.coexistingDiseaseMap,this.mentalProblemCheckBoxOptions.value);
 
   }
 

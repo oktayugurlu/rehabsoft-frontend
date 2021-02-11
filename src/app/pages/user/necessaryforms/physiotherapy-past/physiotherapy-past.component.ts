@@ -56,24 +56,12 @@ export class PhysiotherapyPastComponent {
   ////************** For 2 Collections in GeneralEvaluationForm bunlar sonra submitte tek tek kontrol edilip oyle collectionlarina set edilecek****************/////
 
   /// PhysiotherapyCenter in PhysiotherapyPast
-  physiotherapyCenterMap = [
-    {name: 'Özel eğitim ve rehabilitasyon merkezi', value: false},
-    {name: 'Tıp merkezi-hastane', value: false},
-  ];
-  specialEducationCheckBoxOptions = {
-    value: null,
-    text: 'Özel eğitim ve rehabilitasyon merkezi',
-    onValueChanged: (event)=>{
-      this.physiotherapyCenterMap[0].value = event.component.option("value");
-    }
-  }
-  medicineCenterCheckBoxOptions = {
-    value: null,
-    text: 'Tıp merkezi-hastane',
-    onValueChanged: (event)=>{
-      this.physiotherapyCenterMap[1].value = event.component.option("value");
-    }
-  }
+  @Input()
+  physiotherapyCenterMap:any;
+  @Input()
+  specialEducationCheckBoxOptions:any;
+  @Input()
+  medicineCenterCheckBoxOptions:any;
 
   ////************** For 2 Collections in GeneralEvaluationForm and 1 collection in field end ****************/////
 
@@ -81,7 +69,6 @@ export class PhysiotherapyPastComponent {
               private authenticationService: AuthenticationService) {
 
   }
-
 
 
   ngOnInit() {
@@ -108,6 +95,7 @@ export class PhysiotherapyPastComponent {
     this.generalEvaluationForm.physiotherapyPast = this.generatePhysioteraphyPast(this.generalEvaluationForm);
     this.nextStepper.emit();
   }
+
   private generatePhysioteraphyPast = (generalEvaluationFormToSendBackend:any):PhysiotherapyPast => {
     let physiotherapyPasts:PhysiotherapyPast = {...generalEvaluationFormToSendBackend.physiotherapyPast};
     physiotherapyPasts.physiotherapyCentralCollection = [];
@@ -122,8 +110,6 @@ export class PhysiotherapyPastComponent {
         physiotherapyPasts.physiotherapyCentralCollection.push(physiotheraphyCentral);
       }
     }
-    console.log("cikiyor-1", physiotherapyPasts);
-
     return physiotherapyPasts;
   }
 

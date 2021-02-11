@@ -29,12 +29,12 @@ import { CommonModule } from '@angular/common';
 
 // Devextreme
 import {
-  DxListModule,
-  DxPopupModule,
-  DxProgressBarModule,
-  DxScrollViewModule,
-  DxTabPanelModule,
-  DxToolbarModule
+    DxListModule,
+    DxPopupModule,
+    DxProgressBarModule,
+    DxScrollViewModule,
+    DxTabPanelModule,
+    DxToolbarModule, DxTooltipModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -149,11 +149,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
-    DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
-    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule],
+    imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
+        FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
+        DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
+        DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
+        MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule],
 
   exports: [RouterModule],
   declarations: [

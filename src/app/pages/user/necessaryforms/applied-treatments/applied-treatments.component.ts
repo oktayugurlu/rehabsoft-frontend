@@ -51,72 +51,11 @@ export class AppliedTreatmentsComponent {
   }
 
   // Orthesis checkbox options
-  isOrthesisMap = [
-    {name: 'Tabanlık', value: false},
-    {name: 'Topuk Kapı', value: false},
-    {name: 'Ayak bileği hizasında ortez (supra-malleoler)',value:  false},
-    {name: 'Sabit Ayak-ayak bileği ortezi (AFO)', value: false},
-    {name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false},
-    {name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false},
-    {name: 'Dinamik ayak ayak bileği ortezi (DAFO)', value: false},
-    {name: 'Bacaklar için gece splinti', value: false},
-    {name: 'Bacaklar için gece splinti',value:  false},
-    {name: 'İmmobilizer', value: false},
-    {name: 'Kalça ateli', value: false},
-    {name: 'Gövde korsesi', value: false},
-    {name: 'Dirsek splinti', value: false},
-    {name: 'Baş parmak ortezi', value: false},
-  ];
-  orthesisMap = new Map([
-    ['Tabanlık', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Topuk Kapı', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Ayak bileği hizasında ortez (supra-malleoler)', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Sabit Ayak-ayak bileği ortezi (AFO)', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Dinamik ayak ayak bileği ortezi (DAFO)', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Bacaklar için gece splinti', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['İmmobilizer', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Kalça ateli', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Gövde korsesi', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Dirsek splinti', new Map([
-      ['left', false],
-      ['right', false]
-    ])],
-    ['Baş parmak ortezi', new Map([
-      ['left', false],
-      ['right', false]
-    ])]
-  ]);
+  @Input()
+  isOrthesisMap:any;
+  @Input()
+  orthesisMap:any;
+
   checkIsFalseBothLeftAndRightForValidation = (event)=>{
     // console.log(event.formItem.label.text);
     // console.log((this.orthesisMap.get(event.formItem.label.text).get('left')===true && this.orthesisMap.get(event.formItem.label.text).get('right')==false)
@@ -127,314 +66,285 @@ export class AppliedTreatmentsComponent {
     return true;
   }
 
-  orthesisTabanlikCheckBoxOptions = {
-    value: null,
-    onValueChanged: (e) => {
-      this.isOrthesisMap[0].value = e.component.option("value");
-    }
-  }
-  leftTabanlikCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Tabanlık', this.orthesisMap.get('Tabanlık').set('left',event.value));
-    },
-    text:"Sol taban"
-  }
-  rightTabanlikOrthesisCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Tabanlık', this.orthesisMap.get('Tabanlık').set('right',event.value));
-    },
-    text:"Sağ taban"
-  }
+  orthesisTabanlikCheckBoxOptions:any;
+  leftTabanlikCheckBoxOptions:any;
+  rightTabanlikOrthesisCheckBoxOptions:any;
   /////
-  orthesisTopukKapiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[1].value = event.component.option("value");
-    }
-  }
-  leftOrthesisTopukKapiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Topuk Kapı', this.orthesisMap.get('Topuk Kapı').set('left',event.value));
-    },
-    text:"Sol topuk"
-  }
-  rightOrthesisTopukKapiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Topuk Kapı', this.orthesisMap.get('Topuk Kapı').set('right',event.value));
-    },
-    text:"Sağ topuk"
-  }
+  orthesisTopukKapiCheckBoxOptions:any;
+  leftOrthesisTopukKapiCheckBoxOptions:any;
+  rightOrthesisTopukKapiCheckBoxOptions:any;
   /////
   /////
-  orthesisAyakBilegiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[2].value = event.component.option("value");
-    },
-    width:22
-  }
-  leftOrthesisAyakBilegiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Ayak bileği hizasında ortez (supra-malleoler)', this.orthesisMap.get('Ayak bileği hizasında ortez (supra-malleoler)').set('left',event.value));
-    },
-    text:"Sol ayak bileği"
-  }
-  rightOrthesisAyakBilegiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Ayak bileği hizasında ortez (supra-malleoler)', this.orthesisMap.get('Ayak bileği hizasında ortez (supra-malleoler)').set('right',event.value));
-    },
-    text:"Sağ ayak bileği"
-  }/////
-  orthesisSabitAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[3].value = event.component.option("value");
-    }
-  }
-  leftOrthesisSabitAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Sabit Ayak-ayak bileği ortezi (AFO)', this.orthesisMap.get('Sabit Ayak-ayak bileği ortezi (AFO)').set('left',event.value));
-    },
-    text:"Sol Ayak"
-  }
-  rightOrthesisSabitAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Sabit Ayak-ayak bileği ortezi (AFO)', this.orthesisMap.get('Sabit Ayak-ayak bileği ortezi (AFO)').set('right',event.value));
-    },
-    text:"Sağ Ayak"
-  }/////
-  orthesisEklemliAyakCheckBoxOptions = {
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[4].value = event.component.option("value");
-    }
-  }
-  leftOrthesisEklemliAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', this.orthesisMap.get('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)').set('left',event.value));
-    },
-    text:"Sol Ayak"
-  }
-  rightOrthesisEklemliAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', this.orthesisMap.get('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)').set('right',event.value));
-    },
-    text:"Sağ Ayak"
-  }/////
-  orthesisDinamikAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[5].value = event.component.option("value");
-    }
-  }
-  leftOrthesisDinamikAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dinamik ayak ayak bileği ortezi (DAFO)', this.orthesisMap.get('Dinamik ayak ayak bileği ortezi (DAFO)').set('left',event.value));
-    },
-    text:"Sol Ayak"
-  }
-  rightOrthesisDinamikAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dinamik ayak ayak bileği ortezi (DAFO)', this.orthesisMap.get('Dinamik ayak ayak bileği ortezi (DAFO)').set('right',event.value));
-    },
-    text:"Sağ Ayak"
-  }/////
-  orthesisBacakGeceCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[6].value = event.component.option("value");
-    }
-  }
-  leftOrthesisBacakGeceCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Bacaklar için gece splinti', this.orthesisMap.get('Bacaklar için gece splinti').set('left',event.value));
-    },
-    text:"Sol Bacak"
-  }
-  rightOrthesisBacakGeceCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Bacaklar için gece splinti', this.orthesisMap.get('Bacaklar için gece splinti').set('right',event.value));
-    },
-    text:"Sağ Bacak"
-  }/////
-  orthesisImmobilizerCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[7].value = event.component.option("value");
-    }
-  }
-  leftOrthesisImmobilizerCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('İmmobilizer', this.orthesisMap.get('İmmobilizer').set('left',event.value));
-    },
-    text:"Sol Omuz"
-  }
-  rightOrthesisImmobilizerCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('İmmobilizer', this.orthesisMap.get('İmmobilizer').set('right',event.value));
-    },
-    text:"Sağ Omuz"
-  }
-/////
-  orthesisKalcaAteliCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[8].value = event.component.option("value");
-    }
-  }
-  // leftOrthesisKalcaAteliCheckBoxOptions = {
-  //   value: null,
-  //   onValueChanged: (event)=>{
-  //     this.orthesisMap.set('Kalça ateli', this.orthesisMap.get('Kalça ateli').set('left',event.value));
-  //   },
-  //   text:"Sağ bacak"
-  // }
-  // rightOrthesisKalcaAteliCheckBoxOptions = {
-  //   value: null,
-  //   onValueChanged: (event)=>{
-  //     this.orthesisMap.set('Kalça ateli', this.orthesisMap.get('Kalça ateli').set('right',event.value));
-  //   }
-  // }/////
-  orthesisGovdeKorsesiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[9].value = event.component.option("value");
-    }
-  }
-  // leftOrthesisGovdeKorsesiCheckBoxOptions = {
-  //   value: null,
-  //   onValueChanged: (event)=>{
-  //     this.orthesisMap.set('Gövde korsesi', this.orthesisMap.get('Gövde korsesi').set('left',event.value));
-  //   }
-  // }
-  // rightOrthesisGovdeKorsesiCheckBoxOptions = {
-  //   value: null,
-  //   onValueChanged: (event)=>{
-  //     this.orthesisMap.set('Gövde korsesi', this.orthesisMap.get('Gövde korsesi').set('right',event.value));
-  //   }
-  // }/////
-  orthesisDirsekSiplintiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[10].value = event.component.option("value");
-    }
-  }
-  leftOrthesisDirsekSiplintiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dirsek splinti', this.orthesisMap.get('Dirsek splinti').set('left',event.value));
-    },
-    text:"Sağ Dirsek"
-  }
-  rightOrthesisDirsekSiplintiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dirsek splinti', this.orthesisMap.get('Dirsek splinti').set('right',event.value));
-    },
-    text:"Sol Dirsek"
-  }/////
-  orthesisBasParmakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[11].value = event.component.option("value");
-    }
-  }
-  leftOrthesisBasParmakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Baş parmak ortezi', this.orthesisMap.get('Baş parmak ortezi').set('left',event.value));
-    },
-    text:"Sol Parmak"
-  }
-  rightOrthesisBasParmakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Baş parmak ortezi', this.orthesisMap.get('Baş parmak ortezi').set('right',event.value));
-    },
-    text:"Sağ Parmak"
-  }
+  orthesisAyakBilegiCheckBoxOptions:any;
+  leftOrthesisAyakBilegiCheckBoxOptions:any;
+  rightOrthesisAyakBilegiCheckBoxOptions:any;/////
+  orthesisSabitAyakCheckBoxOptions:any;
+  leftOrthesisSabitAyakCheckBoxOptions:any;
+  rightOrthesisSabitAyakCheckBoxOptions:any;/////
+  orthesisEklemliAyakCheckBoxOptions:any;
+  leftOrthesisEklemliAyakCheckBoxOptions:any;
+  rightOrthesisEklemliAyakCheckBoxOptions:any;/////
+  orthesisDinamikAyakCheckBoxOptions:any;
+  leftOrthesisDinamikAyakCheckBoxOptions:any;
+  rightOrthesisDinamikAyakCheckBoxOptions:any;/////
+  orthesisBacakGeceCheckBoxOptions:any;
+  leftOrthesisBacakGeceCheckBoxOptions:any;
+  rightOrthesisBacakGeceCheckBoxOptions:any;/////
+  orthesisImmobilizerCheckBoxOptions:any;
+  leftOrthesisImmobilizerCheckBoxOptions:any;
+  rightOrthesisImmobilizerCheckBoxOptions:any;
+
+  orthesisKalcaAteliCheckBoxOptions:any;
+
+  orthesisGovdeKorsesiCheckBoxOptions:any;/////
+  orthesisDirsekSiplintiCheckBoxOptions:any;
+  leftOrthesisDirsekSiplintiCheckBoxOptions:any;
+  rightOrthesisDirsekSiplintiCheckBoxOptions:any;/////
+  orthesisBasParmakCheckBoxOptions:any;
+  leftOrthesisBasParmakCheckBoxOptions:any;
+  rightOrthesisBasParmakCheckBoxOptions:any;
 
 
   //--------- variables to add One-to-Many relation objects ----------//
   //*** Applied Surgeries Variables ***//
-  appliedSurgeryOptions: any[] = [];
-  addAppliedSurgeryButtonOptions: any = {
-    icon: "add",
-    text: "Cerrahi Ekle",
-    onClick: () => {
-      if(this.generalEvaluationForm.appliedSurgeryCollection === null) {
-        this.generalEvaluationForm.appliedSurgeryCollection = [];
-      }
-      this.generalEvaluationForm.appliedSurgeryCollection.push(new AppliedSurgery());
-      this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
-    }
-  };
-  customAppliedSurgeriesList = [{
-    name: 'Yumuşak doku - kas cerrahisi',
-    value: 'Yumuşak doku - kas cerrahisi'
-  },{
-    name: 'Kemik cerrahisi',
-    value: 'Kemik cerrahisi'
-  },{
-    name: 'Yumuşak doku-kas ve Kemik bir arada',
-    value: 'Yumuşak doku-kas ve Kemik bir arada'
-  }];
+  @Input()
+  appliedSurgeryOptions: any[];
+  @Input()
+  addAppliedSurgeryButtonOptions: any ;
 
   //*** Other Orthesis Variables ***//
-  otherOrthesisOptions: any[] = [];
-  addOtherOrthesisButtonOptions: any = {
-    icon: "add",
-    text: "Ekle",
-    onClick: () => {
-      if(this.generalEvaluationForm.otherOrthesisInfoCollection === null) {
-        this.generalEvaluationForm.otherOrthesisInfoCollection = [];
-      }
-      this.generalEvaluationForm.otherOrthesisInfoCollection.push(new OtherOrthesisInfo());
-      this.otherOrthesisOptions = this.getOtherOrthesisOptions(this.generalEvaluationForm.otherOrthesisInfoCollection);
-    }
-  };
-
+  @Input()
+  otherOrthesisOptions: any[];
+  @Input()
+  addOtherOrthesisButtonOptions: any;
   //*** Used Medicine Variables ***//
-  usedMedicineOptions: any[] = [];
-  addUsedMedicineButtonOptions: any = {
-    icon: "add",
-    text: "İlaç Ekle",
-    onClick: () => {
-      if(this.generalEvaluationForm.usedMedicineCollection === null) {
-        this.generalEvaluationForm.usedMedicineCollection = [];
-      }
-      this.generalEvaluationForm.usedMedicineCollection.push(new UsedMedicine());
-      this.usedMedicineOptions = this.getUsedMedicineOptions(this.generalEvaluationForm.usedMedicineCollection);
-    }
-  };
-
-
+  @Input()
+  usedMedicineOptions: any[];
+  @Input()
+  addUsedMedicineButtonOptions: any;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
-
-    this.generalEvaluationForm['isOrthesisMap'] = this.isOrthesisMap;
-    this.generalEvaluationForm['orthesisMap'] = this.orthesisMap;
   }
 
   ngOnInit() {
-    console.log("state management---");
+    this.orthesisTabanlikCheckBoxOptions = {
+      value: this.isOrthesisMap[0].value,
+      onValueChanged: (e) => {
+        this.isOrthesisMap[0].value = e.component.option("value");
+      }
+    }
+    this.leftTabanlikCheckBoxOptions = {
+      value: this.orthesisMap.get('Tabanlık').get('left'),
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Tabanlık', this.orthesisMap.get('Tabanlık').set('left',event.value));
+      },
+      text:"Sol taban"
+    }
+    this.rightTabanlikOrthesisCheckBoxOptions = {
+      value: this.orthesisMap.get('Tabanlık').get('right'),
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Tabanlık', this.orthesisMap.get('Tabanlık').set('right',event.value));
+      },
+      text:"Sağ taban"
+    }
+    /////
+    this.orthesisTopukKapiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[1].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisTopukKapiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Topuk Kapı', this.orthesisMap.get('Topuk Kapı').set('left',event.value));
+      },
+      text:"Sol topuk"
+    }
+    this.rightOrthesisTopukKapiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Topuk Kapı', this.orthesisMap.get('Topuk Kapı').set('right',event.value));
+      },
+      text:"Sağ topuk"
+    }
+    /////
+    /////
+    this.orthesisAyakBilegiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[2].value = event.component.option("value");
+      },
+      width:22
+    }
+    this.leftOrthesisAyakBilegiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Ayak bileği hizasında ortez (supra-malleoler)', this.orthesisMap.get('Ayak bileği hizasında ortez (supra-malleoler)').set('left',event.value));
+      },
+      text:"Sol ayak bileği"
+    }
+    this.rightOrthesisAyakBilegiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Ayak bileği hizasında ortez (supra-malleoler)', this.orthesisMap.get('Ayak bileği hizasında ortez (supra-malleoler)').set('right',event.value));
+      },
+      text:"Sağ ayak bileği"
+    }/////
+    this.orthesisSabitAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[3].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisSabitAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Sabit Ayak-ayak bileği ortezi (AFO)', this.orthesisMap.get('Sabit Ayak-ayak bileği ortezi (AFO)').set('left',event.value));
+      },
+      text:"Sol Ayak"
+    }
+    this.rightOrthesisSabitAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Sabit Ayak-ayak bileği ortezi (AFO)', this.orthesisMap.get('Sabit Ayak-ayak bileği ortezi (AFO)').set('right',event.value));
+      },
+      text:"Sağ Ayak"
+    }/////
+    this.orthesisEklemliAyakCheckBoxOptions = {
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[4].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisEklemliAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', this.orthesisMap.get('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)').set('left',event.value));
+      },
+      text:"Sol Ayak"
+    }
+    this.rightOrthesisEklemliAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', this.orthesisMap.get('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)').set('right',event.value));
+      },
+      text:"Sağ Ayak"
+    }/////
+    this.orthesisDinamikAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[5].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisDinamikAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Dinamik ayak ayak bileği ortezi (DAFO)', this.orthesisMap.get('Dinamik ayak ayak bileği ortezi (DAFO)').set('left',event.value));
+      },
+      text:"Sol Ayak"
+    }
+    this.rightOrthesisDinamikAyakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Dinamik ayak ayak bileği ortezi (DAFO)', this.orthesisMap.get('Dinamik ayak ayak bileği ortezi (DAFO)').set('right',event.value));
+      },
+      text:"Sağ Ayak"
+    }/////
+    this.orthesisBacakGeceCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[6].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisBacakGeceCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Bacaklar için gece splinti', this.orthesisMap.get('Bacaklar için gece splinti').set('left',event.value));
+      },
+      text:"Sol Bacak"
+    }
+    this.rightOrthesisBacakGeceCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Bacaklar için gece splinti', this.orthesisMap.get('Bacaklar için gece splinti').set('right',event.value));
+      },
+      text:"Sağ Bacak"
+    }/////
+    this.orthesisImmobilizerCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[7].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisImmobilizerCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('İmmobilizer', this.orthesisMap.get('İmmobilizer').set('left',event.value));
+      },
+      text:"Sol Omuz"
+    }
+    this.rightOrthesisImmobilizerCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('İmmobilizer', this.orthesisMap.get('İmmobilizer').set('right',event.value));
+      },
+      text:"Sağ Omuz"
+    }
 
+    this.orthesisKalcaAteliCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[8].value = event.component.option("value");
+      }
+    }
+
+    this.orthesisGovdeKorsesiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[9].value = event.component.option("value");
+      }
+    }
+    this.orthesisDirsekSiplintiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[10].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisDirsekSiplintiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Dirsek splinti', this.orthesisMap.get('Dirsek splinti').set('left',event.value));
+      },
+      text:"Sağ Dirsek"
+    }
+    this.rightOrthesisDirsekSiplintiCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Dirsek splinti', this.orthesisMap.get('Dirsek splinti').set('right',event.value));
+      },
+      text:"Sol Dirsek"
+    }/////
+    this.orthesisBasParmakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.isOrthesisMap[11].value = event.component.option("value");
+      }
+    }
+    this.leftOrthesisBasParmakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Baş parmak ortezi', this.orthesisMap.get('Baş parmak ortezi').set('left',event.value));
+      },
+      text:"Sol Parmak"
+    }
+    this.rightOrthesisBasParmakCheckBoxOptions = {
+      value: null,
+      onValueChanged: (event)=>{
+        this.orthesisMap.set('Baş parmak ortezi', this.orthesisMap.get('Baş parmak ortezi').set('right',event.value));
+      },
+      text:"Sağ Parmak"
+    }
   }
 
   checkIsNull = (event)=>{
@@ -442,8 +352,6 @@ export class AppliedTreatmentsComponent {
   }
 
   //Patient form event handler end
-
-
 
 
   // image uploader
@@ -457,105 +365,6 @@ export class AppliedTreatmentsComponent {
   uploadOtherOrthesisImage = (event, index) => {
     this.generalEvaluationForm.otherOrthesisInfoCollection[index].orthesisImageFile =  event.value[0];
   }
-
-  //--------- event handlers to add One-to-Many relation objects ----------//
-  //******* Applied Surgery Event Handlers start *******//
-  private getAppliedSurgeryOptions(appliedSurgery: any) {
-    let options = [];
-    for (let i = 0; i < appliedSurgery.length; i++){
-      options.push(this.generateNewAppliedSurgeryOptions1(i));
-    }
-    return options;
-  }
-  private generateNewAppliedSurgeryOptions1(index: number) {
-    return [
-      { stylingMode: 'outlined',
-        placeholder: 'Seçiniz, yoksa yazınız...',
-        dataSource: this.customAppliedSurgeriesList,
-        acceptCustomValue: true,
-        valueExpr: 'value',
-        displayExpr: 'name',
-        onCustomItemCreating: this.onCustomItemCreatingForAppliedSurgerySelectbox
-      },
-      {
-        placeholder: 'Uygulanma Tarihi'
-      },
-      {
-        stylingMode: "text",
-        icon: "trash",
-        text: "Sil",
-        onClick: () => {
-          this.generalEvaluationForm.appliedSurgeryCollection.splice(index, 1);
-          this.appliedSurgeryOptions = this.getAppliedSurgeryOptions(this.generalEvaluationForm.appliedSurgeryCollection);
-        }
-      }
-    ];
-  }
-  private onCustomItemCreatingForAppliedSurgerySelectbox = (event)=>{
-    const newItem = {
-      name: event.text,
-      value: event.text
-    };
-    // this.customAppliedSurgeriesList.push(newItem);
-    event.customItem = newItem;
-    console.log(event.customItem);
-  }
-  //******* Applied Surgery Event Handlers end *******//
-
-
-  //******* Other Orthesis Event Handlers start *******//
-  private getOtherOrthesisOptions(appliedSurgery: any) {
-    let options = [];
-    for (let i = 0; i < appliedSurgery.length; i++){
-      options.push(this.generateNewOtherOrthesisOptions1(i));
-    }
-    return options;
-  }
-  private generateNewOtherOrthesisOptions1(index: number) {
-    return [
-      { stylingMode: 'outlined',
-        placeholder: 'Ortezin tanımı',
-        maxLength:200
-      },
-      {
-        stylingMode: "text",
-        icon: "trash",
-        text: "Sil",
-        onClick: () => {
-          this.generalEvaluationForm.otherOrthesisInfoCollection.splice(index, 1);
-          this.otherOrthesisOptions = this.getOtherOrthesisOptions(this.generalEvaluationForm.otherOrthesisInfoCollection);
-        }
-      }
-    ];
-  }
-  //******* Other Orthesis Event Handlers end *******//
-
-
-  //******* Used Medicine Event Handlers start *******//
-  private getUsedMedicineOptions(appliedSurgery: any) {
-    let options = [];
-    for (let i = 0; i < appliedSurgery.length; i++){
-      options.push(this.generateNewUsedMedicineOptions1(i));
-    }
-    return options;
-  }
-  private generateNewUsedMedicineOptions1(index: number) {
-    return [
-      { stylingMode: 'outlined',
-        placeholder: 'İlaç İsmi',
-        maxLength:200
-      },
-      {
-        stylingMode: "text",
-        icon: "trash",
-        onClick: () => {
-          this.generalEvaluationForm.usedMedicineCollection.splice(index, 1);
-          this.usedMedicineOptions = this.getUsedMedicineOptions(this.generalEvaluationForm.usedMedicineCollection);
-        }
-      }
-    ];
-  }
-  //******* Used Medicine Event Handlers end *******//
 
   // Stepper
   goBackForm = () =>{
