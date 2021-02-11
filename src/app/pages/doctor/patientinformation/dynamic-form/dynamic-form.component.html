@@ -1,0 +1,49 @@
+
+
+<div class="container" id="form-grid">
+
+  <div class="dx-field">
+    <div class="dx-field-label"></div>
+    <div class="dx-field-value">
+      <dx-button icon="plus"
+                  text="Form-Anket Oluştur"
+                 (onClick)="btnClick()">
+      </dx-button>
+    </div>
+  </div>
+
+  <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
+
+    <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
+
+      <dxi-item location="center" widget="dxButton" locateInMenu="never">
+        <div *dxTemplate>
+          <div class='toolbar-label'><b>Anket-Form Talepleri</b> </div>
+        </div>
+      </dxi-item>
+    </dx-toolbar>
+  </div>
+
+
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="assignedFormList"
+    [remoteOperations]="true"
+    [showBorders]="true">
+
+
+    <dxo-paging pageSize="15"></dxo-paging>
+
+
+    <dxi-column dataField="creationDate" caption="Gönderilme Tarihi"></dxi-column>
+    <dxi-column dataField="formDynamic.title" caption="Form Başlığı"></dxi-column>
+    <dxi-column type="buttons" alignment="center"  width= '100px' >
+      <dxi-button hint="Cevabı Görüntüle" icon="fas fa-eye" ></dxi-button>
+    </dxi-column>
+
+    <!--[visible]="isFormAnswered" [onClick]="openPopUp" -->
+    <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
+  </dx-data-grid>
+</div>
+
+<app-view-response-component></app-view-response-component>

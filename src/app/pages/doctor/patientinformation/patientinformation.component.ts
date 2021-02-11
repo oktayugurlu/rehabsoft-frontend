@@ -5,8 +5,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   selector: 'app-patientinformation',
   templateUrl: './patientinformation.component.html',
   styleUrls: ['./patientinformation.component.scss'],
-  
-  
+
+
 })
 export class PatientinformationComponent implements OnInit {
 
@@ -15,6 +15,7 @@ export class PatientinformationComponent implements OnInit {
   generalEvalFormurl:string;
   generalInformationUrl:string;
   videoRequestUrl:string;
+  dynamicFormsUrl:string;
 
 
   constructor(private router: Router,route: ActivatedRoute) {
@@ -22,13 +23,14 @@ export class PatientinformationComponent implements OnInit {
       console.log("PATIENTINFO tcKimlikNo:",tcKimlikNo);
       this.itemCount = this.titleList.length;
       this.videoRequestUrl = "video-request";
+      this.dynamicFormsUrl = "dynamic-form";
 
   }
 
   ngOnInit() {
     this.callGeneralEvalForm();
     this.callGeneralInformation();
-    
+
   }
 
   callGeneralEvalForm(){ //hata verirse string yaz dönüs tipi olarak

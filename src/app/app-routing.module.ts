@@ -71,6 +71,10 @@ import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/
 import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
 import {UserVideoSubmitPopupComponent} from "./pages/user/response-video-request/user-video-submit-popup/user-video-submit-popup.component";
 import {ViewResponseComponent} from "./pages/doctor/patientinformation/video-request/view-response/view-response.component";
+import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-form/dynamic-form.component';
+import component from 'devextreme/core/component';
+import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component';
+import {DefaultValueDataGridComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component';
 
 
 
@@ -118,6 +122,7 @@ const routes: Routes = [
       { path: 'task', component: DoctorTasksComponent },
       { path: 'exercises', component: DoctorExerciseManagmentComponent },
       { path: 'getall', component: ListPatientsComponent },
+
       //{ path: 'patient-info', component: PatientinformationComponent},
       //{ path: 'usergefd', component: PatientGefdInformationComponent },
 
@@ -127,8 +132,9 @@ const routes: Routes = [
           { path: '', redirectTo: 'general-info', pathMatch: 'full' },
           { path: 'general-info', component: GeneralInformationComponent },
           { path: 'usergefd', component: PatientGefdInformationComponent },
-          { path: 'video-request', component: VideoRequestComponent }
-
+          { path: 'video-request', component: VideoRequestComponent },
+          { path: 'dynamic-form', component: DynamicFormComponent},
+          { path: 'assign-form', component: AssignFormComponent}
         ]
       }
 
@@ -152,6 +158,6 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent]
+    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent]
 })
 export class AppRoutingModule { }
