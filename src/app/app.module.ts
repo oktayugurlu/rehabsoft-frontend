@@ -33,11 +33,13 @@ import { PatientGefdInformationComponent } from './pages/doctor/patientinformati
 import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
 import {ResponseVideoRequestService} from "./shared/services/response-video-request.service";
+import { ChatComponent } from './shared/components/chat/chat.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent],
+    AppComponent
+    ],
   imports: [
     BrowserModule,
     CommonModule,

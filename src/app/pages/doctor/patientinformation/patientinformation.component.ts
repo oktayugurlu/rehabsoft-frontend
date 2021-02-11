@@ -15,6 +15,7 @@ export class PatientinformationComponent implements OnInit {
   generalEvalFormurl:string;
   generalInformationUrl:string;
   videoRequestUrl:string;
+  messageUrl:string;
 
 
   constructor(private router: Router,route: ActivatedRoute) {
@@ -22,23 +23,17 @@ export class PatientinformationComponent implements OnInit {
       console.log("PATIENTINFO tcKimlikNo:",tcKimlikNo);
       this.itemCount = this.titleList.length;
       this.videoRequestUrl = "video-request";
+      this.generalEvalFormurl = "usergefd";
+      this.generalInformationUrl =  "general-info";
+      this.messageUrl ="message";
 
   }
 
   ngOnInit() {
-    this.callGeneralEvalForm();
-    this.callGeneralInformation();
+    
     
   }
 
-  callGeneralEvalForm(){ //hata verirse string yaz dönüs tipi olarak
-    //perform some operations
-   this.generalEvalFormurl = "usergefd";
- }
 
- callGeneralInformation(){
-
-  this.generalInformationUrl =  "general-info";
- }
 
 }
