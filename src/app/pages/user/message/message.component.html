@@ -34,8 +34,9 @@
     </dx-toolbar>
   </div>
 
+<div class="container">
 
-  <div class="card-body" style="padding: 4px; background-color: #95b0b3;">
+  <div>
 
     <dx-form id="form" [formData]="doctorInfo" [readOnly]="true" caption="Fizyoterapist Bilgileriniz:">
 
@@ -62,7 +63,7 @@
     </dx-form>
   </div>
 
-
+</div>
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -71,37 +72,32 @@
 
   <div>
 
-    <body>
-      <div class="container">
-        <h3 class=" text-center">Mesajlaşma Geçmişi</h3>
-        <div class="messaging">
-          <div class="inbox_msg">
-            <div class="mesgs">
-              <div class="msg_history" *ngFor="let msg of messageHistoryList">
+    <div class="container">
+      <div class="messaging">
+        <div class="inbox_msg">
+          <div class="mesgs">
+            <div class="msg_history" *ngFor="let msg of messageHistoryList">
 
-                <div class="incoming_msg" *ngIf="!isMyMessage(msg)">
+              <div class="incoming_msg" *ngIf="!isMyMessage(msg)">
 
 
-                  <div class="received_msg">
+                <div class="received_msg">
 
-                    <div class="received_withd_msg">
-                      <h6>Konu: {{msg.messageTitle}}</h6>
-                      <p>{{msg.messageContent}}</p>
-                      <span class="time_date"> {{msg.creationDate}} </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="outgoing_msg" *ngIf="isMyMessage(msg)">
-
-                  <div class="sent_msg">
+                  <div class="received_withd_msg">
                     <h6>Konu: {{msg.messageTitle}}</h6>
                     <p>{{msg.messageContent}}</p>
-                    <span class="time_date"> {{msg.creationDate}}</span>
+                    <span class="time_date"> {{msg.creationDate}} </span>
                   </div>
                 </div>
+              </div>
 
+              <div class="outgoing_msg" *ngIf="isMyMessage(msg)">
 
+                <div class="sent_msg">
+                  <h6>Konu: {{msg.messageTitle}}</h6>
+                  <p>{{msg.messageContent}}</p>
+                  <span class="time_date"> {{msg.creationDate}}</span>
+                </div>
               </div>
 
 
@@ -111,44 +107,46 @@
           </div>
 
 
-
-
-
-          <dx-form id="form" [formData]="messageDto">
-
-            <dxi-item itemType="group" cssClass="first-group">
-              <dxi-item itemType="group" cssClass="second-group" [colCount]="1">
-                <dxi-item dataField="messageTitle">
-                  <dxo-label location="top" [visible]="true" text="Konu:"></dxo-label>
-                </dxi-item>
-                <dxi-item dataField="messageContent" [colSpan]="2" editorType="dxTextArea"
-                  [editorOptions]="{ height: 140 }">
-                  <dxo-label location="top" [visible]="true" text="Mesaj:"></dxo-label>
-                </dxi-item>
-              </dxi-item>
-            </dxi-item>
-
-
-            <!--Button Groups-->
-            <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="1">
-
-              <dxi-item [alignItemLabels]="true" itemType="group">
-                <dxi-item itemType="button" horizontalAlignment="right" [buttonOptions]="submitbuttonOptions">
-                </dxi-item>
-              </dxi-item>
-
-            </dxi-item>
-
-          </dx-form>
-
-
-
-
-
-
         </div>
+
+
+
+
+
+        <dx-form id="form" [formData]="messageDto">
+
+          <dxi-item itemType="group" cssClass="first-group">
+            <dxi-item itemType="group" cssClass="second-group" [colCount]="1">
+              <dxi-item dataField="messageTitle">
+                <dxo-label location="top" [visible]="true" text="Konu:"></dxo-label>
+              </dxi-item>
+              <dxi-item dataField="messageContent" [colSpan]="2" editorType="dxTextArea"
+                [editorOptions]="{ height: 140 }">
+                <dxo-label location="top" [visible]="true" text="Mesaj:"></dxo-label>
+              </dxi-item>
+            </dxi-item>
+          </dxi-item>
+
+
+          <!--Button Groups-->
+          <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="1">
+
+            <dxi-item [alignItemLabels]="true" itemType="group">
+              <dxi-item itemType="button" horizontalAlignment="right" [buttonOptions]="submitbuttonOptions">
+              </dxi-item>
+            </dxi-item>
+
+          </dxi-item>
+
+        </dx-form>
+
+
+  
+
+
+
       </div>
-    </body>
+    </div>
   </div>
 
 </div>

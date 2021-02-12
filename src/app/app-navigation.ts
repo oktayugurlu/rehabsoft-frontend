@@ -5,7 +5,7 @@ export const userNavigation = [
     icon: 'home'
   },
   {
-    text: 'Profile',
+    text: 'Profil',
     path: '/user/profile',
     icon: 'user'
   },
