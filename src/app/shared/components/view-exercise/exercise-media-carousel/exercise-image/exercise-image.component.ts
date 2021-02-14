@@ -18,7 +18,6 @@ export class ExerciseImageComponent  implements OnChanges, OnInit {
   src:string;
   private src$ = new BehaviorSubject(this.src);
   ngOnChanges(): void {
-    this.src$.next(this.src);
   }
 
 // this stream will contain the actual url that our img tag will load
@@ -39,6 +38,8 @@ export class ExerciseImageComponent  implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Acildi");
+    this.src$.next(this.src);
+
+    console.log("blob:http://localhost:4200/70fda181-7188-4777-8c3b-a294435b4836: ", this.src);
   }
 }

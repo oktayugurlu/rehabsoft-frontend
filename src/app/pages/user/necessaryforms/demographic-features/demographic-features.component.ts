@@ -96,6 +96,7 @@ export class DemographicFeaturesComponent implements OnInit {
 
 
   goBackForm = () =>{
+    this.loading = true;
     this.backStepper.emit();
   }
   goNextForm = (event)=>{
