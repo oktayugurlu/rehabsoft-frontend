@@ -10,6 +10,7 @@ import {VisualImpairment} from "../../../../models/generalevaluationform/visuali
 import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 import { ActivatedRoute } from '@angular/router';
+import {AsynImageComponent} from "../../../../shared/components/asyn-image/asyn-image.component";
 
 @Component({
   selector: 'app-patient-gefd-information',
@@ -30,7 +31,7 @@ export class PatientGefdInformationComponent implements OnInit {
   loading = false;
   error = '';
   submitted = false;
-  
+
   birthDateOption = {
     stylingMode: 'outlined',
     showClearButton:"true",
@@ -833,28 +834,28 @@ export class PatientGefdInformationComponent implements OnInit {
   };
 
 
-  constructor(private generalFormService:GeneralFormService,route: ActivatedRoute) { 
+  constructor(private generalFormService:GeneralFormService,route: ActivatedRoute) {
 
     route.parent.params.subscribe(
-      (params) => 
-      { 
-            this.tcKimlikNo= params.tckimlikno; 
+      (params) =>
+      {
+            this.tcKimlikNo= params.tckimlikno;
        });
 
   }
 
   ngOnInit() {
-   
+
     //console.log("isim:" + this.username);
     this.getGeneralEvaluationForm();
-    
+
   }
 
 
 
   getGeneralEvaluationForm = ()=>  { this.generalFormService.getByTcKimlikNo(this.tcKimlikNo).subscribe(
     (data)=>{
-      
+
       console.log(data);
      this.generalEvaluationForm = data;
     },
@@ -871,6 +872,21 @@ fillBooleanGeneralForm=() => {
 }
 
 
+
+
+  // ******* Applied Treatments start******** //
+  @ViewChild(AsynImageComponent) asynImageComponentForImageView: AsynImageComponent;
+  title:string;
+  isImagePopUpVisible: boolean;
+  imageUrlToDownload: string;
+  // Botox Image //
+  showBotoxImage = (event)=>{
+    this.imageUrlToDownload = `http://localhost:8080/api/patient/generalevaluationform/getbotoximage/${this.generalEvaluationForm.botoxTreatment.id}`;
+    console.log("asynImageComponentForImageView",this.asynImageComponentForImageView);
+    this.title = 'Botoks Resmi';
+    this.isImagePopUpVisible = true;
+  }
+  // ******* Applied Treatments end******** //
 
 
 

@@ -289,14 +289,16 @@
      <!--6. Doğum Sonrası Sonrası Serebral Palsi Nedeni-->
   <dxi-item [alignItemLabels]="true" itemType="group" caption="6. Doğum Sonrası Sonrası Serebral Palsi Nedeni (doğumdan 28 gün sonra oluşan durumlar)" [colCount]="1">
 
-        <dxi-item dataField="afterBirthReasonCerebralPalsy.cause">
+        <dxi-item [visible]="true" dataField="afterBirthReasonCerebralPalsy.cause">
             <dxo-label location="top" [visible]="true" text="Varsa Nedeni"></dxo-label>
         </dxi-item>
 
-        <dxi-item dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea">
+        <dxi-item [visible]="true" dataField="afterBirthReasonCerebralPalsy.causeInfo" editorType="dxTextArea">
             <dxo-label location="top" [visible]="true" text="Travma Açıklaması"></dxo-label>
         </dxi-item>
-
+        <dxi-item dataField="afterBirthReasonCerebralPalsy.occuringMonth" editorType="dxNumberBox">
+          <dxo-label location="top" [visible]="true" text="Oluşma zamanı (ay)"></dxo-label>
+        </dxi-item>
     </dxi-item>
 
 
@@ -312,7 +314,57 @@
             </dxo-label>
         </dxi-item>
 
-    </dxi-item>
+        <dxi-item dataField="botoxTreatment.b">
+          <dxo-label location="top" [visible]="true" text="Son botoksun uygulanma tarihi(eğer Uygulandı ise):">
+          </dxo-label>
+        </dxi-item>
+
+
+        <dxi-item [alignItemLabels]="true" itemType="group"  [colCount]="3">
+
+          <dxi-item [alignItemLabels]="true" itemType="group" >
+            <dxi-item [template]="'botoxtitleTemplate'">
+            </dxi-item>
+            <div *dxTemplate="let data of 'botoxtitleTemplate'">
+              <p style="color:#728e94" >
+                Botoks Resmi:
+              </p>
+            </div>
+          </dxi-item>
+
+
+
+          <dxi-item [alignItemLabels]="true">
+            <dxi-item [template]="'buttonTemplate'">
+            </dxi-item>
+            <div *dxTemplate="let data of 'buttonTemplate'">
+              <div class="float-right" style="margin-top:26px;margin-right:10px;">
+                <dx-button
+                  text="Resmi ac"
+                  icon="fas fa-eye"
+                  type="default"
+                  (onClick)="showBotoxImage($event)">
+                </dx-button>
+              </div>
+            </div>
+          </dxi-item>
+
+            <dxi-item [alignItemLabels]="true">
+              <dxi-item [template]="'downloadbuttonTemplate'">
+              </dxi-item>
+              <div *dxTemplate="let data of 'downloadbuttonTemplate'">
+                <div class="float-right" style="margin-top:26px;margin-right:10px;">
+                  <dx-button
+                    icon="fas fa-eye"
+                    type="default"
+                    (onClick)="showBotoxImage($event)">
+                  </dx-button>
+                </div>
+              </div>
+            </dxi-item>
+
+          </dxi-item>
+        </dxi-item>
 
 
 </dx-form>
@@ -329,3 +381,15 @@
 </dx-list>
 
 </div> --->
+
+
+<dx-popup [minWidth]='"55%"' [minHeight]="'inherit'" [showTitle]="true" [title]="title" [dragEnabled]="true"
+          [closeOnOutsideClick]="true" [(visible)]="isImagePopUpVisible" [position]="{ my: 'center', at: 'center' }">
+  <div *dxTemplate="let data of 'content'">
+     <a [href]="imageUrlToDownload" download>
+       indir
+      </a>
+    <app-asyn-image-component #asynImageComponentForImageVieww [src]="imageUrlToDownload"></app-asyn-image-component>
+  </div>
+</dx-popup>
+

@@ -2,6 +2,8 @@ export class AppliedSurgery {
   id: number;
   surgeryName: string;
   epicrisisImageUrl: string;
-  epicrisisImageFile: File;
   applyingDate: string
+
+  // gonderilirken silincek
+  epicrisisImageFile: File;
 }

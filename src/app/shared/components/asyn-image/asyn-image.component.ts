@@ -7,23 +7,21 @@ import {HttpClient} from "@angular/common/http";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-exercise-image-component',
+  selector: 'app-asyn-image-component',
   template: `
     <img [src]="dataUrl$|async" [alt]="'asa'" class="img-responsive">
   `
 })
-export class ExerciseImageComponent  implements OnChanges, OnInit {
+export class AsynImageComponent  implements OnChanges, OnInit {
 
   @Input()
   src:string;
-  private src$ = new BehaviorSubject(this.src);
-  ngOnChanges(): void {
-  }
+  private src$: BehaviorSubject<any>;
 
 // this stream will contain the actual url that our img tag will load
   // everytime the src changes, the previous call would be canceled and the
   // new resource would be loaded
-  dataUrl$ = this.src$.pipe(switchMap(url => this.loadImage(url)))
+  dataUrl$:Observable<any>;
 
   constructor(private httpClient: HttpClient, private domSanitizer: DomSanitizer) {
   }
@@ -38,8 +36,12 @@ export class ExerciseImageComponent  implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
+    console.log("this.src$",this.src$);
+    this.src$ = new BehaviorSubject(this.src);
+    this.dataUrl$ = this.src$.pipe(switchMap(url => this.loadImage(url)));
     this.src$.next(this.src);
+  }
 
-    console.log("blob:http://localhost:4200/70fda181-7188-4777-8c3b-a294435b4836: ", this.src);
+  ngOnChanges(): void {
   }
 }

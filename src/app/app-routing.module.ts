@@ -68,7 +68,7 @@ import {NotificationListComponent} from "./shared/components/notification-list/n
 import {UserResponseVideoRequestComponent} from './pages/user/response-video-request/user-response-video-request.component';
 
 import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-media-carousel.component";
-import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
+import {AsynImageComponent} from "./shared/components/asyn-image/asyn-image.component";
 import {UserVideoSubmitPopupComponent} from "./pages/user/response-video-request/user-video-submit-popup/user-video-submit-popup.component";
 import {ViewResponseComponent} from "./pages/doctor/patientinformation/video-request/view-response/view-response.component";
 import { MessageComponent } from './pages/doctor/patientinformation/message/message.component';
@@ -168,7 +168,7 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
+    AsynImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent ]
 })

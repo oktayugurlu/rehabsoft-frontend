@@ -2,7 +2,7 @@
 
     <mdb-carousel-item *ngFor="let notification of dataSource; let i = index">
       <div *ngIf="dataSource[i].isImage; else elseBlock" style="height: 500px;margin: auto;">
-        <app-exercise-image-component [src]="dataSource[i].videoRequestUrl" ></app-exercise-image-component>
+        <app-asyn-image-component [src]="dataSource[i].videoRequestUrl" ></app-asyn-image-component>
       </div>
 
       <ng-template #elseBlock>
