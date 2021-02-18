@@ -11,6 +11,8 @@ import {HearingImpairment} from "../../../../models/generalevaluationform/hearin
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 import { ActivatedRoute } from '@angular/router';
 import {AsynImageComponent} from "../../../../shared/components/asyn-image/asyn-image.component";
+import {environment} from "../../../../../environments/environment";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-patient-gefd-information',
@@ -834,30 +836,28 @@ export class PatientGefdInformationComponent implements OnInit {
   };
 
 
-  constructor(private generalFormService:GeneralFormService,route: ActivatedRoute) {
+  constructor(private generalFormService:GeneralFormService,route: ActivatedRoute, private domSanitizer: DomSanitizer) {
 
     route.parent.params.subscribe(
       (params) =>
       {
             this.tcKimlikNo= params.tckimlikno;
        });
-
   }
 
   ngOnInit() {
-
     //console.log("isim:" + this.username);
     this.getGeneralEvaluationForm();
-
   }
 
 
 
-  getGeneralEvaluationForm = ()=>  { this.generalFormService.getByTcKimlikNo(this.tcKimlikNo).subscribe(
+  getGeneralEvaluationForm = ()=>  {
+    this.generalFormService.getByTcKimlikNo(this.tcKimlikNo).subscribe(
     (data)=>{
-
       console.log(data);
-     this.generalEvaluationForm = data;
+      this.generalEvaluationForm = data;
+      this.prepareDownloadLinkBotoxImage();
     },
     (error)=>{
       notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");
@@ -866,12 +866,10 @@ export class PatientGefdInformationComponent implements OnInit {
 
 }
 
-fillBooleanGeneralForm=() => {
+  fillBooleanGeneralForm=() => {
 
 
-}
-
-
+  }
 
 
   // ******* Applied Treatments start******** //
@@ -880,11 +878,24 @@ fillBooleanGeneralForm=() => {
   isImagePopUpVisible: boolean;
   imageUrlToDownload: string;
   // Botox Image //
+  botoxImageFileUrl:SafeResourceUrl;
+  botoxImageFileName:string;
   showBotoxImage = (event)=>{
-    this.imageUrlToDownload = `http://localhost:8080/api/patient/generalevaluationform/getbotoximage/${this.generalEvaluationForm.botoxTreatment.id}`;
-    console.log("asynImageComponentForImageView",this.asynImageComponentForImageView);
+    this.imageUrlToDownload = `${environment.API_BASE_PATH}/patient/generalevaluationform/getbotoximage/${this.generalEvaluationForm.botoxTreatment.id}`;
     this.title = 'Botoks Resmi';
     this.isImagePopUpVisible = true;
+  }
+  private prepareDownloadLinkBotoxImage = () =>{
+    this.generalFormService.getBotoxImageByBotoxTreatmentId(this.generalEvaluationForm.botoxTreatment.id).subscribe(imageBlob=>{
+      console.log("imageBlob", imageBlob);
+      this.botoxImageFileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(imageBlob));
+      this.botoxImageFileName = this.getFileNameFromUrl(this.generalEvaluationForm.botoxTreatment.botoxRecordUrl);
+    }, (error)=>{
+      notify(error);
+    });
+  }
+  private getFileNameFromUrl = (url:string):string =>{
+    return url.split("/").pop();
   }
   // ******* Applied Treatments end******** //
 

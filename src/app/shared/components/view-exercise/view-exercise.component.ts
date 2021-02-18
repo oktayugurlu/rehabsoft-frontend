@@ -3,6 +3,7 @@ import notify from "devextreme/ui/notify";
 import {ExerciseService} from "../../services/exercise.service";
 import {Exercise} from "../../../models/exercise/exercise";
 import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-view-exercise-component',
@@ -47,11 +48,11 @@ export class ViewExerciseComponent implements OnInit, OnDestroy{
     exerciseVideoListPrepared.forEach(exerciseVideo =>{
       if(this.checkIsImage(exerciseVideo)){
         console.log("image exercise url:",);
-        exerciseVideo["videoRequestUrl"] = `http://localhost:8080/api/exercises/getimage/${exerciseVideo.id}`;
+        exerciseVideo["videoRequestUrl"] = `${environment.API_BASE_PATH}/exercises/getimage/${exerciseVideo.id}`;
         exerciseVideo["isImage"] = true;
       } else{
         let fileType = exerciseVideo.videoUrl.split(".").pop();
-        exerciseVideo["videoRequestUrl"] = `http://localhost:8080/video/stream/${fileType}/${exerciseVideo.id}`;
+        exerciseVideo["videoRequestUrl"] = `${environment.API_BASE_PATH}/video/stream/${fileType}/${exerciseVideo.id}`;
         exerciseVideo["isImage"] = false;
       }
     });

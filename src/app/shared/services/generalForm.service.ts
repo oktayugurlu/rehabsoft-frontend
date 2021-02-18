@@ -14,4 +14,9 @@ export class GeneralFormService {
   getByTcKimlikNo(tcKimlikNo:string) {
     return this.http.get<any>(`${environment.API_BASE_PATH}/patient/generalevaluationform/get-form/${tcKimlikNo}`);
   }
+
+  getBotoxImageByBotoxTreatmentId(id:number){
+    return this.http.get(`${environment.API_BASE_PATH}/patient/generalevaluationform/getbotoximage/${id}`, {
+      responseType: 'blob'});
+  }
 }
