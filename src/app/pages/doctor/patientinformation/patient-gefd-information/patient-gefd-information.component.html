@@ -300,17 +300,17 @@
 
 
       <!--7. Uygulanan Tedaviler-->
-  <dxi-item [alignItemLabels]="true" itemType="group" caption="7. Uygulanan Tedaviler" [colCount]="2">
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="7. Uygulanan Tedaviler">
 
-    <dxi-item  itemType="group"  editorType="dxRadioGroup" caption="Botoks Tedavisi" >
+    <dxi-item  itemType="group"  editorType="dxRadioGroup" caption="Botoks Tedavisi">
       <dxi-item dataField="botoxTreatment.lastBotoxDate" editorType="dxDateBox">
-        <dxo-label location="top" [visible]="true" text="Son botoksun uygulanma tarihi(eğer Uygulandı ise):">
+        <dxo-label location="top" [visible]="true" text="Son botoksun uygulanma tarihi(eğer Uygulandı ise)">
         </dxo-label>
       </dxi-item>
 
-      <dxi-item itemType="group">
-        <dxi-item>
-          <dxo-label location="top" [visible]="true" text="Botoks Resmi:"></dxo-label>
+      <dxi-item itemType="group"  [colCount]="2">
+        <dxi-item itemType="group">
+          <dxo-label location="top" [visible]="true" text="Botoks Resmi"></dxo-label>
           <dxi-item [template]="'buttonTemplate'">
           </dxi-item>
           <div *dxTemplate="let data of 'buttonTemplate'">
@@ -319,28 +319,216 @@
                 text="Resmi Aç"
                 icon="fas fa-eye"
                 type="normal"
-                (onClick)="showBotoxImage($event)">
+                (onClick)="showBotoxImage()">
               </dx-button>
             </div>
             <div class="float-left" style="margin-top: 2px">
               <a [href]="botoxImageFileUrl" [download]="botoxImageFileName">
                 <span class="fas fa-download fa-2x"></span>
               </a>
-<!--              <dx-button-->
-<!--                text="İndir"-->
-<!--                icon="fas fa-save"-->
-<!--                type="default"-->
-<!--                (onClick)="downloadBotoxImage($event)">-->
-<!--              </dx-button>-->
             </div>
           </div>
         </dxi-item>
       </dxi-item>
     </dxi-item>
 
+    <dxi-item  itemType="group"  editorType="dxRadioGroup" caption="Uygulanan Cerrahiler" >
+      <dxi-item [template]="'appliedSurgeryDataGrid'">
+      </dxi-item>
+      <div *dxTemplate="let data of 'appliedSurgeryDataGrid'">
+        <ng-container  *ngIf="isGeneralEvaluationFormLoaded" >
+          <app-applied-surgery-data-grid [appliedSurgeryCollection] ="generalEvaluationForm.appliedSurgeryCollection"></app-applied-surgery-data-grid>
+        </ng-container>
+      </div>
+    </dxi-item>
+
+    <dxi-item  itemType="group"  editorType="dxRadioGroup" caption="Kullanılan Ortezler" >
+      <dxi-item [template]="'orthesisInfoDataGrid'">
+      </dxi-item>
+      <div *dxTemplate="let data of 'orthesisInfoDataGrid'">
+        <ng-container  *ngIf="isGeneralEvaluationFormLoaded" >
+          <app-orthesis-info-data-grid [orthesisInfoCollection] ="generalEvaluationForm.orthesisInfoCollection"></app-orthesis-info-data-grid>
+        </ng-container>
+      </div>
+    </dxi-item>
+
+    <dxi-item  itemType="group"  editorType="dxRadioGroup" caption="Kullanılan Diğer Ortezler" >
+      <dxi-item [template]="'otherOrthesisInfoDataGrid'">
+      </dxi-item>
+      <div *dxTemplate="let data of 'otherOrthesisInfoDataGrid'">
+        <ng-container  *ngIf="isGeneralEvaluationFormLoaded" >
+          <app-other-orthesis-info-data-grid [otherOrthesisInfoCollection] ="generalEvaluationForm.otherOrthesisInfoCollection"></app-other-orthesis-info-data-grid>
+        </ng-container>
+      </div>
+    </dxi-item>
+
+    <dxi-item  itemType="group"  editorType="dxRadioGroup" caption="Kullanılan İlaçlar" >
+      <dxi-item [template]="'usedMedicineList'">
+      </dxi-item>
+      <div *dxTemplate="let data of 'usedMedicineList'">
+        <ng-container  *ngIf="isGeneralEvaluationFormLoaded" >
+          <div class="list-container">
+            <dx-list
+              [items]="generalEvaluationForm.usedMedicineCollection"
+              [showSelectionControls]="true"
+              [keyExpr]="'id'"
+              [displayExpr]="'medicineName'">
+            </dx-list>
+          </div>
+        </ng-container>
+      </div>
+    </dxi-item>
 
   </dxi-item>
 
+
+
+
+  <!--8. Eşlik Eden Problemler:-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="8. Uygulanan Tedaviler">
+    <!--Left group-->
+    <dxi-item [alignItemLabels]="true" itemType="group">
+
+      <dxi-item
+        dataField="isVisualImpairment"
+        editorType="dxRadioGroup"
+        [editorOptions]="isVisualImpairmentOption">
+        <dxo-label location="top" [visible]="true" text="Görme Problemi var mı?"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="visualimpairment.information" editorType="dxTextArea" [visible]="generalEvaluationForm.isVisualImpairment"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', maxLength:1000, minHeight: 80}">
+        <dxo-label location="top" [visible]="true" text="Görme probleminin ne olduğunu yazınız"></dxo-label>
+      </dxi-item>
+
+      <dxi-item
+        dataField="isHearingImpairment"
+        editorType="dxRadioGroup"
+        [editorOptions]="isHearingImpairmentOption">
+        <dxo-label location="top" [visible]="true" text="Duyma Problemi var mı?"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="hearingImpairment.isUseHearingAid" [visible]="generalEvaluationForm.isHearingImpairment"
+                editorType="dxRadioGroup"
+                [editorOptions]="isHearingAidOption">
+        <dxo-label location="top" [visible]="true" text="İşitme cihazı kullanıyor mu"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="epilepsy.epilepsySituation" editorType="dxTextBox">
+        <dxo-label location="top" [visible]="true" text="Epilepsi"></dxo-label>
+      </dxi-item>
+
+    </dxi-item>
+
+    <!--Right group-->
+    <dxi-item  itemType="group">
+
+      <dxi-item itemType="group">
+        <dxi-item [template]="'coexistingDiseaseTitleTemplate'">
+        </dxi-item>
+        <div *dxTemplate="let data of 'coexistingDiseaseTitleTemplate'">
+          <p style="color:#728e94" >
+            Diğer Rahatsızlıklar:
+          </p>
+        </div>
+      </dxi-item>
+
+      <dxi-item itemType="group">
+        <dxi-item [template]="'coexistingDiseaseList'">
+        </dxi-item>
+        <div *dxTemplate="let data of 'coexistingDiseaseList'">
+          <ng-container  *ngIf="isGeneralEvaluationFormLoaded" >
+            <div class="list-container">
+              <dx-list
+                [items]="generalEvaluationForm.coexistingDiseasesCollection"
+                [showSelectionControls]="true"
+                [keyExpr]="'id'"
+                [displayExpr]="'diseaseName'">
+              </dx-list>
+            </div>
+          </ng-container>
+        </div>
+      </dxi-item>
+
+    </dxi-item>
+  </dxi-item>
+
+
+  <!--9. Aldığı Terapiler Hakkında:-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="9. Aldığı Terapiler Hakkında">
+    <!--Left group-->
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item
+        dataField="isPhysiotherapyPast"
+        editorType="dxRadioGroup"
+        [editorOptions]="isPhysiotherapyPastOption">
+        <dxo-label location="top" [visible]="true" text="Fizyoterapi"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="physiotherapyPast.numberOfWeeklySession" editorType="dxNumberBox" [visible]="generalEvaluationForm.isPhysiotherapyPast"
+                [editorOptions]="{ stylingMode: 'outlined', placeholder: '', min:0, max:1000, showSpinButtons:true}">
+        <dxo-label location="top" [visible]="true" text="Haftalık seans sayısı" ></dxo-label>
+      </dxi-item>
+
+      <dxi-item [alignItemLabels]="true" itemType="group" [visible]="generalEvaluationForm.isPhysiotherapyPast">
+        <dxi-item [template]="'ftrtitleTemplate'">
+        </dxi-item>
+        <div *dxTemplate="let data of 'ftrtitleTemplate'">
+          <p style="color:#728e94" >
+            Hangi FTR Merkezleri:
+          </p>
+        </div>
+      </dxi-item>
+
+      <dxi-item itemType="group" colCount="2">
+        <dxi-item [template]="'physioteraphyCenterList'">
+        </dxi-item>
+        <div *dxTemplate="let data of 'physioteraphyCenterList'">
+          <ng-container  *ngIf="isGeneralEvaluationFormLoaded" >
+            <div class="list-container">
+              <dx-list
+                [items]="generalEvaluationForm.physiotherapyPast.physiotherapyCentralCollection"
+                [showSelectionControls]="true"
+                [keyExpr]="'id'"
+                [displayExpr]="'physiotherapyCentralName'">
+              </dx-list>
+            </div>
+          </ng-container>
+        </div>
+      </dxi-item>
+
+    </dxi-item>
+  </dxi-item>
+
+
+
+  <!--10. Programdan beklentiler-->
+  <dxi-item [alignItemLabels]="true" itemType="group" caption="10. Programdan Beklentiler">
+    <!--Left group-->
+    <dxi-item [alignItemLabels]="true" itemType="group">
+      <dxi-item itemType="group" colCount="2">
+        <dxi-item [template]="'expectationsList'">
+        </dxi-item>
+        <div *dxTemplate="let data of 'expectationsList'">
+          <ng-container  *ngIf="isGeneralEvaluationFormLoaded" >
+
+              <div class="list-container">
+                <dx-scroll-view width="100%" height="100%">
+                  <div class="list-group">
+                    <a class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let expectation of generalEvaluationForm.expectationsAboutProgramCollection">
+                      <p class="mb-1" style="display: list-item; list-style-type: disc; list-style-position: inside; color: black">
+                        {{expectation.expectationContent}}
+                      </p>
+                    </a>
+                  </div>
+                </dx-scroll-view>
+              </div>
+
+          </ng-container>
+        </div>
+      </dxi-item>
+    </dxi-item>
+  </dxi-item>
 
 </dx-form>
 

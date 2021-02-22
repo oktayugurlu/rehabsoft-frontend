@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
-import{GeneralEvaluationForm} from "../../models/generalevaluationform/generalevaluationform"
 
 @Injectable({ providedIn: 'root' })
 export class GeneralFormService {
@@ -17,6 +16,16 @@ export class GeneralFormService {
 
   getBotoxImageByBotoxTreatmentId(id:number){
     return this.http.get(`${environment.API_BASE_PATH}/patient/generalevaluationform/getbotoximage/${id}`, {
+      responseType: 'blob'});
+  }
+
+  getEpiCrisisImageByAppliedSurgeryId(id:number){
+    return this.http.get(`${environment.API_BASE_PATH}/patient/generalevaluationform/getepicrisisimage/${id}`, {
+      responseType: 'blob'});
+  }
+
+  getOrthesisImage(id:number){
+    return this.http.get(`${environment.API_BASE_PATH}/patient/generalevaluationform/getorthesisimage/${id}`, {
       responseType: 'blob'});
   }
 }

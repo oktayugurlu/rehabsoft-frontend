@@ -1,14 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, SecurityContext} from '@angular/core';
 import notify from 'devextreme/ui/notify';
-import { GeneralEvaluationForm, } from 'src/app/models/generalevaluationform/generalevaluationform';
 import {GeneralFormService} from "../../../../shared/services/generalform.service"
 import { ViewChild} from '@angular/core';
 import {DxFileUploaderComponent, DxRadioGroupComponent} from "devextreme-angular";
 import {Hyperbilirubinemia} from "../../../../models/generalevaluationform/hyperbilirubinemia";
-import {AfterBirthReasonCerebralPalsy} from "../../../../models/generalevaluationform/afterbirthreasoncerebralpalsy";
-import {VisualImpairment} from "../../../../models/generalevaluationform/visualimpairment";
-import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
-import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 import { ActivatedRoute } from '@angular/router';
 import {AsynImageComponent} from "../../../../shared/components/asyn-image/asyn-image.component";
 import {environment} from "../../../../../environments/environment";
@@ -21,41 +16,16 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 })
 export class PatientGefdInformationComponent implements OnInit {
 
-  generalEvaluationForm:GeneralEvaluationForm;
+  generalEvaluationForm:any;
   tcKimlikNo:string;
 
   @ViewChild("eventRadioGroupMultiplePregnancy") eventRadioGroup: DxRadioGroupComponent;
   @ViewChild("dxFileUploaderComponentBotoxReport") eventBotoxReport: DxFileUploaderComponent;
+  isGeneralEvaluationFormLoaded:boolean=false;
 
-  appliedSurgeriesFiles:File[]=[];
-
-  deneme=true;
   loading = false;
   error = '';
-  submitted = false;
 
-  birthDateOption = {
-    stylingMode: 'outlined',
-    showClearButton:"true",
-    useMaskBehavior:"true",
-    displayFormat:"shortdate",
-    placeholder:'Uygulanma Tarihi',
-    // min:"minDate",
-    // max:"now",
-    // value:"now",
-    onValueChanged: (event)=>{
-      console.log(this.generalEvaluationForm.birthDate);
-    }
-    // disabledDates:"getDisabledDates"
-  };
-  lastBotoxDateOption = {
-    stylingMode: 'outlined',
-    showClearButton:"true",
-    useMaskBehavior:"true",
-    displayFormat:"shortdate",
-    onValueChanged:(event)=>{
-    }
-  }
 
   ////************** For 2 Collections in GeneralEvaluationForm bunlar sonra submitte tek tek kontrol edilip oyle collectionlarina set edilecek****************/////
   // Orthesis checkbox options
@@ -125,380 +95,12 @@ export class PatientGefdInformationComponent implements OnInit {
       ['right', false]
     ])]
   ]);
-  checkIsFalseBothLeftAndRightForValidation = (event)=>{
-    // console.log(event.formItem.label.text);
-    // console.log((this.orthesisMap.get(event.formItem.label.text).get('left')===true && this.orthesisMap.get(event.formItem.label.text).get('right')==false)
-    //   || (!this.orthesisMap.get(event.formItem.label.text).get('left')===false && this.orthesisMap.get(event.formItem.label.text).get('right')==true));
-    //
-    // return (this.orthesisMap.get(event.formItem.label.text).get('left') && !this.orthesisMap.get(event.formItem.label.text).get('right'))
-    //   || (!this.orthesisMap.get(event.formItem.label.text).get('left') && this.orthesisMap.get(event.formItem.label.text).get('right'));
-    return true;
-  }
-
-  orthesisTabanlikCheckBoxOptions = {
-    value: null,
-    onValueChanged: (e) => {
-      this.isOrthesisMap[0].value = e.component.option("value");
-    }
-  }
-  leftTabanlikCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Tabanlık', this.orthesisMap.get('Tabanlık').set('left',event.value));
-    },
-    text:"Sol taban"
-  }
-  rightTabanlikOrthesisCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Tabanlık', this.orthesisMap.get('Tabanlık').set('right',event.value));
-    },
-    text:"Sağ taban"
-  }
-  /////
-  orthesisTopukKapiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[1].value = event.component.option("value");
-    }
-  }
-  leftOrthesisTopukKapiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Topuk Kapı', this.orthesisMap.get('Topuk Kapı').set('left',event.value));
-    },
-    text:"Sol topuk"
-  }
-  rightOrthesisTopukKapiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Topuk Kapı', this.orthesisMap.get('Topuk Kapı').set('right',event.value));
-    },
-    text:"Sağ topuk"
-  }
-  /////
-  /////
-  orthesisAyakBilegiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[2].value = event.component.option("value");
-    },
-    width:22
-  }
-  leftOrthesisAyakBilegiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Ayak bileği hizasında ortez (supra-malleoler)', this.orthesisMap.get('Ayak bileği hizasında ortez (supra-malleoler)').set('left',event.value));
-    },
-    text:"Sol ayak bileği"
-  }
-  rightOrthesisAyakBilegiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Ayak bileği hizasında ortez (supra-malleoler)', this.orthesisMap.get('Ayak bileği hizasında ortez (supra-malleoler)').set('right',event.value));
-    },
-    text:"Sağ ayak bileği"
-  }/////
-  orthesisSabitAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[3].value = event.component.option("value");
-    }
-  }
-  leftOrthesisSabitAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Sabit Ayak-ayak bileği ortezi (AFO)', this.orthesisMap.get('Sabit Ayak-ayak bileği ortezi (AFO)').set('left',event.value));
-    },
-    text:"Sol Ayak"
-  }
-  rightOrthesisSabitAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Sabit Ayak-ayak bileği ortezi (AFO)', this.orthesisMap.get('Sabit Ayak-ayak bileği ortezi (AFO)').set('right',event.value));
-    },
-    text:"Sağ Ayak"
-  }/////
-  orthesisEklemliAyakCheckBoxOptions = {
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[4].value = event.component.option("value");
-    }
-  }
-  leftOrthesisEklemliAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', this.orthesisMap.get('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)').set('left',event.value));
-    },
-    text:"Sol Ayak"
-  }
-  rightOrthesisEklemliAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', this.orthesisMap.get('Eklemli Ayak-ayak bileği ortezi (eklemli AFO)').set('right',event.value));
-    },
-    text:"Sağ Ayak"
-  }/////
-  orthesisDinamikAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[5].value = event.component.option("value");
-    }
-  }
-  leftOrthesisDinamikAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dinamik ayak ayak bileği ortezi (DAFO)', this.orthesisMap.get('Dinamik ayak ayak bileği ortezi (DAFO)').set('left',event.value));
-    },
-    text:"Sol Ayak"
-  }
-  rightOrthesisDinamikAyakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dinamik ayak ayak bileği ortezi (DAFO)', this.orthesisMap.get('Dinamik ayak ayak bileği ortezi (DAFO)').set('right',event.value));
-    },
-    text:"Sağ Ayak"
-  }/////
-  orthesisBacakGeceCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[6].value = event.component.option("value");
-    }
-  }
-  leftOrthesisBacakGeceCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Bacaklar için gece splinti', this.orthesisMap.get('Bacaklar için gece splinti').set('left',event.value));
-    },
-    text:"Sol Bacak"
-  }
-  rightOrthesisBacakGeceCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Bacaklar için gece splinti', this.orthesisMap.get('Bacaklar için gece splinti').set('right',event.value));
-    },
-    text:"Sağ Bacak"
-  }/////
-  orthesisImmobilizerCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[7].value = event.component.option("value");
-    }
-  }
-  leftOrthesisImmobilizerCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('İmmobilizer', this.orthesisMap.get('İmmobilizer').set('left',event.value));
-    },
-    text:"Sol Omuz"
-  }
-  rightOrthesisImmobilizerCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('İmmobilizer', this.orthesisMap.get('İmmobilizer').set('right',event.value));
-    },
-    text:"Sağ Omuz"
-  }
-/////
-  orthesisKalcaAteliCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[8].value = event.component.option("value");
-    }
-  }
-  // leftOrthesisKalcaAteliCheckBoxOptions = {
-  //   value: null,
-  //   onValueChanged: (event)=>{
-  //     this.orthesisMap.set('Kalça ateli', this.orthesisMap.get('Kalça ateli').set('left',event.value));
-  //   },
-  //   text:"Sağ bacak"
-  // }
-  // rightOrthesisKalcaAteliCheckBoxOptions = {
-  //   value: null,
-  //   onValueChanged: (event)=>{
-  //     this.orthesisMap.set('Kalça ateli', this.orthesisMap.get('Kalça ateli').set('right',event.value));
-  //   }
-  // }/////
-  orthesisGovdeKorsesiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[9].value = event.component.option("value");
-    }
-  }
 
 
 
-
-  orthesisDirsekSiplintiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[10].value = event.component.option("value");
-    }
-  }
-  leftOrthesisDirsekSiplintiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dirsek splinti', this.orthesisMap.get('Dirsek splinti').set('left',event.value));
-    },
-    text:"Sağ Dirsek"
-  }
-  rightOrthesisDirsekSiplintiCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Dirsek splinti', this.orthesisMap.get('Dirsek splinti').set('right',event.value));
-    },
-    text:"Sol Dirsek"
-  }/////
-  orthesisBasParmakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.isOrthesisMap[11].value = event.component.option("value");
-    }
-  }
-  leftOrthesisBasParmakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Baş parmak ortezi', this.orthesisMap.get('Baş parmak ortezi').set('left',event.value));
-    },
-    text:"Sol Parmak"
-  }
-  rightOrthesisBasParmakCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.orthesisMap.set('Baş parmak ortezi', this.orthesisMap.get('Baş parmak ortezi').set('right',event.value));
-    },
-    text:"Sağ Parmak"
-  }
-
-  // coexisting disease checkbox
-  coexistingDiseaseMap = [
-    {name: 'Bilişsel Problem', value: false},
-    {name: 'Duyu Problemi', value: false},
-    {name: 'Davranış Problemi',value:  false},
-    {name: 'Konuşma Problemi', value: false},
-    {name: 'Uyku Problemi', value: false},
-    {name: 'Yutma Problemi', value: false},
-    {name: 'Kalça Problemi', value: false},
-    {name: 'Skolyoz', value: false}
-  ];
-  mentalProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[0].value = event.component.option("value");
-    }
-  }
-  hearingProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[1].value = event.component.option("value");
-    }
-  }
-  behaviorProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[2].value = event.component.option("value");
-    }
-  }
-  speakingProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[3].value = event.component.option("value");
-    }
-  }
-  sleepingProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[4].value = event.component.option("value");
-    }
-  }
-  swallowProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[5].value = event.component.option("value");
-    }
-  }
-  hipProblemCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[6].value = event.component.option("value");
-    }
-  }
-  skolyozCheckBoxOptions = {
-    value: null,
-    onValueChanged: (event)=>{
-      this.coexistingDiseaseMap[7].value = event.component.option("value");
-    }
-  }
-
-  /// PhysiotherapyCenter in PhysiotherapyPast
-  physiotherapyCenterMap = [
-    {name: 'Özel eğitim ve rehabilitasyon merkezi', value: false},
-    {name: 'Tıp merkezi-hastane', value: false},
-  ];
-  specialEducationCheckBoxOptions = {
-    value: null,
-    text: 'Özel eğitim ve rehabilitasyon merkezi',
-    onValueChanged: (event)=>{
-      this.physiotherapyCenterMap[0].value = event.component.option("value");
-    }
-  }
-  medicineCenterCheckBoxOptions = {
-    value: null,
-    text: 'Tıp merkezi-hastane',
-    onValueChanged: (event)=>{
-      this.physiotherapyCenterMap[1].value = event.component.option("value");
-    }
-  }
 
   ////************** For 2 Collections in GeneralEvaluationForm and 1 collection in field end ****************/////
   //For selectbox
-  educationLevelList = [
-    {
-      name: "Okuryazar değil",
-      value: "Okuryazar değil"
-    },{
-      name: "Okuryazar",
-      value: "Okuryazar"
-    },{
-      name: "İlkokul",
-      value: "İlkokul"
-    },{
-      name: "Ortaokul",
-      value: "Ortaokul"
-    },{
-      name: "Yüksek Okul",
-      value: "Yüksek Okul"
-    },{
-      name: "Lisans",
-      value: "Lisans"
-    },{
-      name: "Lisansüstü",
-      value: "Lisansüstü"
-    }];
-  typeOfPregnancyList = [
-    {
-    name: "Normal",
-    value: "Normal"
-    },{
-      name: "Tüp Bebek",
-      value: "Tüp Bebek"
-    },{
-      name: "Yardımcı Üreme Tekniği",
-      value: "Yardımcı Üreme Tekniği"
-    }];
-  multiplePregnancySelectBoxList = [
-    {
-      name: "İkiz",
-      value: 2
-    },{
-      name: "Üçüz",
-      value: 3
-    },{
-      name: "Dördüz",
-      value: 4
-    },{
-      name: "Beşiz",
-      value: 5
-    }];
   birthTypeSelectBoxList = [
     {
       name: "Normal vajinal ",
@@ -510,71 +112,11 @@ export class PatientGefdInformationComponent implements OnInit {
       name: "Acil sezaryen ",
       value: "Acil sezaryen "
     }];
-  causesOfAfterBirthCerebralPalsyList = [
-    {
-      name: "Travma",
-      value: "Travma"
-    },{
-      name: "Beyin tümörleri",
-      value: "Beyin tümörleri"
-    },{
-      name: "Boğulma öyküsü",
-      value: "Boğulma öyküsü"
-    },{
-      name: "Cerrahi sonrası durumlar",
-      value: "Cerrahi sonrası durumlar"
-    },{
-      name: "Kan dolanımı",
-      value: "Kan dolanımı"
-    },{
-      name: "Damar bozuklukları",
-      value: "Damar bozuklukları"
-    },{
-      name: "Beyin kanamaları",
-      value: "Beyin kanamaları"
-    }];
-  epilepsySelectBoxList = [
-    {
-      name: "Yok, hiç oluşmadı ",
-      value: "Yok, hiç oluşmadı "
-    },{
-      name: "Daha önce vardı devam etmiyor",
-      value: "Daha önce vardı devam etmiyor"
-    },{
-      name: "Var ilaçla kontrol altında",
-      value: "Var ilaçla kontrol altında"
-    },{
-      name: "Var ilaca dirençli",
-      value: "Var ilaca dirençli"
-    }];
-  genderSelectBoxList= [
-    {
-      name: "Erkek",
-      value: "Erkek"
-    },{
-      name: "Kız",
-      value: "Kız"
-    }];
-
-
-
 
   // Multiple pregnancy and others radio button
   // onIsMultiplePregnancyOptionValueChanged = (event) =>{
   //   console.log(this.generalEvaluationForm.isMultiplePregnancy);
   // }
-  isMultiplePregnancyList = [{name:'Var', value: true},{name:'Yok', value: false}];
-  isMultiplePregnancyOption = {
-    dataSource: this.isMultiplePregnancyList,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        this.generalEvaluationForm.multiplePregnancy = null;
-      }
-    }
-  };
   isRelativeMarriagelist = [{name:'Var', value: true},{name:'Yok', value: false}];
   isRelativeMarriageOption = {
     dataSource: this.isRelativeMarriagelist,
@@ -588,19 +130,6 @@ export class PatientGefdInformationComponent implements OnInit {
     layout:"horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
-  };
-  isApgarScorelist = [{name:'Evet', value: true},{name:'Hayır', value: false}];
-  isApgarScoreOption = {
-    dataSource: this.isApgarScorelist,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        this.generalEvaluationForm.apgarScore = 0;
-      }
-
-    }
   };
   isBirthAnoxialist = [{name:'Var', value: true},{name:'Yok', value: false}];
   isBirthAnoxiaOption = {
@@ -630,33 +159,6 @@ export class PatientGefdInformationComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isPregnancyInfectionInfoList = [{name:'Var', value: true},{name:'Yok', value: false}];
-  isPregnancyInfectionInfoOption = {
-    dataSource: this.isPregnancyInfectionInfoList,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value){
-        this.generalEvaluationForm.pregnancyInfectionInfo = null;
-      }
-    }
-  };
-  isPregnancyMedicineUsageInfoList = [{name:'Var', value: true},{name:'Yok', value: false}];
-  isPregnancyMedicineUsageInfoOption = {
-    dataSource: this.isPregnancyMedicineUsageInfoList,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        this.generalEvaluationForm.pregnancyMedicineUsageInfo = null;
-      }
-      else {
-        this.generalEvaluationForm.pregnancyMedicineUsageInfo = "";
-      }
-    }
-  };
   isPregnancyDrinkingList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isPregnancyDrinkingOption = {
     dataSource: this.isPregnancyDrinkingList,
@@ -672,17 +174,6 @@ export class PatientGefdInformationComponent implements OnInit {
     displayExpr: 'name'
   };
   isIntensiveCareList = [{name:'Kaldı', value: true},{name:'Kalmadı', value: false}];
-  isIntensiveCareOption = {
-    dataSource: this.isIntensiveCareList,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        this.generalEvaluationForm.intensiveCare = 0;
-      }
-    }
-  };
   oxygenSupportList = [{name:'Aldı', value: true},{name:'Almadı', value: false}];
   oxygenSupportOption = {
     dataSource: this.oxygenSupportList,
@@ -726,24 +217,6 @@ export class PatientGefdInformationComponent implements OnInit {
       }
     }
   };
-  isSleptHospitalForHyperbilirubinemiaList = [{name:'Yattı', value: true},{name:'Yatmadı', value: false}];
-  isSleptHospitalForHyperbilirubinemiaOption = {
-    dataSource: this.isSleptHospitalForHyperbilirubinemiaList,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        if( this.generalEvaluationForm.hyperbilirubinemia !==null){
-          this.generalEvaluationForm.hyperbilirubinemia.isPhototeraphy = null;
-          this.generalEvaluationForm.hyperbilirubinemia.hospitalDayTime = null;
-        }
-      }
-      else{
-        this.generalEvaluationForm.hyperbilirubinemia = new Hyperbilirubinemia();
-      }
-    }
-  };
   isPhototeraphyList = [{name:'Aldı', value: true},{name:'Almadı', value: false}];
   isPhototeraphyOption = {
     dataSource: this.isPhototeraphyList,
@@ -758,81 +231,33 @@ export class PatientGefdInformationComponent implements OnInit {
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isAfterBirthReasonCerebralPalsyList = [{name:'Var', value: true},{name:'Yok', value: false}];
-  isAfterBirthReasonCerebralPalsyOption = {
-    dataSource: this.isAfterBirthReasonCerebralPalsyList,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        this.generalEvaluationForm.afterBirthReasonCerebralPalsy = null;
-      }
-      else {
-        this.generalEvaluationForm.afterBirthReasonCerebralPalsy = new AfterBirthReasonCerebralPalsy();
-      }
-    }
-  };
-  isBotoxTreatmentList = [{name:'Oldu', value: true},{name:'Hiç olmadı', value: false}];
-  isBotoxTreatmentOption = {
-    dataSource: this.isBotoxTreatmentList,
-    layout:"horizontal",
-    valueExpr: 'value',
-    displayExpr: 'name'
-  };
   isVisualImpairmentList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isVisualImpairmentOption = {
     dataSource: this.isVisualImpairmentList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        this.generalEvaluationForm.visualimpairment = null;
-      }
-      else {
-        this.generalEvaluationForm.visualimpairment = new VisualImpairment();
-      }
-    }
+    displayExpr: 'name'
   };
   isHearingImpairmentList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isHearingImpairmentOption = {
     dataSource: this.isHearingImpairmentList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value){
-        this.generalEvaluationForm.hearingImpairment = null;
-      }
-      else{
-        this.generalEvaluationForm.hearingImpairment = new HearingImpairment();
-      }
-    }
+    displayExpr: 'name'
   };
   isHearingAidList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isHearingAidOption = {
     dataSource: this.isHearingAidList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-    }
+    displayExpr: 'name'
   };
   isPhysiotherapyPastList = [{name:'Var', value: true},{name:'Yok', value: false}];
   isPhysiotherapyPastOption = {
     dataSource: this.isPhysiotherapyPastList,
     layout:"horizontal",
     valueExpr: 'value',
-    displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
-        this.generalEvaluationForm.physiotherapyPast = null;
-      }
-      else {
-        this.generalEvaluationForm.physiotherapyPast = new PhysiotherapyPast();
-      }
-    }
+    displayExpr: 'name'
   };
 
 
@@ -843,10 +268,13 @@ export class PatientGefdInformationComponent implements OnInit {
       {
             this.tcKimlikNo= params.tckimlikno;
        });
+    this.generalEvaluationForm = {};
+    this.generalEvaluationForm["isVisualImpairment"] = false;
+    this.generalEvaluationForm["isHearingImpairment"] = false;
+    this.generalEvaluationForm["isPhysiotherapyPast"] = false;
   }
 
   ngOnInit() {
-    //console.log("isim:" + this.username);
     this.getGeneralEvaluationForm();
   }
 
@@ -855,21 +283,20 @@ export class PatientGefdInformationComponent implements OnInit {
   getGeneralEvaluationForm = ()=>  {
     this.generalFormService.getByTcKimlikNo(this.tcKimlikNo).subscribe(
     (data)=>{
-      console.log(data);
+      console.log("data", data);
       this.generalEvaluationForm = data;
+      this.isGeneralEvaluationFormLoaded = true;
       this.prepareDownloadLinkBotoxImage();
+
+      this.generalEvaluationForm["isVisualImpairment"] = this.generalEvaluationForm.visualimpairment !== undefined;
+      this.generalEvaluationForm["isHearingImpairment"] = this.generalEvaluationForm.hearingImpairment !== undefined;
+      this.generalEvaluationForm["isPhysiotherapyPast"] = this.generalEvaluationForm.physiotherapyPast !== undefined;
     },
     (error)=>{
       notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");
-    }
-  );
-
-}
-
-  fillBooleanGeneralForm=() => {
-
-
+    });
   }
+
 
 
   // ******* Applied Treatments start******** //
@@ -880,7 +307,7 @@ export class PatientGefdInformationComponent implements OnInit {
   // Botox Image //
   botoxImageFileUrl:SafeResourceUrl;
   botoxImageFileName:string;
-  showBotoxImage = (event)=>{
+  showBotoxImage = ()=>{
     this.imageUrlToDownload = `${environment.API_BASE_PATH}/patient/generalevaluationform/getbotoximage/${this.generalEvaluationForm.botoxTreatment.id}`;
     this.title = 'Botoks Resmi';
     this.isImagePopUpVisible = true;
@@ -898,8 +325,5 @@ export class PatientGefdInformationComponent implements OnInit {
     return url.split("/").pop();
   }
   // ******* Applied Treatments end******** //
-
-
-
 
 }

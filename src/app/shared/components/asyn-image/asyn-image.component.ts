@@ -1,5 +1,4 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from "@angular/core";
-import notify from "devextreme/ui/notify";
 import { switchMap,map } from 'rxjs/operators';
 
 import {BehaviorSubject, Observable} from "rxjs";
@@ -9,7 +8,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 @Component({
   selector: 'app-asyn-image-component',
   template: `
-    <img #image [src]="dataUrl$|async" [alt]="'asa'">
+    <img #image [src]="dataUrl$|async" [alt]="'asa'"
+         style="height: auto;width: auto;max-width: 100%;max-height: 100%;display: block;margin-left: auto;margin-right: auto;">
   `
 })
 export class AsynImageComponent  implements OnChanges, OnInit {
@@ -54,6 +54,4 @@ export class AsynImageComponent  implements OnChanges, OnInit {
     }
   }
 
-  downloadBotoxImage = (imageName:string) =>{
-  }
 }
