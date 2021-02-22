@@ -1,0 +1,51 @@
+<div class="dx-fieldset" *ngFor="let item of dataSource">
+  <div class="dx-field" *ngIf="item.fieldType == 'METIN'">
+    <div class="dx-field-label">Text Box</div>
+    <div class="dx-field-value">
+      <dx-text-box
+        [showClearButton]="true"
+        [value]="answers[item.fieldOrder]">
+      </dx-text-box>
+    </div>
+  </div>
+  <div class="dx-field" *ngIf="item.fieldType == 'SAYISAL'" >
+    <div class="dx-field-label">Number Box</div>
+    <div class="dx-field-value">
+      <dx-number-box
+        [showSpinButtons]="true"
+        [value]="answers[item.fieldOrder]">
+      </dx-number-box>
+    </div>
+  </div>
+  <div class="dx-field"  *ngIf="item.fieldType == 'EVET_HAYIR'">
+    <div class="dx-field-label">Select Box</div>
+    <div class="dx-field-value">
+      <dx-select-box
+        [items]="['EVET','HAYIR']"
+        [value]="answers[item.fieldOrder]">
+      </dx-select-box>
+    </div>
+  </div>
+  <div class="dx-field" *ngIf="item.fieldType == 'SECMELI'">
+    <div class="dx-field-label">Select Box</div>
+    <div class="dx-field-value">
+      <dx-select-box
+        [items]="item.formFieldDefaultValueCollection"
+        [value]="answers[item.fieldOrder]">
+      </dx-select-box>
+    </div>
+  </div>
+  <div class="dx-field" *ngIf="item.fieldType == 'COKLU_SECMELI'">
+    <div class="dx-field-label">Tag Box</div>
+    <div class="dx-field-value">
+      <dx-tag-box
+        [items]="item.formFieldDefaultValueCollection"
+        [value]="answers[item.fieldOrder]"
+        placeholder="..."
+        valueExpr="id"></dx-tag-box>
+    </div>
+  </div>
+</div>
+
+
+<!-- [displayExpr]="displayExpr" -->

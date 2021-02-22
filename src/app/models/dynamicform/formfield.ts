@@ -6,7 +6,7 @@ export class FormField{
   fieldName: string;
   fieldType: string;
   fieldOrder: number;
-  defaultValues: FormFieldDefaultValue[];
+  formFieldDefaultValueCollection: FormFieldDefaultValue[];
 
   // Its just used for front end purpose
   key:string;

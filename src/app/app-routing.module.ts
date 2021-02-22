@@ -33,7 +33,7 @@ import {
   DxPopupModule,
   DxProgressBarModule,
   DxScrollViewModule,
-  DxTabPanelModule,
+  DxTabPanelModule, DxTextBoxModule,
   DxToolbarModule
 } from 'devextreme-angular';
 import {
@@ -75,6 +75,8 @@ import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-fo
 import component from 'devextreme/core/component';
 import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component';
 import {DefaultValueDataGridComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component';
+import {DynamicFormRequestComponent} from './pages/user/dynamic-form-request/dynamic-form-request.component';
+import {AnswerDynamicFormComponent} from './pages/user/dynamic-form-request/answer-dynamic-form/answer-dynamic-form.component';
 
 
 
@@ -97,7 +99,9 @@ const routes: Routes = [
       { path: 'task', component: UserTasksComponent },
       { path: 'general-evaluation-form', component: NecessaryFormsComponent },
       { path: 'user-notification', component: UserNotificationComponent },
-      { path: 'user-video-submit', component: UserResponseVideoRequestComponent}
+      { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
+      { path: 'dynamic-form-request', component: DynamicFormRequestComponent},
+      { path: 'answer-dynamic-form', component: AnswerDynamicFormComponent}
     ]
   },
   {
@@ -150,7 +154,7 @@ const routes: Routes = [
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule],
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTextBoxModule],
 
   exports: [RouterModule],
   declarations: [
@@ -158,6 +162,6 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent]
+    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent]
 })
 export class AppRoutingModule { }

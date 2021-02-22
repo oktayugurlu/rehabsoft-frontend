@@ -1,16 +1,16 @@
-<!-- List for media start-->
+
 <div id="form-container-1" style="padding:10px;">
-  <dx-scroll-view width="100%" height="250px">
+  <dx-scroll-view width="100%" height="200px">
     <dx-form id="list" [colCount]="1">
-      <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="1" caption="Dosyalar Sıralama">
+      <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="1" >
 
         <dxi-item [alignItemLabels]="true" itemType="group" >
           <dxi-item [template]="'noteListTemplate'">
           </dxi-item>
           <div *dxTemplate="let data of 'noteListTemplate'">
             <b>
-              <p>
-                Default valuelar
+              <p style="color: #00A7AC">
+                Seçenekler:
               </p>
             </b>
           </div>
@@ -26,9 +26,9 @@
                   [items]="dataSource"
                   [repaintChangesOnly]="true"
                   keyExpr="id"
+                  displayExpr="valueName"
                   [allowItemDeleting]="true"
-                  [itemDeleteMode]="'static'"
-                >
+                  [itemDeleteMode]="'static'">
                 </dx-list>
               </div>
             </div>
@@ -47,24 +47,36 @@
   <dx-form [formData]="defaultValue">
 
     <!-- Video or Image uploading part -->
-    <dxi-item [alignItemLabels]="true" itemType="group" caption="Dosya Ekleme">
+    <dxi-item [alignItemLabels]="true" itemType="group" >
+
+      <dxi-item [alignItemLabels]="true" itemType="group" >
+        <dxi-item [template]="'secmeli'">
+        </dxi-item>
+        <div *dxTemplate="let data of 'secmeli'">
+          <b>
+            <p style="color: #00A7AC">
+              Seçenek Ekleme:
+            </p>
+          </b>
+        </div>
+      </dxi-item>
+
 
       <dxi-item [alignItemLabels]="true" itemType="group" >
         <dxi-item [template]="'noteFileMediaTemplate'">
         </dxi-item>
         <div *dxTemplate="let data of 'noteFileMediaTemplate'">
-          <p>
-            Bu egzersiz için hastaya gösterilmesi için eklemek istediğiniz resim veya videoyu buraya ekleyebilirsiniz
+          <p >
+            Bu form sorusu için hastaya gönderilmesini istediğiniz seçenekleri buradan ekleyebilirsiniz.
           </p>
         </div>
       </dxi-item>
 
       <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="2">
-
         <dxi-item [alignItemLabels]="true" itemType="group" >
-          <dxi-item dataField="text" editorType="dxTextBox"
-                    [editorOptions]="{ stylingMode: 'outlined', placeholder: ''}">
-            <dxi-validation-rule type="required" message="Başlık gerekli"></dxi-validation-rule>
+          <dxi-item dataField="valueName" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'outlined'}">
+            <dxi-validation-rule min="1" max="100" type="required" message="Başlık gerekli"></dxi-validation-rule>
             <dxo-label
               [text]="'Secmeli Soru'" location="top" [visible]="true" >
             </dxo-label>
@@ -85,9 +97,7 @@
             </div>
           </div>
         </dxi-item>
-
       </dxi-item>
     </dxi-item>
-
   </dx-form>
 </div>

@@ -1,6 +1,7 @@
 import {Component, Input, AfterViewInit} from '@angular/core';
 import {FormFieldDefaultValue} from '../../../../../../models/dynamicform/formfielddefaultvalue';
 import {FormDynamic} from '../../../../../../models/dynamicform/formdynamic';
+import notify from 'devextreme/ui/notify';
 
 
 
@@ -17,19 +18,25 @@ export class DefaultValueDataGridComponent implements AfterViewInit {
   @Input()
   key:number;
 
+  @Input()
   dataSource: FormFieldDefaultValue[];
   defaultValue :FormFieldDefaultValue;
 
-
-  ngAfterViewInit() {
-    this.dataSource = this.formFieldDefaultValueMap[this.key];
+  constructor(){
     this.defaultValue = new FormFieldDefaultValue();
   }
 
+  ngAfterViewInit() {
+  }
+
   addMediaToList = (e) => {
-    console.log("detay:",this.key);
-    console.log("detay:",this.formFieldDefaultValueMap);
+    if(this.defaultValue.valueName === '' || this.defaultValue === null || this.defaultValue.valueName === undefined){
+      notify("HATA: Lütfen seçenek ismini giriniz!!!", "error");
+      return;
+    }
+
     this.formFieldDefaultValueMap[this.key].push(this.defaultValue);
     this.defaultValue = new FormFieldDefaultValue();
+
   }
 }
