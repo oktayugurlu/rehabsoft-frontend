@@ -101,7 +101,7 @@ const routes: Routes = [
       { path: 'user-notification', component: UserNotificationComponent },
       { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
       { path: 'dynamic-form-request', component: DynamicFormRequestComponent},
-      { path: 'answer-dynamic-form', component: AnswerDynamicFormComponent}
+      { path: 'answer-dynamic-form/:formID', component: AnswerDynamicFormComponent}
     ]
   },
   {
