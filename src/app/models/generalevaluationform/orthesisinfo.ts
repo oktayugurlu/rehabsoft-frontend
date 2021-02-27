@@ -4,6 +4,7 @@ export class OrthesisInfo{
     this.leftPart = leftPart;
     this.orthesisName = orthesisName;
   }
+  id: number;
   rightPart: boolean;
   leftPart: boolean;
   orthesisName: string;

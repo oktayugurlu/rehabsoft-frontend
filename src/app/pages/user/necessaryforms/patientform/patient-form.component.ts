@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Parent} from "../../../../models/parent";
 import {AuthenticationService} from "../../../../security/authentication.service";
 import {Patient} from "../../../../models/patient";
@@ -18,16 +18,17 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
   currentUser: any;
 
 // Patient variable
+  @Input()
   addPhoneButtonOptions1: any;
+  @Input()
   addPhoneButtonOptions2: any;
-  phoneOptions1: any[] = [];
-  phoneOptions2: any[] = [];
-  patientForm:any = {
-    parent1: new Parent(),
-    parent2: new Parent(),
-    phoneNumberListForParent1: [],
-    phoneNumberListForParent2: [],
-  }
+  @Input()
+  phoneOptions1: any;
+  @Input()
+  phoneOptions2: any;
+
+  @Input()
+  patientForm:any;
 
   @Output() nextStepper: EventEmitter<any> = new EventEmitter();
   goNextForm = (event)=>{
@@ -35,6 +36,7 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
     if (!event.validationGroup.validate().isValid) {
       return;
     }
+    this.loading = true;
     this.fillParenCollectionFromPatientFrom();
     this.nextStepper.emit();
   }
@@ -84,86 +86,13 @@ export class PatientFormComponent implements OnInit, OnDestroy  {
 
 
   constructor(private userService: UserService, private authenticationService: AuthenticationService) {
-
-
-    this.addPhoneButtonOptions1 = {
-      icon: "add",
-      text: "Add phone",
-      onClick: () => {
-        this.patientForm.phoneNumberListForParent1.push("");
-        this.phoneOptions1 = this.getPhonesOptions1(this.patientForm.phoneNumberListForParent1);
-      }
-    };
-
-    this.addPhoneButtonOptions2 = {
-      icon: "add",
-      text: "Add phone",
-      onClick: () => {
-        this.patientForm.phoneNumberListForParent2.push("");
-        this.phoneOptions2 = this.getPhonesOptions2(this.patientForm.phoneNumberListForParent2);
-      }
-    };
   }
 
   ngOnInit() {
   }
   ngOnDestroy() {
-    // window.clearInterval();
   }
 
-  //Patient form event handler start
-  getPhonesOptions1(phones: any) {
-    let options = [];
-    for (let i = 0; i < phones.length; i++){
-      options.push(this.generateNewPhoneOptions1(i));
-    }
-    return options;
-  }
-
-  getPhonesOptions2(phones: any) {
-    let options = [];
-    for (let i = 0; i < phones.length; i++){
-      options.push(this.generateNewPhoneOptions2(i));
-    }
-    return options;
-  }
-
-  generateNewPhoneOptions1(index: number) {
-    return {
-      mask: "(X00) 000-0000",
-      maskRules: {"X": /[01-9]/},
-      buttons: [{
-        name: "trash",
-        location: "after",
-        options: {
-          stylingMode: "text",
-          icon: "trash",
-          onClick: () => {
-            this.patientForm.phoneNumberListForParent1.splice(index, 1);
-            this.phoneOptions1 = this.getPhonesOptions1(this.patientForm.phoneNumberListForParent1);
-          }
-        }
-      }]
-    }
-  }
-  generateNewPhoneOptions2(index: number) {
-    return {
-      mask: "(X00) 000-0000",
-      maskRules: {"X": /[01-9]/},
-      buttons: [{
-        name: "trash",
-        location: "after",
-        options: {
-          stylingMode: "text",
-          icon: "trash",
-          onClick: () => {
-            this.patientForm.phoneNumberListForParent2.splice(index, 1);
-            this.phoneOptions1 = this.getPhonesOptions1(this.patientForm.phoneNumberListForParent1);
-          }
-        }
-      }]
-    }
-  }
 
 
 }

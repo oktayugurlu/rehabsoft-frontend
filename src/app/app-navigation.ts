@@ -5,7 +5,7 @@ export const userNavigation = [
     icon: 'home'
   },
   {
-    text: 'Profile',
+    text: 'Profil',
     path: '/user/profile',
     icon: 'user'
   },
@@ -13,6 +13,10 @@ export const userNavigation = [
     text: 'Video İstekleri',
     path: '/user/user-video-submit',
     icon: 'runner'},
+    {
+      text: 'Mesajlar',
+      path: '/user/message',
+      icon: 'message'},
   {
     text: 'Form İstekleri',
     path: '/user/dynamic-form-request',

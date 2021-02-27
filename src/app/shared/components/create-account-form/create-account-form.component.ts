@@ -62,8 +62,14 @@ export class CreateAccountFormComponent {
       .subscribe(
         data => {
           notify(JSON.stringify(data.responseMessage));
-          this.router.navigate(['/login']);
-          // this.router.navigate(['/login']);
+         
+          if(data.responseType===0){//if there is a problem but it isn't users fault
+            this.loading=false;
+          }
+          else{
+            this.router.navigate(['/login']);
+          }
+          
         },
         error => {
           notify(JSON.stringify(error.responseMessage));

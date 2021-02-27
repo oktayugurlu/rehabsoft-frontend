@@ -1,8 +1,8 @@
 <mdb-carousel [interval]="0" [animation]="'slide'">
 
     <mdb-carousel-item *ngFor="let notification of dataSource; let i = index">
-      <div *ngIf="dataSource[i].isImage; else elseBlock" style="height: 500px;margin: auto;">
-        <app-exercise-image-component [src]="dataSource[i].videoRequestUrl" ></app-exercise-image-component>
+      <div *ngIf="dataSource[i].isImage; else elseBlock" style="height: 400px;margin: auto;">
+        <app-asyn-image-component [src]="dataSource[i].videoRequestUrl" ></app-asyn-image-component>
       </div>
 
       <ng-template #elseBlock>

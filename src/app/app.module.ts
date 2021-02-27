@@ -23,7 +23,7 @@ import {VideorequestService} from "./shared/services/videorequest.service"
 import {DxSelectBoxModule, DxTabPanelModule } from 'devextreme-angular';
 
 import { CommonModule } from '@angular/common';
-import { GeneralEvaluationFormComponent } from './pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component';
+import { DemographicFeaturesComponent } from './pages/user/necessaryforms/demographic-features/demographic-features.component';
 import { PatientFormComponent } from './pages/user/necessaryforms/patientform/patient-form.component';
 import {UserService} from "./shared/services/user.service";
 import {ExerciseService} from "./shared/services/exercise.service";
@@ -33,11 +33,13 @@ import { PatientGefdInformationComponent } from './pages/doctor/patientinformati
 import { GeneralInformationComponent } from './pages/doctor/patientinformation/general-information/general-information.component';
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
 import {ResponseVideoRequestService} from "./shared/services/response-video-request.service";
+import { ChatComponent } from './shared/components/chat/chat.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent],
+    AppComponent
+    ],
   imports: [
     BrowserModule,
     CommonModule,

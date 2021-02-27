@@ -29,12 +29,14 @@ import { CommonModule } from '@angular/common';
 
 // Devextreme
 import {
-  DxListModule,
-  DxPopupModule,
-  DxProgressBarModule,
-  DxScrollViewModule,
-  DxTabPanelModule, DxTextBoxModule,
-  DxToolbarModule
+    DxListModule,
+    DxPopupModule,
+    DxProgressBarModule,
+    DxScrollViewModule,
+    DxTabPanelModule,
+    DxToolbarModule,
+    DxTooltipModule,
+    DxTextBoxModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -51,7 +53,7 @@ import {
 import { WavesModule } from 'angular-bootstrap-md';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { PatientFormComponent } from "./pages/user/necessaryforms/patientform/patient-form.component";
-import { GeneralEvaluationFormComponent } from "./pages/user/necessaryforms/generalevaluationform/general-evaluation-form.component";
+import { DemographicFeaturesComponent } from "./pages/user/necessaryforms/demographic-features/demographic-features.component";
 import { UserNotificationComponent } from "./pages/user/notifiaction/user-notification.component";
 import { DoctorExerciseManagmentComponent } from './pages/doctor/exerciseManagment/doctor-exerciseManagment.component';
 import { DoctorCreateExerciseComponent } from "./pages/doctor/exerciseManagment/createexercise/doctor-createexercise.component";
@@ -68,16 +70,30 @@ import {NotificationListComponent} from "./shared/components/notification-list/n
 import {UserResponseVideoRequestComponent} from './pages/user/response-video-request/user-response-video-request.component';
 
 import {ExerciseMediaCarouselComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-media-carousel.component";
-import {ExerciseImageComponent} from "./shared/components/view-exercise/exercise-media-carousel/exercise-image/exercise-image.component";
+import {AsynImageComponent} from "./shared/components/asyn-image/asyn-image.component";
 import {UserVideoSubmitPopupComponent} from "./pages/user/response-video-request/user-video-submit-popup/user-video-submit-popup.component";
 import {ViewResponseComponent} from "./pages/doctor/patientinformation/video-request/view-response/view-response.component";
+import { MessageComponent } from './pages/doctor/patientinformation/message/message.component';
+import { PatientMessageComponent } from './pages/user/message/message.component';
+import { ChatComponent } from './shared/components/chat/chat.component';
+import {PhysicalAppearanceComponent} from "./pages/user/necessaryforms/physical-preferences/physical-appearance.component";
+import {PrenatalFeaturesComponent} from "./pages/user/necessaryforms/prenatal-features/prenatal-features.component";
+import {BirthFeaturesComponent} from "./pages/user/necessaryforms/birth-features/birth-features.component";
+import {AfterBirthFeaturesComponent} from "./pages/user/necessaryforms/after-birth-features/after-birth-features.component";
+import {AfterBirthCerebralPalsyReasonsComponent} from "./pages/user/necessaryforms/after-birth-cerebral-palsy-causes/after-birth-cerebral-palsy-reasons.component";
+import {AppliedTreatmentsComponent} from "./pages/user/necessaryforms/applied-treatments/applied-treatments.component";
+import {CoexistingDiseasesComponent} from "./pages/user/necessaryforms/coexisting-diseases/coexisting-diseases.component";
+import {PhysiotherapyPastComponent} from "./pages/user/necessaryforms/physiotherapy-past/physiotherapy-past.component";
+import {ExpectationsAboutProgramComponent} from "./pages/user/necessaryforms/expectations-about-program/expectations-about-program.component";
+import {AppliedSurgeryDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/applied-surgery-data-grid/applied-surgery-data-grid.component";
+import {OrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/orthesis-info-data-grid/orthesis-info-data-grid.component";
+import {OtherOrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/other-orthesis-info-data-grid/other-orthesis-info-data-grid.component";
 import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-form/dynamic-form.component';
 import component from 'devextreme/core/component';
 import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component';
 import {DefaultValueDataGridComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component';
 import {DynamicFormRequestComponent} from './pages/user/dynamic-form-request/dynamic-form-request.component';
 import {AnswerDynamicFormComponent} from './pages/user/dynamic-form-request/answer-dynamic-form/answer-dynamic-form.component';
-
 
 
 
@@ -100,8 +116,11 @@ const routes: Routes = [
       { path: 'general-evaluation-form', component: NecessaryFormsComponent },
       { path: 'user-notification', component: UserNotificationComponent },
       { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
+      { path: 'message', component: PatientMessageComponent},
       { path: 'dynamic-form-request', component: DynamicFormRequestComponent},
       { path: 'answer-dynamic-form/:formID', component: AnswerDynamicFormComponent}
+
+
     ]
   },
   {
@@ -137,6 +156,7 @@ const routes: Routes = [
           { path: 'general-info', component: GeneralInformationComponent },
           { path: 'usergefd', component: PatientGefdInformationComponent },
           { path: 'video-request', component: VideoRequestComponent },
+          { path: 'message', component: MessageComponent },
           { path: 'dynamic-form', component: DynamicFormComponent},
           { path: 'assign-form', component: AssignFormComponent}
         ]
@@ -145,7 +165,8 @@ const routes: Routes = [
     ]
   },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: CreateAccountFormComponent }
+  { path: 'register', component: CreateAccountFormComponent },
+  { path: 'chat', component: ChatComponent }
 
 ];
 
@@ -154,14 +175,18 @@ const routes: Routes = [
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTextBoxModule],
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule],
 
   exports: [RouterModule],
   declarations: [
     PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
-    PatientFormComponent, GeneralEvaluationFormComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
+    PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent]
+     UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
+    BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
+    PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent, AppliedSurgeryDataGridComponent
+    ,OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent
+  ]
 })
 export class AppRoutingModule { }
