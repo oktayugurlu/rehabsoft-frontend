@@ -74,12 +74,9 @@ export class CreateAccountFormComponent {
   }
 
   confirmPassword = (e: { value: string }) => {
-    console.log("password: ",this.registerForm.password);
-    console.log("confirmPassword: ",e.value);
     if(this.registerForm.password !== '' && e.value !== ''){
       return this.registerForm.password === e.value;
-    }
-    console.log("true mu:");
+    } 
     return true;
   }
 
