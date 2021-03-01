@@ -1,14 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import {Component, NgModule, ViewChild} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { DxFormModule } from 'devextreme-angular/ui/form';
 import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
 import notify from 'devextreme/ui/notify';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../../security/authentication.service';
-import {Patient} from '../../../models/patient';
-import {Parent} from '../../../models/parent';
-import {Phone} from '../../../models/phone';
 
 
 @Component({
@@ -29,11 +26,11 @@ export class CreateAccountFormComponent {
               private authenticationService: AuthenticationService) {
     this.registerForm = {
       username: '',
+      tcKimlikNo: '',
       password:  '',
       firstName: '',
       surname:  '',
       email: '',
-      confirmPassword: '',
       confirmedPassword: ''
     };
   }
@@ -45,7 +42,7 @@ export class CreateAccountFormComponent {
 
   register(event) {
 
-    this.registerForm.username = this.registerForm.patient.tcKimlikNo.trim();
+    this.registerForm.username.trim();
     this.registerForm.firstName.trim();
     this.registerForm.surname.trim();
     this.registerForm.email.trim();
@@ -62,14 +59,12 @@ export class CreateAccountFormComponent {
       .subscribe(
         data => {
           notify(JSON.stringify(data.responseMessage));
-         
           if(data.responseType===0){//if there is a problem but it isn't users fault
             this.loading=false;
           }
           else{
             this.router.navigate(['/login']);
           }
-          
         },
         error => {
           notify(JSON.stringify(error.responseMessage));
@@ -79,11 +74,12 @@ export class CreateAccountFormComponent {
   }
 
   confirmPassword = (e: { value: string }) => {
-    if(this.registerForm.password !== '' && this.registerForm.confirmedPassword !== ''){
-      console.log(this.registerForm.password);
-      console.log(this.registerForm.confirmedPassword);
-      return this.registerForm.password === this.registerForm.confirmedPassword;
+    console.log("password: ",this.registerForm.password);
+    console.log("confirmPassword: ",e.value);
+    if(this.registerForm.password !== '' && e.value !== ''){
+      return this.registerForm.password === e.value;
     }
+    console.log("true mu:");
     return true;
   }
 
