@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: 'admin-home.component.html',
@@ -6,5 +7,21 @@ import { Component } from '@angular/core';
 })
 
 export class AdminHomeComponent {
-  constructor() {console.log('----------------constructor');}
+  constructor(private router:Router) {console.log('----------------constructor');}
+
+
+
+
+  DoctorButtonNavigate = ()=>{
+    this.router.navigateByUrl('/admin/doctorscrud');
+  }
+
+  AdminButtonNavigate = ()=>{
+    this.router.navigateByUrl('/admin/adminscrud');
+
+
+  }
+
+
+
 }

@@ -51,17 +51,17 @@ export const adminNavigation = [
     icon: 'home'
   },
   {
-    text: 'Examples',
-    icon: 'folder',
-    items: [
-      {
-        text: 'Profile',
-        path: '/admin/profile'
-      },
-      {
-        text: 'Tasks',
-        path: '/admin/tasks'
-      }
-    ]
+    text:"Hasta Listesi",
+    icon:"group"
+  },
+  {
+    text: 'Doktor Listesi',
+    path: '/admin/doctorscrud',
+    icon:"user"
+  },
+  {
+    text: 'Admin Listesi',
+    path:"/admin/adminscrud",
+    icon:"user"
   }
 ];

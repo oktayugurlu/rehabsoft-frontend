@@ -83,6 +83,11 @@ import {AppliedTreatmentsComponent} from "./pages/user/necessaryforms/applied-tr
 import {CoexistingDiseasesComponent} from "./pages/user/necessaryforms/coexisting-diseases/coexisting-diseases.component";
 import {PhysiotherapyPastComponent} from "./pages/user/necessaryforms/physiotherapy-past/physiotherapy-past.component";
 import {ExpectationsAboutProgramComponent} from "./pages/user/necessaryforms/expectations-about-program/expectations-about-program.component";
+import { DoctorsCrudComponent } from './pages/admin/doctors-crud/doctors-crud.component';
+import { NewAccountComponent } from './pages/admin/new-account/new-account.component';
+import { AdminsCrudComponent } from './pages/admin/admins-crud/admins-crud.component';
+import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-account/new-admin-account.component';
+import { NewDoctorAccountComponent } from './pages/admin/doctors-crud/new-doctor-account/new-doctor-account.component';
 
 
 
@@ -119,7 +124,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: AdminHomeComponent },
       { path: 'profile', component: AdminProfileComponent },
-      { path: 'task', component: AdminTasksComponent }
+      { path: 'doctorscrud', component: DoctorsCrudComponent },
+      { path: 'adminscrud', component: AdminsCrudComponent }
     ]
   },
   {
@@ -164,12 +170,14 @@ const routes: Routes = [
 
   exports: [RouterModule],
   declarations: [
-    PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,
+    PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,AdminsCrudComponent,
+    NewAccountComponent,NewDoctorAccountComponent,
+    NewAdminAccountComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
     ExerciseImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
-    PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent ]
+    PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent ]
 })
 export class AppRoutingModule { }
