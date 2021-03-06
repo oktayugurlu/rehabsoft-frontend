@@ -86,6 +86,8 @@ import {ExpectationsAboutProgramComponent} from "./pages/user/necessaryforms/exp
 import {AppliedSurgeryDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/applied-surgery-data-grid/applied-surgery-data-grid.component";
 import {OrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/orthesis-info-data-grid/orthesis-info-data-grid.component";
 import {OtherOrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/other-orthesis-info-data-grid/other-orthesis-info-data-grid.component";
+import {Conf} from "./pages/webrtc/conf";
+import {IndexHTML} from "./pages/webrtc/indexhtml";
 
 
 
@@ -153,7 +155,9 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: CreateAccountFormComponent },
-  { path: 'chat', component: ChatComponent }
+  { path: 'chat', component: ChatComponent },
+  { path: 'conf', component: Conf },
+  { path: 'indexhtml', component: IndexHTML }
 
 ];
 
@@ -173,7 +177,8 @@ const routes: Routes = [
     AsynImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent, AppliedSurgeryDataGridComponent
-    ,OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent
+    ,OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent,
+    IndexHTML, Conf
   ]
 })
 export class AppRoutingModule { }
