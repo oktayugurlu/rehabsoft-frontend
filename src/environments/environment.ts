@@ -2,10 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// export const environment = {
+//   production: false,
+//   API_BASE_PATH:"http://localhost:8080/api",
+//   API_BASE_PATH_WS:"ws://localhost:8080/api"
+// };
+
 export const environment = {
-  production: false,
-  API_BASE_PATH:"http://localhost:8080/api",
-  API_BASE_PATH_WS:"ws://localhost:8080/api"
+  production: true,
+  API_BASE_PATH:"https://rehabsoft-backend.herokuapp.com/api",
+  API_BASE_PATH_WS:"wss://rehabsoft-backend.herokuapp.com/api"
 };
 
 /*
