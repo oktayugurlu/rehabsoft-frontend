@@ -2,6 +2,13 @@
 {
   "name": "rehabsoft-frontend",
   "version": "0.0.0",
+  "budgets": [
+    {
+      "type": "initial",
+      "maximumWarning": "50mb",
+      "maximumError": "55mb"
+    }
+  ],
   "scripts": {
     "ng": "ng",
     "heroku-postbuild": "ng build --prod && npm install -g http-server-spa",
