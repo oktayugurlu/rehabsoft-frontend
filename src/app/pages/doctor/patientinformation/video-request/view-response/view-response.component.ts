@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {ResponseVideoRequest} from "../../../../../models/responsevideorequest/responsevideorequest";
 import {ResponseVideoRequestService} from "../../../../../shared/services/response-video-request.service";
+import {environment} from "../../../../../../environments/environment";
 
 @Component({
   selector: 'app-view-response-component',
@@ -41,7 +42,7 @@ export class ViewResponseComponent implements OnInit, OnDestroy{
 
     exerciseVideoListPrepared.forEach(requestedVideo =>{
       let fileType = requestedVideo.videoUrl.split(".").pop();
-      requestedVideo["videoRequestUrl"] = `http://localhost:8080/video/stream/requested-video/${fileType}/${requestedVideo.id}`;
+      requestedVideo["videoRequestUrl"] = `${environment.API_BASE_PATH}/video/stream/requested-video/${fileType}/${requestedVideo.id}`;
     });
 
     this.requestedVideoListPrepared = exerciseVideoListPrepared;

@@ -4,7 +4,7 @@
   <dxi-item [alignItemLabels]="true" itemType="group" caption="Kullanıcı ve Hasta Bilgileri" [colCount]="2">
     <!--left group-->
     <dxi-item [alignItemLabels]="true" itemType="group">
-      <dxi-item dataField="patient.tcKimlikNo" editorType="dxTextBox"
+      <dxi-item dataField="username" editorType="dxTextBox"
                 [editorOptions]="{ stylingMode: 'filled', placeholder: 'Hastanın TC Kimlik Numarası'}">
         <dxi-validation-rule type="required" message="TC kimlik numarası gerekli"></dxi-validation-rule>
         <dxi-validation-rule
@@ -23,8 +23,7 @@
       <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
                 [editorOptions]="{ stylingMode: 'filled', placeholder: 'Şifreyi Onayla', mode: 'password' }">
         <dxi-validation-rule type="required" message="Şifre gerekli"></dxi-validation-rule>
-        <dxi-validation-rule type="custom" message="Şifre uyuşmuyor" [validationCallback]="confirmPassword">
-        </dxi-validation-rule>
+        <dxi-validation-rule type="custom" message="Şifre uyuşmuyor" reevaluate="true" [validationCallback]="confirmPassword"></dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Şifreyi Onayla"></dxo-label>
       </dxi-item>
     </dxi-item>

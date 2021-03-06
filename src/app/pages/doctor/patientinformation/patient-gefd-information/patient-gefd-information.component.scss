@@ -48,3 +48,29 @@
   padding: 60px 23px 13px;
   alignment: center;
 }
+
+::ng-deep .botox-image-title-container{
+  width:10px
+}
+
+::ng-deep #data-grid{
+  padding: 0px 23px 13px;
+  alignment: center;
+}
+
+::ng-deep .list-container{
+  background-color: whitesmoke;
+  padding: 10px;
+}
+
+::ng-deep .dx-scrollview-content{
+  max-height: 250px;
+}
+
+::ng-deep .dot {
+  height: 25px;
+  width: 25px;
+  background-color: black;
+  border-radius: 50%;
+  display: inline-block;
+}
