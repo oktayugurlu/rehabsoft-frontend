@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "heroku-postbuild": "ng build --configuration=production --prod && npm install -g http-server-spa",
+    "heroku-postbuild": "ng build --configuration=production",
     "start": "http-server-spa dist/rehabsoft-frontend index.html $PORT",
     "build": "ng build",
     "test": "ng test",
