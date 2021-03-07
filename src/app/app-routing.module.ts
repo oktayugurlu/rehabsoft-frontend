@@ -94,6 +94,11 @@ import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-for
 import {DefaultValueDataGridComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component';
 import {DynamicFormRequestComponent} from './pages/user/dynamic-form-request/dynamic-form-request.component';
 import {AnswerDynamicFormComponent} from './pages/user/dynamic-form-request/answer-dynamic-form/answer-dynamic-form.component';
+import {ViewDynamicFormComponent} from './pages/user/dynamic-form-request/view-dynamic-form/view-dynamic-form.component';
+import {ViewFormComponent} from './pages/doctor/patientinformation/dynamic-form/view-form/view-form.component';
+import {FormTemplatesComponent} from './pages/doctor/form-templates/form-templates.component';
+import {CreateTemplateComponent} from './pages/doctor/form-templates/create-template/create-template.component';
+import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template/view-template.component';
 
 
 
@@ -118,8 +123,8 @@ const routes: Routes = [
       { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
       { path: 'message', component: PatientMessageComponent},
       { path: 'dynamic-form-request', component: DynamicFormRequestComponent},
-      { path: 'answer-dynamic-form/:formID', component: AnswerDynamicFormComponent}
-
+      { path: 'answer-dynamic-form/:formID', component: AnswerDynamicFormComponent},
+      { path: 'view-dynamic-form/:formID', component: ViewDynamicFormComponent}
 
     ]
   },
@@ -158,9 +163,14 @@ const routes: Routes = [
           { path: 'video-request', component: VideoRequestComponent },
           { path: 'message', component: MessageComponent },
           { path: 'dynamic-form', component: DynamicFormComponent},
-          { path: 'assign-form', component: AssignFormComponent}
+          { path: 'assign-form', component: AssignFormComponent},
+          { path: 'view-form/:formID', component: ViewFormComponent }
         ]
-      }
+      },
+      { path: 'form-templates', component: FormTemplatesComponent},
+      { path: 'view-template', component: ViewTemplateComponent},
+      { path: 'create-template', component: CreateTemplateComponent}
+
 
     ]
   },
@@ -186,7 +196,7 @@ const routes: Routes = [
      UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent, AppliedSurgeryDataGridComponent
-    ,OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent
+    ,OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent
   ]
 })
 export class AppRoutingModule { }

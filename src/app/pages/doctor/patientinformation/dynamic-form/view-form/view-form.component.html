@@ -3,6 +3,7 @@
     <div class="dx-field-label-location-top">Metin {{item.fieldName}}</div>
     <div class="dx-field-content-location-right" style="margin-top: 7px; max-width: 70%">
       <dx-text-box
+        [disabled] = "true"
         [showClearButton]="true"
         [(value)]="answers[item.fieldOrder-1]">
       </dx-text-box>
@@ -12,6 +13,7 @@
     <div class="dx-field-label-location-top">Number {{item.fieldName}}</div>
     <div class="dx-field-content-location-right" style="margin-top: 7px; max-width: 70%">
       <dx-number-box
+        [disabled] = "true"
         [showSpinButtons]="true"
         [(value)]="answers[item.fieldOrder-1]">
       </dx-number-box>
@@ -21,6 +23,7 @@
     <div class="dx-field-label-location-top">Select Yes-No {{item.fieldName}}</div>
     <div class="dx-field-content-location-right" style="margin-top: 7px; max-width: 70%">
       <dx-select-box
+        [disabled] = "true"
         [items]="['EVET','HAYIR']"
         [(value)]="answers[item.fieldOrder-1]">
       </dx-select-box>
@@ -30,7 +33,8 @@
     <div class="dx-field-label-location-top">Select {{item.fieldName}}</div>
     <div class="dx-field-content-location-right" style="margin-top: 7px; max-width: 70%">
       <dx-select-box
-        [items]="defValueMap[item.id]"
+        [items] = "[answers[item.fieldOrder-1]]"
+        [disabled] = "true"
         [(value)]="answers[item.fieldOrder-1]">
       </dx-select-box>
     </div>
@@ -39,10 +43,10 @@
     <div class="dx-field-label-location-top">Tag {{item.fieldName}}</div>
     <div class="dx-field-content-location-right" style="margin-top: 7px; max-width: 70%">
       <dx-tag-box
-        [items]="defValueMap[item.id]"
+        [disabled] = "true"
         [(value)]="answers[item.fieldOrder-1]"
         placeholder="..."
-        ></dx-tag-box>
+      ></dx-tag-box>
     </div>
   </div>
 </div>
@@ -51,7 +55,7 @@
   <div class="dx-field-label"></div>
   <div class="dx-field-value">
     <dx-button icon="arrowright"
-               text="Cevapla"
+               text="Geri Dön"
                (onClick)="btnClick()">
     </dx-button>
   </div>

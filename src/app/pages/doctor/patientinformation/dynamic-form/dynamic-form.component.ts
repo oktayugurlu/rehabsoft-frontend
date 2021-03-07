@@ -31,7 +31,6 @@ export class DynamicFormComponent implements OnInit {
 
 
   btnClick= function ( ) {
-
     let urlArray = this.router.url.split('/');
     urlArray.pop();
     this.router.navigateByUrl(  urlArray.join('/') + '/assign-form');
@@ -60,6 +59,21 @@ export class DynamicFormComponent implements OnInit {
         notify(error);
       }
     );
+  }
+
+  isAnswered = (event) =>{
+    if(event.row.data.isFormAnswered){
+      return "Cevaplandı";
+    }else{
+      return "Cevap Bekliyor..."
+    }
+  }
+
+  viewForm = (event) =>{
+    let urlArray = this.router.url.split('/');
+    urlArray.pop();
+    this.router.navigateByUrl(  urlArray.join('/') + '/view-form/' + event.row.data.id );
+
   }
 
 

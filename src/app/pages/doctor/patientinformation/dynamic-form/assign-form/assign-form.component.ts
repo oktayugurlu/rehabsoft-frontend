@@ -57,24 +57,20 @@ export class AssignFormComponent implements OnInit {
       return;
     }
 
-
     let i = 1;
-    this.dataSource.forEach((field)=> {
+    for(let field of this.dataSource){
       if(field.fieldType == 'SECMELI' || field.fieldType == 'COKLU_SECMELI'){
-        if(this.formFieldDefaultValueMap[field.key].length < 1){
+        if(this.formFieldDefaultValueMap[field.key].length < 1 || this.formFieldDefaultValueMap[field.key] === undefined){
           notify("HATA: SECMELI ve COKLU_SECMELI soru tiplerinin şıkları boş bırakılamaz!!!", "error");
           return;
         }
         else{
-
           field.formFieldDefaultValueCollection = this.formFieldDefaultValueMap[field.key];
-
         }
       }
       field.fieldOrder = i;
       i = i + 1;
-    });
-
+    }
 
     this.assignForm.isFormAnswered = false;
     this.assignForm.formDynamic.formFieldCollection = this.dataSource;
@@ -90,7 +86,9 @@ export class AssignFormComponent implements OnInit {
           // message is ok
           notify(JSON.stringify(data.responseMessage));
           //this.router.onSameUrlNavigation = 'reload';
-          this.ngOnInit();
+          let urlArray = this.router.url.split('/');
+          urlArray.pop();
+          this.router.navigateByUrl(  urlArray.join('/') + '/dynamic-form');
 
         },
         error => {
@@ -99,9 +97,6 @@ export class AssignFormComponent implements OnInit {
           this.loading = false;
         });
 
-    let urlArray = this.router.url.split('/');
-    urlArray.pop();
-    this.router.navigateByUrl(  urlArray.join('/') + '/dynamic-form');
   };
 
   ngOnInit(): void {

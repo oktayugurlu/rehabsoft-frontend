@@ -47,7 +47,6 @@
       <dxo-lookup [dataSource]="formFieldSelectBoxElements" ></dxo-lookup>
     </dxi-column>
 
-
     <div  *dxTemplate="let order of 'detail'" >
       <div *ngIf="isEnabled(order.key.key)">
         <app-default-value-data-grid [key]="order.key.key" [formFieldDefaultValueMap]="formFieldDefaultValueMap" [dataSource]="formFieldDefaultValueMap[order.key.key]"></app-default-value-data-grid>

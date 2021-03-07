@@ -1,9 +1,6 @@
 import {Component, Input, AfterViewInit} from '@angular/core';
 import {FormFieldDefaultValue} from '../../../../../../models/dynamicform/formfielddefaultvalue';
-import {FormDynamic} from '../../../../../../models/dynamicform/formdynamic';
 import notify from 'devextreme/ui/notify';
-
-
 
 @Component({
   selector: 'app-default-value-data-grid',

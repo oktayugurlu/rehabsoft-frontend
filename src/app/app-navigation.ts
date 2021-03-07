@@ -45,6 +45,11 @@ export const doctorNavigation = [
     text: 'Profil',
     path: '/doctor/profile',
     icon:"user"
+  },
+  {
+    text: 'Hazır Formlar',
+    path: '/doctor/form-tempaltes',
+    icon:"tableproperties"
   }
 ];
 

@@ -29,8 +29,8 @@
         <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" dataType="datetime"></dxi-column>
         <dxi-column dataField="formDynamic.title" caption="Form Başlığı"></dxi-column>
         <dxi-column dataField="formDynamic.explanation" caption="İçerik"></dxi-column>
-        <dxi-column type="buttons" alignment="center"  width= '100px' >
-          <dxi-button hint="Cevabı Görüntüle" icon="fas fa-eye" [onClick]="answerForm" > </dxi-button>
+        <dxi-column type="buttons" alignment="center"  caption="İşlemler" width= '100px' >
+          <dxi-button hint="Cevapla" icon="fas fa-eye" [onClick]="answerForm" > </dxi-button>
         </dxi-column>
         <!--[visible]="isFormAnswered" [onClick]="openPopUp" -->
         <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
@@ -63,8 +63,8 @@
         <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" dataType="datetime"></dxi-column>
         <dxi-column dataField="formDynamic.title" caption="Form Başlığı"></dxi-column>
         <dxi-column dataField="formDynamic.explanation" caption="İçerik"></dxi-column>
-        <dxi-column type="buttons" alignment="center"  width= '100px' >
-          <dxi-button hint="Cevabı Görüntüle" icon="fas fa-eye" ></dxi-button>
+        <dxi-column type="buttons" alignment="center"  caption="İşlemler" width= '100px' >
+          <dxi-button hint="Cevabı Görüntüle" icon="fas fa-eye" [onClick]="viewForm" ></dxi-button>
         </dxi-column>
 
       </dx-data-grid>

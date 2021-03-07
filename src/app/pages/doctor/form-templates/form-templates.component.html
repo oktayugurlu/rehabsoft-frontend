@@ -5,7 +5,7 @@
     <div class="dx-field-label"></div>
     <div class="dx-field-value">
       <dx-button icon="plus"
-                  text="Form-Anket Oluştur"
+                 text="Form Örneği Oluştur"
                  (onClick)="btnClick()">
       </dx-button>
     </div>
@@ -17,34 +17,28 @@
 
       <dxi-item location="center" widget="dxButton" locateInMenu="never">
         <div *dxTemplate>
-          <div class='toolbar-label'><b>Anket-Form Talepleri</b> </div>
+          <div class='toolbar-label'><b>Form Örnekleri</b> </div>
         </div>
       </dxi-item>
     </dx-toolbar>
   </div>
 
-
   <dx-data-grid
     id="gridContainer"
-    [dataSource]="assignedFormList"
+    [dataSource]="formTemplateList"
     [remoteOperations]="true"
     [showBorders]="true">
 
-
     <dxo-paging pageSize="15"></dxo-paging>
 
-
-    <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" dataType="datetime"></dxi-column>
+    <dxi-column dataField="creationDate" caption="Oluşturulma Tarihi" dataType="datetime"></dxi-column>
     <dxi-column dataField="formDynamic.title" caption="Form Başlığı"></dxi-column>
     <dxi-column dataField="formDynamic.explanation" caption="Form Açıklaması"></dxi-column>
-    <dxi-column  dataField="(isFormAnswered) ? 'Cevaplandı' : 'Cevap Bekliyor!!!';" caption="Durum"></dxi-column>
     <dxi-column type="buttons" alignment="center"  width= '100px' >
       <dxi-button hint="Görüntüle" icon="fas fa-eye" [onClick]="viewForm"></dxi-button>
     </dxi-column>
 
-    <!--[visible]="isFormAnswered" [onClick]="openPopUp" -->
-    <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
   </dx-data-grid>
 </div>
 
-<app-view-response-component></app-view-response-component>
+
