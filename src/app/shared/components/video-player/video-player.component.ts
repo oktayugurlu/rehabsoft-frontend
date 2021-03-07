@@ -2,9 +2,6 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import videojs from 'video.js';
 import {AuthenticationService} from "../../../security/authentication.service";
-import {HttpHeaders} from "@angular/common/http";
-import {ExerciseImage} from "../../../models/exercise/exerciseimage";
-import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
 
 // @ts-ignore
 @Component({
@@ -12,9 +9,7 @@ import {ExerciseVideo} from "../../../models/exercise/exercisevideo";
   template: `
     <video style="" #target poster="" width="400" class="video-js" controls muted playsinline preload="auto" crossorigin="use-credentials" ></video>
   `,
-  styleUrls: [
-    './video-player.component.scss'
-  ],
+
   encapsulation: ViewEncapsulation.None,
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy {
