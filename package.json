@@ -5,8 +5,8 @@
   "budgets": [
     {
       "type": "initial",
-      "maximumWarning": "50mb",
-      "maximumError": "55mb"
+      "maximumWarning": "500mb",
+      "maximumError": "550mb"
     }
   ],
   "scripts": {
