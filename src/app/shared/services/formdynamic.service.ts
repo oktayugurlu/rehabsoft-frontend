@@ -22,6 +22,18 @@ export class FormDynamicService {
     return this.http.get<FormTemplate[]>(`${environment.API_BASE_PATH}/form-dynamic/get-all-templates/${userName}`);
   }
 
+  addTemplate(formTemplate: FormTemplate, userName : string){
+    return this.http.post<any>(`${environment.API_BASE_PATH}/form-dynamic/add-template/${userName}`, formTemplate);
+  }
+
+  assignFormFromTemplate(tcKimlikNo : string, templateID : string){
+    return this.http.post<any>(`${environment.API_BASE_PATH}/form-dynamic/add-form-from-template/${templateID}`, tcKimlikNo);
+  }
+
+  findTemplateByID(id :string){
+    return this.http.get<FormTemplate>(`${environment.API_BASE_PATH}/form-dynamic/get-template/${id}`);
+  }
+
 
   // For Patients
   getAllAssignedNotAnswered(tcKimlikNo: string){

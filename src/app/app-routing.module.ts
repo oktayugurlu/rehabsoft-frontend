@@ -99,6 +99,7 @@ import {ViewFormComponent} from './pages/doctor/patientinformation/dynamic-form/
 import {FormTemplatesComponent} from './pages/doctor/form-templates/form-templates.component';
 import {CreateTemplateComponent} from './pages/doctor/form-templates/create-template/create-template.component';
 import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template/view-template.component';
+import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component';
 
 
 
@@ -168,7 +169,7 @@ const routes: Routes = [
         ]
       },
       { path: 'form-templates', component: FormTemplatesComponent},
-      { path: 'view-template', component: ViewTemplateComponent},
+      { path: 'view-template/:formID', component: ViewTemplateComponent},
       { path: 'create-template', component: CreateTemplateComponent}
 
 
@@ -196,7 +197,7 @@ const routes: Routes = [
      UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent, AppliedSurgeryDataGridComponent
-    ,OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent
+    ,OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent
   ]
 })
 export class AppRoutingModule { }

@@ -48,8 +48,8 @@ export const doctorNavigation = [
   },
   {
     text: 'Hazır Formlar',
-    path: '/doctor/form-tempaltes',
-    icon:"tableproperties"
+    path: '/doctor/form-templates',
+    icon:"paste"
   }
 ];
 
