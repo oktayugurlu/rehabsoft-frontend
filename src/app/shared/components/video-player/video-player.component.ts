@@ -7,7 +7,7 @@ import {AuthenticationService} from "../../../security/authentication.service";
 @Component({
   selector: 'app-vjs-player',
   template: `
-    <video #target poster="" width="400" class="video-js" controls muted playsinline preload="auto" crossorigin="use-credentials" ></video>
+    <video style="width: 100%;max-height: 100%;" #target poster="" width="400" class="video-js" controls muted playsinline preload="auto" crossorigin="use-credentials" ></video>
   `,
 
   encapsulation: ViewEncapsulation.None,
