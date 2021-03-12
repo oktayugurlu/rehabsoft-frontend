@@ -5,8 +5,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   selector: 'app-patientinformation',
   templateUrl: './patientinformation.component.html',
   styleUrls: ['./patientinformation.component.scss'],
-  
-  
+
+
 })
 export class PatientinformationComponent implements OnInit {
 
@@ -16,6 +16,7 @@ export class PatientinformationComponent implements OnInit {
   generalInformationUrl:string;
   videoRequestUrl:string;
   messageUrl:string;
+  dynamicFormsUrl:string;
 
 
   constructor(private router: Router,route: ActivatedRoute) {
@@ -23,6 +24,7 @@ export class PatientinformationComponent implements OnInit {
       console.log("PATIENTINFO tcKimlikNo:",tcKimlikNo);
       this.itemCount = this.titleList.length;
       this.videoRequestUrl = "video-request";
+      this.dynamicFormsUrl = "dynamic-form";
       this.generalEvalFormurl = "usergefd";
       this.generalInformationUrl =  "general-info";
       this.messageUrl ="message";
@@ -30,8 +32,8 @@ export class PatientinformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    
+
+
   }
 
 
