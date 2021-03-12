@@ -1,9 +1,18 @@
+
 {
   "name": "rehabsoft-frontend",
   "version": "0.0.0",
+  "budgets": [
+    {
+      "type": "initial",
+      "maximumWarning": "500mb",
+      "maximumError": "550mb"
+    }
+  ],
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "heroku-postbuild": "ng build --prod && npm install -g http-server-spa",
+    "start": "http-server-spa dist/rehabsoft-frontend index.html $PORT",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

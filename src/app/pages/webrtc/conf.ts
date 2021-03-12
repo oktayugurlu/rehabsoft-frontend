@@ -1,0 +1,228 @@
+import {Component, OnInit} from "@angular/core";
+import {AuthenticationService} from "../../security/authentication.service";
+import {environment} from "../../../environments/environment";
+
+@Component({
+  templateUrl: 'conf.html'
+})
+export class Conf implements OnInit{
+  peerConnection;
+  signalingWebsocket;
+
+  constructor(private authenticationService: AuthenticationService) {
+    const currentUser = this.authenticationService.currentUserValue;
+    /*
+     * Prepare websocket for signaling server endpoint.
+     */
+    this.signalingWebsocket = new WebSocket(environment.API_BASE_PATH_WS+"/websocket/online-meeting",["access-token", currentUser.token]);
+    this.signalingWebsocket.onmessage = (msg) => {
+      console.log("Got message", msg.data);
+      let signal = JSON.parse(msg.data);
+      switch (signal.type) {
+        case "offer":
+          this.handleOffer(signal);
+          break;
+        case "answer":
+          this.handleAnswer(signal);
+          break;
+        // In local network, ICE candidates might not be generated.
+        case "candidate":
+          this.handleCandidate(signal);
+          break;
+        default:
+          break;
+      }
+    };
+    this.signalingWebsocket.onopen = () => {
+      console.log("Connected to signaling endpoint. Now initializing.");
+      this.preparePeerConnection();
+      this.displayLocalStreamAndSignal(true);
+    };
+  }
+
+  ngOnInit() {
+
+    /*
+     * Setup 'leaveButton' button function.
+     */
+    const leaveButton = document.getElementById('leaveButton');
+    leaveButton.addEventListener('click', this.leave);
+
+  }
+
+  leave = () => {
+    console.log('Ending call');
+    this.peerConnection.close();
+    this.signalingWebsocket.close();
+    window.location.href = './index.html';
+  };
+
+  sendSignal = (signal) => {
+    if (this.signalingWebsocket.readyState == 1) {
+      this.signalingWebsocket.send(JSON.stringify(signal));
+    }
+  };
+
+  preparePeerConnection = () => {
+
+    // Using free public google STUN server.
+    const configuration = {
+      iceServers: [{
+        urls: 'stun:stun.l.google.com:19302'
+      }]
+    };
+
+    // Prepare peer connection object
+    this.peerConnection = new RTCPeerConnection(configuration);
+    this.peerConnection.onnegotiationneeded = async () => {
+      console.log('onnegotiationneeded');
+      this.sendOfferSignal();
+    };
+    this.peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        this.sendSignal(event);
+      }
+    };
+
+    /*
+	 * Track other participant's remote stream & display in UI when available.
+	 *
+	 * This is how other participant's video & audio will start showing up on my
+	 * browser as soon as his local stream added to track of peer connection in
+	 * his UI.
+	 */
+    this.peerConnection.addEventListener('track', this.displayRemoteStream);
+
+  };
+
+  /*
+   * Display my local webcam & audio on UI.
+   */
+  displayLocalStreamAndSignal = async (firstTime) => {
+    console.log('Requesting local stream');
+    const localVideo = <HTMLVideoElement>(document.getElementById('localVideo'));
+
+    let localStream;
+    try {
+      // Capture local video & audio stream & set to local <video> DOM
+      // element
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true
+      });
+      console.log('Received local stream');
+      localVideo.srcObject = stream;
+      localStream = stream;
+      this.logVideoAudioTrackInfo(localStream);
+
+      // For first time, add local stream to peer connection.
+      if (firstTime) {
+        setTimeout(
+          () => {
+            this.addLocalStreamToPeerConnection(localStream);
+          }, 2000);
+      }
+
+      // Send offer signal to signaling server endpoint.
+      this.sendOfferSignal();
+
+    } catch (e) {
+      alert(`getUserMedia() error: ${e.name}`);
+      throw e;
+    }
+    console.log('Start complete');
+  };
+
+  /*
+ * Add local webcam & audio stream to peer connection so that other
+ * participant's UI will be notified using 'track' event.
+ *
+ * This is how my video & audio is sent to other participant's UI.
+ */
+  addLocalStreamToPeerConnection = async (localStream) => {
+    console.log('Starting addLocalStreamToPeerConnection');
+    localStream.getTracks().forEach(track => this.peerConnection.addTrack(track, localStream));
+    console.log('localStream tracks added');
+  };
+
+  /*
+ * Display remote webcam & audio in UI.
+ */
+  displayRemoteStream = (e) => {
+    console.log('displayRemoteStream');
+    const remoteVideo = <HTMLVideoElement>(document.getElementById('remoteVideo'));
+    if (remoteVideo.srcObject !== e.streams[0]) {
+      remoteVideo.srcObject = e.streams[0];
+      console.log('pc2 received remote stream');
+    }
+  };
+
+  /*
+   * Send offer to signaling server. This is kind of telling server that my webcam &
+   * audio is ready, so notify other participant of my information so that he can
+   * view & hear me using 'track' event.
+   */
+  sendOfferSignal = () => {
+    this.peerConnection.createOffer((offer) => {
+      this.sendSignal(offer);
+      this.peerConnection.setLocalDescription(offer);
+    }, (error) => {
+      alert("Error creating an offer");
+    });
+  };
+
+
+  /*
+   * Handle the offer sent by other participant & send back answer to complete the
+   * handshake.
+   */
+  handleOffer = (offer) => {
+    this.peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+
+    // create and send an answer to an offer
+    this.peerConnection.createAnswer((answer) => {
+      this.peerConnection.setLocalDescription(answer);
+      this.sendSignal(answer);
+    }, function(error) {
+      alert("Error creating an answer");
+    });
+
+  };
+
+  /*
+   * Finish the handshake by receiving the answer. Now Peer-to-peer connection is
+   * established between my browser & other participant's browser. Since both
+   * participants are tracking each others stream, they both will be able to view &
+   * hear each other.
+   */
+  handleAnswer = (answer) => {
+    this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+    console.log("connection established successfully!!");
+  };
+
+  /*
+   * Add received ICE candidate to connection. ICE candidate has information about
+   * how to connect to remote participant's browser. In local LAN connection, ICE
+   * candidate might not be generated.
+   */
+  handleCandidate = (candidate) => {
+    alert("handleCandidate");
+    this.peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+  };
+
+  /*
+   * Logs names of your webcam & microphone to console just for FYI.
+   */
+  logVideoAudioTrackInfo = (localStream) => {
+    const videoTracks = localStream.getVideoTracks();
+    const audioTracks = localStream.getAudioTracks();
+    if (videoTracks.length > 0) {
+      console.log(`Using video device: ${videoTracks[0].label}`);
+    }
+    if (audioTracks.length > 0) {
+      console.log(`Using audio device: ${audioTracks[0].label}`);
+    }
+  };
+
+}
+

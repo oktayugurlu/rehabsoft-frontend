@@ -27,6 +27,7 @@ import { DemographicFeaturesComponent } from './pages/user/necessaryforms/demogr
 import { PatientFormComponent } from './pages/user/necessaryforms/patientform/patient-form.component';
 import {UserService} from "./shared/services/user.service";
 import {ExerciseService} from "./shared/services/exercise.service";
+import {AdminCrudService} from "./shared/services/admin-crud.service";
 
 import {CookieService} from "ngx-cookie-service";
 import { PatientGefdInformationComponent } from './pages/doctor/patientinformation/patient-gefd-information/patient-gefd-information.component';
@@ -34,11 +35,17 @@ import { GeneralInformationComponent } from './pages/doctor/patientinformation/g
 import { VideoRequestComponent } from './pages/doctor/patientinformation/video-request/video-request.component';
 import {ResponseVideoRequestService} from "./shared/services/response-video-request.service";
 import { ChatComponent } from './shared/components/chat/chat.component';
+import { DoctorsCrudComponent } from './pages/admin/doctors-crud/doctors-crud.component';
+import { AdminsCrudComponent } from './pages/admin/admins-crud/admins-crud.component';
+import { NewAccountComponent } from './pages/admin/new-account/new-account.component';
+import { NewDoctorAccountComponent } from './pages/admin/doctors-crud/new-doctor-account/new-doctor-account.component';
+import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-account/new-admin-account.component';
 
 
 @NgModule({
   declarations: [
     AppComponent
+    
     ],
   imports: [
     BrowserModule,
@@ -67,7 +74,7 @@ import { ChatComponent } from './shared/components/chat/chat.component';
     DxTabPanelModule,
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
-    ResponseVideoRequestService,
+    ResponseVideoRequestService, AdminCrudService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
