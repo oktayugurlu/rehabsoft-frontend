@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 
 @Component({
-  templateUrl: 'index.html'
+  templateUrl: 'list.component.html'
 })
 
-export class IndexHTML {
+export class ListComponent {
 
 }

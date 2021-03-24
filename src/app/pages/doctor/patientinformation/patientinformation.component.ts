@@ -5,8 +5,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   selector: 'app-patientinformation',
   templateUrl: './patientinformation.component.html',
   styleUrls: ['./patientinformation.component.scss'],
-  
-  
+
+
 })
 export class PatientinformationComponent implements OnInit {
 
@@ -16,22 +16,22 @@ export class PatientinformationComponent implements OnInit {
   generalInformationUrl:string;
   videoRequestUrl:string;
   messageUrl:string;
+  onlineMeetingsUrl:string;
 
 
   constructor(private router: Router,route: ActivatedRoute) {
-      const tcKimlikNo: string = route.snapshot.params.tckimlikno;
-      console.log("PATIENTINFO tcKimlikNo:",tcKimlikNo);
-      this.itemCount = this.titleList.length;
-      this.videoRequestUrl = "video-request";
-      this.generalEvalFormurl = "usergefd";
-      this.generalInformationUrl =  "general-info";
-      this.messageUrl ="message";
+    this.itemCount = this.titleList.length;
+    this.videoRequestUrl = "video-request";
+    this.generalEvalFormurl = "usergefd";
+    this.generalInformationUrl =  "general-info";
+    this.messageUrl ="message";
+    this.onlineMeetingsUrl ="meetings";
 
   }
 
   ngOnInit() {
-    
-    
+
+
   }
 
 

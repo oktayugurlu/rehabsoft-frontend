@@ -18,7 +18,7 @@
 }
 ::ng-deep .tabpanel-item  p {
     font-size: 16px;
-    margin: 0;    
+    margin: 0;
 }
 ::ng-deep .item-box {
     font-size: 16px;
@@ -41,3 +41,20 @@
     padding: 10px 23px 13px;
     alignment: center;
   }
+
+
+::ng-deep .nav-item > .active > a {
+  color: white;
+}
+::ng-deep .nav-item > a:hover {
+  background-color: #B3E4E1;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: white;
+  background-color: #1E595D;
+}
+
+::ng-deep .dx-theme-generic-typography a {
+  color: white;
+}

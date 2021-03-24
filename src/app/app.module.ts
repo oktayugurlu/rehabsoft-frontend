@@ -40,12 +40,13 @@ import { AdminsCrudComponent } from './pages/admin/admins-crud/admins-crud.compo
 import { NewAccountComponent } from './pages/admin/new-account/new-account.component';
 import { NewDoctorAccountComponent } from './pages/admin/doctors-crud/new-doctor-account/new-doctor-account.component';
 import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-account/new-admin-account.component';
+import {OnlineMeetingService} from "./shared/services/online-meeting.service";
 
 
 @NgModule({
   declarations: [
     AppComponent
-    
+
     ],
   imports: [
     BrowserModule,
@@ -74,7 +75,7 @@ import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-ac
     DxTabPanelModule,
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
-    ResponseVideoRequestService, AdminCrudService,
+    ResponseVideoRequestService, AdminCrudService, OnlineMeetingService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

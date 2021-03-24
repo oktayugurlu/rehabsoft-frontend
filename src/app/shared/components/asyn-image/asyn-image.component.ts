@@ -29,6 +29,7 @@ export class AsynImageComponent  implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
+    console.log("asyn image comstructor:",this.src);
     this.src$ = new BehaviorSubject(this.src);
     this.dataUrl$ = this.src$.pipe(switchMap(url => this.loadImage(url)));
     this.src$.next(this.src);
@@ -45,6 +46,7 @@ export class AsynImageComponent  implements OnChanges, OnInit {
   }
 
   ngOnChanges(): void {
+    this.ngOnInit();
   }
 
   getImageDimension = ()=>{
