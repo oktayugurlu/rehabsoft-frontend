@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "http-server-spa dist/rehabsoft-frontend index.html $PORT",
+    "start": "http-server-spa dist/rehabsoft-frontend index.html 4200",
     "heroku-postbuild": "ng build --prod && npm install -g http-server-spa",
     "build": "ng build",
     "test": "ng test",
