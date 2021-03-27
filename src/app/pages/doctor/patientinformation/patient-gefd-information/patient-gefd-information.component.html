@@ -546,7 +546,7 @@
 </div> --->
 
 
-<dx-popup minWidth="''" [width]='"auto"' [height]="'auto'" [showTitle]="true" [title]="title" [dragEnabled]="true"
+<dx-popup [width]='"100%"' [height]="'100%'" [showTitle]="true" [title]="title" [dragEnabled]="true" [resizeEnabled]="true"
           [closeOnOutsideClick]="true" [(visible)]="isImagePopUpVisible" [position]="'top'">
   <div *dxTemplate="let data of 'content'">
     <app-asyn-image-component [src]="imageUrlToDownload"></app-asyn-image-component>

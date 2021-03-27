@@ -93,8 +93,11 @@ import { NewDoctorAccountComponent } from './pages/admin/doctors-crud/new-doctor
 import {AppliedSurgeryDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/applied-surgery-data-grid/applied-surgery-data-grid.component";
 import {OrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/orthesis-info-data-grid/orthesis-info-data-grid.component";
 import {OtherOrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/other-orthesis-info-data-grid/other-orthesis-info-data-grid.component";
-import {Conf} from "./pages/webrtc/conf";
-import {IndexHTML} from "./pages/webrtc/indexhtml";
+import {JoinComponent} from "./pages/online-meeting/join.component";
+import {ListComponent} from "./pages/online-meeting/list.component";
+import {OnlineMeetingBlockComponent} from "./shared/components/online-meeting-block/online-meeting-block.component";
+import {MeetingsComponent} from "./pages/doctor/patientinformation/meetings/meetings.component";
+
 import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-form/dynamic-form.component';
 import component from 'devextreme/core/component';
 import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component';
@@ -132,7 +135,15 @@ const routes: Routes = [
       { path: 'message', component: PatientMessageComponent},
       { path: 'dynamic-form-request', component: DynamicFormRequestComponent},
       { path: 'answer-dynamic-form/:formID', component: AnswerDynamicFormComponent},
-      { path: 'view-dynamic-form/:formID', component: ViewDynamicFormComponent}
+      { path: 'view-dynamic-form/:formID', component: ViewDynamicFormComponent},
+      { path: 'online-meeting',
+        canActivate: [AuthGuard],
+        data: { roles: [Role.User]},
+        children: [
+          { path: 'list', component: ListComponent },
+        ]
+      }
+
 
     ]
   },
@@ -175,18 +186,28 @@ const routes: Routes = [
           { path: 'view-form/:formID', component: ViewFormComponent }
         ]
       },
+      { path: 'online-meeting',
+        canActivate: [AuthGuard],
+        data: { roles: [Role.Doctor]},
+        children: [
+          { path: 'list', component: ListComponent },
+        ]
+      },
+      ,
       { path: 'form-templates', component: FormTemplatesComponent},
       { path: 'view-template/:formID', component: ViewTemplateComponent},
       { path: 'create-template', component: CreateTemplateComponent}
-
 
     ]
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: CreateAccountFormComponent },
   { path: 'chat', component: ChatComponent },
-  { path: 'conf', component: Conf },
-  { path: 'indexhtml', component: IndexHTML }
+  { path: 'online-meeting',
+    children: [
+      { path: 'join', component: JoinComponent },
+    ]
+  }
 
 ];
 
@@ -208,7 +229,8 @@ const routes: Routes = [
      UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
-    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent
+    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
+    ListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent
   ]
 })
 export class AppRoutingModule { }

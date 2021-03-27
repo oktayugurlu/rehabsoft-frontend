@@ -38,9 +38,10 @@ export class AppliedSurgeryDataGridComponent implements OnInit {
   }
 
   showEpiCrisisImage = (event)=>{
+    console.log("epikriz secildi:",event.row.data.id);
+    this.isImagePopUpVisible = true;
     this.imageUrlToDownload = `${environment.API_BASE_PATH}/patient/generalevaluationform/getepicrisisimage/${event.row.data.id}`;
     this.title = 'Epikriz Resmi';
-    this.isImagePopUpVisible = true;
   }
 
   downloadAppliedSurgery = (event) => {

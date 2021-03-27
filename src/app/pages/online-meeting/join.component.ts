@@ -1,16 +1,22 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {AuthenticationService} from "../../security/authentication.service";
 import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
+import {Role} from "../../models/role";
 import notify from "devextreme/ui/notify";
 
 @Component({
-  templateUrl: 'conf.html'
+  templateUrl: 'join.component.html',
+  styleUrls: [ './join.component.scss' ]
 })
-export class Conf implements OnInit{
-  peerConnection;
-  signalingWebsocket;
+export class JoinComponent implements OnInit, OnDestroy{
+  private peerConnection;
+  private signalingWebsocket;
 
-  constructor(private authenticationService: AuthenticationService) {
+  // This object helps us to control the stream in our implemented methods. For ex: mute, stop video etc.
+  private stream;
+
+  constructor(private authenticationService: AuthenticationService, private router:Router) {
     const currentUser = this.authenticationService.currentUserValue;
     /*
      * Prepare websocket for signaling server endpoint.
@@ -39,6 +45,8 @@ export class Conf implements OnInit{
       this.preparePeerConnection();
       this.displayLocalStreamAndSignal(true);
     };
+
+    window.onload = this.muteLocalVideo;
   }
 
   ngOnInit() {
@@ -48,15 +56,33 @@ export class Conf implements OnInit{
      */
     const leaveButton = document.getElementById('leaveButton');
     leaveButton.addEventListener('click', this.leave);
-
   }
 
   leave = () => {
     console.log('Ending call');
     this.peerConnection.close();
+    // bunu kullanmak gerek stream bititrmek icin
+    // this.stream.getTracks()[0].stop();
     this.signalingWebsocket.close();
-    window.location.href = './index.html';
+    this.closeLocalDevicesInLocal();
+    // this.navigateByRole();
   };
+
+  private closeLocalDevicesInLocal = () =>{
+    this.stream.getTracks().forEach(track => track.stop());
+  }
+
+  private closeLocalDevicesInStream = () =>{
+
+  }
+
+  private navigateByRole = ()=>{
+    if(this.authenticationService.currentUserValue.role === Role.Doctor){
+      this.router.navigate(['/doctor/online-meeting/list']);
+    } else if(this.authenticationService.currentUserValue.role === Role.User){
+      this.router.navigate(['/user/online-meeting/list']);
+    }
+  }
 
   sendSignal = (signal) => {
     if (this.signalingWebsocket.readyState == 1) {
@@ -107,13 +133,13 @@ export class Conf implements OnInit{
     try {
       // Capture local video & audio stream & set to local <video> DOM
       // element
-      const stream = await navigator.mediaDevices.getUserMedia({
+      this.stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
         video: true
       });
       console.log('Received local stream');
-      localVideo.srcObject = stream;
-      localStream = stream;
+      localVideo.srcObject = this.stream;
+      localStream = this.stream;
       this.logVideoAudioTrackInfo(localStream);
 
       // For first time, add local stream to peer connection.
@@ -187,7 +213,6 @@ export class Conf implements OnInit{
     }, function(error) {
       alert("Error creating an answer");
     });
-
   };
 
   /*
@@ -217,11 +242,6 @@ export class Conf implements OnInit{
   logVideoAudioTrackInfo = (localStream) => {
     const videoTracks = localStream.getVideoTracks();
     const audioTracks = localStream.getAudioTracks();
-
-    if(videoTracks[0] === undefined){
-      notify("Beklenmeyen bir hata oluştu") ;
-      return;
-    }
     if (videoTracks.length > 0) {
       console.log(`Using video device: ${videoTracks[0].label}`);
     }
@@ -229,6 +249,21 @@ export class Conf implements OnInit{
       console.log(`Using audio device: ${audioTracks[0].label}`);
     }
   };
+
+  // To prevent your sound echo to yourself
+  muteLocalVideo = () => {
+    let element: any = <HTMLVideoElement> document.getElementById('localVideo');
+    element.muted = "muted";
+  }
+
+  // Mute your voice
+  muteYourStream = () => {
+    this.stream.getTracks().forEach(track => track.enabled = !track.enabled);
+  }
+
+  ngOnDestroy(): void {
+    console.log("stream bitti");
+  }
 
 }
 

@@ -1,0 +1,39 @@
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 1.33;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+
+
+// Date card start
+.date-card{
+  width:200px;
+  display:flex;
+  align-items:center;
+}
+
+.date-card .day{
+  font-size:64px;
+  margin:0px 10px;
+  color:#2ab6b6;
+}
+
+.date-card .month{
+  font-size:30px;
+  font-weight:bold;
+}
+// Date card start
+

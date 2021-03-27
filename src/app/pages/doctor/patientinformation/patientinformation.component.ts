@@ -16,6 +16,7 @@ export class PatientinformationComponent implements OnInit {
   generalInformationUrl:string;
   videoRequestUrl:string;
   messageUrl:string;
+  onlineMeetingsUrl:string;
   dynamicFormsUrl:string;
 
 
@@ -28,7 +29,7 @@ export class PatientinformationComponent implements OnInit {
       this.generalEvalFormurl = "usergefd";
       this.generalInformationUrl =  "general-info";
       this.messageUrl ="message";
-
+      this.onlineMeetingsUrl ="meetings";
   }
 
   ngOnInit() {
