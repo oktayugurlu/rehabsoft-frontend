@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthenticationService} from "../../security/authentication.service";
 import {environment} from "../../../environments/environment";
+import notify from "devextreme/ui/notify";
 
 @Component({
   templateUrl: 'conf.html'
@@ -216,6 +217,11 @@ export class Conf implements OnInit{
   logVideoAudioTrackInfo = (localStream) => {
     const videoTracks = localStream.getVideoTracks();
     const audioTracks = localStream.getAudioTracks();
+
+    if(videoTracks[0] !== undefined){
+      notify("Beklenmeyen bir hata oluştu") ;
+      return;
+    }
     if (videoTracks.length > 0) {
       console.log(`Using video device: ${videoTracks[0].label}`);
     }

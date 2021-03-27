@@ -8,6 +8,7 @@ import {AppliedSurgery} from "../../../../models/generalevaluationform/appliedsu
 import {OtherOrthesisInfo} from "../../../../models/generalevaluationform/otherorthesisinfo";
 import {UsedMedicine} from "../../../../models/generalevaluationform/usedmedicine";
 import {OrthesisInfo} from "../../../../models/generalevaluationform/orthesisinfo";
+import notify from "devextreme/ui/notify";
 
 
 @Component({
@@ -128,9 +129,21 @@ export class AppliedTreatmentsComponent {
   }
 
   ngOnInit() {
+
+    //deploy error
+    if(this.isOrthesisMap[0] !== undefined){
+      notify("Beklenmeyen bir hata oluştu") ;
+      return;
+    }
+
     this.orthesisTabanlikCheckBoxOptions = {
       value: this.isOrthesisMap[0].value,
       onValueChanged: (e) => {
+
+        if(this.isOrthesisMap[0] !== undefined){
+          notify("Beklenmeyen bir hata oluştu") ;
+          return;
+        }
         this.isOrthesisMap[0].value = e.component.option("value");
       }
     }

@@ -1,3 +1,5 @@
+import notify from "devextreme/ui/notify";
+
 var peerConnection;
 
 /*
@@ -213,6 +215,11 @@ function handleCandidate(candidate) {
 function logVideoAudioTrackInfo(localStream) {
     const videoTracks = localStream.getVideoTracks();
     const audioTracks = localStream.getAudioTracks();
+
+    if(videoTracks[0] !== undefined){
+      notify("Beklenmeyen bir hata oluştu") ;
+      return;
+    }
     if (videoTracks.length > 0) {
         console.log(`Using video device: ${videoTracks[0].label}`);
     }

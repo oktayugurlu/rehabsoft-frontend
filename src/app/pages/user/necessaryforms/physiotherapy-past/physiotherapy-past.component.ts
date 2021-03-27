@@ -8,6 +8,7 @@ import {VisualImpairment} from "../../../../models/generalevaluationform/visuali
 import {HearingImpairment} from "../../../../models/generalevaluationform/hearingimpairment";
 import {PhysiotherapyPast} from "../../../../models/generalevaluationform/physiotherapypast";
 import {PhysiotheraphyCentral} from "../../../../models/generalevaluationform/physiotheraphycentral";
+import notify from "devextreme/ui/notify";
 
 
 @Component({
@@ -100,7 +101,10 @@ export class PhysiotherapyPastComponent {
     let physiotherapyPasts:PhysiotherapyPast = {...generalEvaluationFormToSendBackend.physiotherapyPast};
     physiotherapyPasts.physiotherapyCentralCollection = [];
     if(generalEvaluationFormToSendBackend.isPhysiotherapyPast){
-      console.log("giriyor-1",generalEvaluationFormToSendBackend.physiotherapyPast);
+      if(this.physiotherapyCenterMap[0] !== undefined){
+        notify("Beklenmeyen bir hata oluştu") ;
+        return;
+      }
       if(this.physiotherapyCenterMap[0].value){
         let physiotheraphyCentral = new PhysiotheraphyCentral(this.physiotherapyCenterMap[0].name);
         physiotherapyPasts.physiotherapyCentralCollection.push(physiotheraphyCentral);

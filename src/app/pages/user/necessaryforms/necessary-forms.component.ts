@@ -331,6 +331,11 @@ export class NecessaryFormsComponent {
   mentalProblemCheckBoxOptions = {
     value: null,
     onValueChanged: (event)=>{
+
+      if(this.coexistingDiseaseMap[0] !== undefined){
+        notify("Beklenmeyen bir hata oluştu") ;
+        return;
+      }
       this.coexistingDiseaseMap[0].value = event.component.option("value");
       this.mentalProblemCheckBoxOptions.value = event.component.option("value");
     }
@@ -434,6 +439,11 @@ export class NecessaryFormsComponent {
     value: null,
     text: 'Özel eğitim ve rehabilitasyon merkezi',
     onValueChanged: (event)=>{
+      //deploy error
+      if(this.physiotherapyCenterMap[0] !== undefined){
+        notify("Beklenmeyen bir hata oluştu") ;
+        return;
+      }
       this.physiotherapyCenterMap[0].value = event.component.option("value");
       this.specialEducationCheckBoxOptions.value = event.component.option("value");
     }

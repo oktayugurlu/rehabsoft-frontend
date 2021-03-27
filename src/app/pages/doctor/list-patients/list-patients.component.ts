@@ -18,11 +18,11 @@ export class ListPatientsComponent implements OnInit {
   constructor(private patientService:PatientService,private router:Router) {
       this.dataSource;
       this.generalEvalFormurl = "../exercises";
-      
+
   }
   ngOnInit(){
     this.getItemsList();
-   
+
   }
 
 
@@ -31,7 +31,6 @@ export class ListPatientsComponent implements OnInit {
       (data)=>{
         //console.log("Service data:", data);
         this.dataSource = data;
-        console.log("Data Source: ", this.dataSource[0].user.email);
       },
       (error)=>{
         notify(error);
