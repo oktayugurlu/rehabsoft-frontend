@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "http-server-spa dist/rehabsoft-frontend index.html $PORT",
-    "heroku-postbuild": "ng build --prod && npm install -g http-server-spa",
-    "build": "ng build",
+    "start": "ng serve",
+    "heroku-postbuild": "ng build --prod",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
