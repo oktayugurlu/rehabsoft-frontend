@@ -332,7 +332,7 @@ export class NecessaryFormsComponent {
     value: null,
     onValueChanged: (event)=>{
 
-      if(this.coexistingDiseaseMap[0] !== undefined){
+      if(this.coexistingDiseaseMap[0] === undefined){
         notify("Beklenmeyen bir hata oluştu") ;
         return;
       }
@@ -440,7 +440,7 @@ export class NecessaryFormsComponent {
     text: 'Özel eğitim ve rehabilitasyon merkezi',
     onValueChanged: (event)=>{
       //deploy error
-      if(this.physiotherapyCenterMap[0] !== undefined){
+      if(this.physiotherapyCenterMap[0] === undefined){
         notify("Beklenmeyen bir hata oluştu") ;
         return;
       }

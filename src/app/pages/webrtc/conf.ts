@@ -218,7 +218,7 @@ export class Conf implements OnInit{
     const videoTracks = localStream.getVideoTracks();
     const audioTracks = localStream.getAudioTracks();
 
-    if(videoTracks[0] !== undefined){
+    if(videoTracks[0] === undefined){
       notify("Beklenmeyen bir hata oluştu") ;
       return;
     }

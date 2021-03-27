@@ -101,7 +101,7 @@ export class PhysiotherapyPastComponent {
     let physiotherapyPasts:PhysiotherapyPast = {...generalEvaluationFormToSendBackend.physiotherapyPast};
     physiotherapyPasts.physiotherapyCentralCollection = [];
     if(generalEvaluationFormToSendBackend.isPhysiotherapyPast){
-      if(this.physiotherapyCenterMap[0] !== undefined){
+      if(this.physiotherapyCenterMap[0] === undefined){
         notify("Beklenmeyen bir hata oluştu") ;
         return;
       }

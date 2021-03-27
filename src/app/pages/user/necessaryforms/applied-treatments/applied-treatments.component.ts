@@ -131,7 +131,7 @@ export class AppliedTreatmentsComponent {
   ngOnInit() {
 
     //deploy error
-    if(this.isOrthesisMap[0] !== undefined){
+    if(this.isOrthesisMap[0] === undefined){
       notify("Beklenmeyen bir hata oluştu") ;
       return;
     }
@@ -140,7 +140,7 @@ export class AppliedTreatmentsComponent {
       value: this.isOrthesisMap[0].value,
       onValueChanged: (e) => {
 
-        if(this.isOrthesisMap[0] !== undefined){
+        if(this.isOrthesisMap[0] === undefined){
           notify("Beklenmeyen bir hata oluştu") ;
           return;
         }
@@ -406,7 +406,7 @@ export class AppliedTreatmentsComponent {
     return orthesisCollectionForField;
   }
   get isOrthesisMapValueGetter(): string {
-    if(this.isOrthesisMap[0] !== undefined){
+    if(this.isOrthesisMap[0] === undefined){
       notify("Beklenmeyen bir hata oluştu") ;
       return;
     }
