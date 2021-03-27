@@ -405,6 +405,13 @@ export class AppliedTreatmentsComponent {
     });
     return orthesisCollectionForField;
   }
+  get isOrthesisMapValueGetter(): string {
+    if(this.isOrthesisMap[0] !== undefined){
+      notify("Beklenmeyen bir hata oluştu") ;
+      return;
+    }
+    return this.isOrthesisMap[0].value;
+  }
 
 
 }

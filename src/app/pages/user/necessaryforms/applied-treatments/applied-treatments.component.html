@@ -126,12 +126,12 @@
           </dxi-item>
         </dxi-item>
         <dxi-item itemType="group" colCount="2">
-          <dxi-item editorType="dxCheckBox" [editorOptions]="leftTabanlikCheckBoxOptions" [visible]="isOrthesisMap[0].value">
+          <dxi-item editorType="dxCheckBox" [editorOptions]="leftTabanlikCheckBoxOptions" [visible]="isOrthesisMapValueGetter">
             <dxo-label location="left" [visible]="false" text="Tabanlık" >
             </dxo-label>
             <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
-          <dxi-item editorType="dxCheckBox" [editorOptions]="rightTabanlikOrthesisCheckBoxOptions" [visible]="isOrthesisMap[0].value">
+          <dxi-item editorType="dxCheckBox" [editorOptions]="rightTabanlikOrthesisCheckBoxOptions" [visible]="isOrthesisMapValueGetter">
             <dxo-label location="left" [visible]="false" text="Tabanlık"></dxo-label>
             <dxi-validation-rule type="custom" message="Sağ veya sol seçilmeli" [validationCallback]="checkIsFalseBothLeftAndRightForValidation"></dxi-validation-rule>
           </dxi-item>
