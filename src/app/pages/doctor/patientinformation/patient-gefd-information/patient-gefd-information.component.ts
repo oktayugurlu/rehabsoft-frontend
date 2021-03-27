@@ -1,6 +1,6 @@
 import {Component, OnInit, SecurityContext} from '@angular/core';
 import notify from 'devextreme/ui/notify';
-import {GeneralFormService} from "../../../../shared/services/generalform.service"
+import {GeneralFormService} from "../../../../shared/services/generalForm.service"
 import { ViewChild} from '@angular/core';
 import {DxFileUploaderComponent, DxRadioGroupComponent} from "devextreme-angular";
 import {Hyperbilirubinemia} from "../../../../models/generalevaluationform/hyperbilirubinemia";
