@@ -34,7 +34,9 @@ import {
     DxProgressBarModule,
     DxScrollViewModule,
     DxTabPanelModule,
-    DxToolbarModule, DxTooltipModule
+    DxToolbarModule,
+    DxTooltipModule,
+    DxTextBoxModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -93,6 +95,18 @@ import {OrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/p
 import {OtherOrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/other-orthesis-info-data-grid/other-orthesis-info-data-grid.component";
 import {Conf} from "./pages/webrtc/conf";
 import {IndexHTML} from "./pages/webrtc/indexhtml";
+import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-form/dynamic-form.component';
+import component from 'devextreme/core/component';
+import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component';
+import {DefaultValueDataGridComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component';
+import {DynamicFormRequestComponent} from './pages/user/dynamic-form-request/dynamic-form-request.component';
+import {AnswerDynamicFormComponent} from './pages/user/dynamic-form-request/answer-dynamic-form/answer-dynamic-form.component';
+import {ViewDynamicFormComponent} from './pages/user/dynamic-form-request/view-dynamic-form/view-dynamic-form.component';
+import {ViewFormComponent} from './pages/doctor/patientinformation/dynamic-form/view-form/view-form.component';
+import {FormTemplatesComponent} from './pages/doctor/form-templates/form-templates.component';
+import {CreateTemplateComponent} from './pages/doctor/form-templates/create-template/create-template.component';
+import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template/view-template.component';
+import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component';
 
 
 
@@ -115,8 +129,10 @@ const routes: Routes = [
       { path: 'general-evaluation-form', component: NecessaryFormsComponent },
       { path: 'user-notification', component: UserNotificationComponent },
       { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
-      { path: 'message', component: PatientMessageComponent}
-
+      { path: 'message', component: PatientMessageComponent},
+      { path: 'dynamic-form-request', component: DynamicFormRequestComponent},
+      { path: 'answer-dynamic-form/:formID', component: AnswerDynamicFormComponent},
+      { path: 'view-dynamic-form/:formID', component: ViewDynamicFormComponent}
 
     ]
   },
@@ -153,9 +169,16 @@ const routes: Routes = [
           { path: 'general-info', component: GeneralInformationComponent },
           { path: 'usergefd', component: PatientGefdInformationComponent },
           { path: 'video-request', component: VideoRequestComponent },
-          { path: 'message', component: MessageComponent }
+          { path: 'message', component: MessageComponent },
+          { path: 'dynamic-form', component: DynamicFormComponent},
+          { path: 'assign-form', component: AssignFormComponent},
+          { path: 'view-form/:formID', component: ViewFormComponent }
         ]
-      }
+      },
+      { path: 'form-templates', component: FormTemplatesComponent},
+      { path: 'view-template/:formID', component: ViewTemplateComponent},
+      { path: 'create-template', component: CreateTemplateComponent}
+
 
     ]
   },
@@ -168,11 +191,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-        FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
-        DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
-        DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-        MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule],
+  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
+    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
+    DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
+    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule],
 
   exports: [RouterModule],
   declarations: [
@@ -182,9 +205,10 @@ const routes: Routes = [
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    AsynImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
+     UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
-    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ]
+    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent
+  ]
 })
 export class AppRoutingModule { }

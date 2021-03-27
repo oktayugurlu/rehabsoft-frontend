@@ -16,7 +16,12 @@ export const userNavigation = [
     {
       text: 'Mesajlar',
       path: '/user/message',
-      icon: 'message'}
+      icon: 'message'},
+  {
+    text: 'Form İstekleri',
+    path: '/user/dynamic-form-request',
+    icon: 'paste'
+  }
 ];
 
 export const doctorNavigation = [
@@ -40,6 +45,11 @@ export const doctorNavigation = [
     text: 'Profil',
     path: '/doctor/profile',
     icon:"user"
+  },
+  {
+    text: 'Hazır Formlar',
+    path: '/doctor/form-templates',
+    icon:"paste"
   }
 ];
 
