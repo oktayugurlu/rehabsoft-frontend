@@ -122,7 +122,6 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    redirectTo: 'user/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.User] },
     children: [
@@ -150,7 +149,6 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    redirectTo: 'admin/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },
     children: [
@@ -163,11 +161,10 @@ const routes: Routes = [
   },
   {
     path: 'doctor',
-    redirectTo: 'doctor/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.Doctor] },
     children: [
-      //{ path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
       { path: 'task', component: DoctorTasksComponent },
