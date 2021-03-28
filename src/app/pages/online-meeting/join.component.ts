@@ -65,7 +65,7 @@ export class JoinComponent implements OnInit, OnDestroy{
     // this.stream.getTracks()[0].stop();
     this.signalingWebsocket.close();
     this.closeLocalDevicesInLocal();
-    // this.navigateByRole();
+    this.navigateByRole();
   };
 
   private closeLocalDevicesInLocal = () =>{
