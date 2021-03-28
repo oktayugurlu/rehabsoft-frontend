@@ -193,7 +193,6 @@ const routes: Routes = [
           { path: 'list', component: ListComponent },
         ]
       },
-      ,
       { path: 'form-templates', component: FormTemplatesComponent},
       { path: 'view-template/:formID', component: ViewTemplateComponent},
       { path: 'create-template', component: CreateTemplateComponent}
@@ -205,7 +204,7 @@ const routes: Routes = [
   { path: 'chat', component: ChatComponent },
   { path: 'online-meeting',
     children: [
-      { path: 'join', component: JoinComponent },
+      { path: 'join', component: JoinComponent }
     ]
   }
 
