@@ -233,8 +233,10 @@ export class JoinComponent implements OnInit, OnDestroy{
    * hear each other.
    */
   handleAnswer = (answer) => {
-    this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
-    console.log("connection established successfully!!");
+    console.log("answer handle edilcek peerConnection: ",this.peerConnection);
+    this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer)).then(()=>{
+      console.log("connection established successfully!!");
+    });
   };
 
   /*
