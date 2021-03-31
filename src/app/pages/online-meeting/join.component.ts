@@ -16,6 +16,20 @@ export class JoinComponent implements OnInit, OnDestroy{
   // This object helps us to control the stream in our implemented methods. For ex: mute, stop video etc.
   private stream;
 
+  ngOnInit() {
+
+    /*
+     * Setup 'leaveButton' button function.
+     */
+    const leaveButton = document.getElementById('leaveButton');
+    leaveButton.addEventListener('click', this.leave);
+  }
+
+  ngOnDestroy(): void {
+    console.log("stream bitti");
+    this.closeLocalDevicesInLocal();
+  }
+
   constructor(private authenticationService: AuthenticationService, private router:Router) {
     const currentUser = this.authenticationService.currentUserValue;
     /*
@@ -47,15 +61,6 @@ export class JoinComponent implements OnInit, OnDestroy{
     };
 
     window.onload = this.muteLocalVideo;
-  }
-
-  ngOnInit() {
-
-    /*
-     * Setup 'leaveButton' button function.
-     */
-    const leaveButton = document.getElementById('leaveButton');
-    leaveButton.addEventListener('click', this.leave);
   }
 
   leave = () => {
@@ -93,21 +98,21 @@ export class JoinComponent implements OnInit, OnDestroy{
   preparePeerConnection = () => {
 
     // Using free public google STUN server.
-    const configuration = {
-      iceServers: [{
-        urls: 'stun:stun.l.google.com:19302'
-      },
+    const configuration =   {
+      iceServers: [
         {
-          'urls': 'turn:192.158.29.39:3478?transport=udp',
-          'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-          'username': '28224511:1379330808'
+          urls: [
+            "stun:stun1.l.google.com:19302",
+            "stun:stun2.l.google.com:19302",
+          ],
         },
         {
-          'urls': 'turn:192.158.29.39:3478?transport=tcp',
-          'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-          'username': '28224511:1379330808'
-        }]
-
+          urls: [
+            "stun:global.stun.twilio.com:3478?transport=udp",
+          ],
+        },
+      ],
+      iceCandidatePoolSize: 10,
     };
 
     // Prepare peer connection object
@@ -118,6 +123,7 @@ export class JoinComponent implements OnInit, OnDestroy{
     };
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
+        console.log('onicecandidate');
         this.sendSignal(event);
       }
     };
@@ -272,10 +278,6 @@ export class JoinComponent implements OnInit, OnDestroy{
   // Mute your voice
   muteYourStream = () => {
     this.stream.getTracks().forEach(track => track.enabled = !track.enabled);
-  }
-
-  ngOnDestroy(): void {
-    console.log("stream bitti");
   }
 
 }

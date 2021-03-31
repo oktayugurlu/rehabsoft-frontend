@@ -8,7 +8,7 @@ import { UserProfileComponent } from './pages/user/profile/user-profile.componen
 import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
 
 import { AuthGuard } from './security/auth.guard';
-import { NotfoundComponent } from './shared/notfound/notfound.component';
+import { NotfoundUserDoctorComponent } from './shared/notfound-user-doctor/notfound-user-doctor.component';
 import { UnauthorizedComponent } from './shared/unauthorized/unauthorized.component';
 import { Role } from './models/role';
 import { UserComponent } from './pages/user/user.component';
@@ -97,19 +97,17 @@ import {JoinComponent} from "./pages/online-meeting/join.component";
 import {ListComponent} from "./pages/online-meeting/list.component";
 import {OnlineMeetingBlockComponent} from "./shared/components/online-meeting-block/online-meeting-block.component";
 import {MeetingsComponent} from "./pages/doctor/patientinformation/meetings/meetings.component";
-
-import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-form/dynamic-form.component';
-import component from 'devextreme/core/component';
-import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component';
-import {DefaultValueDataGridComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component';
-import {DynamicFormRequestComponent} from './pages/user/dynamic-form-request/dynamic-form-request.component';
-import {AnswerDynamicFormComponent} from './pages/user/dynamic-form-request/answer-dynamic-form/answer-dynamic-form.component';
-import {ViewDynamicFormComponent} from './pages/user/dynamic-form-request/view-dynamic-form/view-dynamic-form.component';
-import {ViewFormComponent} from './pages/doctor/patientinformation/dynamic-form/view-form/view-form.component';
-import {FormTemplatesComponent} from './pages/doctor/form-templates/form-templates.component';
-import {CreateTemplateComponent} from './pages/doctor/form-templates/create-template/create-template.component';
-import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template/view-template.component';
-import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component';
+import {DynamicFormComponent} from "./pages/doctor/patientinformation/dynamic-form/dynamic-form.component";
+import {ViewFormComponent} from "./pages/doctor/patientinformation/dynamic-form/view-form/view-form.component";
+import {AssignFormComponent} from "./pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component";
+import {DefaultValueDataGridComponent} from "./pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component";
+import {DynamicFormRequestComponent} from "./pages/user/dynamic-form-request/dynamic-form-request.component";
+import {AnswerDynamicFormComponent} from "./pages/user/dynamic-form-request/answer-dynamic-form/answer-dynamic-form.component";
+import {ViewDynamicFormComponent} from "./pages/user/dynamic-form-request/view-dynamic-form/view-dynamic-form.component";
+import {FormTemplatesComponent} from "./pages/doctor/form-templates/form-templates.component";
+import {ViewTemplateComponent} from "./pages/doctor/form-templates/view-template/view-template.component";
+import {CreateTemplateComponent} from "./pages/doctor/form-templates/create-template/create-template.component";
+import {DefaultValueDatagridComponent} from "./pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component";
 
 
 
@@ -122,6 +120,7 @@ const routes: Routes = [
   },
   {
     path: 'user',
+    redirectTo: 'user/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.User] },
     children: [
@@ -142,9 +141,8 @@ const routes: Routes = [
         children: [
           { path: 'list', component: ListComponent },
         ]
-      }
-
-
+      },
+      { path: '**', component: NotfoundUserDoctorComponent }
     ]
   },
   {
@@ -156,7 +154,8 @@ const routes: Routes = [
       { path: 'home', component: AdminHomeComponent },
       { path: 'profile', component: AdminProfileComponent },
       { path: 'doctorscrud', component: DoctorsCrudComponent },
-      { path: 'adminscrud', component: AdminsCrudComponent }
+      { path: 'adminscrud', component: AdminsCrudComponent },
+      { path: '**', component: NotfoundUserDoctorComponent }
     ]
   },
   {
@@ -164,14 +163,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Doctor] },
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      //{ path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
       { path: 'task', component: DoctorTasksComponent },
       { path: 'exercises', component: DoctorExerciseManagmentComponent },
       { path: 'getall', component: ListPatientsComponent },
-      //{ path: 'patient-info', component: PatientinformationComponent},
-      //{ path: 'usergefd', component: PatientGefdInformationComponent },
 
       {
         path: 'patient-info/:tckimlikno', component: PatientinformationComponent,
@@ -181,6 +178,7 @@ const routes: Routes = [
           { path: 'usergefd', component: PatientGefdInformationComponent },
           { path: 'video-request', component: VideoRequestComponent },
           { path: 'message', component: MessageComponent },
+          { path: 'meetings', component: MeetingsComponent },
           { path: 'dynamic-form', component: DynamicFormComponent},
           { path: 'assign-form', component: AssignFormComponent},
           { path: 'view-form/:formID', component: ViewFormComponent }
@@ -188,14 +186,12 @@ const routes: Routes = [
       },
       { path: 'online-meeting',
         canActivate: [AuthGuard],
-        data: { roles: [Role.Doctor]},
+        data: { roles: [Role.Doctor, Role.User]},
         children: [
-          { path: 'list', component: ListComponent },
+          { path: 'list', component: ListComponent }
         ]
       },
-      { path: 'form-templates', component: FormTemplatesComponent},
-      { path: 'view-template/:formID', component: ViewTemplateComponent},
-      { path: 'create-template', component: CreateTemplateComponent}
+      { path: '**', component: NotfoundUserDoctorComponent }
 
     ]
   },
@@ -206,9 +202,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Doctor, Role.User]},
     children: [
-      { path: 'join', component: JoinComponent }
+      { path: 'join', component: JoinComponent },
     ]
-  }
+  },
+  { path: '**', redirectTo: '/login' }
 
 ];
 
