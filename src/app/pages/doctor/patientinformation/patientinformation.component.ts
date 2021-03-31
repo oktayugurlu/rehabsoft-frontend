@@ -5,8 +5,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   selector: 'app-patientinformation',
   templateUrl: './patientinformation.component.html',
   styleUrls: ['./patientinformation.component.scss'],
-
-
 })
 export class PatientinformationComponent implements OnInit {
 

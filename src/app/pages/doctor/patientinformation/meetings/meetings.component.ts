@@ -5,7 +5,7 @@ import { PatientService } from 'src/app/shared/services/patient.service';
 import {PatientDetails} from "../../../../models/patientdetails"
 
 @Component({
-  selector: 'app-general-information',
+  selector: 'app-meetings',
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.scss']
 })

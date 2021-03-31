@@ -3,6 +3,7 @@ import {AuthenticationService} from "../../security/authentication.service";
 import {environment} from "../../../environments/environment";
 import {Router} from "@angular/router";
 import {Role} from "../../models/role";
+import notify from "devextreme/ui/notify";
 
 @Component({
   templateUrl: 'join.component.html',
@@ -14,6 +15,20 @@ export class JoinComponent implements OnInit, OnDestroy{
 
   // This object helps us to control the stream in our implemented methods. For ex: mute, stop video etc.
   private stream;
+
+  ngOnInit() {
+
+    /*
+     * Setup 'leaveButton' button function.
+     */
+    const leaveButton = document.getElementById('leaveButton');
+    leaveButton.addEventListener('click', this.leave);
+  }
+
+  ngOnDestroy(): void {
+    console.log("stream bitti");
+    this.closeLocalDevicesInLocal();
+  }
 
   constructor(private authenticationService: AuthenticationService, private router:Router) {
     const currentUser = this.authenticationService.currentUserValue;
@@ -48,14 +63,6 @@ export class JoinComponent implements OnInit, OnDestroy{
     window.onload = this.muteLocalVideo;
   }
 
-  ngOnInit() {
-
-    /*
-     * Setup 'leaveButton' button function.
-     */
-    const leaveButton = document.getElementById('leaveButton');
-    leaveButton.addEventListener('click', this.leave);
-  }
 
   leave = () => {
     console.log('Ending call');
@@ -64,7 +71,7 @@ export class JoinComponent implements OnInit, OnDestroy{
     // this.stream.getTracks()[0].stop();
     this.signalingWebsocket.close();
     this.closeLocalDevicesInLocal();
-    // this.navigateByRole();
+    this.navigateByRole();
   };
 
   private closeLocalDevicesInLocal = () =>{
@@ -92,10 +99,21 @@ export class JoinComponent implements OnInit, OnDestroy{
   preparePeerConnection = () => {
 
     // Using free public google STUN server.
-    const configuration = {
-      iceServers: [{
-        urls: 'stun:stun.l.google.com:19302'
-      }]
+    const configuration =   {
+      iceServers: [
+        {
+          urls: [
+            "stun:stun1.l.google.com:19302",
+            "stun:stun2.l.google.com:19302",
+          ],
+        },
+        {
+          urls: [
+            "stun:global.stun.twilio.com:3478?transport=udp",
+          ],
+        },
+      ],
+      iceCandidatePoolSize: 10,
     };
 
     // Prepare peer connection object
@@ -106,6 +124,7 @@ export class JoinComponent implements OnInit, OnDestroy{
     };
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
+        console.log('onicecandidate');
         this.sendSignal(event);
       }
     };
@@ -191,6 +210,7 @@ export class JoinComponent implements OnInit, OnDestroy{
   sendOfferSignal = () => {
     this.peerConnection.createOffer((offer) => {
       this.sendSignal(offer);
+      console.log("offer atiliyor")
       this.peerConnection.setLocalDescription(offer);
     }, (error) => {
       alert("Error creating an offer");
@@ -221,8 +241,10 @@ export class JoinComponent implements OnInit, OnDestroy{
    * hear each other.
    */
   handleAnswer = (answer) => {
-    this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
-    console.log("connection established successfully!!");
+    console.log("answer handle edilcek peerConnection: ",this.peerConnection);
+    this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer)).then(()=>{
+      console.log("connection established successfully!!");
+    });
   };
 
   /*
@@ -258,10 +280,6 @@ export class JoinComponent implements OnInit, OnDestroy{
   // Mute your voice
   muteYourStream = () => {
     this.stream.getTracks().forEach(track => track.enabled = !track.enabled);
-  }
-
-  ngOnDestroy(): void {
-    console.log("stream bitti");
   }
 
 }

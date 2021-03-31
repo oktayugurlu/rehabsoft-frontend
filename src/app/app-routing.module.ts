@@ -8,7 +8,7 @@ import { UserProfileComponent } from './pages/user/profile/user-profile.componen
 import { UserTasksComponent } from './pages/user/tasks/user-tasks.component';
 
 import { AuthGuard } from './security/auth.guard';
-import { NotfoundComponent } from './shared/notfound/notfound.component';
+import { NotfoundUserDoctorComponent } from './shared/notfound-user-doctor/notfound-user-doctor.component';
 import { UnauthorizedComponent } from './shared/unauthorized/unauthorized.component';
 import { Role } from './models/role';
 import { UserComponent } from './pages/user/user.component';
@@ -107,7 +107,6 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    redirectTo: 'user/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.User] },
     children: [
@@ -125,13 +124,12 @@ const routes: Routes = [
         children: [
           { path: 'list', component: ListComponent },
         ]
-      }
-
+      },
+      { path: '**', component: NotfoundUserDoctorComponent }
     ]
   },
   {
     path: 'admin',
-    redirectTo: 'admin/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },
     children: [
@@ -139,12 +137,12 @@ const routes: Routes = [
       { path: 'home', component: AdminHomeComponent },
       { path: 'profile', component: AdminProfileComponent },
       { path: 'doctorscrud', component: DoctorsCrudComponent },
-      { path: 'adminscrud', component: AdminsCrudComponent }
+      { path: 'adminscrud', component: AdminsCrudComponent },
+      { path: '**', component: NotfoundUserDoctorComponent }
     ]
   },
   {
     path: 'doctor',
-    redirectTo: 'doctor/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.Doctor] },
     children: [
@@ -154,8 +152,6 @@ const routes: Routes = [
       { path: 'task', component: DoctorTasksComponent },
       { path: 'exercises', component: DoctorExerciseManagmentComponent },
       { path: 'getall', component: ListPatientsComponent },
-      //{ path: 'patient-info', component: PatientinformationComponent},
-      //{ path: 'usergefd', component: PatientGefdInformationComponent },
 
       {
         path: 'patient-info/:tckimlikno', component: PatientinformationComponent,
@@ -170,11 +166,12 @@ const routes: Routes = [
       },
       { path: 'online-meeting',
         canActivate: [AuthGuard],
-        data: { roles: [Role.Doctor]},
+        data: { roles: [Role.Doctor, Role.User]},
         children: [
-          { path: 'list', component: ListComponent },
+          { path: 'list', component: ListComponent }
         ]
-      }
+      },
+      { path: '**', component: NotfoundUserDoctorComponent }
 
     ]
   },
@@ -187,7 +184,8 @@ const routes: Routes = [
     children: [
       { path: 'join', component: JoinComponent },
     ]
-  }
+  },
+  { path: '**', redirectTo: '/login' }
 
 ];
 
