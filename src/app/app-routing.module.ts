@@ -120,7 +120,6 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    redirectTo: 'user/home',
     canActivate: [AuthGuard],
     data: { roles: [Role.User] },
     children: [
