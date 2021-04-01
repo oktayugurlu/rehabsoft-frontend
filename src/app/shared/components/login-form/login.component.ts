@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
       password: ''
     };
 
-    console.log("------------LOGINE GELDI------", this.currentUser);
     this.returnUrl = '/';
 
     if(this.currentUser !== null){
@@ -106,7 +105,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.error = error;
           this.loading = false;
-          notify({ message: error, width: 300, shading: false }, "error", 1000);
+          notify({ message: "Kullanıcı bilgileriniz doğrulanamadı. Lütfen kontrol ederek tekrar deneyiniz", width: 300, shading: false }, "error", 1000);
         });
     // event.preventDefault()
   }

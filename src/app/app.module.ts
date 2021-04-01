@@ -19,6 +19,7 @@ import {AppInfoService, ScreenService} from './shared/services';
 import {DxButtonModule} from "devextreme-angular";
 import {PatientService} from "./shared/services/patient.service"
 import {VideorequestService} from "./shared/services/videorequest.service"
+import { DxSankeyModule } from "devextreme-angular";
 
 import {DxSelectBoxModule, DxTabPanelModule } from 'devextreme-angular';
 
@@ -44,8 +45,7 @@ import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-ac
 
 @NgModule({
   declarations: [
-    AppComponent
-    
+    AppComponent    
     ],
   imports: [
     BrowserModule,
@@ -72,6 +72,7 @@ import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-ac
     DxTabPanelModule,
     BrowserModule,
     DxTabPanelModule,
+    DxSankeyModule
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
     ResponseVideoRequestService, AdminCrudService,
