@@ -64,13 +64,13 @@ export class NewAdminAccountComponent implements OnInit {
   }
 
   confirmPassword = (e: { value: string }) => {
-    if (this.registerForm.password !== '' && this.registerForm.confirmedPassword !== '') {
-      console.log(this.registerForm.password);
-      console.log(this.registerForm.confirmedPassword);
-      return this.registerForm.password === this.registerForm.confirmedPassword;
-    }
+    if(this.registerForm.password !== '' && e.value !== ''){
+      return this.registerForm.password === e.value;
+    } 
     return true;
   }
+
+ 
 
 
 
@@ -96,16 +96,13 @@ export class NewAdminAccountComponent implements OnInit {
   }
 
   closePopUp = () => {
-
-    console.log("Popup kapama basladi");
+    this.registerForm = new NewAccountRequest();
     this.popUpContent = new NewAccountRequest();
     this.isVisible = false;
   }
 
 
   saveAdminAccount = (e: any) => {
-    console.log("Gelen Bilgi1" + this.registerForm.username);
-    console.log(this.registerForm);
 
     //this.isLoading = true
     this.registrationRequest.username = this.registerForm.username.trim();
@@ -146,7 +143,7 @@ export class NewAdminAccountComponent implements OnInit {
           this.error = error;
           //this.loading = false;
         });
-
+     
   }
 
 
