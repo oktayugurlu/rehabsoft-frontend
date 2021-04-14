@@ -1,6 +1,6 @@
 
 import {Component, Input, OnInit} from '@angular/core';
-import {GeneralFormService} from "../../../../../shared/services/generalform.service"
+import {GeneralFormService} from "../../../../../shared/services/generalForm.service"
 import { ViewChild} from '@angular/core';
 import {AsynImageComponent} from "../../../../../shared/components/asyn-image/asyn-image.component";
 import {environment} from "../../../../../../environments/environment";

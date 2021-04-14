@@ -1,6 +1,12 @@
+$green: #86BB71;
+$blue: #94C2ED;
+$orange: #E38968;
+$gray: #92959E;
+
+
 .container {
-	margin: auto;
-    background: #9EE2E9;
+  background:#fff;
+
 }
 .inbox_msg {
 	border: 1px solid #c4c4c4;
@@ -28,9 +34,10 @@
     width: 92%;
    }
    .received_withd_msg p {
-    background: #00fa89 none repeat scroll 0 0;
+    overflow-x: initial;
+    background: $green;
     border-radius: 3px;
-    color: #000000;
+    color: #ffffff;
     font-size: 14px;
     margin: 0;
     padding: 5px 10px 5px 12px;
@@ -57,7 +64,7 @@
   padding: 5px 10px 5px 12px;
   width:100%;
 }
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+.outgoing_msg{  margin:26px 0 26px;}
 .sent_msg {
   float: right;
   width: 60%;

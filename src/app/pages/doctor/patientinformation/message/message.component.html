@@ -2,36 +2,33 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
-
-
 <div>
 
   <body>
-    <div class="container">
-      <br><br>
+    <div style="	margin: auto;">
+      <br>
       <h3 class=" text-center">Mesaj Kutusu</h3>
-      <br><br>
+      <br>
       <div class="messaging">
         <div class="inbox_msg">
           <div class="mesgs">
             <div class="msg_history" *ngFor="let msg of messageHistoryList">
-
+              
               <div class="incoming_msg" *ngIf="!isMyMessage(msg)">
 
 
                 <div class="received_msg">
-
+                  <br>
                   <div class="received_withd_msg">
                     <h6>Konu: {{msg.messageTitle}}</h6>
                     <p>{{msg.messageContent}}</p>
-                    <span class="time_date"> {{msg.creationDate}} </span>
+                    <span class="time_date"> {{msg.creationDate}}     Gönderen:{{msg.senderName}} {{msg.senderSurname}} </span>
                   </div>
                 </div>
               </div>
 
               <div class="outgoing_msg" *ngIf="isMyMessage(msg)">
-
+                <br>
                 <div class="sent_msg">
                   <h6>Konu: {{msg.messageTitle}}</h6>
                   <p>{{msg.messageContent}}</p>

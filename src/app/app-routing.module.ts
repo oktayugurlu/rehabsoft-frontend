@@ -36,7 +36,9 @@ import {
     DxTabPanelModule,
     DxToolbarModule,
     DxTooltipModule,
-    DxTextBoxModule
+    DxTextBoxModule,
+    DxSankeyComponent,
+    DxSankeyModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -155,7 +157,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Doctor] },
     children: [
-      //{ path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
       { path: 'task', component: DoctorTasksComponent },
@@ -196,7 +198,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
-    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
+    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule, DxSankeyModule,
     MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule],
 
   exports: [RouterModule],
