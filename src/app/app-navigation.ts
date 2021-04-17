@@ -65,6 +65,11 @@ export const adminNavigation = [
     icon:"group"
   },
   {
+    text: "Yeni Kayıt Hasta",
+    path: '/admin/newregistredpatient',
+    icon: "group"
+  },
+  {
     text: 'Doktor Listesi',
     path: '/admin/doctorscrud',
     icon:"user"

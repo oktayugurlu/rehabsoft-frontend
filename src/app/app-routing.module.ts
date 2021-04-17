@@ -109,6 +109,7 @@ import {FormTemplatesComponent} from './pages/doctor/form-templates/form-templat
 import {CreateTemplateComponent} from './pages/doctor/form-templates/create-template/create-template.component';
 import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template/view-template.component';
 import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component';
+import {NewRegistredPatientComponent} from './pages/admin/new-registred-patient/new-registred-patient.component';
 
 
 
@@ -147,7 +148,8 @@ const routes: Routes = [
       { path: 'home', component: AdminHomeComponent },
       { path: 'profile', component: AdminProfileComponent },
       { path: 'doctorscrud', component: DoctorsCrudComponent },
-      { path: 'adminscrud', component: AdminsCrudComponent }
+      { path: 'adminscrud', component: AdminsCrudComponent },
+      { path: 'newregistredpatient', component: NewRegistredPatientComponent}
     ]
   },
   {
@@ -210,7 +212,8 @@ const routes: Routes = [
      UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
-    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent
+    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
+    NewRegistredPatientComponent
   ]
 })
 export class AppRoutingModule { }

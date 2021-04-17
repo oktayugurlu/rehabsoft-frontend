@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import notify from 'devextreme/ui/notify';
 import { PatientService } from 'src/app/shared/services/patient.service';
 import {PatientDetails} from "../../../models/patientdetails"
+import {AuthenticationService} from '../../../security/authentication.service';
+import {TokenDto} from '../../../models/tokendto';
 
 @Component({
   selector: 'app-list-patients',
@@ -14,20 +16,27 @@ export class ListPatientsComponent implements OnInit {
 
   dataSource: PatientDetails[];
   generalEvalFormurl:string;
+  username: string;
+  currentUser: TokenDto;
 
-  constructor(private patientService:PatientService,private router:Router) {
+  constructor(private authenticationService:AuthenticationService,private patientService:PatientService,private router:Router) {
+    authenticationService.currentUser.subscribe(user=>{
+      this.currentUser = user;
+      this.username=JSON.parse(localStorage.getItem('currentUser')).username;
+    });
       this.dataSource;
       this.generalEvalFormurl = "../exercises";
-      
+
+
   }
   ngOnInit(){
     this.getItemsList();
-   
+
   }
 
 
   getItemsList = ()=>{
-    this.patientService.getAll().subscribe(
+    this.patientService.getAllPatientByDoctor(this.username).subscribe(
       (data)=>{
         //console.log("Service data:", data);
         this.dataSource = data;
