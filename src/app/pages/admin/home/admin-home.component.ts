@@ -22,6 +22,12 @@ export class AdminHomeComponent {
 
   }
 
+  PatientButtonNavigate = ()=>{
+    this.router.navigateByUrl('/admin/patientcrud');
+
+
+  }
+
 
 
 }

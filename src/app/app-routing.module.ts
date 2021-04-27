@@ -110,6 +110,8 @@ import {CreateTemplateComponent} from './pages/doctor/form-templates/create-temp
 import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template/view-template.component';
 import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component';
 import {NewRegistredPatientComponent} from './pages/admin/new-registred-patient/new-registred-patient.component';
+import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
+import { UserCrud } from './models/user-crud';
 
 
 
@@ -149,6 +151,7 @@ const routes: Routes = [
       { path: 'profile', component: AdminProfileComponent },
       { path: 'doctorscrud', component: DoctorsCrudComponent },
       { path: 'adminscrud', component: AdminsCrudComponent },
+      { path: 'patientcrud', component: PatientsCrudComponent },
       { path: 'newregistredpatient', component: NewRegistredPatientComponent}
     ]
   },
@@ -213,7 +216,7 @@ const routes: Routes = [
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
     OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
-    NewRegistredPatientComponent
+    NewRegistredPatientComponent,PatientsCrudComponent
   ]
 })
 export class AppRoutingModule { }

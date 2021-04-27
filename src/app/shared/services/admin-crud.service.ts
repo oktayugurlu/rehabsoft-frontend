@@ -17,6 +17,11 @@ export class AdminCrudService {
   }
 
 
+  getAllPatients() {
+    return this.http.get<UserCrud[]>(`${environment.API_BASE_PATH}/admin/patients`);
+    
+  }
+
   getAllDoctors() {
     return this.http.get<UserCrud[]>(`${environment.API_BASE_PATH}/admin/doctors`);
     
@@ -24,6 +29,10 @@ export class AdminCrudService {
 
   getAllAdmins() {
     return this.http.get<UserCrud[]>(`${environment.API_BASE_PATH}/admin/admins`);
+  }
+
+  deletePatientById(id:number) {
+    return this.http.delete<ResponseMessage>(`${environment.API_BASE_PATH}/admin/deletepatient/${id}`);
   }
 
   deleteDoctorById(id:number) {
