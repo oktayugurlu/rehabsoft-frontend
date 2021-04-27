@@ -56,12 +56,13 @@ export const doctorNavigation = [
 
 export const adminNavigation = [
   {
-    text: 'Anasayfa',
+    text: 'Admin Paneli',
     path: '/admin/home',
     icon: 'home'
   },
   {
     text:"Hasta Listesi",
+    path: '/admin/patientcrud',
     icon:"group"
   },
   {

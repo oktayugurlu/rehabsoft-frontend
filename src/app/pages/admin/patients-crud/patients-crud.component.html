@@ -6,7 +6,7 @@
   
         <dxi-item location="center" widget="dxButton" locateInMenu="never">
           <div *dxTemplate>
-            <div class='toolbar-label'><b>DOKTOR/FİZYOTERAPİST LİSTESİ</b> </div>
+            <div class='toolbar-label'><b>HASTA LİSTESİ</b> </div>
           </div>
         </dxi-item>
       </dx-toolbar>
@@ -26,14 +26,14 @@
       <dxi-column type="buttons" alignment="center" width='100px'>
         <dxi-button hint="Düzenle" icon="edit" [visible]="true"></dxi-button>
         <dxi-button hint="Sil" icon="trash" [visible]="true" [onClick]="deleteButtonClick"></dxi-button>
-      </dxi-column>
+
+    </dxi-column>
   
   
       <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
     </dx-data-grid>
   
   
-    <dx-button stylingMode="contained" style=" background-color: #9EE2E9;" text="Doktor Ekle" type="success"  icon= 'plus' [width]="200"  (onClick)="createNewDoctorAccount($event)"></dx-button>
    
     
    
@@ -41,7 +41,6 @@
   
   
   
-  <app-new-doctor-account (getAllDoctors)="getAllDoctors()"></app-new-doctor-account>
   
   
   

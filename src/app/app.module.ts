@@ -41,6 +41,7 @@ import { AdminsCrudComponent } from './pages/admin/admins-crud/admins-crud.compo
 import { NewAccountComponent } from './pages/admin/new-account/new-account.component';
 import { NewDoctorAccountComponent } from './pages/admin/doctors-crud/new-doctor-account/new-doctor-account.component';
 import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-account/new-admin-account.component';
+import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
 
 
 @NgModule({
