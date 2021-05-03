@@ -823,6 +823,20 @@ export class NecessaryFormsComponent {
 
             },
             error => {
+
+              
+              // message is ok
+              const options = {
+                title: 'Bir Hata meydana geldi !',
+                icon: 'error',
+                text: error.responseMessage,
+                type: 'error',
+                heightAuto: false
+              } as SweetAlertOptions;
+
+              swal.fire(options).then(() => {
+              });
+              
               notify(JSON.stringify(error.responseMessage));
             });
       },

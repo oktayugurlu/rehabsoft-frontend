@@ -1,13 +1,21 @@
-import {Component, OnInit, SecurityContext} from '@angular/core';
+import { Component, ElementRef, OnInit, SecurityContext } from '@angular/core';
 import notify from 'devextreme/ui/notify';
-import {GeneralFormService} from "../../../../shared/services/generalForm.service"
-import { ViewChild} from '@angular/core';
-import {DxFileUploaderComponent, DxRadioGroupComponent} from "devextreme-angular";
-import {Hyperbilirubinemia} from "../../../../models/generalevaluationform/hyperbilirubinemia";
+import { GeneralFormService } from "../../../../shared/services/generalForm.service"
+import { ViewChild } from '@angular/core';
+import { DxFileUploaderComponent, DxRadioGroupComponent, DxSankeyComponent } from "devextreme-angular";
+import { Hyperbilirubinemia } from "../../../../models/generalevaluationform/hyperbilirubinemia";
 import { ActivatedRoute } from '@angular/router';
-import {AsynImageComponent} from "../../../../shared/components/asyn-image/asyn-image.component";
-import {environment} from "../../../../../environments/environment";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import { AsynImageComponent } from "../../../../shared/components/asyn-image/asyn-image.component";
+
+import { environment } from "../../../../../environments/environment";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import html2canvas from 'html2canvas';
+import * as jspdf from 'jspdf';
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'app-patient-gefd-information',
@@ -15,13 +23,13 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
   styleUrls: ['./patient-gefd-information.component.scss']
 })
 export class PatientGefdInformationComponent implements OnInit {
-
-  generalEvaluationForm:any;
-  tcKimlikNo:string;
+  @ViewChild('pdfTable', { static: false }) pdfTable: ElementRef;
+  generalEvaluationForm: any;
+  tcKimlikNo: string;
 
   @ViewChild("eventRadioGroupMultiplePregnancy") eventRadioGroup: DxRadioGroupComponent;
   @ViewChild("dxFileUploaderComponentBotoxReport") eventBotoxReport: DxFileUploaderComponent;
-  isGeneralEvaluationFormLoaded:boolean=false;
+  isGeneralEvaluationFormLoaded: boolean = false;
 
   loading = false;
   error = '';
@@ -30,20 +38,20 @@ export class PatientGefdInformationComponent implements OnInit {
   ////************** For 2 Collections in GeneralEvaluationForm bunlar sonra submitte tek tek kontrol edilip oyle collectionlarina set edilecek****************/////
   // Orthesis checkbox options
   isOrthesisMap = [
-    {name: 'Tabanlık', value: false},
-    {name: 'Topuk Kapı', value: false},
-    {name: 'Ayak bileği hizasında ortez (supra-malleoler)',value:  false},
-    {name: 'Sabit Ayak-ayak bileği ortezi (AFO)', value: false},
-    {name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false},
-    {name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false},
-    {name: 'Dinamik ayak ayak bileği ortezi (DAFO)', value: false},
-    {name: 'Bacaklar için gece splinti', value: false},
-    {name: 'Bacaklar için gece splinti',value:  false},
-    {name: 'İmmobilizer', value: false},
-    {name: 'Kalça ateli', value: false},
-    {name: 'Gövde korsesi', value: false},
-    {name: 'Dirsek splinti', value: false},
-    {name: 'Baş parmak ortezi', value: false},
+    { name: 'Tabanlık', value: false },
+    { name: 'Topuk Kapı', value: false },
+    { name: 'Ayak bileği hizasında ortez (supra-malleoler)', value: false },
+    { name: 'Sabit Ayak-ayak bileği ortezi (AFO)', value: false },
+    { name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false },
+    { name: 'Eklemli Ayak-ayak bileği ortezi (eklemli AFO)', value: false },
+    { name: 'Dinamik ayak ayak bileği ortezi (DAFO)', value: false },
+    { name: 'Bacaklar için gece splinti', value: false },
+    { name: 'Bacaklar için gece splinti', value: false },
+    { name: 'İmmobilizer', value: false },
+    { name: 'Kalça ateli', value: false },
+    { name: 'Gövde korsesi', value: false },
+    { name: 'Dirsek splinti', value: false },
+    { name: 'Baş parmak ortezi', value: false },
   ];
   orthesisMap = new Map([
     ['Tabanlık', new Map([
@@ -105,10 +113,10 @@ export class PatientGefdInformationComponent implements OnInit {
     {
       name: "Normal vajinal ",
       value: "Normal vajinal "
-    },{
+    }, {
       name: "Planlı sezaryen",
       value: "planlı sezaryen"
-    },{
+    }, {
       name: "Acil sezaryen ",
       value: "Acil sezaryen "
     }];
@@ -117,157 +125,156 @@ export class PatientGefdInformationComponent implements OnInit {
   // onIsMultiplePregnancyOptionValueChanged = (event) =>{
   //   console.log(this.generalEvaluationForm.isMultiplePregnancy);
   // }
-  isRelativeMarriagelist = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isRelativeMarriagelist = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isRelativeMarriageOption = {
     dataSource: this.isRelativeMarriagelist,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name',
   };
-  isBloodIncompatibilitylist = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isBloodIncompatibilitylist = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isBloodIncompatibilityOption = {
     dataSource: this.isBloodIncompatibilitylist,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isBirthAnoxialist = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isBirthAnoxialist = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isBirthAnoxiaOption = {
     dataSource: this.isBirthAnoxialist,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isBirthEmpurplinglist = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isBirthEmpurplinglist = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isBirthEmpurplingOption = {
     dataSource: this.isBirthEmpurplinglist,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isBirthCryinglist = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isBirthCryinglist = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isBirthCryingOption = {
     dataSource: this.isBirthCryinglist,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isHighBloodPressorPregnancyList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isHighBloodPressorPregnancyList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isHighBloodPressorPregnancyOption = {
     dataSource: this.isHighBloodPressorPregnancyList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isPregnancyDrinkingList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isPregnancyDrinkingList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isPregnancyDrinkingOption = {
     dataSource: this.isPregnancyDrinkingList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isPregnancySmokingList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isPregnancySmokingList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isPregnancySmokingOption = {
     dataSource: this.isPregnancySmokingList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isIntensiveCareList = [{name:'Kaldı', value: true},{name:'Kalmadı', value: false}];
-  oxygenSupportList = [{name:'Aldı', value: true},{name:'Almadı', value: false}];
+  isIntensiveCareList = [{ name: 'Kaldı', value: true }, { name: 'Kalmadı', value: false }];
+  oxygenSupportList = [{ name: 'Aldı', value: true }, { name: 'Almadı', value: false }];
   oxygenSupportOption = {
     dataSource: this.oxygenSupportList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  newbornRetinopathyList = [{name:'Oldu', value: true},{name:'Olmadı', value: false}];
+  newbornRetinopathyList = [{ name: 'Oldu', value: true }, { name: 'Olmadı', value: false }];
   newbornRetinopathyOption = {
     dataSource: this.newbornRetinopathyList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isRespiratuvarDistressSyndromList = [{name:'Oldu', value: true},{name:'Olmadı', value: false}];
+  isRespiratuvarDistressSyndromList = [{ name: 'Oldu', value: true }, { name: 'Olmadı', value: false }];
   isRespiratuvarDistressSyndromOption = {
     dataSource: this.isRespiratuvarDistressSyndromList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isBronchopulmonaryDysplasiaList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isBronchopulmonaryDysplasiaList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isBronchopulmonaryDysplasiaOption = {
     dataSource: this.isBronchopulmonaryDysplasiaList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isHyperbilirubinemiaList = [{name:'Oldu', value: true},{name:'Olmadı', value: false}];
+  isHyperbilirubinemiaList = [{ name: 'Oldu', value: true }, { name: 'Olmadı', value: false }];
   isHyperbilirubinemiaOption = {
     dataSource: this.isHyperbilirubinemiaList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name',
-    onValueChanged: (event)=>{
-      if(!event.value) {
+    onValueChanged: (event) => {
+      if (!event.value) {
         this.generalEvaluationForm.hyperbilirubinemia = null;
       }
-      else{
+      else {
         this.generalEvaluationForm.hyperbilirubinemia = new Hyperbilirubinemia();
       }
     }
   };
-  isPhototeraphyList = [{name:'Aldı', value: true},{name:'Almadı', value: false}];
+  isPhototeraphyList = [{ name: 'Aldı', value: true }, { name: 'Almadı', value: false }];
   isPhototeraphyOption = {
     dataSource: this.isPhototeraphyList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isHypoglycaemiaList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isHypoglycaemiaList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isHypoglycaemiaOption = {
     dataSource: this.isHypoglycaemiaList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isVisualImpairmentList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isVisualImpairmentList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isVisualImpairmentOption = {
     dataSource: this.isVisualImpairmentList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isHearingImpairmentList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isHearingImpairmentList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isHearingImpairmentOption = {
     dataSource: this.isHearingImpairmentList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isHearingAidList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isHearingAidList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isHearingAidOption = {
     dataSource: this.isHearingAidList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
-  isPhysiotherapyPastList = [{name:'Var', value: true},{name:'Yok', value: false}];
+  isPhysiotherapyPastList = [{ name: 'Var', value: true }, { name: 'Yok', value: false }];
   isPhysiotherapyPastOption = {
     dataSource: this.isPhysiotherapyPastList,
-    layout:"horizontal",
+    layout: "horizontal",
     valueExpr: 'value',
     displayExpr: 'name'
   };
 
 
-  constructor(private generalFormService:GeneralFormService,route: ActivatedRoute, private domSanitizer: DomSanitizer) {
+  constructor(private generalFormService: GeneralFormService, route: ActivatedRoute, private domSanitizer: DomSanitizer) {
 
     route.parent.params.subscribe(
-      (params) =>
-      {
-            this.tcKimlikNo= params.tckimlikno;
-       });
+      (params) => {
+        this.tcKimlikNo = params.tckimlikno;
+      });
     this.generalEvaluationForm = {};
     this.generalEvaluationForm["isVisualImpairment"] = false;
     this.generalEvaluationForm["isHearingImpairment"] = false;
@@ -280,48 +287,89 @@ export class PatientGefdInformationComponent implements OnInit {
 
 
 
-  getGeneralEvaluationForm = ()=>  {
-    this.generalFormService.getByTcKimlikNo(this.tcKimlikNo).subscribe(
-    (data)=>{
-      console.log("data", data);
-      this.generalEvaluationForm = data;
-      this.isGeneralEvaluationFormLoaded = true;
-      this.prepareDownloadLinkBotoxImage();
+  downloadPdf = () => {
 
-      this.generalEvaluationForm["isVisualImpairment"] = this.generalEvaluationForm.visualimpairment !== undefined;
-      this.generalEvaluationForm["isHearingImpairment"] = this.generalEvaluationForm.hearingImpairment !== undefined;
-      this.generalEvaluationForm["isPhysiotherapyPast"] = this.generalEvaluationForm.physiotherapyPast !== undefined;
-    },
-    (error)=>{
-      notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");
-    });
+
+
+
+
+
+    var element = document.getElementById("content");
+    html2canvas(element).then((canvas) => {
+      console.log("pdf islemi basladi")
+
+      var imgWidth = 210; 
+      var pageHeight = 295; 
+      console.log("pdf CP- -1 basladi")
+      var imgData = canvas.toDataURL('image/jpeg')
+      console.log("pdf CP-0 basladi")
+
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      console.log("pdf CP-1 basladi")
+      var doc = new jspdf.jsPDF('p', 'mm');
+      var position = 0;
+      console.log("pdf CP-2 basladi")
+      doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      console.log("pdf CP-3 basladi")
+
+      doc.save('file.pdf');
+      console.log("pdf islemi soona erdi")
+
+    })
+  }
+
+
+  getGeneralEvaluationForm = () => {
+    this.generalFormService.getByTcKimlikNo(this.tcKimlikNo).subscribe(
+      (data) => {
+        console.log("data", data);
+        this.generalEvaluationForm = data;
+        this.isGeneralEvaluationFormLoaded = true;
+        this.prepareDownloadLinkBotoxImage();
+
+        this.generalEvaluationForm["isVisualImpairment"] = this.generalEvaluationForm.visualimpairment !== undefined;
+        this.generalEvaluationForm["isHearingImpairment"] = this.generalEvaluationForm.hearingImpairment !== undefined;
+        this.generalEvaluationForm["isPhysiotherapyPast"] = this.generalEvaluationForm.physiotherapyPast !== undefined;
+      },
+      (error) => {
+        notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");
+      });
   }
 
 
 
   // ******* Applied Treatments start******** //
   @ViewChild(AsynImageComponent) asynImageComponentForImageView: AsynImageComponent;
-  title:string;
+  title: string;
   isImagePopUpVisible: boolean;
   imageUrlToDownload: string;
   // Botox Image //
-  botoxImageFileUrl:SafeResourceUrl;
-  botoxImageFileName:string;
-  showBotoxImage = ()=>{
+  botoxImageFileUrl: SafeResourceUrl;
+  botoxImageFileName: string;
+  showBotoxImage = () => {
     this.imageUrlToDownload = `${environment.API_BASE_PATH}/patient/generalevaluationform/getbotoximage/${this.generalEvaluationForm.botoxTreatment.id}`;
     this.title = 'Botoks Resmi';
     this.isImagePopUpVisible = true;
   }
-  private prepareDownloadLinkBotoxImage = () =>{
-    this.generalFormService.getBotoxImageByBotoxTreatmentId(this.generalEvaluationForm.botoxTreatment.id).subscribe(imageBlob=>{
+  private prepareDownloadLinkBotoxImage = () => {
+    this.generalFormService.getBotoxImageByBotoxTreatmentId(this.generalEvaluationForm.botoxTreatment.id).subscribe(imageBlob => {
       console.log("imageBlob", imageBlob);
       this.botoxImageFileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(imageBlob));
       this.botoxImageFileName = this.getFileNameFromUrl(this.generalEvaluationForm.botoxTreatment.botoxRecordUrl);
-    }, (error)=>{
+    }, (error) => {
       notify(error);
     });
   }
-  private getFileNameFromUrl = (url:string):string =>{
+  private getFileNameFromUrl = (url: string): string => {
     return url.split("/").pop();
   }
   // ******* Applied Treatments end******** //

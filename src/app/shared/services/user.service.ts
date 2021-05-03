@@ -12,6 +12,7 @@ import {AppliedSurgery} from "../../models/generalevaluationform/appliedsurgery"
 import {OtherOrthesisInfo} from "../../models/generalevaluationform/otherorthesisinfo";
 import {BotoxTreatment} from "../../models/generalevaluationform/botoxtreatment";
 import {map} from "rxjs/operators";
+import { ResponseMessage } from 'src/app/models/responsemessage';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -58,7 +59,7 @@ export class UserService {
 
       payload.append('model', JSON.stringify(generalEvaluationForm));
 
-      return this.http.post<GeneralEvaluationForm>(`${environment.API_BASE_PATH}/patient/generalevaluationform/create`, payload, { observe: 'response' })
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/patient/generalevaluationform/create`, payload, { observe: 'response' })
         .pipe(map(resp => {
           return resp;
         }));

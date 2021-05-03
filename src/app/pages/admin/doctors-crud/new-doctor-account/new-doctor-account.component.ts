@@ -63,14 +63,11 @@ export class NewDoctorAccountComponent implements OnInit {
   }
 
   confirmPassword = (e: { value: string }) => {
-    if (this.registerForm.password !== '' && this.registerForm.confirmedPassword !== '') {
-      console.log(this.registerForm.password);
-      console.log(this.registerForm.confirmedPassword);
-      return this.registerForm.password === this.registerForm.confirmedPassword;
-    }
+    if(this.registerForm.password !== '' && e.value !== ''){
+      return this.registerForm.password === e.value;
+    } 
     return true;
   }
-
 
 
   cancelExercise = (Event) => {
@@ -95,8 +92,7 @@ export class NewDoctorAccountComponent implements OnInit {
   }
 
   closePopUp = () => {
-
-    console.log("Popup kapama basladi");
+    this.registerForm = new NewAccountRequest();
     this.popUpContent = new NewAccountRequest();
     this.isVisible = false;
   }
