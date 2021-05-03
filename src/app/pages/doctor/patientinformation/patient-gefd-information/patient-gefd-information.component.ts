@@ -298,8 +298,8 @@ export class PatientGefdInformationComponent implements OnInit {
     html2canvas(element).then((canvas) => {
       console.log("pdf islemi basladi")
 
-      var imgWidth = 210; 
-      var pageHeight = 295; 
+      var imgWidth = 210;
+      var pageHeight = 295;
       console.log("pdf CP- -1 basladi")
       var imgData = canvas.toDataURL('image/jpeg')
       console.log("pdf CP-0 basladi")
@@ -361,13 +361,15 @@ export class PatientGefdInformationComponent implements OnInit {
     this.isImagePopUpVisible = true;
   }
   private prepareDownloadLinkBotoxImage = () => {
-    this.generalFormService.getBotoxImageByBotoxTreatmentId(this.generalEvaluationForm.botoxTreatment.id).subscribe(imageBlob => {
-      console.log("imageBlob", imageBlob);
-      this.botoxImageFileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(imageBlob));
-      this.botoxImageFileName = this.getFileNameFromUrl(this.generalEvaluationForm.botoxTreatment.botoxRecordUrl);
-    }, (error) => {
-      notify(error);
-    });
+    if(this.generalEvaluationForm.botoxTreatment.botoxRecordFile !== undefined){
+      this.generalFormService.getBotoxImageByBotoxTreatmentId(this.generalEvaluationForm.botoxTreatment.id).subscribe(imageBlob => {
+        console.log("imageBlob", imageBlob);
+        this.botoxImageFileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(imageBlob));
+        this.botoxImageFileName = this.getFileNameFromUrl(this.generalEvaluationForm.botoxTreatment.botoxRecordUrl);
+      }, (error) => {
+        notify(error);
+      });
+    }
   }
   private getFileNameFromUrl = (url: string): string => {
     return url.split("/").pop();

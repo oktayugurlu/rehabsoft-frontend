@@ -315,17 +315,21 @@
           <dxi-item itemType="group" [colCount]="2">
             <dxi-item itemType="group">
               <dxo-label location="top" [visible]="true" text="Botoks Resmi"></dxo-label>
+
               <dxi-item [template]="'buttonTemplate'">
               </dxi-item>
               <div *dxTemplate="let data of 'buttonTemplate'">
-                <div class="float-left" style="margin-right: 15px">
+                <div class="float-left" style="margin-right: 15px" [hidden]="generalEvaluationForm.botoxTreatment !== undefined">
                   <dx-button text="Resmi Aç" icon="fas fa-eye" type="normal" (onClick)="showBotoxImage()">
                   </dx-button>
                 </div>
-                <div class="float-left" style="margin-top: 2px">
+                <div class="float-left" style="margin-top: 2px" [hidden]="generalEvaluationForm.botoxTreatment !== undefined">
                   <a [href]="botoxImageFileUrl" [download]="botoxImageFileName">
                     <span class="fas fa-download fa-2x"></span>
                   </a>
+                </div>
+                <div [hidden]="generalEvaluationForm.botoxTreatment === undefined">
+                  <p> Hasta resim yüklemedi </p>
                 </div>
               </div>
             </dxi-item>
