@@ -42,6 +42,8 @@ import { NewAccountComponent } from './pages/admin/new-account/new-account.compo
 import { NewDoctorAccountComponent } from './pages/admin/doctors-crud/new-doctor-account/new-doctor-account.component';
 import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-account/new-admin-account.component';
 import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -73,7 +75,8 @@ import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud
     DxTabPanelModule,
     BrowserModule,
     DxTabPanelModule,
-    DxSankeyModule
+    DxSankeyModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
     ResponseVideoRequestService, AdminCrudService,

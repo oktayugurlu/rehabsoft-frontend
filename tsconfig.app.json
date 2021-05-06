@@ -2,6 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "target": "es2015",
     "types": [],
     "paths": {
       "jszip": [
