@@ -44,6 +44,8 @@ import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-ac
 import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
 
 
 @NgModule({
