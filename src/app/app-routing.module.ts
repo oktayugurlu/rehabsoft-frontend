@@ -112,6 +112,8 @@ import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/creat
 import {NewRegistredPatientComponent} from './pages/admin/new-registred-patient/new-registred-patient.component';
 import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
 import { UserCrud } from './models/user-crud';
+import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
 
 
 
@@ -191,6 +193,8 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: CreateAccountFormComponent },
+  {path: 'forgotpassword', component: ForgotPasswordComponent},
+  { path: 'reset_password/:token', component: ResetPasswordComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'conf', component: Conf },
   { path: 'indexhtml', component: IndexHTML }
@@ -208,7 +212,7 @@ const routes: Routes = [
   declarations: [
     PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,AdminsCrudComponent,
     NewAccountComponent,NewDoctorAccountComponent,
-    NewAdminAccountComponent,
+    NewAdminAccountComponent,ForgotPasswordComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
@@ -216,7 +220,7 @@ const routes: Routes = [
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
     OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
-    NewRegistredPatientComponent,PatientsCrudComponent
+    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent
   ]
 })
 export class AppRoutingModule { }
