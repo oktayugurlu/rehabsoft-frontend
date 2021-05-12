@@ -15,6 +15,7 @@ import {map} from "rxjs/operators";
 import { ResponseMessage } from 'src/app/models/responsemessage';
 import { UpdatePasswordDto } from 'src/app/models/updatepassword';
 import { ResetPasswordRequest } from 'src/app/models/resetpasswordrequest';
+import { ChangePasswordDto } from 'src/app/models/changePasswordDto';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -66,7 +67,10 @@ export class UserService {
       return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/password/forgotpassword`,resetRequest);
     }
     
-
+    
+    changePassword(changePasswordDto:ChangePasswordDto){
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/password/change`,changePasswordDto);
+    }
 
 
 
