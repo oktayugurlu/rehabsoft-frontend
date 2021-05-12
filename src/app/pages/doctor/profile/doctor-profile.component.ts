@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import {User} from "../../../models/user"
 import notify from "devextreme/ui/notify";
+import { ChangePasswordDto } from 'src/app/models/changePasswordDto';
 
 @Component({
   templateUrl: 'doctor-profile.component.html',
@@ -14,12 +15,39 @@ export class DoctorProfileComponent {
   username:any;
   userDto:User;
 
+  passwordForm: any;
+  changePasswordDto: ChangePasswordDto;
+
+  loading = false;
+  submitted = false;
+  error = '';
+  submitbuttonOptions: any = { useSubmitBehavior: true, text: 'Onayla', onClick: (Event) => this.changePassword(Event), width: '50%', type: "default" };
+
+
   ngOnInit() {
 
     
     this.username=JSON.parse(localStorage.getItem('currentUser')).username;
     //console.log("isim:" + this.username);
     this.getcurrentUserDetails(this.username);
+
+
+    this.passwordForm = {
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+      confirmedPassword: ''
+    };
+
+    this.changePasswordDto = {
+      username: '',
+      oldPassword: '',
+      newPassword: '',
+
+    };
+
+
+
   }
 
 
@@ -72,5 +100,46 @@ export class DoctorProfileComponent {
   }
 
   
+
+
+
+
+
+  confirmPassword = (e: { value: string }) => {
+    if (this.passwordForm.newPassword !== '' && e.value !== '') {
+      return this.passwordForm.newPassword === e.value;
+    }
+    return true;
+  }
+
+  changePassword(e: any) {
+    // stop here if form is invalid
+    if (!e.validationGroup.validate().isValid) {
+      //this.loading = true;
+      return;
+    }
+
+    this.submitted = true;
+
+    this.changePasswordDto.username = this.username;
+    this.changePasswordDto.oldPassword = this.passwordForm.oldPassword.trim();
+    this.changePasswordDto.newPassword = this.passwordForm.confirmedPassword.trim();
+
+    console.log("password change cagiriris:" + this.changePasswordDto.username);
+
+    this.userService.changePassword(this.changePasswordDto).subscribe(
+      (data) => {
+        notify(data.responseMessage);
+        
+      },
+      (error) => {
+        notify(error);
+      }
+    );
+
+
+
+  }
+
 
 }
