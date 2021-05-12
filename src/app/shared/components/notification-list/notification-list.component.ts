@@ -26,6 +26,18 @@ export class NotificationListComponent implements OnInit{
 
   }
 
+  click=(id:number)=>{
+    console.log("notification tiklandi: " + id);
+    this.notificationService.clickNotification(id).subscribe(
+      (data)=>{
+      },
+      (error)=>{
+        notify(error);
+      }
+    );
+
+  }
+
   getItemsList = ()=>{
     this.notificationService.getAll().subscribe(
       (data)=>{
