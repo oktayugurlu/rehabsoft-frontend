@@ -12,6 +12,9 @@ import {AppliedSurgery} from "../../models/generalevaluationform/appliedsurgery"
 import {OtherOrthesisInfo} from "../../models/generalevaluationform/otherorthesisinfo";
 import {BotoxTreatment} from "../../models/generalevaluationform/botoxtreatment";
 import {map} from "rxjs/operators";
+import { ResponseMessage } from 'src/app/models/responsemessage';
+import { UpdatePasswordDto } from 'src/app/models/updatepassword';
+import { ResetPasswordRequest } from 'src/app/models/resetpasswordrequest';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -49,6 +52,30 @@ export class UserService {
       return this.http.put<any>(`${environment.API_BASE_PATH}/users/update`,userDto);
     }
 
+
+    resetPassword(token:string){
+      return this.http.get<ResponseMessage>(`${environment.API_BASE_PATH}/password/reset/${token}`);
+    }
+
+    updatePassword(updatePasswordDto:UpdatePasswordDto){
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/password/resetpassword`,updatePasswordDto);
+    }
+
+
+    forgotPassworRequest(resetRequest:ResetPasswordRequest){
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/password/forgotpassword`,resetRequest);
+    }
+    
+
+
+
+
+
+
+
+
+
+
     postGeneralEvaluationForm(generalEvaluationForm: GeneralEvaluationForm){
       const payload = new FormData();
 
@@ -58,7 +85,7 @@ export class UserService {
 
       payload.append('model', JSON.stringify(generalEvaluationForm));
 
-      return this.http.post<GeneralEvaluationForm>(`${environment.API_BASE_PATH}/patient/generalevaluationform/create`, payload, { observe: 'response' })
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/patient/generalevaluationform/create`, payload, { observe: 'response' })
         .pipe(map(resp => {
           return resp;
         }));

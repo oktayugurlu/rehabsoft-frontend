@@ -1,5 +1,7 @@
 <header>
+  
   <dx-toolbar class="header-toolbar">
+
     <dxi-item
       *ngIf="menuToggleEnabled"
       location="before"
@@ -11,6 +13,11 @@
         onClick: toggleMenu
       }">
     </dxi-item>
+    <dxi-item
+    location="before">
+    <dx-button  icon="back"  (onClick)="backClick()"></dx-button>
+    </dxi-item>
+
     <dxi-item
       location="before"
       cssClass="header-title"
