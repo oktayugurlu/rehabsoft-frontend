@@ -8,5 +8,5 @@ export class AddedExerciseInProgram{
   physiotherapyProgram: PhiysiotherapyProgram;
   exercise: Exercise;
   scheduledExerciseCollection: ScheduledExercise[];
-  
+
 }
