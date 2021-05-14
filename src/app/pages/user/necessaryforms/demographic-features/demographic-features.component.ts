@@ -57,9 +57,6 @@ export class DemographicFeaturesComponent implements OnInit {
     // min:"minDate",
     // max:"now",
     // value:"now",
-    onValueChanged: (event)=>{
-      console.log(this.generalEvaluationForm.birthDate);
-    }
     // disabledDates:"getDisabledDates"
   };
 

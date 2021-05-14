@@ -10,7 +10,7 @@ function leave() {
     console.log('Ending call');
     peerConnection.close();
     signalingWebsocket.close();
-    window.location.href = 'list.component.html';
+    window.location.href = 'user-meeting-list.component.html';
 };
 
 /*

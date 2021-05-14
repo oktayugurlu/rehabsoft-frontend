@@ -37,7 +37,6 @@ import {
     DxToolbarModule,
     DxTooltipModule,
     DxTextBoxModule,
-    DxSankeyComponent,
     DxSankeyModule
 } from 'devextreme-angular';
 import {
@@ -96,7 +95,7 @@ import {AppliedSurgeryDataGridComponent} from "./pages/doctor/patientinformation
 import {OrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/orthesis-info-data-grid/orthesis-info-data-grid.component";
 import {OtherOrthesisInfoDataGridComponent} from "./pages/doctor/patientinformation/patient-gefd-information/other-orthesis-info-data-grid/other-orthesis-info-data-grid.component";
 import {JoinComponent} from "./pages/online-meeting/join.component";
-import {ListComponent} from "./pages/online-meeting/list.component";
+import {MeetingListComponent} from "./pages/doctor/online-meeting/meeting-list.component";
 import {OnlineMeetingBlockComponent} from "./shared/components/online-meeting-block/online-meeting-block.component";
 import {MeetingsComponent} from "./pages/doctor/patientinformation/meetings/meetings.component";
 import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-form/dynamic-form.component';
@@ -113,9 +112,9 @@ import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template
 import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component';
 import {NewRegistredPatientComponent} from './pages/admin/new-registred-patient/new-registred-patient.component';
 import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
-import { UserCrud } from './models/user-crud';
 import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
+import {UserMeetingListComponent} from "./pages/user/online-meeting/user-meeting-list.component";
 
 
 
@@ -146,7 +145,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: [Role.User]},
         children: [
-          { path: 'list', component: ListComponent },
+          { path: 'list', component: UserMeetingListComponent },
         ]
       },
       { path: '**', component: NotfoundUserDoctorComponent }
@@ -203,7 +202,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: [Role.Doctor, Role.User]},
         children: [
-          { path: 'list', component: ListComponent }
+          { path: 'list', component: MeetingListComponent }
         ]
       },
       { path: '**', component: NotfoundUserDoctorComponent }
@@ -246,7 +245,7 @@ const routes: Routes = [
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
     OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
-    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent, ListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent
+    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent, MeetingListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent,UserMeetingListComponent
   ]
 })
 export class AppRoutingModule { }

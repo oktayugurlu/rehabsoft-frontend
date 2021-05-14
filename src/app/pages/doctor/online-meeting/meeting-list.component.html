@@ -2,17 +2,17 @@
 <div class="content-block">
   <dx-scroll-view width="100%" height="550px">
     <div class="dx-card responsive-paddings">
-        <div style="display: grid;justify-content: right;align-content: center;">
-          <dx-button
-            icon="plus"
-            type="success"
-            text="Yeni Görüşme Ekle"
-            (onClick)="addMeetingModalButtonClicked()">
-          </dx-button>
-        </div>
-        <div *ngFor="let meeting of dataSource; let i = index" style="margin-bottom: 15px;margin-top: 15px">
-          <app-online-meeting-block [meeting]="meeting" (delClick)="delIconClicked($event)" [with]="meeting.patientUser" [meetingDate]="meeting.meetingDate" [meetingId]="meeting.id"></app-online-meeting-block>
-        </div>
+      <div style="display: grid;justify-content: right;align-content: center;">
+        <dx-button
+          icon="plus"
+          type="success"
+          text="Yeni Görüşme Ekle"
+          (onClick)="addMeetingModalButtonClicked()">
+        </dx-button>
+      </div>
+      <div *ngFor="let meeting of dataSource; let i = index" style="margin-bottom: 15px;margin-top: 15px">
+        <app-online-meeting-block [meeting]="meeting" (delClick)="delIconClicked($event)" [with]="meeting.patientUser" [meetingDate]="meeting.meetingDate" [meetingId]="meeting.id"></app-online-meeting-block>
+      </div>
     </div>
   </dx-scroll-view>
 </div>
@@ -40,7 +40,7 @@
       </dxi-item>
 
       <dxi-item dataField="patientId" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', placeholder: 'Seçiniz...', searchEnabled:true,
-                             dataSource: patientsSelectBox, valueExpr: 'value', displayExpr: 'name', disabled:true}">
+                             dataSource: patientsSelectBox, valueExpr: 'value', displayExpr: 'name'}">
         <dxi-validation-rule type="required" message="Görüşme Yapılacak Kişi">
         </dxi-validation-rule>
         <dxo-label location="top" [visible]="true" text="Görüşme Yapılacak Kişi"></dxo-label>

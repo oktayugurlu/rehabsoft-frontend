@@ -2,28 +2,24 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import notify from 'devextreme/ui/notify';
 import { PatientService } from 'src/app/shared/services/patient.service';
-import {PatientDetails} from "../../../../models/patientdetails"
-import {OnlineMeeting} from "../../../../models/online-meeting";
-import {OnlineMeetingService} from "../../../../shared/services/online-meeting.service";
-import {AuthenticationService} from "../../../../security/authentication.service";
 import swal from "sweetalert2";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DxFormComponent} from "devextreme-angular";
-import {Patient} from "../../../../models/patient";
-import {Doctor} from "../../../../models/doctor";
-import {DoctorService} from "../../../../shared/services/doctor.service";
+import {Patient} from "../../../models/patient";
+import {OnlineMeeting} from "../../../models/online-meeting";
+import {Doctor} from "../../../models/doctor";
+import {OnlineMeetingService} from "../../../shared/services/online-meeting.service";
+import {DoctorService} from "../../../shared/services/doctor.service";
 
 @Component({
-  selector: 'app-meetings',
-  templateUrl: './meetings.component.html',
-  styleUrls: ['./meetings.component.scss']
+  selector: 'app-doctor-meetings-list',
+  templateUrl: './meeting-list.component.html'
 })
-export class MeetingsComponent implements OnInit{
+export class MeetingListComponent implements OnInit{
   @ViewChild('dxAddMeetingForm') validationFormComponent: DxFormComponent
 
   dataSource:OnlineMeeting[];
   patient: Patient;
-  patientTc:string;
   username: string;
   doctor:Doctor;
   popupVisible: boolean=false;
@@ -35,14 +31,9 @@ export class MeetingsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.route.parent.params.subscribe(
-      (params) => {
-        this.patientTc = params.tckimlikno;
-        this.getAllMeetings();
-        this.getAllPatientByDoctor();
-        this.getDoctorByUsername();
-        this.getPatientByTckimlikNo();
-      });
+    this.getAllMeetings();
+    this.getAllPatientByDoctor();
+    this.getDoctorByUsername();
   }
 
   /*********** Service Callers ************/
@@ -56,7 +47,7 @@ export class MeetingsComponent implements OnInit{
       data.forEach((patient)=>{
         this.patientsSelectBox.push({
           name: patient.tcKimlikNo + " - "+patient.user.firstName+" "+patient.user.surname,
-          value: patient.user.id
+          value: patient.tcKimlikNo
         })
       });
     });
@@ -64,11 +55,6 @@ export class MeetingsComponent implements OnInit{
   getDoctorByUsername = () =>{
     this.doctorService.getDoctorByUsername(this.username).subscribe(data=>{
       this.doctor = data;
-    });
-  }
-  getPatientByTckimlikNo=()=>{
-    this.patientService.getPatient(this.patientTc).subscribe(data=>{
-      this.patient = data;
     });
   }
 
@@ -80,7 +66,7 @@ export class MeetingsComponent implements OnInit{
     this.addedMeeting.doctorUser = this.doctor.user;
     this.patientsSelectBox.forEach(patient=>{
       if(patient.name === this.patient.tcKimlikNo+" - "+ this.patient.user.firstName+" "+ this.patient.user.surname){
-        this.addedMeeting["patientId"] = this.patient.user.id;
+        this.addedMeeting["patientId"] = this.patient.tcKimlikNo;
       }
     })
   }
@@ -113,49 +99,54 @@ export class MeetingsComponent implements OnInit{
     if (! this.validationFormComponent.instance.validate().isValid) {
       return;
     }
+    let tc=this.addedMeeting["patientId"];
     delete this.addedMeeting["patientId"];
 
     this.isLoading = true
 
-    this.addedMeeting.meetingDate = new Date(this.addedMeeting.meetingDate.getTime() + (1000 * 60 * 60 * 3));
-    this.addedMeeting.meetingDate = this.addedMeeting.meetingDate.toISOString().replace('T',' ').slice(0,-5);
+    this.patientService.getPatient(tc).subscribe(data=>{
+      this.patient = data;
+      this.addedMeeting.meetingDate = new Date(this.addedMeeting.meetingDate.getTime() + (1000 * 60 * 60 * 3));
+      this.addedMeeting.meetingDate = this.addedMeeting.meetingDate.toISOString().replace('T',' ').slice(0,-5);
 
-    this.addedMeeting.patientUser = this.patient.user;
-    this.onlineMeetingsService.save(this.addedMeeting).subscribe(
-      (res) => {
-        this.isLoading = false;
-        this.closePopUp();
-        // @ts-ignore
-        swal.fire({
-          title: 'Başarılı !',
-          icon: 'success',
-          text: 'Görüşme Başarılı Bir Şekilde Eklendi! ',
-          type: 'success',
-          heightAuto: false
-        }).then(() => {
-          this.getAllMeetings();
-        });},
-      err => {
-        this.isLoading = false;
-        console.log('err: ', err);
-        if (err instanceof HttpErrorResponse) {
+      this.addedMeeting.patientUser = this.patient.user;
+      this.onlineMeetingsService.save(this.addedMeeting).subscribe(
+        (res) => {
+          this.isLoading = false;
+          this.closePopUp();
           // @ts-ignore
           swal.fire({
-            title: 'Hata Oluştu !',
-            text: 'Ekleme İşlemi Başarısız Oldu! ',
-            type: 'error',
+            title: 'Başarılı !',
+            icon: 'success',
+            text: 'Görüşme Başarılı Bir Şekilde Eklendi! ',
+            type: 'success',
             heightAuto: false
-          });
-        }else{
-          // @ts-ignore
-          swal.fire({
-            title: 'Hata Oluştu !',
-            text: 'Ekleme İşlemi Başarısız Oldu! ',
-            icon: 'error',
-            heightAuto: false
-          });
-        }
-      });
+          }).then(() => {
+            this.getAllMeetings();
+          });},
+        err => {
+          this.isLoading = false;
+          console.log('err: ', err);
+          if (err instanceof HttpErrorResponse) {
+            // @ts-ignore
+            swal.fire({
+              title: 'Hata Oluştu !',
+              text: 'Ekleme İşlemi Başarısız Oldu! ',
+              type: 'error',
+              heightAuto: false
+            });
+          }else{
+            // @ts-ignore
+            swal.fire({
+              title: 'Hata Oluştu !',
+              text: 'Ekleme İşlemi Başarısız Oldu! ',
+              icon: 'error',
+              heightAuto: false
+            });
+          }
+        });
+    });
+
   }
   closePopUp=()=>{
     this.popupVisible = false;
@@ -164,7 +155,7 @@ export class MeetingsComponent implements OnInit{
 
 
   delIconClicked=(meeting:OnlineMeeting)=>{
-console.log("safsdfdsf",meeting);
+    console.log("safsdfdsf",meeting);
     // @ts-ignore
     swal.fire({
       title: 'Emin misiniz?',
