@@ -45,4 +45,12 @@ export class PatientService {
     return this.http.post<any>(`${environment.API_BASE_PATH}/patient/assigndoctor/${tcKimlikNo}`, doctorUserID);
   }
 
+  getPatient(tcKimlikNo:string){
+    return this.http.get<Patient>(`${environment.API_BASE_PATH}/patient/get/${tcKimlikNo}`);
+  }
+
+  getPatientsByDoctor(doctorUsername:string){
+    return this.http.get<Patient[]>(`${environment.API_BASE_PATH}/patient/getPatientByDoctor/${doctorUsername}`);
+  }
+
 }

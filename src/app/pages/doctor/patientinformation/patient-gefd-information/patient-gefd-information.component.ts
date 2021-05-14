@@ -34,6 +34,9 @@ export class PatientGefdInformationComponent implements OnInit {
   loading = false;
   error = '';
 
+  //****** booleans for show component ********//
+  isBotoxTreatmentHasImage: boolean=false;
+
 
   ////************** For 2 Collections in GeneralEvaluationForm bunlar sonra submitte tek tek kontrol edilip oyle collectionlarina set edilecek****************/////
   // Orthesis checkbox options
@@ -289,11 +292,6 @@ export class PatientGefdInformationComponent implements OnInit {
 
   downloadPdf = () => {
 
-
-
-
-
-
     var element = document.getElementById("content");
     html2canvas(element).then((canvas) => {
       console.log("pdf islemi basladi")
@@ -334,11 +332,20 @@ export class PatientGefdInformationComponent implements OnInit {
         console.log("data", data);
         this.generalEvaluationForm = data;
         this.isGeneralEvaluationFormLoaded = true;
-        this.prepareDownloadLinkBotoxImage();
 
-        this.generalEvaluationForm["isVisualImpairment"] = this.generalEvaluationForm.visualimpairment !== undefined;
-        this.generalEvaluationForm["isHearingImpairment"] = this.generalEvaluationForm.hearingImpairment !== undefined;
-        this.generalEvaluationForm["isPhysiotherapyPast"] = this.generalEvaluationForm.physiotherapyPast !== undefined;
+        this.generalEvaluationForm["isVisualImpairment"] = this.generalEvaluationForm.visualimpairment !== null;
+        this.generalEvaluationForm["isHearingImpairment"] = this.generalEvaluationForm.hearingImpairment !== null;
+        this.generalEvaluationForm["isPhysiotherapyPast"] = this.generalEvaluationForm.physiotherapyPast !== null;
+        this.generalEvaluationForm["isBotoxTreatment"] = this.generalEvaluationForm.botoxTreatment !==  null;
+
+        if(this.generalEvaluationForm.botoxTreatment !== null){
+          this.prepareDownloadLinkBotoxImage();
+          this.isBotoxTreatmentHasImage = this.generalEvaluationForm.botoxTreatment.botoxRecordUrl !== null;
+        } else{
+          this.isBotoxTreatmentHasImage = true;
+        }
+
+        console.log("isBotoxTreatment",this.generalEvaluationForm.isBotoxTreatment);
       },
       (error) => {
         notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");

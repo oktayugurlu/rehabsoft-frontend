@@ -1,15 +1,36 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {AuthenticationService} from "../../security/authentication.service";
 import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
+import {Role} from "../../models/role";
+import notify from "devextreme/ui/notify";
 
 @Component({
-  templateUrl: 'conf.html'
+  templateUrl: 'join.component.html',
+  styleUrls: [ './join.component.scss' ]
 })
-export class Conf implements OnInit{
-  peerConnection;
-  signalingWebsocket;
+export class JoinComponent implements OnInit, OnDestroy{
+  private peerConnection;
+  private signalingWebsocket;
 
-  constructor(private authenticationService: AuthenticationService) {
+  // This object helps us to control the stream in our implemented methods. For ex: mute, stop video etc.
+  private stream;
+
+  ngOnInit() {
+
+    /*
+     * Setup 'leaveButton' button function.
+     */
+    const leaveButton = document.getElementById('leaveButton');
+    leaveButton.addEventListener('click', this.leave);
+  }
+
+  ngOnDestroy(): void {
+    console.log("stream bitti");
+    this.closeLocalDevicesInLocal();
+  }
+
+  constructor(private authenticationService: AuthenticationService, private router:Router) {
     const currentUser = this.authenticationService.currentUserValue;
     /*
      * Prepare websocket for signaling server endpoint.
@@ -38,24 +59,36 @@ export class Conf implements OnInit{
       this.preparePeerConnection();
       this.displayLocalStreamAndSignal(true);
     };
+
+    window.onload = this.muteLocalVideo;
   }
 
-  ngOnInit() {
-
-    /*
-     * Setup 'leaveButton' button function.
-     */
-    const leaveButton = document.getElementById('leaveButton');
-    leaveButton.addEventListener('click', this.leave);
-
-  }
 
   leave = () => {
     console.log('Ending call');
     this.peerConnection.close();
+    // bunu kullanmak gerek stream bititrmek icin
+    // this.stream.getTracks()[0].stop();
     this.signalingWebsocket.close();
-    window.location.href = './index.html';
+    this.closeLocalDevicesInLocal();
+    this.navigateByRole();
   };
+
+  private closeLocalDevicesInLocal = () =>{
+    this.stream.getTracks().forEach(track => track.stop());
+  }
+
+  private closeLocalDevicesInStream = () =>{
+
+  }
+
+  private navigateByRole = ()=>{
+    if(this.authenticationService.currentUserValue.role === Role.Doctor){
+      this.router.navigate(['/doctor/online-meeting/list']);
+    } else if(this.authenticationService.currentUserValue.role === Role.User){
+      this.router.navigate(['/user/online-meeting/list']);
+    }
+  }
 
   sendSignal = (signal) => {
     if (this.signalingWebsocket.readyState == 1) {
@@ -66,10 +99,21 @@ export class Conf implements OnInit{
   preparePeerConnection = () => {
 
     // Using free public google STUN server.
-    const configuration = {
-      iceServers: [{
-        urls: 'stun:stun.l.google.com:19302'
-      }]
+    const configuration =   {
+      iceServers: [
+        {
+          urls: [
+            "stun:stun1.l.google.com:19302",
+            "stun:stun2.l.google.com:19302",
+          ],
+        },
+        {
+          urls: [
+            "stun:global.stun.twilio.com:3478?transport=udp",
+          ],
+        },
+      ],
+      iceCandidatePoolSize: 10,
     };
 
     // Prepare peer connection object
@@ -80,6 +124,7 @@ export class Conf implements OnInit{
     };
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
+        console.log('onicecandidate');
         this.sendSignal(event);
       }
     };
@@ -106,13 +151,13 @@ export class Conf implements OnInit{
     try {
       // Capture local video & audio stream & set to local <video> DOM
       // element
-      const stream = await navigator.mediaDevices.getUserMedia({
+      this.stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
         video: true
       });
       console.log('Received local stream');
-      localVideo.srcObject = stream;
-      localStream = stream;
+      localVideo.srcObject = this.stream;
+      localStream = this.stream;
       this.logVideoAudioTrackInfo(localStream);
 
       // For first time, add local stream to peer connection.
@@ -165,6 +210,7 @@ export class Conf implements OnInit{
   sendOfferSignal = () => {
     this.peerConnection.createOffer((offer) => {
       this.sendSignal(offer);
+      console.log("offer atiliyor")
       this.peerConnection.setLocalDescription(offer);
     }, (error) => {
       alert("Error creating an offer");
@@ -186,7 +232,6 @@ export class Conf implements OnInit{
     }, function(error) {
       alert("Error creating an answer");
     });
-
   };
 
   /*
@@ -196,8 +241,10 @@ export class Conf implements OnInit{
    * hear each other.
    */
   handleAnswer = (answer) => {
-    this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
-    console.log("connection established successfully!!");
+    console.log("answer handle edilcek peerConnection: ",this.peerConnection);
+    this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer)).then(()=>{
+      console.log("connection established successfully!!");
+    });
   };
 
   /*
@@ -223,6 +270,17 @@ export class Conf implements OnInit{
       console.log(`Using audio device: ${audioTracks[0].label}`);
     }
   };
+
+  // To prevent your sound echo to yourself
+  muteLocalVideo = () => {
+    let element: any = <HTMLVideoElement> document.getElementById('localVideo');
+    element.muted = "muted";
+  }
+
+  // Mute your voice
+  muteYourStream = () => {
+    this.stream.getTracks().forEach(track => track.enabled = !track.enabled);
+  }
 
 }
 
