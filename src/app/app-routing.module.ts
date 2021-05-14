@@ -29,16 +29,17 @@ import { CommonModule } from '@angular/common';
 
 // Devextreme
 import {
-    DxListModule,
-    DxPopupModule,
-    DxProgressBarModule,
-    DxScrollViewModule,
-    DxTabPanelModule,
-    DxToolbarModule,
-    DxTooltipModule,
-    DxTextBoxModule,
-    DxSankeyComponent,
-    DxSankeyModule
+  DxListModule,
+  DxPopupModule,
+  DxProgressBarModule,
+  DxScrollViewModule,
+  DxTabPanelModule,
+  DxToolbarModule,
+  DxTooltipModule,
+  DxTextBoxModule,
+  DxSankeyComponent,
+  DxSankeyModule,
+  DxDateBoxModule, DxSchedulerModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -114,6 +115,7 @@ import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud
 import { UserCrud } from './models/user-crud';
 import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
+import {ExerciseProgramsComponent} from './pages/doctor/patientinformation/exercise-programs/exercise-programs.component';
 
 
 
@@ -179,6 +181,7 @@ const routes: Routes = [
           { path: 'usergefd', component: PatientGefdInformationComponent },
           { path: 'video-request', component: VideoRequestComponent },
           { path: 'message', component: MessageComponent },
+          { path: 'exercise-programs', component:ExerciseProgramsComponent},
           { path: 'dynamic-form', component: DynamicFormComponent},
           { path: 'assign-form', component: AssignFormComponent},
           { path: 'view-form/:formID', component: ViewFormComponent }
@@ -206,7 +209,8 @@ const routes: Routes = [
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule, DxSankeyModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule],
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule,
+    DxDateBoxModule, DxSchedulerModule],
 
   exports: [RouterModule],
   declarations: [
@@ -220,7 +224,7 @@ const routes: Routes = [
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
     OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, IndexHTML, Conf ,AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
-    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent
+    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent,ExerciseProgramsComponent
   ]
 })
 export class AppRoutingModule { }

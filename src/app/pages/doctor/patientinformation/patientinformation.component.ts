@@ -17,6 +17,7 @@ export class PatientinformationComponent implements OnInit {
   videoRequestUrl:string;
   messageUrl:string;
   dynamicFormsUrl:string;
+  exerciseProgramsUrl:string;
 
 
   constructor(private router: Router,route: ActivatedRoute) {
@@ -28,6 +29,7 @@ export class PatientinformationComponent implements OnInit {
       this.generalEvalFormurl = "usergefd";
       this.generalInformationUrl =  "general-info";
       this.messageUrl ="message";
+      this.exerciseProgramsUrl = "exercise-programs";
 
   }
 
