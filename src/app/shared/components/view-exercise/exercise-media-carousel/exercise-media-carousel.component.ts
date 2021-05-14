@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
 import notify from "devextreme/ui/notify";
 import {ExerciseVideo} from "../../../../models/exercise/exercisevideo";
 import {ExerciseService} from "../../../services/exercise.service";
@@ -10,6 +10,8 @@ import {ExerciseService} from "../../../services/exercise.service";
 })
 
 export class ExerciseMediaCarouselComponent implements OnInit{
+
+  @ViewChild('mdbCarouselItem') mdbCarouselItem;
 
   isImage: boolean = true;
 

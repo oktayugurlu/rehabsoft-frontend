@@ -19,6 +19,7 @@ import {AppInfoService, ScreenService} from './shared/services';
 import {DxButtonModule} from "devextreme-angular";
 import {PatientService} from "./shared/services/patient.service"
 import {VideorequestService} from "./shared/services/videorequest.service"
+import { DxSankeyModule } from "devextreme-angular";
 
 import {DxSelectBoxModule, DxTabPanelModule } from 'devextreme-angular';
 
@@ -40,13 +41,17 @@ import { AdminsCrudComponent } from './pages/admin/admins-crud/admins-crud.compo
 import { NewAccountComponent } from './pages/admin/new-account/new-account.component';
 import { NewDoctorAccountComponent } from './pages/admin/doctors-crud/new-doctor-account/new-doctor-account.component';
 import { NewAdminAccountComponent } from './pages/admin/admins-crud/new-admin-account/new-admin-account.component';
+import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
 import {OnlineMeetingService} from "./shared/services/online-meeting.service";
 
 
 @NgModule({
   declarations: [
     AppComponent
-
     ],
   imports: [
     BrowserModule,
@@ -73,6 +78,8 @@ import {OnlineMeetingService} from "./shared/services/online-meeting.service";
     DxTabPanelModule,
     BrowserModule,
     DxTabPanelModule,
+    DxSankeyModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
     ResponseVideoRequestService, AdminCrudService, OnlineMeetingService,

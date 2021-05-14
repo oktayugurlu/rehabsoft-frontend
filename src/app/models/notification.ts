@@ -6,5 +6,6 @@ export class Notification {
   notificationContent: string;
   notificationUrl: string;
   notificationTitle: string;
+  status:number;
 
 }

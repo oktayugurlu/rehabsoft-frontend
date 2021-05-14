@@ -34,7 +34,11 @@ import {
     DxProgressBarModule,
     DxScrollViewModule,
     DxTabPanelModule,
-    DxToolbarModule, DxTooltipModule
+    DxToolbarModule,
+    DxTooltipModule,
+    DxTextBoxModule,
+    DxSankeyComponent,
+    DxSankeyModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -95,6 +99,23 @@ import {JoinComponent} from "./pages/online-meeting/join.component";
 import {ListComponent} from "./pages/online-meeting/list.component";
 import {OnlineMeetingBlockComponent} from "./shared/components/online-meeting-block/online-meeting-block.component";
 import {MeetingsComponent} from "./pages/doctor/patientinformation/meetings/meetings.component";
+import {DynamicFormComponent} from './pages/doctor/patientinformation/dynamic-form/dynamic-form.component';
+import component from 'devextreme/core/component';
+import {AssignFormComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/assign-form.component';
+import {DefaultValueDataGridComponent} from './pages/doctor/patientinformation/dynamic-form/assign-form/default-value-data-grid/default-value-data-grid.component';
+import {DynamicFormRequestComponent} from './pages/user/dynamic-form-request/dynamic-form-request.component';
+import {AnswerDynamicFormComponent} from './pages/user/dynamic-form-request/answer-dynamic-form/answer-dynamic-form.component';
+import {ViewDynamicFormComponent} from './pages/user/dynamic-form-request/view-dynamic-form/view-dynamic-form.component';
+import {ViewFormComponent} from './pages/doctor/patientinformation/dynamic-form/view-form/view-form.component';
+import {FormTemplatesComponent} from './pages/doctor/form-templates/form-templates.component';
+import {CreateTemplateComponent} from './pages/doctor/form-templates/create-template/create-template.component';
+import {ViewTemplateComponent} from './pages/doctor/form-templates/view-template/view-template.component';
+import {DefaultValueDatagridComponent} from './pages/doctor/form-templates/create-template/default-value-datagrid/default-value-datagrid.component';
+import {NewRegistredPatientComponent} from './pages/admin/new-registred-patient/new-registred-patient.component';
+import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
+import { UserCrud } from './models/user-crud';
+import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
 
 
 
@@ -118,6 +139,9 @@ const routes: Routes = [
       { path: 'user-notification', component: UserNotificationComponent },
       { path: 'user-video-submit', component: UserResponseVideoRequestComponent},
       { path: 'message', component: PatientMessageComponent},
+      { path: 'dynamic-form-request', component: DynamicFormRequestComponent},
+      { path: 'answer-dynamic-form/:formID', component: AnswerDynamicFormComponent},
+      { path: 'view-dynamic-form/:formID', component: ViewDynamicFormComponent},
       { path: 'online-meeting',
         canActivate: [AuthGuard],
         data: { roles: [Role.User]},
@@ -126,6 +150,7 @@ const routes: Routes = [
         ]
       },
       { path: '**', component: NotfoundUserDoctorComponent }
+
     ]
   },
   {
@@ -138,6 +163,8 @@ const routes: Routes = [
       { path: 'profile', component: AdminProfileComponent },
       { path: 'doctorscrud', component: DoctorsCrudComponent },
       { path: 'adminscrud', component: AdminsCrudComponent },
+      { path: 'patientcrud', component: PatientsCrudComponent },
+      { path: 'newregistredpatient', component: NewRegistredPatientComponent},
       { path: '**', component: NotfoundUserDoctorComponent }
     ]
   },
@@ -146,12 +173,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Doctor] },
     children: [
-      //{ path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: DoctorHomeComponent },
       { path: 'profile', component: DoctorProfileComponent },
       { path: 'task', component: DoctorTasksComponent },
       { path: 'exercises', component: DoctorExerciseManagmentComponent },
       { path: 'getall', component: ListPatientsComponent },
+      //{ path: 'patient-info', component: PatientinformationComponent},
+      //{ path: 'usergefd', component: PatientGefdInformationComponent },
 
       {
         path: 'patient-info/:tckimlikno', component: PatientinformationComponent,
@@ -161,9 +190,15 @@ const routes: Routes = [
           { path: 'usergefd', component: PatientGefdInformationComponent },
           { path: 'video-request', component: VideoRequestComponent },
           { path: 'message', component: MessageComponent },
+          { path: 'dynamic-form', component: DynamicFormComponent},
+          { path: 'assign-form', component: AssignFormComponent},
+          { path: 'view-form/:formID', component: ViewFormComponent },
           { path: 'meetings', component: MeetingsComponent }
         ]
       },
+      { path: 'form-templates', component: FormTemplatesComponent},
+      { path: 'view-template/:formID', component: ViewTemplateComponent},
+      { path: 'create-template', component: CreateTemplateComponent},
       { path: 'online-meeting',
         canActivate: [AuthGuard],
         data: { roles: [Role.Doctor, Role.User]},
@@ -173,10 +208,13 @@ const routes: Routes = [
       },
       { path: '**', component: NotfoundUserDoctorComponent }
 
+
     ]
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: CreateAccountFormComponent },
+  {path: 'forgotpassword', component: ForgotPasswordComponent},
+  { path: 'reset_password/:token', component: ResetPasswordComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'online-meeting',
     canActivate: [AuthGuard],
@@ -190,23 +228,25 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
-        FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
-        DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
-        DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule,
-        MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule],
+  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule, DxLoadIndicatorModule,
+    FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
+    DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
+    DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule, DxSankeyModule,
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule],
 
   exports: [RouterModule],
   declarations: [
     PagesComponent, DoctorCreateExerciseComponent, VideoPlayerComponent,AdminsCrudComponent,
     NewAccountComponent,NewDoctorAccountComponent,
-    NewAdminAccountComponent,
+    NewAdminAccountComponent,ForgotPasswordComponent,
     UserComponent, UserHomeComponent, UserProfileComponent, UserTasksComponent, NecessaryFormsComponent, UserNotificationComponent,
     PatientFormComponent, DemographicFeaturesComponent, ListPatientsComponent, PatientinformationComponent, GeneralInformationComponent,
     DoctorComponent, DoctorHomeComponent, DoctorProfileComponent, DoctorTasksComponent, DoctorExerciseManagmentComponent, PatientGefdInformationComponent,AdminComponent, AdminHomeComponent, AdminProfileComponent, AdminTasksComponent, ViewExerciseComponent, NotificationListComponent, ExerciseMediaCarouselComponent, VideoRequestComponent,UserResponseVideoRequestComponent,
-    AsynImageComponent, UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
+     UserVideoSubmitPopupComponent, ViewResponseComponent, PhysicalAppearanceComponent, PrenatalFeaturesComponent,
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
-    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, ListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent ]
+    OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
+    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent, ListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent
+  ]
 })
 export class AppRoutingModule { }

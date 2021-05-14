@@ -16,7 +16,12 @@ export const userNavigation = [
     {
       text: 'Mesajlar',
       path: '/user/message',
-      icon: 'message'}
+      icon: 'message'},
+  {
+    text: 'Form İstekleri',
+    path: '/user/dynamic-form-request',
+    icon: 'paste'
+  }
 ];
 
 export const doctorNavigation = [
@@ -40,19 +45,30 @@ export const doctorNavigation = [
     text: 'Profil',
     path: '/doctor/profile',
     icon:"user"
+  },
+  {
+    text: 'Hazır Formlar',
+    path: '/doctor/form-templates',
+    icon:"paste"
   }
 ];
 
 
 export const adminNavigation = [
   {
-    text: 'Anasayfa',
+    text: 'Admin Paneli',
     path: '/admin/home',
     icon: 'home'
   },
   {
     text:"Hasta Listesi",
+    path: '/admin/patientcrud',
     icon:"group"
+  },
+  {
+    text: "Yeni Kayıt Hasta",
+    path: '/admin/newregistredpatient',
+    icon: "group"
   },
   {
     text: 'Doktor Listesi',

@@ -1,5 +1,6 @@
 import { Component, NgModule, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import notify from 'devextreme/ui/notify';
 
 import { UserPanelModule } from '../user-panel/user-panel.component';
 import { DxButtonModule } from 'devextreme-angular/ui/button';
@@ -8,6 +9,8 @@ import {AuthenticationService} from '../../../security/authentication.service';
 import {TokenDto} from '../../../models/tokendto';
 import {Role} from '../../../models/role';
 import {Router} from '@angular/router';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-header',
@@ -27,8 +30,13 @@ export class HeaderComponent implements OnInit {
 
   currentUser:TokenDto=new TokenDto();
 
+  backClick() {
+    this._location.back();
+
+  }
+
   userMenuItems = [{
-    text: 'Profile',
+    text: 'Profil',
     icon: 'user'
 
   }, {
@@ -41,7 +49,7 @@ export class HeaderComponent implements OnInit {
   }];
 
   constructor(private authenticationService: AuthenticationService,
-              private router: Router) {
+              private router: Router,private _location: Location) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 

@@ -1,3 +1,8 @@
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <div *ngIf="!isAssigned()">
 
   <div class='toolbar-label'><b></b> </div>
@@ -20,7 +25,7 @@
 </div>
 
 
-<div *ngIf="isAssigned()">
+<div *ngIf="isAssigned()" style="padding-bottom: 30px;">
 
   <div class="card-body" style="padding: 2px; background-color: #9EE2E9;">
 
@@ -28,47 +33,15 @@
 
       <dxi-item location="center" widget="dxButton" locateInMenu="never">
         <div *dxTemplate>
-          <div class='toolbar-label'><b>Mesaj Kutusu</b> </div>
+        <b>Mesaj Kutusu</b> 
         </div>
       </dxi-item>
     </dx-toolbar>
   </div>
 
-<div class="container">
-
-  <div>
-
-    <dx-form id="form" [formData]="doctorInfo" [readOnly]="true" caption="Fizyoterapist Bilgileriniz:">
-
-      <dxi-item location="center" widget="dxButton" locateInMenu="never">
-        <div *dxTemplate>
-          <div class='toolbar-label'><b>Fizyoterapist Bilgileriniz</b> </div>
-        </div>
-      </dxi-item>
-      <dxi-item [alignItemLabels]="true" itemType="group" [colCount]="3">
-        <dxi-item dataField="name">
-          <dxo-label location="top" [visible]="true" text="İsim"></dxo-label>
-        </dxi-item>
-
-        <dxi-item dataField="surname">
-          <dxo-label location="top" [visible]="true" text="Soyisim"></dxo-label>
-        </dxi-item>
-
-        <dxi-item dataField="email">
-          <dxo-label location="top" [visible]="true" text="E-mail Adresi"></dxo-label>
-        </dxi-item>
 
 
-      </dxi-item>
-    </dx-form>
-  </div>
-
-</div>
-
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<br>
 
   <div>
 
@@ -77,7 +50,7 @@
         <div class="inbox_msg">
           <div class="mesgs">
             <div class="msg_history" *ngFor="let msg of messageHistoryList">
-
+              <br>
               <div class="incoming_msg" *ngIf="!isMyMessage(msg)">
 
 
@@ -86,7 +59,7 @@
                   <div class="received_withd_msg">
                     <h6>Konu: {{msg.messageTitle}}</h6>
                     <p>{{msg.messageContent}}</p>
-                    <span class="time_date"> {{msg.creationDate}} </span>
+                    <span class="time_date"> {{msg.creationDate}}     Gönderen:{{msg.senderName}} {{msg.senderSurname}} </span>
                   </div>
                 </div>
               </div>
