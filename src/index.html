@@ -32,12 +32,26 @@
   <link rel="apple-touch-icon" href="/ios-icons/apple-touch-icon.png">
 
 
+  <script src="https://cdn3.devexpress.com/jslib/20.2.7/js/localization/dx.messages.tr.js"></script>
+
+
   <meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 
 <body class="dx-viewport">
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
+
+  <script>
+    DevExpress.localization.locale(navigator.language);
+    // ...
+    // DevExtreme UI components are configured here
+    // ...
+</script>
+
+
+
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
