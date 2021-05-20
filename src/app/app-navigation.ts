@@ -26,6 +26,11 @@ export const userNavigation = [
     text: 'Görüşmeler',
     path: '/user/online-meeting/list',
     icon:"tel"
+  },
+  {
+    text: 'Egzersiz Programları',
+    path: '/user/physiotherapy-program',
+    icon:"runner"
   }
 ];
 
