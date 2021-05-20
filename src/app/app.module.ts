@@ -33,6 +33,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {OnlineMeetingService} from "./shared/services/online-meeting.service";
 import {DoctorService} from "./shared/services/doctor.service";
+import {ScheduledExerciseService} from "./shared/services/scheduled-exercise.service";
 
 
 @NgModule({
@@ -68,7 +69,7 @@ import {DoctorService} from "./shared/services/doctor.service";
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
-    ResponseVideoRequestService, AdminCrudService, OnlineMeetingService, DoctorService,
+    ResponseVideoRequestService, AdminCrudService, OnlineMeetingService, DoctorService, ScheduledExerciseService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

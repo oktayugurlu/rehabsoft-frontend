@@ -1,8 +1,8 @@
-import {AddedExerciseInProgram} from './addedexerciseinprogram';
+import {Exercise} from "../exercise/exercise";
 
 export class ScheduledExercise {
   id : number;
-  addedExerciseInProgram : AddedExerciseInProgram;
-  scheduled_date: any;
+  scheduledDate: any;
   isApplied : boolean;
+  exercise: Exercise
 }

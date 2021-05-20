@@ -26,7 +26,6 @@ export class PatientinformationComponent implements OnInit {
 
   constructor(private router: Router,private route: ActivatedRoute, private patientService:PatientService) {
       this.tcKimlikNo = route.snapshot.params.tckimlikno;
-      console.log("PATIENTINFO tcKimlikNo:",this.tcKimlikNo);
       this.itemCount = this.titleList.length;
       this.videoRequestUrl = "video-request";
       this.dynamicFormsUrl = "dynamic-form";
@@ -42,8 +41,6 @@ export class PatientinformationComponent implements OnInit {
 
     this.patientService.getPatient(this.tcKimlikNo).subscribe(data=>{
       this.patient = data;
-      console.log("patient: ",data);
-      console.log("patient: ",this.patient);
     });
 
   }

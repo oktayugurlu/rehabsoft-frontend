@@ -119,6 +119,11 @@ import { ResetPasswordComponent } from './shared/components/reset-password/reset
 import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
 import {ExerciseProgramsComponent} from './pages/doctor/patientinformation/exercise-programs/exercise-programs.component';
 import {UserMeetingListComponent} from "./pages/user/online-meeting/user-meeting-list.component";
+import {CreateExerciseProgramComponent} from "./pages/doctor/patientinformation/exercise-programs/create-exercise-program/create-exercise-program.component";
+import {ExerciseFormModalComponent} from "./pages/doctor/patientinformation/exercise-programs/create-exercise-program/exercise-form-modal/exercise-form-modal.component";
+import {ViewExerciseProgramsComponent} from "./shared/components/view-exercise-program/view-exercise-programs.component";
+import {ViewExerciseListComponent} from "./shared/components/view-exercise-program/view-exercise-list/view-exercise-list.component";
+import {PhysiotherapyProgramComponent} from "./pages/user/physiotherapy-program/physiotherapy-program.component";
 
 
 
@@ -152,6 +157,7 @@ const routes: Routes = [
           { path: 'list', component: UserMeetingListComponent },
         ]
       },
+      { path: 'physiotherapy-program', component: PhysiotherapyProgramComponent},
       { path: '**', component: NotfoundUserDoctorComponent }
 
     ]
@@ -251,7 +257,8 @@ const routes: Routes = [
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
     OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
-    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent, MeetingListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent,UserMeetingListComponent,ExerciseProgramsComponent
+    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent, MeetingListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent,UserMeetingListComponent,ExerciseProgramsComponent,
+    CreateExerciseProgramComponent, ExerciseFormModalComponent, ViewExerciseProgramsComponent, ViewExerciseListComponent, PhysiotherapyProgramComponent
   ]
 })
 export class AppRoutingModule { }

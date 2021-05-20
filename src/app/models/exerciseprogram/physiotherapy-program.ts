@@ -1,15 +1,15 @@
 import {Doctor} from '../doctor';
 import {Patient} from '../patient';
-import {AddedExerciseInProgram} from './addedexerciseinprogram';
+import {ScheduledExercise} from "./scheduledexercise";
 
-export class PhiysiotherapyProgram{
+export class PhysiotherapyProgram{
   id: number;
   creationDate : any;
   doctor : Doctor;
   goal : string;
   patient: Patient;
-  isProgramActive : boolean;
+  isActive : boolean;
   startDate : any;
   finishDate : any;
-  exerciseInProgramsList: AddedExerciseInProgram[];
+  scheduledExerciseCollection: ScheduledExercise[];
  }
