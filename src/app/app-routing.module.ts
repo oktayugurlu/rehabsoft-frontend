@@ -37,7 +37,10 @@ import {
     DxToolbarModule,
     DxTooltipModule,
     DxTextBoxModule,
-    DxSankeyModule
+    DxSankeyComponent,
+    DxSankeyModule,
+    DxDateBoxModule,
+    DxSchedulerModule
 } from 'devextreme-angular';
 import {
   DxAccordionModule, DxBoxModule, DxButtonModule,
@@ -114,7 +117,13 @@ import {NewRegistredPatientComponent} from './pages/admin/new-registred-patient/
 import { PatientsCrudComponent } from './pages/admin/patients-crud/patients-crud.component';
 import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './shared/components/forgot-password/forgot-password.component';
+import {ExerciseProgramsComponent} from './pages/doctor/patientinformation/exercise-programs/exercise-programs.component';
 import {UserMeetingListComponent} from "./pages/user/online-meeting/user-meeting-list.component";
+import {CreateExerciseProgramComponent} from "./pages/doctor/patientinformation/exercise-programs/create-exercise-program/create-exercise-program.component";
+import {ExerciseFormModalComponent} from "./pages/doctor/patientinformation/exercise-programs/create-exercise-program/exercise-form-modal/exercise-form-modal.component";
+import {ViewExerciseProgramsComponent} from "./shared/components/view-exercise-program/view-exercise-programs.component";
+import {ViewExerciseListComponent} from "./shared/components/view-exercise-program/view-exercise-list/view-exercise-list.component";
+import {PhysiotherapyProgramComponent} from "./pages/user/physiotherapy-program/physiotherapy-program.component";
 
 
 
@@ -148,6 +157,7 @@ const routes: Routes = [
           { path: 'list', component: UserMeetingListComponent },
         ]
       },
+      { path: 'physiotherapy-program', component: PhysiotherapyProgramComponent},
       { path: '**', component: NotfoundUserDoctorComponent }
 
     ]
@@ -189,6 +199,7 @@ const routes: Routes = [
           { path: 'usergefd', component: PatientGefdInformationComponent },
           { path: 'video-request', component: VideoRequestComponent },
           { path: 'message', component: MessageComponent },
+          { path: 'exercise-programs', component:ExerciseProgramsComponent},
           { path: 'dynamic-form', component: DynamicFormComponent},
           { path: 'assign-form', component: AssignFormComponent},
           { path: 'view-form/:formID', component: ViewFormComponent },
@@ -231,7 +242,8 @@ const routes: Routes = [
     FooterModule, SideNavOuterToolbarModule, CommonModule, BrowserModule, DxFileUploaderModule, DxProgressBarModule,
     DxAccordionModule, DxCheckBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxBoxModule,
     DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxRadioGroupModule, DxSankeyModule,
-    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule],
+    MDBBootstrapModule, WavesModule, DxButtonModule, DxToolbarModule, DxPopupModule, DxTabPanelModule, DxScrollViewModule, DxoItemDraggingModule, DxListModule, DxTooltipModule, DxTextBoxModule,
+    DxDateBoxModule, DxSchedulerModule],
 
   exports: [RouterModule],
   declarations: [
@@ -245,7 +257,8 @@ const routes: Routes = [
     BirthFeaturesComponent, AfterBirthFeaturesComponent,AfterBirthCerebralPalsyReasonsComponent,AppliedTreatmentsComponent,CoexistingDiseasesComponent,
     PhysiotherapyPastComponent,ExpectationsAboutProgramComponent,MessageComponent,PatientMessageComponent,ChatComponent,DoctorsCrudComponent, AppliedSurgeryDataGridComponent,
     OrthesisInfoDataGridComponent, OtherOrthesisInfoDataGridComponent, AsynImageComponent,DynamicFormComponent,AssignFormComponent,DefaultValueDataGridComponent, DynamicFormRequestComponent,AnswerDynamicFormComponent,ViewDynamicFormComponent,ViewFormComponent,FormTemplatesComponent,ViewTemplateComponent,CreateTemplateComponent,DefaultValueDatagridComponent,
-    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent, MeetingListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent,UserMeetingListComponent
+    NewRegistredPatientComponent,PatientsCrudComponent,ResetPasswordComponent, MeetingListComponent, JoinComponent, OnlineMeetingBlockComponent, MeetingsComponent,UserMeetingListComponent,ExerciseProgramsComponent,
+    CreateExerciseProgramComponent, ExerciseFormModalComponent, ViewExerciseProgramsComponent, ViewExerciseListComponent, PhysiotherapyProgramComponent
   ]
 })
 export class AppRoutingModule { }

@@ -19,21 +19,21 @@ export class PatientinformationComponent implements OnInit {
   videoRequestUrl:string;
   messageUrl:string;
   dynamicFormsUrl:string;
+  exerciseProgramsUrl:string;
   onlineMeetingsUrl:string;
   patient:Patient;
   tcKimlikNo:string;
 
-
   constructor(private router: Router,private route: ActivatedRoute, private patientService:PatientService) {
       this.tcKimlikNo = route.snapshot.params.tckimlikno;
-      console.log("PATIENTINFO tcKimlikNo:",this.tcKimlikNo);
       this.itemCount = this.titleList.length;
       this.videoRequestUrl = "video-request";
       this.dynamicFormsUrl = "dynamic-form";
       this.generalEvalFormurl = "usergefd";
       this.generalInformationUrl =  "general-info";
       this.messageUrl ="message";
-    this.onlineMeetingsUrl ="meetings";
+      this.onlineMeetingsUrl ="meetings";
+      this.exerciseProgramsUrl = "exercise-programs";
 
   }
 
@@ -41,8 +41,6 @@ export class PatientinformationComponent implements OnInit {
 
     this.patientService.getPatient(this.tcKimlikNo).subscribe(data=>{
       this.patient = data;
-      console.log("patient: ",data);
-      console.log("patient: ",this.patient);
     });
 
   }

@@ -164,7 +164,6 @@ export class MeetingsComponent implements OnInit{
 
 
   delIconClicked=(meeting:OnlineMeeting)=>{
-console.log("safsdfdsf",meeting);
     // @ts-ignore
     swal.fire({
       title: 'Emin misiniz?',

@@ -16,14 +16,6 @@
 
         <dxi-item location="after" widget="dxButton" locateInMenu="auto" [options]="refreshButtonOptions">
         </dxi-item>
-
-<!--        <dxi-item location="after" widget="dxButton" locateInMenu="auto"-->
-<!--                  [options]="{disabled: !isFocuesOnRowDataGrid, text: 'Fatura Parametreleri',icon: 'event',-->
-<!--                  onClick: changeFaturaParameterleri}">-->
-<!--        </dxi-item>-->
-<!--        <dxi-item location="after" widget="dxButton" locateInMenu="auto" [options]="refreshButtonOptions">-->
-<!--        </dxi-item>-->
-
       </dx-toolbar>
 
     </div>
@@ -50,14 +42,6 @@
     <dxo-filter-row [visible]="true" ></dxo-filter-row>
     <!-- Pagination end -->
 
-<!--    <dxi-column-->
-<!--      dataField="aktif"-->
-<!--      caption="Aktif Durum"-->
-<!--      [allowFiltering]="false"-->
-<!--      [showEditorAlways]='false'-->
-<!--      [customizeText]='customizeAktifDurum'-->
-<!--      width= '100vh'-->
-<!--    ></dxi-column>-->
     <dxi-column
       dataField="id"
       caption="Egzersiz ID"
@@ -77,38 +61,6 @@
       caption="Oluşturan Kişi"
       width= '160px'
     ></dxi-column>
-<!--    <dxi-column-->
-<!--      dataField="sayacgrubu.grupadi"-->
-<!--      caption="Sayaç Grubu"-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="sanalsayac"-->
-<!--      caption="Sanal Sayaç"-->
-<!--      [customizeText]='customizeSanalDurum'-->
-<!--      [showEditorAlways]='false'-->
-<!--      [allowFiltering]="false"-->
-<!--      width= '100px'-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="talepkalemi.adi"-->
-<!--      caption="Talep Kalemi Adı"-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="okumatipi"-->
-<!--      caption="Okuma Tipi"-->
-<!--      [showEditorAlways]='false'-->
-<!--      [allowFiltering]="false"-->
-<!--      [customizeText]='customizeReadTypes'-->
-<!--      width= '140px'-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="etsokodu"-->
-<!--      caption="ETSO Kodu"-->
-<!--    ></dxi-column>-->
-<!--    <dxi-column-->
-<!--      dataField="m2msayackodu"-->
-<!--      caption="OSOS Sayaç Kodu"-->
-<!--    ></dxi-column>-->
 
     <dxi-column type="buttons" alignment="center"  width= '100px' >
       <dxi-button hint="Önizleme" icon="fas fa-eye" [visible]="true" [onClick]="previewIconClick"></dxi-button>
