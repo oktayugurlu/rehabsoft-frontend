@@ -103,7 +103,7 @@ export class NecessaryFormsComponent {
     console.log("------>>>>>>>>>>>>>>>>>> necessary form ---");
     this.addPhoneButtonOptions1 = {
       icon: "add",
-      text: "Add phone",
+      text: "Telefon Ekle",
       onClick: () => {
         this.patientForm.phoneNumberListForParent1.push("");
         this.phoneOptions1 = this.getPhonesOptions1(this.patientForm.phoneNumberListForParent1);
@@ -112,7 +112,7 @@ export class NecessaryFormsComponent {
 
     this.addPhoneButtonOptions2 = {
       icon: "add",
-      text: "Add phone",
+      text: "Telefon Ekle",
       onClick: () => {
         this.patientForm.phoneNumberListForParent2.push("");
         this.phoneOptions2 = this.getPhonesOptions2(this.patientForm.phoneNumberListForParent2);
@@ -814,7 +814,7 @@ export class NecessaryFormsComponent {
             },
             error => {
 
-              
+
               // message is ok
               const options = {
                 title: 'Bir Hata meydana geldi !',
@@ -826,7 +826,7 @@ export class NecessaryFormsComponent {
 
               swal.fire(options).then(() => {
               });
-              
+
               notify(JSON.stringify(error.responseMessage));
             });
       },
