@@ -63,9 +63,7 @@ export class ExpectationsAboutProgramComponent {
   }
   goNextForm = (event)=>{
     // stop here if form is invalid
-    if (!event.validationGroup.validate().isValid) {
-      return;
-    }
+
     this.loading = true;
     this.nextStepper.emit();
   }
