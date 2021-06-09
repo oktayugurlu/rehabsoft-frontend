@@ -9,9 +9,6 @@ import {AuthenticationService} from "../../../security/authentication.service";
   template: `
     <video #target width="400" height="300" class="video-js" playsinline preload="auto" crossorigin="use-credentials" ></video>
   `,
-  styleUrls: [
-    './video-player.component.scss'
-  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy {
