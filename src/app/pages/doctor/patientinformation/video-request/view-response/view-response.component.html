@@ -9,7 +9,7 @@
 
           <mdb-carousel-item *ngFor="let notification of requestedVideoListPrepared; let i = index">
               <div style="height: 600px; margin: auto;">
-                <app-vjs-player  [options]="{
+                <video-player-component [options]="{
           responsive: true,
           autoplay: false,
           controls: true,
@@ -21,7 +21,7 @@
               }
             }
             }">
-                </app-vjs-player>
+                </video-player-component>
               </div>
           </mdb-carousel-item>
 

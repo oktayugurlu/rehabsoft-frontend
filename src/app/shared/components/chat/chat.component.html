@@ -20,7 +20,6 @@
                                 <div class="received_msg">
                                     <div class="received_withd_msg">
                                         <p>{{msg.messageContent}}</p>
-                                        <span class="time_date"> {{msg.creationDate}} </span>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +27,6 @@
                             <div class="outgoing_msg" *ngIf="isMyMessage(msg)">
                                 <div class="sent_msg">
                                     <p>{{msg.messageContent}}</p>
-                                    <span class="time_date"> {{msg.creationDate}}</span>
                                 </div>
                             </div>
 

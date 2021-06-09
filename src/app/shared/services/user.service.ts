@@ -13,6 +13,9 @@ import {OtherOrthesisInfo} from "../../models/generalevaluationform/otherorthesi
 import {BotoxTreatment} from "../../models/generalevaluationform/botoxtreatment";
 import {map} from "rxjs/operators";
 import { ResponseMessage } from 'src/app/models/responsemessage';
+import { UpdatePasswordDto } from 'src/app/models/updatepassword';
+import { ResetPasswordRequest } from 'src/app/models/resetpasswordrequest';
+import { ChangePasswordDto } from 'src/app/models/changePasswordDto';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -49,6 +52,33 @@ export class UserService {
     updateUser(userDto:User){
       return this.http.put<any>(`${environment.API_BASE_PATH}/users/update`,userDto);
     }
+
+
+    resetPassword(token:string){
+      return this.http.get<ResponseMessage>(`${environment.API_BASE_PATH}/password/reset/${token}`);
+    }
+
+    updatePassword(updatePasswordDto:UpdatePasswordDto){
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/password/resetpassword`,updatePasswordDto);
+    }
+
+
+    forgotPassworRequest(resetRequest:ResetPasswordRequest){
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/password/forgotpassword`,resetRequest);
+    }
+    
+    
+    changePassword(changePasswordDto:ChangePasswordDto){
+      return this.http.post<ResponseMessage>(`${environment.API_BASE_PATH}/password/change`,changePasswordDto);
+    }
+
+
+
+
+
+
+
+
 
     postGeneralEvaluationForm(generalEvaluationForm: GeneralEvaluationForm){
       const payload = new FormData();

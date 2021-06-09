@@ -16,6 +16,11 @@ export class NotificationService {
     return this.http.get<Notification[]>(`${environment.API_BASE_PATH}/notification/all`);
   }
 
+  clickNotification(id:number) {
+    return this.http.get<any>(`${environment.API_BASE_PATH}/notification/click/${id}`);
+  }
+
+
 
 
 }

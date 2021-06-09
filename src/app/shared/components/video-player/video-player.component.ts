@@ -5,15 +5,17 @@ import {AuthenticationService} from "../../../security/authentication.service";
 
 // @ts-ignore
 @Component({
-  selector: 'app-vjs-player',
+  selector: 'video-player-component',
   template: `
-    <video style="width: 100%;max-height: 100%;" #target poster="" width="400" class="video-js" controls muted playsinline preload="auto" crossorigin="use-credentials" ></video>
+    <video #target width="400" height="300" class="video-js" playsinline preload="auto" crossorigin="use-credentials" ></video>
   `,
-
+  styleUrls: [
+    './video-player.component.scss'
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy {
-  @ViewChild('target', {static: true}) target: ElementRef;
+  @ViewChild('target', {static: true}) target;
   // see options: https://github.com/videojs/video.js/blob/mastertutorial-options.html
   @Input() options: {
     responsive: boolean,
@@ -25,9 +27,17 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       type: string
     }[],
     html5:any,
+    controls: true
   };
   player: videojs.Player;
   token:string;
+
+  @Input()
+  set paused(val: boolean) {
+    if(this.player!==undefined && val===true) {
+      this.player.pause();
+    }
+  }
 
   constructor(
     private elementRef: ElementRef,
@@ -42,7 +52,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // instantiate Video.js
     let tokenForHeader = this.token;
-
     // videojs.Hls.xhr.beforeRequest =  function(options){
     //   console.log('before XHR Call');
     //   console.log('options', options)

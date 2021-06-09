@@ -34,6 +34,9 @@ export class PatientGefdInformationComponent implements OnInit {
   loading = false;
   error = '';
 
+  //****** booleans for show component ********//
+  isBotoxTreatmentHasImage: boolean=false;
+
 
   ////************** For 2 Collections in GeneralEvaluationForm bunlar sonra submitte tek tek kontrol edilip oyle collectionlarina set edilecek****************/////
   // Orthesis checkbox options
@@ -289,17 +292,12 @@ export class PatientGefdInformationComponent implements OnInit {
 
   downloadPdf = () => {
 
-
-
-
-
-
     var element = document.getElementById("content");
     html2canvas(element).then((canvas) => {
       console.log("pdf islemi basladi")
 
-      var imgWidth = 210; 
-      var pageHeight = 295; 
+      var imgWidth = 210;
+      var pageHeight = 295;
       console.log("pdf CP- -1 basladi")
       var imgData = canvas.toDataURL('image/jpeg')
       console.log("pdf CP-0 basladi")
@@ -334,11 +332,20 @@ export class PatientGefdInformationComponent implements OnInit {
         console.log("data", data);
         this.generalEvaluationForm = data;
         this.isGeneralEvaluationFormLoaded = true;
-        this.prepareDownloadLinkBotoxImage();
 
-        this.generalEvaluationForm["isVisualImpairment"] = this.generalEvaluationForm.visualimpairment !== undefined;
-        this.generalEvaluationForm["isHearingImpairment"] = this.generalEvaluationForm.hearingImpairment !== undefined;
-        this.generalEvaluationForm["isPhysiotherapyPast"] = this.generalEvaluationForm.physiotherapyPast !== undefined;
+        this.generalEvaluationForm["isVisualImpairment"] = this.generalEvaluationForm.visualimpairment !== null;
+        this.generalEvaluationForm["isHearingImpairment"] = this.generalEvaluationForm.hearingImpairment !== null;
+        this.generalEvaluationForm["isPhysiotherapyPast"] = this.generalEvaluationForm.physiotherapyPast !== null;
+        this.generalEvaluationForm["isBotoxTreatment"] = this.generalEvaluationForm.botoxTreatment !==  null;
+
+        if(this.generalEvaluationForm.botoxTreatment !== null){
+          this.prepareDownloadLinkBotoxImage();
+          this.isBotoxTreatmentHasImage = this.generalEvaluationForm.botoxTreatment.botoxRecordUrl !== null;
+        } else{
+          this.isBotoxTreatmentHasImage = true;
+        }
+
+        console.log("isBotoxTreatment",this.generalEvaluationForm.isBotoxTreatment);
       },
       (error) => {
         notify("Hasta formu doldurmamıştır veya kaydı bulunmamaktadır.");
@@ -361,13 +368,15 @@ export class PatientGefdInformationComponent implements OnInit {
     this.isImagePopUpVisible = true;
   }
   private prepareDownloadLinkBotoxImage = () => {
-    this.generalFormService.getBotoxImageByBotoxTreatmentId(this.generalEvaluationForm.botoxTreatment.id).subscribe(imageBlob => {
-      console.log("imageBlob", imageBlob);
-      this.botoxImageFileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(imageBlob));
-      this.botoxImageFileName = this.getFileNameFromUrl(this.generalEvaluationForm.botoxTreatment.botoxRecordUrl);
-    }, (error) => {
-      notify(error);
-    });
+    if(this.generalEvaluationForm.botoxTreatment.botoxRecordFile !== undefined){
+      this.generalFormService.getBotoxImageByBotoxTreatmentId(this.generalEvaluationForm.botoxTreatment.id).subscribe(imageBlob => {
+        console.log("imageBlob", imageBlob);
+        this.botoxImageFileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(imageBlob));
+        this.botoxImageFileName = this.getFileNameFromUrl(this.generalEvaluationForm.botoxTreatment.botoxRecordUrl);
+      }, (error) => {
+        notify(error);
+      });
+    }
   }
   private getFileNameFromUrl = (url: string): string => {
     return url.split("/").pop();

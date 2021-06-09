@@ -1,7 +1,10 @@
 
 
 <div id="pdfTable"  id="content">
-  <button (click)="downloadPdf()">Download PDF</button>
+  <dx-button icon="save"
+             text="PDF Olarak İndir"
+             (onClick)="downloadPdf()">
+  </dx-button>
 
   <div class="container" id="video-grid">
 
@@ -306,26 +309,39 @@
       <!--7. Uygulanan Tedaviler-->
       <dxi-item [alignItemLabels]="true" itemType="group" caption="7. Uygulanan Tedaviler">
 
-        <dxi-item itemType="group" editorType="dxRadioGroup" caption="Botoks Tedavisi">
-          <dxi-item dataField="botoxTreatment.lastBotoxDate" editorType="dxDateBox">
-            <dxo-label location="top" [visible]="true" text="Son botoksun uygulanma tarihi(eğer Uygulandı ise)">
+
+        <dxi-item itemType="group" caption="Botoks Tedavisi">
+
+          <dxi-item
+            dataField="isBotoxTreatment"
+            editorType="dxRadioGroup"
+            [editorOptions]="{dataSource:[{name:'Oldu', value: true},{name:'Hiç olmadı', value: false}], valueExpr: 'value', displayExpr: 'name',layout:'horizontal'}">
+            <dxo-label location="top" [visible]="true" text="Botilinum toksin (Botox) enjeksiyonu oldu mu?"></dxo-label>
+          </dxi-item>
+
+          <dxi-item [visible]="generalEvaluationForm.isBotoxTreatment" dataField="botoxTreatment.lastBotoxDate" editorType="dxDateBox">
+            <dxo-label location="top"  text="Son botoksun uygulanma tarihi(eğer Uygulandı ise)">
             </dxo-label>
           </dxi-item>
 
           <dxi-item itemType="group" [colCount]="2">
             <dxi-item itemType="group">
-              <dxo-label location="top" [visible]="true" text="Botoks Resmi"></dxo-label>
-              <dxi-item [template]="'buttonTemplate'">
+              <dxo-label location="top" text="Botoks Resmi" [visible]="generalEvaluationForm.isBotoxTreatment" ></dxo-label>
+
+              <dxi-item [template]="'buttonTemplate'"  >
               </dxi-item>
-              <div *dxTemplate="let data of 'buttonTemplate'">
-                <div class="float-left" style="margin-right: 15px">
+              <div *dxTemplate="let data of 'buttonTemplate'" >
+                <div class="float-left" style="margin-right: 15px" [hidden]="!generalEvaluationForm.isBotoxTreatment">
                   <dx-button text="Resmi Aç" icon="fas fa-eye" type="normal" (onClick)="showBotoxImage()">
                   </dx-button>
                 </div>
-                <div class="float-left" style="margin-top: 2px">
+                <div class="float-left" style="margin-top: 2px" [hidden]="!generalEvaluationForm.isBotoxTreatment">
                   <a [href]="botoxImageFileUrl" [download]="botoxImageFileName">
                     <span class="fas fa-download fa-2x"></span>
                   </a>
+                </div>
+                <div [hidden]="!generalEvaluationForm.isBotoxTreatment">
+                  <p> Hasta resim yüklemedi </p>
                 </div>
               </div>
             </dxi-item>

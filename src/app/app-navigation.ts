@@ -21,6 +21,16 @@ export const userNavigation = [
     text: 'Form İstekleri',
     path: '/user/dynamic-form-request',
     icon: 'paste'
+  },
+  {
+    text: 'Görüşmeler',
+    path: '/user/online-meeting/list',
+    icon:"tel"
+  },
+  {
+    text: 'Egzersiz Programları',
+    path: '/user/physiotherapy-program',
+    icon:"runner"
   }
 ];
 
@@ -50,6 +60,11 @@ export const doctorNavigation = [
     text: 'Hazır Formlar',
     path: '/doctor/form-templates',
     icon:"paste"
+  },
+  {
+    text: 'Görüşmeler',
+    path: '/doctor/online-meeting/list',
+    icon:"tel"
   }
 ];
 

@@ -25,23 +25,16 @@
 </div>
 
 
-<div *ngIf="isAssigned()" >
+<div *ngIf="isAssigned()" style="padding-bottom: 30px;">
 
-  <div class="card-body" style="padding: 2px; background-color: #9EE2E9;">
 
-    <dx-toolbar style="padding: 2px; background-color: #9EE2E9;">
+  <h3 style="margin-left: 25px;margin-top: 15px;">Mesaj Kutusu</h3>
 
-      <dxi-item location="center" widget="dxButton" locateInMenu="never">
-        <div *dxTemplate>
-        <b>Mesaj Kutusu</b> 
-        </div>
-      </dxi-item>
-    </dx-toolbar>
-  </div>
+  <hr style="margin-left: 25px;margin-right: 25px;margin-top: 15px;margin-bottom: 0px;border-top: 1px solid black;">
 
 
 
-
+<br>
 
   <div>
 
@@ -59,7 +52,7 @@
                   <div class="received_withd_msg">
                     <h6>Konu: {{msg.messageTitle}}</h6>
                     <p>{{msg.messageContent}}</p>
-                    <span class="time_date"> {{msg.creationDate}}     Gönderen:{{msg.senderName}} {{msg.senderSurname}} </span>
+                    <span class="time_date">  Gönderen:{{msg.senderName}} {{msg.senderSurname}} </span>
                   </div>
                 </div>
               </div>
@@ -69,7 +62,6 @@
                 <div class="sent_msg">
                   <h6>Konu: {{msg.messageTitle}}</h6>
                   <p>{{msg.messageContent}}</p>
-                  <span class="time_date"> {{msg.creationDate}}</span>
                 </div>
               </div>
 
@@ -114,7 +106,7 @@
         </dx-form>
 
 
-  
+
 
 
 

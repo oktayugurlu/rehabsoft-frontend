@@ -26,12 +26,23 @@ export class NotificationListComponent implements OnInit{
 
   }
 
+  click=(id:number)=>{
+    console.log("notification tiklandi: " + id);
+    this.notificationService.clickNotification(id).subscribe(
+      (data)=>{
+      },
+      (error)=>{
+        notify(error);
+      }
+    );
+
+  }
+
   getItemsList = ()=>{
     this.notificationService.getAll().subscribe(
       (data)=>{
         this.dataSource = data;
         this.convertCreationDateToDate();
-        console.log("data",data);
       },
       (error)=>{
         notify(error);

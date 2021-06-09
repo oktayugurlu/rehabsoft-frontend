@@ -5,18 +5,9 @@
   [animationEnabled]="true"
   [swipeEnabled]="false"
 >
-  <dxi-item title="Gelen İstekler" style="background-color: white">
+  <dxi-item title="Gelen İstekler" style="background-color: #E8E8E8">
     <div class="container" id="form-grid">
-      <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
-        <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
-
-          <dxi-item location="center" widget="dxButton" locateInMenu="never">
-            <div *dxTemplate>
-              <div class='toolbar-label'><b>Cevap Bekleyen Anket-Form Talepleri</b> </div>
-            </div>
-          </dxi-item>
-        </dx-toolbar>
-      </div>
+      <h3>Cevap Bekleyen Anket-Form Talepleri</h3>
 
       <dx-data-grid
         id="gridContainer"
@@ -26,7 +17,7 @@
 
         <dxo-paging pageSize="15"></dxo-paging>
 
-        <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" dataType="datetime"></dxi-column>
+        <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" dataType="datetime" format="M/d/yyyy H:mm"></dxi-column>
         <dxi-column dataField="formDynamic.title" caption="Form Başlığı"></dxi-column>
         <dxi-column dataField="formDynamic.explanation" caption="İçerik"></dxi-column>
         <dxi-column type="buttons" alignment="center"  caption="İşlemler" width= '100px' >
@@ -38,7 +29,7 @@
     </div>
   </dxi-item>
 
-  <dxi-item title="Gönderilmiş Cevaplar" style="background-color: white">
+  <dxi-item title="Gönderilmiş Cevaplar" style="background-color: #E8E8E8">
     <div class="container" id="form-grid-2">
 
       <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
@@ -60,7 +51,7 @@
 
         <dxo-paging pageSize="15"></dxo-paging>
 
-        <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" dataType="datetime"></dxi-column>
+        <dxi-column dataField="creationDate" caption="Gönderilme Tarihi" dataType="datetime" format="M/d/yyyy H:mm"></dxi-column>
         <dxi-column dataField="formDynamic.title" caption="Form Başlığı"></dxi-column>
         <dxi-column dataField="formDynamic.explanation" caption="İçerik"></dxi-column>
         <dxi-column type="buttons" alignment="center"  caption="İşlemler" width= '100px' >

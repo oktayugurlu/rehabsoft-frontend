@@ -11,7 +11,7 @@
 <dx-form [formData]="loginForm" [disabled]="loading" [showValidationSummary]="true">
 
   <dxi-item dataField="username" editorType="dxTextBox"
-    [editorOptions]="{ width: '300px', stylingMode: 'filled', placeholder: 'Kullanıcı Adı',name:'username'}">
+    [editorOptions]="{ width: '300px', stylingMode: 'filled', placeholder: 'Kimlik No. / Kullanıcı adı',name:'username'}">
     <dxi-validation-rule type="required" message="Kullanıcı adı gerekli"></dxi-validation-rule>
     <dxo-label [visible]="false"></dxo-label>
   </dxi-item>
@@ -47,7 +47,7 @@
 
   <dxi-item>
     <div class="link">
-      <a routerLink="/reset-password">Şifremi unuttum</a>
+      <a routerLink="/forgotpassword">Şifremi unuttum</a>
     </div>
   </dxi-item>
 
