@@ -43,7 +43,6 @@ export class NotificationListComponent implements OnInit{
       (data)=>{
         this.dataSource = data;
         this.convertCreationDateToDate();
-        console.log("data",data);
       },
       (error)=>{
         notify(error);

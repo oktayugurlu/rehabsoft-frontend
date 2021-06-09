@@ -20,23 +20,13 @@
     </div>
   </div>
 
-  <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
-
-    <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
-
-      <dxi-item location="center" widget="dxButton" locateInMenu="never">
-        <div *dxTemplate>
-          <div class='toolbar-label'><b>Anket-Form Talepleri</b> </div>
-        </div>
-      </dxi-item>
-    </dx-toolbar>
-  </div>
+  <h2>Anket-Form Talepleri</h2>
 
   <dx-data-grid
     id="gridContainer"
     [dataSource]="assignedFormList"
     [remoteOperations]="true"
-    [showBorders]="true">
+    [showBorders]="true" height="300px">
 
     <dxo-paging pageSize="15"></dxo-paging>
 

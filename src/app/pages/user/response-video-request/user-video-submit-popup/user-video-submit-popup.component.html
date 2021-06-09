@@ -21,10 +21,10 @@
 
                 <dxi-item dataField="responseContent" editorType="dxTextArea" [label]="{text: 'Cevap Açıklaması'}"
                           [editorOptions]="{maxLength:500, height: 150, id: 'responseContent'}">
-                  <dxi-validation-rule
-                    type="required"
-                    message="Bu alan gerekli!">
-                  </dxi-validation-rule>
+<!--                  <dxi-validation-rule-->
+<!--                    type="required"-->
+<!--                    message="Bu alan gerekli!">-->
+<!--                  </dxi-validation-rule>-->
                 </dxi-item>
 
               </dxi-item>
@@ -67,53 +67,18 @@
                     <div *dxTemplate="let data of 'listTemplate'">
                       <div id="list-demo">
                         <div class="widget-container">
-
-                          <!--                        adssdsd  -->
                           <div class="list-container">
                             <dx-list [items]="filesVideoRequestList"
                                      [allowItemDeleting]="true"
                                      height="100%">
                               <div *dxTemplate="let item of 'item'">
                                 <div class="product">
-
-<!--                                  <app-vjs-player  [options]="{-->
-<!--                                    fluid:false,-->
-<!--                                    autoplay: false,-->
-<!--                                    controls: true,-->
-<!--                                    sources: [{ src: item.requestedVideo.videoUrl, type: 'video/mp4', withCredentials: true}],-->
-<!--                                    html5:{-->
-<!--                                        hls: {-->
-<!--                                          withCredentials: true,-->
-<!--                                          overrideNative: true-->
-<!--                                        }-->
-<!--                                      }-->
-<!--                                      }">-->
-<!--                                  </app-vjs-player>-->
-
                                   <div>{{item.file.name}}</div>
-<!--                                  <div class="price">{{item.Price | currency:'USD':'symbol':'1.0'}}</div>-->
                                 </div>
                               </div>
                             </dx-list>
                           </div>
-                          <!--                        sdsdsdsd  -->
 
-<!--                          burasi silinecek -->
-<!--                          <dx-list-->
-<!--                            [items]="filesExerciseList"-->
-<!--                            [repaintChangesOnly]="true"-->
-<!--                            keyExpr="id"-->
-<!--                            [allowItemDeleting]="true"-->
-<!--                            [itemDeleteMode]="'static'"-->
-<!--                          >-->
-<!--                            <dxo-item-dragging-->
-<!--                              group="tasks"-->
-<!--                              [data]="filesExerciseList"-->
-<!--                              [allowReordering]="true"-->
-<!--                              [onDragStart]="onDragStart"-->
-<!--                              [onAdd]="onAdd">-->
-<!--                            </dxo-item-dragging>-->
-<!--                          </dx-list>-->
                         </div>
                       </div>
                     </div>

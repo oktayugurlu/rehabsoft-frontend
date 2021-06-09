@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FirebaseMessagingService} from "../../../shared/services/firebase-messaging.service";
 
 @Component({
   templateUrl: 'doctor-home.component.html',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
 })
 
 export class DoctorHomeComponent {
-  constructor() {console.log('----------------constructor');}
+
 }

@@ -1,29 +1,18 @@
 
 <div id="data-grid">
 
-  <div class="card-body" style="padding: 3px;  background-color: #9EE2E9;">
-
-    <dx-toolbar style="padding: 3px;  background-color: #9EE2E9;">
-
-      <dxi-item location="center" widget="dxButton" locateInMenu="never">
-        <div *dxTemplate>
-          <div class='toolbar-label'><b>HASTA LİSTESİ</b> </div>
-        </div>
-      </dxi-item>
-    </dx-toolbar>
-
-  </div>
+  <h2>HASTA LİSTESİ</h2>
 
 
 <dx-data-grid
     id="gridContainer"
-    [dataSource]="dataSource"  
+    [dataSource]="dataSource"
     [remoteOperations]="true"
     [showBorders]="true">
 
     <dxo-paging pageSize="15"></dxo-paging>
     <dxo-search-panel [visible]="true"></dxo-search-panel>
-    
+
     <dxi-column dataField="tcKimlikNo" caption="Tc Kimlik Numarası"></dxi-column>
     <dxi-column dataField="user.firstName" caption="Adı"></dxi-column>
     <dxi-column dataField="user.surname" caption="Soyadı" ></dxi-column>
@@ -35,7 +24,7 @@
       </dxi-column>
 
 
-   <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->   
+   <!-- <dxo-master-detail [enabled]="true" template="masterDetail"></dxo-master-detail> -->
 </dx-data-grid>
 
 
@@ -51,4 +40,4 @@
 
 
 <button class="btn btn-primary" (click)="viewButtonClick()">viewButtonClick</button>
--->  
+-->

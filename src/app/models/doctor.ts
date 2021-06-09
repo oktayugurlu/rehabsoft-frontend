@@ -5,9 +5,9 @@ import { VideoRequest } from "./video-request";
 export class Doctor {
     patientCollection:Patient[];
     user:User;
-    videoRequestCollection: VideoRequest[];
+    // videoRequestCollection: VideoRequest[];
 
 
 
-       
+
 }

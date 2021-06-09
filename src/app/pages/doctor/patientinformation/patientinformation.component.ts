@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {Patient} from "../../../models/patient";
 import {PatientService} from "../../../shared/services/patient.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-patientinformation',
@@ -11,6 +12,8 @@ import {PatientService} from "../../../shared/services/patient.service";
 
 })
 export class PatientinformationComponent implements OnInit {
+
+  getAllPatientUrl:string;
 
   titleList = ["Genel Degerlendirme Formu","Görüşmeler","Raporlar","Egzersiz Geçmişi"];
   itemCount: number;
@@ -35,6 +38,7 @@ export class PatientinformationComponent implements OnInit {
       this.onlineMeetingsUrl ="meetings";
       this.exerciseProgramsUrl = "exercise-programs";
 
+      this.getAllPatientUrl = window.location.origin+"/doctor/getall";
   }
 
   ngOnInit() {
