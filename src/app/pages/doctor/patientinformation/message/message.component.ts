@@ -42,9 +42,9 @@ messageHistoryList:MessageHistory[];
         {
               this.tcKimlikNo= params.tckimlikno;
          });
-  
-  
-  
+
+
+
      }
 
   ngOnInit() {
@@ -59,8 +59,8 @@ messageHistoryList:MessageHistory[];
 
   this.getReceiverEmail();
 
- 
- 
+
+
 
   }
 
@@ -74,7 +74,6 @@ messageHistoryList:MessageHistory[];
             .subscribe(
               data => {
                 // message is ok
-                notify(JSON.stringify(data.responseMessage));
                 //this.router.onSameUrlNavigation = 'reload';
                 this.ngOnInit();
 
@@ -94,7 +93,7 @@ messageHistoryList:MessageHistory[];
 
         this.getMessageHistory( data.user.email);
 
-        
+
       },
       (error)=>{
         notify("Bir hata meydana geldi.");
@@ -133,7 +132,7 @@ messageHistoryList:MessageHistory[];
     );
   }
 
-  
+
 isMyMessage(msg:MessageHistory): boolean {
   return msg.senderEmail === this.currentUserEmail;
 }
@@ -148,8 +147,8 @@ getcurrentUserDetails = (username:string)=>  { this.userService.getByUsername(us
 );
 
 }
-  
 
-  
+
+
 
 }

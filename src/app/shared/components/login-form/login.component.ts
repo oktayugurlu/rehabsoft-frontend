@@ -10,6 +10,7 @@ import {DxButtonModule} from 'devextreme-angular';
 import {TokenDto} from '../../../models/tokendto';
 import {Role} from '../../../models/role';
 import {DxiButtonModule} from "devextreme-angular/ui/nested";
+import {FirebaseMessagingService} from "../../services/firebase-messaging.service";
 
 
 @Component({
@@ -49,7 +50,8 @@ export class LoginComponent implements OnInit {
   constructor(
               private route: ActivatedRoute,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private messagingService: FirebaseMessagingService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -91,7 +93,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           // buraya ve router'i sil
-          // this.router.navigate([this.returnUrl]).then(r => {});
+          this.setFirebaseTokenForUser(data);
           if(data.role === Role.User) {
             this.router.navigate(['/user/home']);
           }
@@ -108,6 +110,11 @@ export class LoginComponent implements OnInit {
           notify({ message: "Kullanıcı bilgileriniz doğrulanamadı. Lütfen kontrol ederek tekrar deneyiniz", width: 300, shading: false }, "error", 1000);
         });
     // event.preventDefault()
+  }
+
+  setFirebaseTokenForUser = (data) =>{
+    this.messagingService.requestPermission(data);
+    this.messagingService.receiveMessage();
   }
 
   onCreateAccountClick = () => {

@@ -175,7 +175,7 @@ export class UserVideoSubmitPopupComponent {
       file: null,
       requestedVideo: null
     };
-    this.popUpTitle = 'Egzersiz Oluşturma';
+    this.popUpTitle = 'Video Ekle';
     this.isVisible = true;
     this.isEditPopUp = false;
     this.videoRequestId = videoRequestId;

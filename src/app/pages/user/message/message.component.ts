@@ -41,7 +41,7 @@ export class PatientMessageComponent implements OnInit {
   @ViewChild(ViewResponseComponent) viewResponseComponent:ViewResponseComponent;
 
 
-  constructor(private patientService:PatientService,private messageService: MessageService,private router: Router,route: ActivatedRoute,private userService: UserService) { 
+  constructor(private patientService:PatientService,private messageService: MessageService,private router: Router,route: ActivatedRoute,private userService: UserService) {
 
     this.colCountByScreen = {
       xs: 1,
@@ -49,8 +49,8 @@ export class PatientMessageComponent implements OnInit {
       md: 3,
       lg: 4
     };
-    
-    
+
+
   }
 
   ngOnInit() {
@@ -67,7 +67,7 @@ export class PatientMessageComponent implements OnInit {
     this.getDoctorInfo();
     this.username=JSON.parse(localStorage.getItem('currentUser')).username;
     this.getcurrentUserDetails(this.username);
-  
+
   }
 
 
@@ -80,14 +80,14 @@ export class PatientMessageComponent implements OnInit {
         this.isDoctorAssignedToPatient=false;
       }
       else{
-        this.doctorInfo = {   
+        this.doctorInfo = {
           name:data.name,
           surname: data.surname,
           email: data.email,
         }
         this.doctorEmail=data.email;
         this.messageDto.receiverEmail=data.email;
-  
+
         this.getMessageHistory(this.doctorInfo.email);
         console.log(data);
       }
@@ -109,7 +109,6 @@ this.messageService.sendMessage(this.messageDto)
         .subscribe(
           data => {
             // message is ok
-            notify(JSON.stringify(data.responseMessage));
             //this.router.onSameUrlNavigation = 'reload';
             this.ngOnInit();
 

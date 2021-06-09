@@ -34,6 +34,11 @@ import { environment } from '../environments/environment';
 import {OnlineMeetingService} from "./shared/services/online-meeting.service";
 import {DoctorService} from "./shared/services/doctor.service";
 import {ScheduledExerciseService} from "./shared/services/scheduled-exercise.service";
+import {FirebaseMessagingService} from "./shared/services/firebase-messaging.service";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import {AngularFireMessagingModule} from "@angular/fire/messaging";
 
 
 @NgModule({
@@ -66,10 +71,14 @@ import {ScheduledExerciseService} from "./shared/services/scheduled-exercise.ser
     BrowserModule,
     DxTabPanelModule,
     DxSankeyModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ApiService, AuthenticationService, AuthGuard, AppInfoService, ScreenService, UserService, ExerciseService, CookieService,PatientService,VideorequestService,
-    ResponseVideoRequestService, AdminCrudService, OnlineMeetingService, DoctorService, ScheduledExerciseService,
+    ResponseVideoRequestService, AdminCrudService, OnlineMeetingService, DoctorService, ScheduledExerciseService, FirebaseMessagingService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, // giden her requeste JWT token'ını ekliyor dogrulama icin
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
