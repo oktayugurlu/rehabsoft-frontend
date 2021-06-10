@@ -30,7 +30,7 @@
 </div>
 
 <dx-popup
-  [width]="660"
+  [maxWidth]="'100%'"
   [height]="540"
   [showTitle]="true"
   [title]="'DOKTORLAR'"
@@ -38,30 +38,32 @@
   [closeOnOutsideClick]="true"
   [(visible)]="popupVisible">
 
-  <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
-    <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
-      <dxi-item location="center" widget="dxButton" locateInMenu="never">
-        <div *dxTemplate>
-          <div class='toolbar-label'><b>Doktor Listesi</b> </div>
-        </div>
-      </dxi-item>
-    </dx-toolbar>
-  </div>
+  <dx-scroll-view width="100%" height="100%">
+    <div class="card-body" style="padding: 3px; background-color: #9EE2E9;">
+      <dx-toolbar style="padding: 3px; background-color: #9EE2E9;">
+        <dxi-item location="center" widget="dxButton" locateInMenu="never">
+          <div *dxTemplate>
+            <div class='toolbar-label'><b>Doktor Listesi</b> </div>
+          </div>
+        </dxi-item>
+      </dx-toolbar>
+    </div>
 
-  <dx-data-grid
-    id="gridContainer2"
-    [dataSource]="doctors"
-    [remoteOperations]="true"
-    [showBorders]="true">
+    <dx-data-grid
+      id="gridContainer2"
+      [dataSource]="doctors"
+      [remoteOperations]="true"
+      [showBorders]="true">
 
-    <dxo-paging pageSize="15"></dxo-paging>
+      <dxo-paging pageSize="15"></dxo-paging>
 
-    <dxi-column dataField="user.firstName" caption="Doktor İsmi"></dxi-column>
-    <dxi-column dataField="user.surname" caption="Soyismi"></dxi-column>
-    <dxi-column type="buttons" alignment="center"  width= '100px' >
-      <dxi-button hint="Ata" icon="arrowright" [onClick]="assignDoctor"></dxi-button>
-    </dxi-column>
+      <dxi-column dataField="user.firstName" caption="Doktor İsmi"></dxi-column>
+      <dxi-column dataField="user.surname" caption="Soyismi"></dxi-column>
+      <dxi-column type="buttons" alignment="center"  width= '100px' >
+        <dxi-button hint="Ata" icon="arrowright" [onClick]="assignDoctor"></dxi-button>
+      </dxi-column>
 
-  </dx-data-grid>
+    </dx-data-grid>
+  </dx-scroll-view>
 
 </dx-popup>
