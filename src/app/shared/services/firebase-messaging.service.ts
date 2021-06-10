@@ -20,7 +20,7 @@ export class FirebaseMessagingService {
       (token) => {
 
         let currentUser = JSON.parse(localStorage.getItem('currentUser'))
-        console.log("currentUser",currentUser);
+        console.log("token",token);
         this.saveTokenForUser(token, currentUser.username).subscribe(data=>{
         });
       },
