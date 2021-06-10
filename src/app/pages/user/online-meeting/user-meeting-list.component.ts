@@ -32,18 +32,12 @@ export class UserMeetingListComponent implements OnInit{
 
   ngOnInit(): void {
     this.getAllMeetings();
-    this.getDoctorByUsername();
   }
 
   /*********** Service Callers ************/
   getAllMeetings = ()=>{
     this.onlineMeetingsService.getAllByUsername(this.username).subscribe(data=>{
       this.dataSource = data;
-    });
-  }
-  getDoctorByUsername = () =>{
-    this.doctorService.getDoctorByUsername(this.username).subscribe(data=>{
-      this.doctor = data;
     });
   }
 }
