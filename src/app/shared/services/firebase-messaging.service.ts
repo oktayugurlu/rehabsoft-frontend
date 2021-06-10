@@ -9,11 +9,6 @@ import {User} from "../../models/user";
 export class FirebaseMessagingService {
   currentMessage = new BehaviorSubject(null);
   constructor(private angularFireMessaging: AngularFireMessaging, private http: HttpClient) {
-    this.angularFireMessaging.messages.subscribe(
-      (_messaging: AngularFireMessaging) => {
-        _messaging.onMessage = _messaging.onMessage.bind(_messaging);
-        _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
-      });
   }
   requestPermission(data:User) {
     this.angularFireMessaging.requestToken.subscribe(
