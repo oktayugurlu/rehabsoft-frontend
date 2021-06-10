@@ -157,8 +157,8 @@ export class JoinComponent implements OnInit, OnDestroy{
       console.log('Received local stream');
       localVideo.srcObject = this.stream;
       localStream = this.stream;
-      this.muteLocalVideo();
       this.logVideoAudioTrackInfo(localStream);
+      localVideo.muted =true;
 
       // For first time, add local stream to peer connection.
       if (firstTime) {
@@ -170,6 +170,7 @@ export class JoinComponent implements OnInit, OnDestroy{
 
       // Send offer signal to signaling server endpoint.
       this.sendOfferSignal();
+      this.muteLocalVideo();
 
     } catch (e) {
       alert(`getUserMedia() error: ${e.name}`);
@@ -188,6 +189,7 @@ export class JoinComponent implements OnInit, OnDestroy{
     console.log('Starting addLocalStreamToPeerConnection');
     localStream.getTracks().forEach(track => this.peerConnection.addTrack(track, localStream));
     console.log('localStream tracks added');
+    this.muteLocalVideo();
   };
 
   /*
