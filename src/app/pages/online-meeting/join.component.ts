@@ -23,6 +23,7 @@ export class JoinComponent implements OnInit, OnDestroy{
      */
     const leaveButton = document.getElementById('leaveButton');
     leaveButton.addEventListener('click', this.leave);
+    window.onload = this.muteLocalVideo;
   }
 
   ngOnDestroy(): void {
@@ -60,7 +61,6 @@ export class JoinComponent implements OnInit, OnDestroy{
       this.displayLocalStreamAndSignal(true);
     };
 
-    window.onload = this.muteLocalVideo;
   }
 
 
@@ -158,6 +158,7 @@ export class JoinComponent implements OnInit, OnDestroy{
       console.log('Received local stream');
       localVideo.srcObject = this.stream;
       localStream = this.stream;
+      this.muteLocalVideo();
       this.logVideoAudioTrackInfo(localStream);
 
       // For first time, add local stream to peer connection.
@@ -274,7 +275,7 @@ export class JoinComponent implements OnInit, OnDestroy{
   // To prevent your sound echo to yourself
   muteLocalVideo = () => {
     let element: any = <HTMLVideoElement> document.getElementById('localVideo');
-    element.muted = "muted";
+    element.muted = true;
   }
 
   // Mute your voice
